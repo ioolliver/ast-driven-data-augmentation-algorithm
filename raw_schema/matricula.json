@@ -1,0 +1,578 @@
+[
+  {
+    "name": "ano",
+    "description": "Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sigla_uf",
+    "description": "Sigla da unidade da federação",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_municipio",
+    "description": "ID município - IBGE 7 Dígitos",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_distrito",
+    "description": "ID distrito - IBGE",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_escola",
+    "description": "ID escola - Inep",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "rede",
+    "description": "Rede escolar",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_turma",
+    "description": "ID turma - Inep",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_aluno",
+    "description": "ID aluno - Inep",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_pessoa_fisica",
+    "description": "ID pessoa física - Inep",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_matricula",
+    "description": "ID matrícula - Inep",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "dia_nascimento",
+    "description": "Dia de nascimento",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mes_nascimento",
+    "description": "Mês de nascimento",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "ano_nascimento",
+    "description": "Ano de nascimento",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "idade_referencia",
+    "description": "Idade do aluno pelo mês unificado de referência do Censo Escolar (31 de Maio)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "idade",
+    "description": "Idade calculada pelo ano de nascimento do aluno",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sexo",
+    "description": "Sexo",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "raca_cor",
+    "description": "Raça ou cor",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "nacionalidade",
+    "description": "Nacionalidade",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_pais_origem",
+    "description": "ID país da ocde (br_bd_diretorios_mundo.pais.id_pais_ocde)",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_uf_nascimento",
+    "description": "ID unidade da federação de nascimento - IBGE 2 dígitos",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_municipio_nascimento",
+    "description": "ID município de nascimento - IBGE 7 dígitos",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_uf_endereco",
+    "description": "ID unidade da federação de endereço - IBGE 2 dígitos",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_municipio_endereco",
+    "description": "ID município de endereço - IBGE 7 dígitos",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "zona_residencial",
+    "description": "Zona da residência",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "local_residencia_diferenciada",
+    "description": "Local de residência diferenciada",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "outro_local_aula",
+    "description": "Outro local para aula",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "duracao_turma",
+    "description": "Tempo de permanência na turma",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "duracao_ativ_comp_mesma_rede",
+    "description": "Tempo de permanência na turma de Atividade Complementar na mesma rede da turma de escolarização",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "duracao_ativ_comp_outras_redes",
+    "description": "Tempo de permanência na turma de Atividade Complementar em outras redes",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "duracao_aee_comp_mesma_rede",
+    "description": "Tempo de permanência na turma de atendimento educacional especializando (AEE) na mesma rede da turma de escolarização",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "duracao_aee_comp_outras_redes",
+    "description": "Tempo de permanência na turma de atendimento educacional especializando (AEE) em outras redes",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dias_atividade",
+    "description": "Dias de atividade",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transporte_publico",
+    "description": "Transporte escolar público",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "responsavel_transporte",
+    "description": "Poder público responsável pelo transporte escolar",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transporte_bicicleta",
+    "description": "Tipo de veículo utilizado no transporte escolar - Rodoviário (Bicicleta)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transporte_micro_onibus",
+    "description": "Tipo de veículo utilizado no transporte escolar - Rodoviário (Micro-ônibus)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transporte_onibus",
+    "description": "Tipo de veículo utilizado no transporte escolar - Rodoviário (Ônibus)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transporte_tr_animal",
+    "description": "Tipo de veículo utilizado no transporte escolar - Rodoviário (Tração Animal)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transporte_vans_kombi",
+    "description": "Tipo de veículo utilizado no transporte escolar - Rodoviário (Vans/VW Kombi)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transporte_outro_veiculo",
+    "description": "Tipo de veículo utilizado no transporte escolar - Rodoviário (Outro tipo de veículo rodoviário)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transporte_embarcacao_ate5",
+    "description": "Tipo de veículo utilizado no transporte escolar Aquaviário/Embarcação (Capacidade de até 5 alunos)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transporte_embarcacao_5a15",
+    "description": "Tipo de veículo utilizado no transporte escolar Aquaviário/Embarcação (Capacidade de 5 a 15 alunos)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transporte_embarcacao_15a35",
+    "description": "Tipo de veículo utilizado no transporte escolar Aquaviário/Embarcação (Capacidade de 15 a 35 alunos)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transporte_embarcacao_35",
+    "description": "Tipo de veículo utilizado no transporte escolar Aquaviário/Embarcação (Capacidade acima de 35 alunos)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transporte_trem_metro",
+    "description": "Tipo de veículo utilizado no transporte escolar Ferroviário (Trem/Metrô)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "necessidade_especial",
+    "description": "Aluno com deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "baixa_visao",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (baixa visão)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "cegueira",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (cegueira)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "deficiencia_auditiva",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (deficiência auditiva)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "deficiencia_fisica",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (deficiência física)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "deficiencia_intelectual",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (deficiência intelectual)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "surdez",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (surdez)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "surdocegueira",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (surdocegueira)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "deficiencia_multipla",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (deficiência múltipla)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "autismo",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (Autismo infantil)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sindrome_asperger",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (Síndrome de Asperger)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sindrome_rett",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (Síndrome de Rett)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "transtorno_di",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (Transtorno Desintegrativo da Infância)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "superdotacao",
+    "description": "Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/ superdotação (altas habilidades/ superdotação)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_ledor",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Auxílio Ledor",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_transcricao",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Auxílio-Transcrição",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_interprete",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Guia-Intérprete",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_libras",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Intérprete de Libras",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_labial",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Leitura Labial",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_ampliada_16",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Prova Ampliada (Fonte tamanho 16)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_ampliada_18",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Prova Ampliada (Fonte tamanho 18)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_ampliada_20",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Prova Ampliada (Fonte tamanho 20)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_ampliada_24",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Prova Ampliada (Fonte tamanho 24)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_cd_audio",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - CD de áudio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_prova_portugues",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Prova de português",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_video_libras",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - vídeo libras",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_braille",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Prova em Braille",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recurso_nenhum",
+    "description": "Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Nenhum",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "aee_libras",
+    "description": "AEE - Libras",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "aee_lingua_portuguesa",
+    "description": "AEE - Prova de português",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "aee_informatica_acessivel",
+    "description": "AEE - Informática acessível",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "aee_braille",
+    "description": "AEE - Braille",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "aee_caa",
+    "description": "AEE - CAA",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "aee_soroban",
+    "description": "AEE - Soroban",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "aee_vida_autonoma",
+    "description": "AEE - Vida autônoma",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "aee_opticos_nao_opticos",
+    "description": "AEE - Ópticos não ópticos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "aee_enriquecimento_curricular",
+    "description": "AEE - Enriquecimento curricular",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "aee_desenvolvimento_cognitivo",
+    "description": "AEE - Desenvolvimento cognitivo",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "aee_mobilidade",
+    "description": "AEE mobilidade",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "ingresso_federais",
+    "description": "Forma de ingresso do aluno (apenas alunos de escolas federais das Etapas)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino",
+    "description": "Etapa/nível de ensino",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "especial_exclusiva",
+    "description": "Matrícula especial exclusiva",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "regular",
+    "description": "Matrícula regular",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "eja",
+    "description": "Matrícula EJA",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "profissionalizante",
+    "description": "Matrícula profissionalizante",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "id_curso_educ_profissional",
+    "description": "ID curso de educação profissional",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "mediacao_didatico_pedagogica",
+    "description": "Mediação didático-pedagógica",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "unificada",
+    "description": "Turma unificada, multieapa, multi ou correção de fluxo",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_atendimento_turma",
+    "description": "Tipo de atendimento da turma",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_local_turma",
+    "description": "Tipo do local da turma",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_turma",
+    "description": "Tipo da turma",
+    "tipo": "STRING",
+    "obs": ""
+  }
+]

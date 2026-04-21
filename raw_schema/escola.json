@@ -1,0 +1,2732 @@
+[
+  {
+    "name": "ano",
+    "description": "Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sigla_uf",
+    "description": "Sigla da Unidade da Federação",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_municipio",
+    "description": "ID Município - IBGE 7 Dígitos",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_escola",
+    "description": "ID Escola - Inep",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "rede",
+    "description": "Rede Escolar",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_categoria_escola_privada",
+    "description": "Categoria da escola privada",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_localizacao",
+    "description": "Localização",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_localizacao_diferenciada",
+    "description": "Localização diferenciada da escola",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_situacao_funcionamento",
+    "description": "Situação de funcionamento da escola",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_orgao_regional",
+    "description": "Código do Órgão Regional",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "data_ano_letivo_inicio",
+    "description": "Data do início do ano letivo da escola",
+    "tipo": "DATE",
+    "obs": ""
+  },
+  {
+    "name": "data_ano_letivo_termino",
+    "description": "Data do fim do ano letivo da escola",
+    "tipo": "DATE",
+    "obs": ""
+  },
+  {
+    "name": "vinculo_secretaria_educacao",
+    "description": "A escola pública está vinculada à Secretaria de Educação/Ministério da Educação",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "vinculo_seguranca_publica",
+    "description": "A escola pública está vinculada à Secretaria de Segurança Pública/Forças Armadas/Militar",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "vinculo_secretaria_saude",
+    "description": "A escola pública está vinculada à Secretaria de Saúde/Ministério da Saúde",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "vinculo_outro_orgao",
+    "description": "A escola pública está vinculada a outro órgão da administração pública",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "poder_publico_parceria",
+    "description": "Parceria ou convênio com o poder público (parceria ou convênio firmado entre a Administração Pública e instituições privadas ou instituições públicas de ensino, autarquias e fundações da administração indireta para financiamento do atendimento educacional ou para a oferta do itinerário de formação técnica e profissional do ensino médio)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_poder_publico_parceria",
+    "description": "Poder público responsável pela parceria ou convênio entre a Administração Pública e outras instituições",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "conveniada_poder_publico",
+    "description": "A escola é conveniada com o poder público",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_convenio_poder_publico",
+    "description": "Tipo de convênio com o poder público",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_termo_colaboracao",
+    "description": "Forma de contratação entre a Administração Pública e outras instituições - Termo de colaboração (Lei nº 13.019/2014)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_termo_fomento",
+    "description": "Forma de contratação entre a Administração Pública e outras instituições - Termo de fomento (Lei nº 13.019/2014)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_acordo_cooperacao",
+    "description": "Forma de contratação entre a Administração Pública e outras instituições - Acordo de cooperação (Lei nº 13.019/2014)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_prestacao_servico",
+    "description": "Forma de contratação entre a Administração Pública e outras instituições - Contrato de prestação de serviço",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_cooperacao_tecnica_financeira",
+    "description": "Forma de contratação entre a Administração Pública e outras instituições - Termo de cooperação técnica e financeira",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_consorcio_publico",
+    "description": "Forma de contratação entre a Administração Pública e outras instituições - Contrato de consórcio público/Convênio de cooperação",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_parceria_municipal_termo_colaboracao",
+    "description": "Forma(s) de contratação da parceria ou convênio entre a escola e a Secretaria municipal de educação - Termo de colaboração (Lei nº 13.019/2014)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_parceria_municipal_termo_fomento",
+    "description": "Forma(s) de contratação da parceria ou convênio entre a escola e a Secretaria municipal de educação - Termo de fomento (Lei nº 13.019/2014)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_parceria_municipal_acordo_cooperacao",
+    "description": "Forma(s) de contratação da parceria ou convênio entre a escola e a Secretaria municipal de educação - Acordo de cooperação (Lei nº 13.019/2014)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_parceria_municipal_prestacao_servico",
+    "description": "Forma(s) de contratação da parceria ou convênio entre a escola e a Secretaria municipal de educação - Contrato de prestação de serviço",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_parceria_municipal_cooperacao_tecnica_financeira",
+    "description": "Forma(s) de contratação da parceria ou convênio entre a escola e a Secretaria municipal de educação - Termo de cooperação técnica e financeira",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_parceria_municipal_consorcio_publico",
+    "description": "Forma(s) de contratação da parceria ou convênio entre a escola e a Secretaria municipal de educação - Contrato de consórcio público/Convênio de cooperação",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_parceria_estadual_termo_colaboracao",
+    "description": "Forma(s) de contratação da parceria ou convênio entre a escola e a Secretaria estadual de educação - Termo de colaboração (Lei nº 13.019/2014)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_parceria_estadual_termo_fomento",
+    "description": "Forma(s) de contratação da parceria ou convênio entre a escola e a Secretaria estadual de educação - Termo de fomento (Lei nº 13.019/2014)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_parceria_estadual_acordo_cooperacao",
+    "description": "Forma(s) de contratação da parceria ou convênio entre a escola e a Secretaria estadual de educação - Acordo de cooperação (Lei nº 13.019/2014)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_parceria_estadual_prestacao_servico",
+    "description": "Forma(s) de contratação da parceria ou convênio entre a escola e a Secretaria estadual de educação - Contrato de prestação de serviço",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_parceria_estadual_cooperacao_tecnica_financeira",
+    "description": "Forma(s) de contratação da parceria ou convênio entre a escola e a Secretaria estadual de educação - Termo de cooperação técnica e financeira",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "forma_contratacao_parceria_estadual_consorcio_publico",
+    "description": "Forma(s) de contratação da parceria ou convênio entre a escola e a Secretaria estadual de educação - Contrato de consórcio público/Convênio de cooperação",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_atendimento_escolarizacao",
+    "description": "Tipo de atendimento ofertado por meio da parceria ou convênio - Escolarização",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_atendimento_atividade_complementar",
+    "description": "Tipo de atendimento ofertado por meio da parceria ou convênio - Atividade Complementar",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_atendimento_aee",
+    "description": "Tipo de atendimento ofertado por meio da parceria ou convênio - Atendimento Educacional Especializado (AEE)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mantenedora_escola_privada_empresa",
+    "description": "A mantenedora da escola privada é uma empresa ou grupo empresarial",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mantenedora_escola_privada_ong",
+    "description": "A mantenedora da escola privada é uma ONG",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mantenedora_escola_privada_oscip",
+    "description": "A mantenedora da escola privada é uma Organização da Sociedade Civil de Interesse Público (Oscip)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mantenedora_escola_privada_ong_oscip",
+    "description": "A mantenedora da escola privada é uma Organização da Sociedade Civil de Interesse Público (Oscip) ou uma ONG",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mantenedora_escola_privada_sindicato",
+    "description": "A mantenedora da escola privada é um sindicato ou associação cooperativa",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mantenedora_escola_privada_sistema_s",
+    "description": "A mantenedora da escola privada é o sistema S (SENAI, SESI, SESC, entre outros)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mantenedora_escola_privada_sem_fins",
+    "description": "A mantenedora da escola privada é uma entidade sem fins lucrativos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "cnpj_escola_privada",
+    "description": "Número do CNPJ da escola privada",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "cnpj_mantenedora",
+    "description": "Número do CNPJ da mantenedora principal da escola privada",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_regulamentacao",
+    "description": "A escola tem regulamentação/autorização no conselho ou órgão municipal, estadual ou federal de educação",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_responsavel_regulamentacao",
+    "description": "Esfera administrativa do conselho ou órgão responsável pela Regulamentação/Autorização da escola",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_escola_sede",
+    "description": "Código da escola sede",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_ies_ofertante",
+    "description": "Código da Instituição de Ensino Superior (IES) vinculada à escola",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "local_funcionamento_predio_escolar",
+    "description": "O local de funcionamento da escola é um prédio escolar",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_local_funcionamento_predio_escolar",
+    "description": "A forma de ocupação do Prédio escolar, e.g., próprio ou alugado",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "local_funcionamento_sala_empresa",
+    "description": "O local de funcionamento da escola é um conjunto de salas de uma empresa",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "local_funcionamento_socioeducativo",
+    "description": "O local de funcionamento da escola é uma unidade de atendimento socioeducativo",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "local_funcionamento_unidade_prisional",
+    "description": "O local de funcionamento da escola é uma unidade prisional",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "local_funcionamento_prisional_socio",
+    "description": "O local de funcionamento da escola é unidade prisional ou unidade de atendimento socioeducativo",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "local_funcionamento_templo_igreja",
+    "description": "O local de funcionamento da escola é um templo ou uma igreja",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "local_funcionamento_casa_professor",
+    "description": "O local de funcionamento da escola é uma casa de um professor",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "local_funcionamento_galpao",
+    "description": "O local de funcionamento da escola é galpão/rancho/paiol/barracão",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_local_funcionamento_galpao",
+    "description": "A forma de ocupação do galpão/rancho/paiol/barracão, e.g., próprio ou alugado",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "local_funcionamento_outra_escola",
+    "description": "O local de funcionamento da escola é em salas em outra escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "local_funcionamento_outros",
+    "description": "O local de funcionamento da escola é em outros",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "predio_compartilhado",
+    "description": "O prédio compartilhado com outra escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "agua_filtrada",
+    "description": "Água consumida pelos alunos é filtrada",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "agua_potavel",
+    "description": "A escola fornece água potável para o consumo humano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "agua_rede_publica",
+    "description": "O abastecimento de água é pela rede pública",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "agua_poco_artesiano",
+    "description": "O abastecimento de água é feito por poço artesiano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "agua_cacimba",
+    "description": "O abastecimento de água é feito por cacimba/cisterna/poço",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "agua_fonte_rio",
+    "description": "O abastecimento de água é feito por fonte/rio/igarapé/riacho/córrego",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "agua_inexistente",
+    "description": "O abastecimento de água é inexistente",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "energia_rede_publica",
+    "description": "O abastecimento de energia elétrica é feito pela rede pública",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "energia_gerador",
+    "description": "O abastecimento de energia elétrica é por gerador",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "energia_gerador_fossil",
+    "description": "O abastecimento de energia elétrica é por gerador movido a combustível fóssil",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "energia_outros",
+    "description": "O abastecimento de energia elétrica é por outras fontes",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "energia_renovavel",
+    "description": "O abastecimento de energia elétrica é por fontes renováveis ou alternativas",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "energia_inexistente",
+    "description": "O abastecimento de energia elétrica é inexistente",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "esgoto_rede_publica",
+    "description": "O esgoto sanitário é feito pela rede pública",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "esgoto_fossa",
+    "description": "O esgoto sanitário é feito por uma fossa",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "esgoto_fossa_septica",
+    "description": "O esgoto sanitário é feito por uma fossa séptica",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "esgoto_fossa_comum",
+    "description": "O esgoto sanitário é feito por uma fossa comum",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "esgoto_inexistente",
+    "description": "O esgoto sanitário é inexistente",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "lixo_servico_coleta",
+    "description": "O destino do lixo é o serviço de coleta",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "lixo_queima",
+    "description": "O destino do lixo é a queima",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "lixo_enterrado",
+    "description": "O destino do lixo é ser enterrado",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "lixo_destino_final_publico",
+    "description": "O destino do lixo é uma destinação final financiada pelo poder público",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "lixo_descarta_outra_area",
+    "description": "O destino do lixo é ser descartado em outra área",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "lixo_joga_outra_area",
+    "description": "O destino do lixo é ser jogado em outra área",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "lixo_outros",
+    "description": "O destino do lixo não se encaixa em nenhuma das outras variáveis",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "lixo_reciclagem",
+    "description": "O destino do lixo é ser reciclado pela escola realiza",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tratamento_lixo_separacao",
+    "description": "O tratamento do lixo que a escola realiza é separação do lixo",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tratamento_lixo_reutilizacao",
+    "description": "O tratamento do lixo que a escola realiza é o reaproveitamento/reutilização",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tratamento_lixo_reciclagem",
+    "description": "O tratamento do lixo que a escola realiza é reciclagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tratamento_lixo_inexistente",
+    "description": "O tratamento do lixo que a escola realiza é inexistente",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "almoxarifado",
+    "description": "A escola possui almoxarifado",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "area_verde",
+    "description": "A escola possui área verde",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "auditorio",
+    "description": "A escola possui auditório",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "banheiro_fora_predio",
+    "description": "A escola possui banheiros fora do prédio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "banheiro_dentro_predio",
+    "description": "A escola possui banheiros dentro do prédio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "banheiro",
+    "description": "A escola possui banheiros",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "banheiro_educacao_infantil",
+    "description": "A escola possui banheiros adequados à educação infantil",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "banheiro_pne",
+    "description": "A escola possui banheiros adequados a pessoas com deficiência ou mobilidade reduzida",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "banheiro_funcionarios",
+    "description": "A escola possui banheiros exclusivo para funcionários",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "banheiro_chuveiro",
+    "description": "A escola possui banheiros ou vestiários com chuveiro",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "bercario",
+    "description": "A escola possui berçário",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "biblioteca",
+    "description": "A escola possui biblioteca",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "biblioteca_sala_leitura",
+    "description": "A escola possui biblioteca e/ou sala de leitura",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "cozinha",
+    "description": "A escola possui cozinha",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "despensa",
+    "description": "A escola possui despensa",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dormitorio_aluno",
+    "description": "A escola possui dormitório de aluno",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dormitorio_professor",
+    "description": "A escola possui dormitório de professor",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "laboratorio_ciencias",
+    "description": "A escola possui laboratório de ciências",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "laboratorio_informatica",
+    "description": "A escola possui laboratório de informática",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "laboratorio_educacao_profissional",
+    "description": "Dependências físicas existentes e utilizadas na escola - Laboratório específico para a Educação Profissional",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "patio_coberto",
+    "description": "A escola possui pátio coberto",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "patio_descoberto",
+    "description": "A escola possui pátio descoberto",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "parque_infantil",
+    "description": "A escola possui parque infantil",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "piscina",
+    "description": "A escola possui piscina",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quadra_esportes",
+    "description": "A escola possui quadra para prática de esportes",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quadra_esportes_coberta",
+    "description": "A escola possui quadra coberta para prática de esportes",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quadra_esportes_descoberta",
+    "description": "A escola possui quadra descoberta para prática de esportes",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "refeitorio",
+    "description": "A escola possui refeitório",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sala_atelie_artes",
+    "description": "A escola possui sala ou ateliê de artes",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sala_musica_coral",
+    "description": "A escola possui sala de música ou coral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sala_estudio_danca",
+    "description": "A escola possui sala ou estúdio de dança",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sala_multiuso",
+    "description": "A escola possui sala multiuso (música, dança e artes)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sala_estudio_gravacao",
+    "description": "Dependências físicas existentes e utilizadas na escola - Estúdio de gravação e edição",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sala_oficinas_educacao_profissional",
+    "description": "Dependências físicas existentes e utilizadas na escola - Salas de oficinas da Educação Profissional",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sala_diretoria",
+    "description": "A escola possui sala de diretoria",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sala_leitura",
+    "description": "A escola possui sala de leitura",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sala_professor",
+    "description": "A escola possui sala de professores",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sala_repouso_aluno",
+    "description": "A escola possui sala de repouso para alunos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "secretaria",
+    "description": "A escola possui sala de secretaria",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sala_atendimento_especial",
+    "description": "A escola possui sala para atendimento educacional especializado (AEE)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "terreirao",
+    "description": "A escola possui terreirão",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "viveiro",
+    "description": "A escola possui viveiro/criação de animais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dependencia_pne",
+    "description": "A escola possui dependências e vias adequadas a alunos com deficiência ou mobilidade reduzida",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "lavanderia",
+    "description": "A escola possui lavanderia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dependencia_outras",
+    "description": "A escola possui dependências não inclusas nas outras variáveis",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "acessibilidade_corrimao",
+    "description": "A escola possui o recurso de acessibilidade corrimão e guarda corpos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "acessibilidade_elevador",
+    "description": "A escola possui o recurso de acessibilidade elevador",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "acessibilidade_pisos_tateis",
+    "description": "A escola possui o recurso de acessibilidade pisos táteis",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "acessibilidade_vao_livre",
+    "description": "A escola possui o recurso de acessibilidade portas com vão livre de no mínimo 80 cm",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "acessibilidade_rampas",
+    "description": "A escola possui o recurso de acessibilidade rampas",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "acessibilidade_sinal_sonoro",
+    "description": "A escola possui o recurso de acessibilidade sinalização sonora",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "acessibilidade_sinal_tatil",
+    "description": "A escola possui o recurso de acessibilidade sinalização tátil",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "acessibilidade_sinal_visual",
+    "description": "A escola possui o recurso de acessibilidade sinalização visual",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "acessibilidade_inexistente",
+    "description": "A escola não possui nenhum dos recursos de acessibilidade listados nas variáveis",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_sala_existente",
+    "description": "Número de salas de aula existentes na escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_sala_utilizada",
+    "description": "Número de salas de aula utilizadas na escola (dentro e fora do prédio)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_sala_utilizada_dentro",
+    "description": "Número de salas de aula utilizadas na escola - Dentro do prédio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_sala_utilizada_fora",
+    "description": "Número de salas de aula utilizadas na escola - Fora do prédio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_sala_utilizada_climatizada",
+    "description": "Número de salas de aula climatizadas",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_sala_utilizada_acessivel",
+    "description": "Número de salas de aula com acessibilidade para pessoas com deficiência ou mobilidade reduzida",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "equipamento_parabolica",
+    "description": "A escola possui equipamentos de antena parabólica",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_parabolica",
+    "description": "Quantidade de equipamentos de antena parabólica na escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "equipamento_computador",
+    "description": "A escola possui equipamentos de computador",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "equipamento_copiadora",
+    "description": "A escola possui equipamentos de copiadora",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_copiadora",
+    "description": "Quantidade de equipamentos de copiadora na escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "equipamento_impressora",
+    "description": "A escola possui equipamentos de impressora",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_impressora",
+    "description": "Quantidade de equipamentos de impressora na escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "equipamento_impressora_multifuncional",
+    "description": "A escola possui equipamentos de impressora multifuncional",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_impressora_multifuncional",
+    "description": "Quantidade de equipamentos de impressora multifuncional na escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "equipamento_scanner",
+    "description": "A escola possui equipamentos de scanner",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "equipamento_nenhum",
+    "description": "A escola não possui nenhum dos equipamentos listados para uso técnico e administrativo",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "equipamento_dvd",
+    "description": "A escola possui equipamentos de dvd",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_dvd",
+    "description": "Quantidade de equipamentos de dvd na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo de 4 equipamentos para cada 3 matrículas - foram marcados apenas valores>3)"
+  },
+  {
+    "name": "equipamento_som",
+    "description": "A escola possui equipamentos de som",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_som",
+    "description": "Quantidade de equipamentos de som na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo de 4 equipamentos para cada 3 salas existentes - foram marcados apenas valores>3)"
+  },
+  {
+    "name": "equipamento_tv",
+    "description": "A escola possui equipamentos de televisão",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_tv",
+    "description": "Quantidade de equipamentos de televisão na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo de 4 equipamentos para cada 3 salas existentes - foram marcados apenas valores>3)"
+  },
+  {
+    "name": "equipamento_lousa_digital",
+    "description": "A escola possui equipamentos de lousa digital",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_lousa_digital",
+    "description": "Quantidades de equipamentos de lousa digital na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo de 4 equipamentos para cada 3 salas existentes - foram marcados apenas valores>3)"
+  },
+  {
+    "name": "equipamento_multimidia",
+    "description": "A escola possui equipamentos de projetor multimídia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_multimidia",
+    "description": "Quantidade de equipamentos de projetor multimídia na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo de 4 equipamentos para cada 3 salas existentes - foram marcados apenas valores>3)"
+  },
+  {
+    "name": "equipamento_videocassete",
+    "description": "A escola possui equipamentos de videocassete",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_videocassete",
+    "description": "Quantidade de equipamentos de videocassete na escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "equipamento_retroprojetor",
+    "description": "A escola possui equipamentos de retroprojetor",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_retroprojetor",
+    "description": "Quantidade de equipamentos de retroprojetor na escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "equipamento_fax",
+    "description": "A escola possui equipamentos de fax",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_fax",
+    "description": "Quantidade de equipamentos de fax na escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "equipamento_foto",
+    "description": "A escola possui equipamentos de fotografia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_equipamento_foto",
+    "description": "Quantidade de equipamentos de fotografia na escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_computador_aluno",
+    "description": "Quantidade de computadores em uso pelos alunos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "desktop_aluno",
+    "description": "A escola possui computador de mesa (desktop) em uso pelos alunos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_desktop_aluno",
+    "description": "Quantidade de computador de mesa (desktop) em uso pelos alunos",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo de 4 equipamentos para cada 3 matrículas - foram marcados apenas valores>3)"
+  },
+  {
+    "name": "computador_portatil_aluno",
+    "description": "A escola possui computador portátil em uso pelos alunos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_computador_portatil_aluno",
+    "description": "Quantidade de computador portátil em uso pelos alunos",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo de 4 equipamentos para cada 3 salas existentes - foram marcados apenas valores>3)"
+  },
+  {
+    "name": "tablet_aluno",
+    "description": "A escola possui tablet em uso pelos alunos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_tablet_aluno",
+    "description": "Quantidade de tablet em uso pelos alunos",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo de 4 equipamentos para cada 3 salas existentes - foram marcados apenas valores>3)"
+  },
+  {
+    "name": "quantidade_computador",
+    "description": "Quantidade de computadores na escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_computador_administrativo",
+    "description": "Quantidade de computadores de uso administrativo na escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "internet",
+    "description": "A escola possui acesso à internet",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "internet_alunos",
+    "description": "A escola possui acesso à internet para uso dos alunos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "internet_administrativo",
+    "description": "A escola possui acesso à internet para uso do administrativo",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "internet_aprendizagem",
+    "description": "A escola possui acesso à internet para uso nos processos de ensino e aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "internet_comunidade",
+    "description": "A escola possui acesso à internet para uso da comunidade",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "acesso_internet_computador",
+    "description": "Os equipamentos de computador e tablet que os alunos usam possuem acesso à internet",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "acesso_internet_dispositivo_pessoal",
+    "description": "Os equipamentos de dispositivo pessoal que os alunos usam possuem acesso à internet",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_rede_local",
+    "description": "Tipo de rede local de interligação de computadores na escola",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "banda_larga",
+    "description": "A escola possui acesso à internet banda larga",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_funcionario",
+    "description": "Quantidade de funcionários da escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "profissional_administrativo",
+    "description": "A escola possui auxiliar de secretaria ou auxiliar administrativo, atendente",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_administrativo",
+    "description": "Quantidade de auxiliar de secretaria ou auxiliar administrativo, atendente na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_servico_geral",
+    "description": "A escola possui auxiliar de serviços gerais e similares",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_servico_geral",
+    "description": "Quantidade de auxiliar de serviços gerais e similares na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_bibliotecario",
+    "description": "A escola possui bibliotecário",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_bibliotecario",
+    "description": "Quantidade de bibliotecário na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_saude",
+    "description": "A escola possui profissional de saúde (bombeiro, enfermeiro...)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_saude",
+    "description": "Quantidade de profissional de saúde (bombeiro, enfermeiro...) na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_coordenador",
+    "description": "A escola possui coordenador de turno/disciplina",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_coordenador",
+    "description": "Quantidade de coordenador de turno/disciplina na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_fonaudiologo",
+    "description": "A escola possui fonaudiólogo",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_fonaudiologo",
+    "description": "Quantidade de fonaudiólogo na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_nutricionista",
+    "description": "A escola possui nutricionista",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_nutricionista",
+    "description": "Quantidade de nutricionista na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_psicologo",
+    "description": "A escola possui psicológo",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_psicologo",
+    "description": "Quantidade de psicológo na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_alimentacao",
+    "description": "A escola possui profissional de preparação e segurança alimentar",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_alimentacao",
+    "description": "Quantidade de profissional de preparação e segurança alimentar na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_pedagogia",
+    "description": "A escola possui profissional de pedagogia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_pedagogia",
+    "description": "Quantidade de profissional de pedagogia na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_secretario",
+    "description": "A escola possui secretário(a) escolar",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_secretario",
+    "description": "Quantidade de secretário(a) escolar na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_seguranca",
+    "description": "A escola possui profissional de segurança",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_seguranca",
+    "description": "Quantidade de profissional de segurança na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_monitor",
+    "description": "A escola possui técnico de laboratório/monitor/similar",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_monitor",
+    "description": "Quantidade de técnico de laboratório/monitor/similar na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_gestao",
+    "description": "A escola possui profissional de gestão administrativa",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_gestao",
+    "description": "Quantidade de profissional de gestão administrativa na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_assistente_social",
+    "description": "A escola possui assistente social",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_assistente_social",
+    "description": "Quantidade de assistente social na escola",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "profissional_tradutor_libras",
+    "description": "Profissionais que atuam na escola - Tradutor e Intérprete de Libras para atendimento em outros ambientes da escola que não seja sala de aula",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_profissional_tradutor_libras",
+    "description": "Total de profissionais que atuam na escola - Tradutor e Intérprete de Libras para atendimento em outros ambientes da escola que não seja sala de aula",
+    "tipo": "INT64",
+    "obs": "88888 - registro com marcação de valor extremo (valor superior ao limite máximo* definido com base na distribuição da razão de profissionais por matrícula)"
+  },
+  {
+    "name": "alimentacao",
+    "description": "A escola oferece alimentação escola para os alunos - PNAE/FNDE",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "organizacao_serie_ano",
+    "description": "A escola possui como forma de organização do ensino série/ano (séries anuais)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "organizacao_semestre",
+    "description": "A escola possui como forma de organização do ensino semestres",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "organizacao_fundamental_ciclo",
+    "description": "A escola possui como forma de organização do ensino ciclo(s) do ensino fundamental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "organizacao_grupo_nao_seriado",
+    "description": "A escola possui como forma de organização do grupos não-seriados com base na idade ou competência (art. 23 LDB)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "organizacao_modulo",
+    "description": "A escola possui como forma de organização do ensino módulos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "organizacao_alternancia",
+    "description": "A escola possui como forma de organização do ensino alternância regular de períodos de estudos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_multimidia",
+    "description": "A escola possui acervo multimídia em uso para o desenvolvimento de atividades de aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_infantil",
+    "description": "A escola possui brinquedos em uso para o desenvolvimento de atividades de aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_cientifico",
+    "description": "A escola possui materiais científicos em uso para o desenvolvimento de atividades de aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_difusao",
+    "description": "A escola possui materiais de difusão de áudio em uso para o desenvolvimento de atividades de aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_musical",
+    "description": "A escola possui materiais musicais em uso para o desenvolvimento de atividades de aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_jogo",
+    "description": "A escola possui jogos em uso para o desenvolvimento de atividades de aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_artistica",
+    "description": "A escola possui materiais artísticos em uso para o desenvolvimento de atividades de aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_profissional",
+    "description": "Instrumentos e materiais socioculturais e/ou pedagógicos em uso na escola para o desenvolvimento de atividades de ensino e aprendizagem - Materiais para Educação Profissional",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_desportiva",
+    "description": "A escola possui materiais desportivos em uso para o desenvolvimento de atividades de aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_indigena",
+    "description": "A escola possui materiais para educação índigena em uso para o desenvolvimento de atividades de aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_etnico",
+    "description": "A escola possui materiais da educação étnica em uso para o desenvolvimento de atividades de aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_campo",
+    "description": "A escola possui materiais para educação no campo em uso para o desenvolvimento de atividades de aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_surdo",
+    "description": "Instrumentos, materiais socioculturais e/ou pedagógicos em uso na escola para o desenvolvimento de atividades de ensino aprendizagem - Materiais pedagógicos para a educação bilíngue de surdos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_pedagogico_nenhum",
+    "description": "A escola não possui materiais em uso para o desenvolvimento de atividades de aprendizagem",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_especifico_quilombola",
+    "description": "A escola usa materiais didáticos específicos para atendimento à diversidade sociocultural quilombola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_especifico_indigena",
+    "description": "A escola usa materiais didáticos específicos para atendimento à diversidade sociocultural indígena",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "material_especifico_nao_utiliza",
+    "description": "A escola não usa materiais didáticos específicos para atendimento à diversidade sociocultural",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "educacao_indigena",
+    "description": "A escola possui educação indígena",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_lingua_indigena",
+    "description": "Língua em que o ensino da escola com educação indígena é ministrado",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_lingua_indigena_1",
+    "description": "1ª língua indígena em que o ensino é ministrado",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_lingua_indigena_2",
+    "description": "2ª língua indígena em que o ensino é ministrado",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_lingua_indigena_3",
+    "description": "3ª língua indígena em que o ensino é ministrado",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "programa_brasil_alfabetizado",
+    "description": "A escola cede espaço para turmas do Programa Brasil Alfabetizado",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "final_semana",
+    "description": "A escola abre aos finais de semana para a comunidade",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "exame_selecao",
+    "description": "A escola faz exame de seleção para ingresso de seus alunos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "reserva_vaga_raca_cor",
+    "description": "A escola faz reserva de vagas por sistema de cotas para grupos: Autodeclarado preto, pardo ou indígena (PPI)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "reserva_vaga_renda",
+    "description": "A escola faz reserva de vagas por sistema de cotas para grupos: Condição de renda",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "reserva_vaga_publica",
+    "description": "A escola faz reserva de vagas por sistema de cotas para grupos: Oriundo de escola pública",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "reserva_vaga_pcd",
+    "description": "A escola faz reserva de vagas por sistema de cotas para grupos: PCD",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "reserva_vaga_outros",
+    "description": "A escola faz reserva de vagas por sistema de cotas para grupos: Outros",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "reserva_vaga_nenhuma",
+    "description": "A escola não faz reserva de vagas por sistema de cotas para grupos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "redes_sociais",
+    "description": "A escola possui redes sociais para comunicação institucional",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "espaco_atividade_comunidade",
+    "description": "A escola compartilha espaços para atividades de integração escola-comunidade",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "espaco_equipamento_alunos",
+    "description": "A escola usa espaços e equipamentos do entorno escolar para atividades regulares com os alunos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "orgao_associacao_pais",
+    "description": "A escola possui associação de pais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "orgao_associacao_pais_mestres",
+    "description": "A escola possui associação de pais e mestres",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "orgao_conselho_escolar",
+    "description": "A escola possui conselho escolar",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "orgao_gremio_estudantil",
+    "description": "A escola possui grêmio estudantil",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "orgao_outros",
+    "description": "A escola possui outros órgãos colegiados",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "orgao_nenhum",
+    "description": "A escola não possui órgãos colegiados",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_proposta_pedagogica",
+    "description": "O tipo de proposta pedagógica da escola atualizado nos últimos 12 meses até a data de referência",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_aee",
+    "description": "O tipo de Atendimento Educacional Especializado (AEE) que a escola oferece",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_atividade_complementar",
+    "description": "O tipo de Atividade Complementar que a escola oferece",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "escolarizacao",
+    "description": "Escola possui uma ou mais matrículas de escolarização em alguma das seguintes etapas de ensino: Creche, Pré-Escola, Ensino Fundamental, Ensino Médio, Educação de Jovens e Adultos (EJA), Curso Técnico Concomitante, Curso Técnico Subsequente, Curso FIC Concomitante",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mediacao_presencial",
+    "description": "A escola oferece mediação didático-pedagógica presencial",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mediacao_semipresencial",
+    "description": "A escola oferece mediação didático-pedagógica semipresencial",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mediacao_ead",
+    "description": "A escola oferece mediação didático-pedagógica ead",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "regular",
+    "description": "A escola oferece metodologia de ensino em etapas consecutivas, da creche ao ensino médio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "diurno",
+    "description": "A escola possui turmas com horário de início da turma de escolarização entre 05h e 16h",
+    "tipo": "INT64",
+    "obs": "A partir de 2023, o conceito de turno diurno passa a ser \"Maior parte das atividades da turma são realizadas no período entre 6h e 17:59h\""
+  },
+  {
+    "name": "noturno",
+    "description": "A escola possui turmas com horário de início da turma de escolarização entre 17h e 04h",
+    "tipo": "INT64",
+    "obs": "A partir de 2023, o conteito de turno noturno passa a ser \"Maior parte das atividades da turma são realizadas entre 18h e 5:59h\""
+  },
+  {
+    "name": "ead",
+    "description": "A escola possui turmas semipresenciais ou de educação a distância (EAD)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "educacao_basica",
+    "description": "A escola possui uma ou mais matrículas em educação básica",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_infantil",
+    "description": "A escola possui uma ou mais matrículas em educação infantil",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_infantil_creche",
+    "description": "A escola possui uma ou mais matrículas em educação básica - creche",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_infantil_pre_escola",
+    "description": "A escola possui uma ou mais matrículas em educação básica - pré-escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_fundamental",
+    "description": "A escola possui uma ou mais matrículas no ensino fundamental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_fundamental_anos_iniciais",
+    "description": "A escola possui uma ou mais matrículas no ensino fundamental - anos iniciais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_fundamental_anos_finais",
+    "description": "A escola possui uma ou mais matrículas no ensino fundamental - anos finais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_medio",
+    "description": "A escola possui uma ou mais matrículas no ensino médio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_profissional",
+    "description": "A escola possui uma ou mais matrículas em educação profissional",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_profissional_tecnica",
+    "description": "A escola possui uma ou mais matrículas em educação profissional técnica",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_eja",
+    "description": "A escola possui uma ou mais matrículas em educação de jovens e adultos (EJA)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_eja_fundamental",
+    "description": "A escola possui uma ou mais matrículas en educação de jovens e adultos (EJA) - ensino fundamental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_eja_medio",
+    "description": "A escola possui uma ou mais matrículas em educação de jovens e adultos (EJA) - ensino médio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_especial",
+    "description": "A escola possui uma ou mais matrículas em educação especial",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_especial_comum",
+    "description": "A escola possui uma ou mais matrículas em educação especial - classe comum",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_especial_exclusiva",
+    "description": "A escola possui uma ou mais matrículas em educação especial - classe exclusiva (ao menos uma turma exclusiva de alunos com deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação - Classes Especiais)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino_creche_comum",
+    "description": "A escola oferece creche em classes comuns do ensino regular",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_pre_escola_comum",
+    "description": "A escola oferece pré-escola em classes comuns do ensino regular",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_fundamental_anos_iniciais_comum",
+    "description": "A escola oferece anos iniciais do ensino fundamental em classes comuns do ensino regular",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_fundamental_anos_finais_comum",
+    "description": "A escola oferece anos finais do ensino fundamental em classes comuns do ensino regular",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_medio_comum",
+    "description": "A escola oferece ensino médio (médio propedêutico) em classes comuns do ensino regular",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_medio_integrado_comum",
+    "description": "A escola oferece curso técnico integrado ao ensino médio em classes comuns do ensino regular",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_medio_normal_comum",
+    "description": "A escola oferece ensino médio (normal ou magistério) em classes comuns do ensino regular",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_profissional_comum",
+    "description": "A escola oferece educação profissional (curso técnico e/ou curso FIC) em classes comuns",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_eja_fundamental_comum",
+    "description": "A escola oferece ensino fundamental em classes comuns da EJA",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_eja_medio_comum",
+    "description": "A escola oferece ensino médio em classes comuns da EJA",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_eja_profissional_comum",
+    "description": "A escola oferece educação profissional integrada em classes comuns da EJA",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_creche_especial_exclusiva",
+    "description": "A escola oferece creche em classes especiais exclusivas para alunos com condições especiais",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_pre_escola_especial_exclusiva",
+    "description": "A escola oferece pré-escola em classes especiais exclusivas do ensino regular",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_fundamental_anos_iniciais_especial_exclusiva",
+    "description": "A escola oferece os anos iniciais do ensino fundamental em classes especiais",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_fundamental_anos_finais_especial_exclusiva",
+    "description": "A escola oferece os anos finais do ensino fundamental em classes especiais",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_medio_especial_exclusiva",
+    "description": "A escola oferece ensino médio (médio propedêutico) em classes especiais",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_medio_integrado_especial_exclusiva",
+    "description": "A escola oferece curso técnico integrado ao ensino médio em classes especiais",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_medio_normal_especial_exclusiva",
+    "description": "A escola oferece ensino médio (normal/magistério) em classes especiais",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_profissional_especial_exclusiva",
+    "description": "A escola oferece educação profissional - curso técnico concomitante e/ou susequente e/ou curso FIC concomitante em classes especiais",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_eja_fundamental_especial_exclusiva",
+    "description": "A escola oferece ensino fundamental em classes especiais exclusivas da EJA",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "etapa_ensino_eja_medio_especial_exclusiva",
+    "description": "A escola oferece ensino médio em classes especiais exclusivas da EJA",
+    "tipo": "INT64",
+    "obs": "Variável presente nos microdados divulgados pelo Inep antes da LGPD. Os dados eram divulgados em outro formato."
+  },
+  {
+    "name": "quantidade_matricula_educacao_basica",
+    "description": "Quantidade de matrículas em educação básica",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_infantil",
+    "description": "Quantidade de matrículas em educação infantil",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_infantil_creche",
+    "description": "Quantidade de matrículas em educação infantil - creche",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_infantil_pre_escola",
+    "description": "Quantidade de matrículas em educação infantil - pré-escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental",
+    "description": "Quantidade de matrículas no ensino fundamental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_anos_iniciais",
+    "description": "Quantidade de matrículas no ensino fundamental - anos iniciais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_1_ano",
+    "description": "Número de Matrículas do Ensino Fundamental - Anos Iniciais - 1º Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_2_ano",
+    "description": "Número de Matrículas do Ensino Fundamental - Anos Iniciais - 2º Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_3_ano",
+    "description": "Número de Matrículas do Ensino Fundamental - Anos Iniciais - 3º Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_4_ano",
+    "description": "Número de Matrículas do Ensino Fundamental - Anos Iniciais - 4º Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_5_ano",
+    "description": "Número de Matrículas do Ensino Fundamental - Anos Iniciais - 5º Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_anos_finais",
+    "description": "Quantidade de matrículas no ensino fundamental - anos finais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_6_ano",
+    "description": "Número de Matrículas do Ensino Fundamental - Anos Finais - 6º Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_7_ano",
+    "description": "Número de Matrículas do Ensino Fundamental - Anos Finais - 7º Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_8_ano",
+    "description": "Número de Matrículas do Ensino Fundamental - Anos Finais - 8º Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_9_ano",
+    "description": "Número de Matrículas do Ensino Fundamental - Anos Finais - 9º Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio",
+    "description": "Quantidade de matrículas no ensino médio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_propedeutico",
+    "description": "Número de Matrículas do Ensino Médio - Propedêutico",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_propedeutico_1_ano",
+    "description": "Número de Matrículas do Ensino Médio - Propedêutico - 1º ano/1ª Série",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_propedeutico_2_ano",
+    "description": "Número de Matrículas do Ensino Médio - Propedêutico - 2º ano/2ª Série",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_propedeutico_3_ano",
+    "description": "Número de Matrículas do Ensino Médio - Propedêutico - 3º ano/3ª Série",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_propedeutico_4_ano",
+    "description": "Número de Matrículas do Ensino Médio - Propedêutico - 4º ano/4ª Série",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_propedeutico_nao_seriado",
+    "description": "Número de Matrículas do Ensino Médio - Propedêutico - Não Seriado",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_tecnico",
+    "description": "Número de Matrículas do Ensino Médio - Curso Técnico Integrado à Educação Profissional",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_tecnico_1_ano",
+    "description": "Número de Matrículas do Ensino Médio - Curso Técnico Integrado à Educação Profissional - 1º ano/1ª Série",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_tecnico_2_ano",
+    "description": "Número de Matrículas do Ensino Médio - Curso Técnico Integrado à Educação Profissional - 2º ano/2ª Série",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_tecnico_3_ano",
+    "description": "Número de Matrículas do Ensino Médio - Curso Técnico Integrado à Educação Profissional - 3º ano/3ª Série",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_tecnico_4_ano",
+    "description": "Número de Matrículas do Ensino Médio - Curso Técnico Integrado à Educação Profissional - 4º ano/4ª Série",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_tecnico_nao_seriado",
+    "description": "Número de Matrículas do Ensino Médio - Curso Técnico Integrado à Educação Profissional - Não Seriado",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_magisterio",
+    "description": "Número de Matrículas do Ensino Médio - Modalidade Normal/Magistério",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_magisterio_1_ano",
+    "description": "Número de Matrículas do Ensino Médio - Modalidade Normal/Magistério - 1º ano/1ª Série",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_magisterio_2_ano",
+    "description": "Número de Matrículas do Ensino Médio - Modalidade Normal/Magistério - 2º ano/2ª Série",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_magisterio_3_ano",
+    "description": "Número de Matrículas do Ensino Médio - Modalidade Normal/Magistério - 3º ano/3ª Série",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_magisterio_4_ano",
+    "description": "Número de Matrículas do Ensino Médio - Modalidade Normal/Magistério - 4º ano/4ª Série",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_profissional",
+    "description": "Quantidade de matrículas em educação profissional",
+    "tipo": "INT64",
+    "obs": "Modo profissionalizante de ensino correspondente às turmas de cursos técnicos de nível médio nas formas articuladas (integrada ou concomitante), ou subsequente ao ensino médio e de normal/magistério, e as turmas de cursos profissionalizante não técnicos. Inclui as seguintes etapas de ensino: Ensino Médio - Curso Técnico Integrado à Educação Profissional, Ensino Médio - Modalidade Normal/Magistério, Educação Profissional - Curso Técnico - Concomitante, Educação Profissional - Curso Técnico - Subsequente, Educação Profissional - Curso FIC - Concomitante, Educação de Jovens e Adultos - Curso FIC Integrado na Modalidade EJA de Nível Fundamental, Educação de Jovens e Adultos - Ensino Fundamental - Projovem Urbano (descontinuada em 2019), Educação de Jovens e Adultos - Curso FIC Integrado na Modalidade EJA de Nível Médio e Educação de Jovens e Adultos - Curso Técnico Integrado na Modalidade EJA de Nível Médio."
+  },
+  {
+    "name": "quantidade_matricula_profissional_tecnica",
+    "description": "Quantidade de matrículas em educação profissional técnica",
+    "tipo": "INT64",
+    "obs": "Modo profissionalizante de ensino correspondente às turmas de cursos técnicos de nível médio nas formas articuladas (integrada ou concomitante), ou subsequente ao ensino médio e de normal/magistério. Inclui as seguintes etapas de ensino: Ensino Médio - Curso Técnico Integrado à Educação Profissional, Ensino Médio - Modalidade Normal/Magistério, Educação Profissional - Curso Técnico - Concomitante, Educação Profissional - Curso Técnico - Subsequente e Educação de Jovens e Adultos - Curso Técnico Integrado na Modalidade EJA de Nível Médio."
+  },
+  {
+    "name": "quantidade_matricula_profissional_tecnica_concomitante",
+    "description": "Número de Matrículas da Educação Profissional Técnica - Curso Técnico Concomitante",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_profissional_tecnica_subsequente",
+    "description": "Número de Matrículas da Educação Profissional Técnica - Curso Técnico Subsequente",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_profissional_fic_concomitante",
+    "description": "Número de Matrículas da Educação Profissional - Curso FIC Concomitante",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_eja",
+    "description": "Quantidade de matrículas em educação de jovens e adultos (EJA)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_eja_fundamental",
+    "description": "Quantidade de matrículas em educação de jovens e adultos (EJA) - ensino fundamental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_eja_fundamental_anos_iniciais",
+    "description": "Número de Matrículas da Educação de Jovens e Adultos (EJA) - Ensino Fundamental - Anos Iniciais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_eja_fundamental_anos_finais",
+    "description": "Número de Matrículas da Educação de Jovens e Adultos (EJA) - Ensino Fundamental - Anos Finais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_eja_fundamental_fic",
+    "description": "Número de Matrículas da Educação de Jovens e Adultos (EJA) - Ensino Fundamental - Curso FIC Integrado na Modalidade EJA de Nível Fundamental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_eja_medio",
+    "description": "Quantidade de matrículas em educação de jovens e adultos (EJA) - ensino médio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_eja_medio_nao_profissionalizante",
+    "description": "Número de Matrículas da Educação de Jovens e Adultos (EJA) - Ensino Médio - Sem componente profissionalizante",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_eja_medio_fic",
+    "description": "Número de Matrículas da Educação de Jovens e Adultos (EJA) - Ensino Médio - Curso FIC Integrado na Modalidade EJA de Nível Médio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_eja_medio_tecnico",
+    "description": "Número de Matrículas da Educação de Jovens e Adultos (EJA) - Ensino Médio - Curso Técnico Integrado na Modalidade EJA de Nível Médio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_especial",
+    "description": "Quantidade de matrículas em educação especial",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_especial_comum",
+    "description": "Quantidade de matrículas em educação especial - classe comum",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_especial_exclusiva",
+    "description": "Quantidade de matrículas em educação especial - classe exclusiva",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_feminino",
+    "description": "Quantidade de matrículas na educação básica de alunos do gênero feminino",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_masculino",
+    "description": "Quantidade de matrículas na educação básica de alunos do gênero masculino",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_nao_declarada",
+    "description": "Quantidade de matrículas na educação básica de alunos com cor/raça não declarada",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_branca",
+    "description": "Quantidade de matrículas na educação básica de alunos com cor/raça branca",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_preta",
+    "description": "Quantidade de matrículas na educação básica de alunos com cor/raça preta",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_parda",
+    "description": "Quantidade de matrículas na educação básica de alunos com cor/raça parda",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_amarela",
+    "description": "Quantidade de matrículas na educação básica de alunos com cor/raça amarela",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_indigena",
+    "description": "Quantidade de matrículas na educação básica de alunos com cor/raça indigena",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_idade_0_3",
+    "description": "Quantidade de matrículas na educação básica de alunos até 3 anos de idade",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_idade_4_5",
+    "description": "Quantidade de matrículas na educação básica de alunos entre 4 e 5 anos de idade",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_idade_6_10",
+    "description": "Quantidade de matrículas na educação básica de alunos entre 6 e 10 anos de idade",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_idade_11_14",
+    "description": "Quantidade de matrículas na educação básica de alunos entre 11 e 14 anos de idade",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_idade_15_17",
+    "description": "Quantidade de matrículas na educação básica de alunos entre 15 e 17 anos de idade",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_idade_18",
+    "description": "Quantidade de matrículas na educação básica de alunos com 18 anos de idade ou mais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_diurno",
+    "description": "Quantidade de matrículas na educação básica - Turno diurno",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_noturno",
+    "description": "Quantidade de matrículas na educação básica - Turno noturno",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_ead",
+    "description": "Quantidade de matrículas na educação básica - A distância",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_infantil_integral",
+    "description": "Quantidade de matrículas em educação infantil - Tempo integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_infantil_creche_integral",
+    "description": "Quantidade de matrículas em educação infantil (creche) - Tempo integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_infantil_pre_escola_integral",
+    "description": "Quantidade de matrículas em educação infantil (pré-escola) - Tempo integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_integral",
+    "description": "Quantidade de matrículas no ensino fundamental - Tempo integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_anos_iniciais_integral",
+    "description": "Quantidade de matrículas no ensino fundamental (anos iniciais) - Tempo integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_fundamental_anos_finais_integral",
+    "description": "Quantidade de matrículas no ensino fundamental (anos finais) - Tempo integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_medio_integral",
+    "description": "Quantidade de matrículas no ensino médio - Tempo integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_zona_residencia_urbana",
+    "description": "Número de Matrículas da Educação Básica - Localização/Zona de residência do Aluno - Urbana",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_zona_residencia_rural",
+    "description": "Número de Matrículas da Educação Básica - Localização/Zona de residência do Aluno - Rural",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_zona_residencia_nao_aplicavel",
+    "description": "Número de Matrículas da Educação Básica - Localização/Zona de residência do Aluno - Não aplicável para alunos residentes no exterior",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_utiliza_transporte_publico",
+    "description": "Número de Matrículas da Educação Básica de alunos que utilizam transporte escolar público",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_transporte_estadual",
+    "description": "Número de Matrículas da Educação Básica segundo o poder público responsável pelo transporte escolar - Estadual",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matricula_transporte_municipal",
+    "description": "Número de Matrículas da Educação Básica segundo o poder público responsável pelo transporte escolar - Municipal",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_educacao_basica",
+    "description": "Quantidade de docentes da educação básica",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_infantil",
+    "description": "Quantidade de docentes da educação infantil",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_infantil_creche",
+    "description": "Quantidade de docentes da educação infantil - creche",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_infantil_pre_escola",
+    "description": "Quantidade de docentes da educação infantil - pré-escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_fundamental",
+    "description": "Quantidade de docentes do ensino fundamental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_fundamental_anos_iniciais",
+    "description": "Quantidade de docentes do ensino fundamental - anos iniciais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_fundamental_anos_finais",
+    "description": "Quantidade de docentes do ensino fundamental - anos finais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_medio",
+    "description": "Quantidade de docentes do ensino médio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_profissional",
+    "description": "Quantidade de docentes da educação profissional",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_profissional_tecnica",
+    "description": "Quantidade de docentes da educação profissional técnica",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_eja",
+    "description": "Quantidade de docentes da educação de jovens e adultos (EJA)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_eja_fundamental",
+    "description": "Quantidade de docentes da educação de jovens e adultos (EJA) - ensino fundamental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_eja_medio",
+    "description": "Quantidade de docentes da educação de jovens e adultos (EJA) - ensino médio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_especial",
+    "description": "Quantidade de docentes da educação especial",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_especial_comum",
+    "description": "Quantidade de docentes da educação especial - classe comum",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_docente_especial_exclusiva",
+    "description": "Quantidade de docentes da educação especial - classe exclusiva",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_educacao_basica",
+    "description": "Quantidade de turmas de educação básica",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_infantil",
+    "description": "Quantidade de turmas de educação infantil",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_infantil_integral",
+    "description": "Número de Turmas da Educação Infantil - Tempo Integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_infantil_creche",
+    "description": "Quantidade de turmas de educação infantil - creche",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_infantil_creche_integral",
+    "description": "Número de Turmas da Educação Infantil - Creche - Tempo Integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_infantil_pre_escola",
+    "description": "Quantidade de turmas de educação infantil - pré-escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_infantil_pre_escola_integral",
+    "description": "Número de Turmas da Educação Infantil - Pré-Escola - Tempo Integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_fundamental",
+    "description": "Quantidade de turmas de ensino fundamental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_fundamental_integral",
+    "description": "Número de Turmas do Ensino Fundamental - Tempo Integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_fundamental_anos_iniciais",
+    "description": "Quantidade de turmas de ensino fundamental - anos iniciais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_fundamental_anos_iniciais_integral",
+    "description": "Número de Turmas do Ensino Fundamental - Anos Iniciais - Tempo Integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_fundamental_anos_finais",
+    "description": "Quantidade de turmas de ensino fundamental - anos finais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_fundamental_anos_finais_integral",
+    "description": "Número de Turmas do Ensino Fundamental - Anos Finais - Tempo Integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_medio",
+    "description": "Quantidade de turmas de ensino médio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_medio_integral",
+    "description": "Número de Turmas do Ensino Médio - Tempo Integral",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_profissional",
+    "description": "Quantidade de turmas de educação profissional",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_profissional_tecnica",
+    "description": "Quantidade de turmas de educação profissional técnica",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_eja",
+    "description": "Quantidade de turmas de educação de jovens e adultos (EJA)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_eja_fundamental",
+    "description": "Quantidade de turmas de educação de jovens e adultos (EJA) - ensino fundamental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_eja_medio",
+    "description": "Quantidade de turmas de educação de jovens e adultos (EJA) - ensino médio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_especial",
+    "description": "Quantidade de turmas de educação especial",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_especial_comum",
+    "description": "Quantidade de turmas de educação especial - classe comum",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_especial_exclusiva",
+    "description": "Quantidade de turmas de educação especial - classe exclusiva",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_diurno",
+    "description": "Número de Turmas da Educação Básica - Turno Diurno",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_noturno",
+    "description": "Número de Turmas da Educação Básica - Turno Noturno",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_turma_ead",
+    "description": "Número de Turmas da Educação Básica - Turno não aplicável para turmas semipresenciais ou de Educação a Distância (EAD)",
+    "tipo": "INT64",
+    "obs": ""
+  }
+]

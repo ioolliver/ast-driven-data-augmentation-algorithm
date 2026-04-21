@@ -1,0 +1,458 @@
+[
+  {
+    "name": "ano",
+    "description": "Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sigla_uf",
+    "description": "Sigla da Unidade da Federação",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_municipio",
+    "description": "ID Municipio - IBGE 7 Dígitos",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "rede",
+    "description": "Rede Escolar",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_escola",
+    "description": "ID Escola - INEP",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_turma",
+    "description": "ID Turma - INEP",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino",
+    "description": "Nível de ensino da turma (e.g. Ensino Fundamental, Ensino Médio)",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_turma",
+    "description": "Tipo de atendimento da turma (e.g. Unidade prisional, Classe hospitalar)",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "hora_inicial",
+    "description": "Hora inicial",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "minuto_inicial",
+    "description": "Minuto inicial",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dia_semana_domingo",
+    "description": "A turma funciona de domingo",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dia_semana_segunda",
+    "description": "A turma funciona de segunda-feira",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dia_semana_terca",
+    "description": "A turma funciona de terça-feira",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dia_semana_quarta",
+    "description": "A turma funciona de quarta-feira",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dia_semana_quinta",
+    "description": "A turma funciona de quinta-feira",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dia_semana_sexta",
+    "description": "A turma funciona de sexta-feira",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dia_semana_sabado",
+    "description": "A turma funciona de sábado",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "numero_dias_atividade",
+    "description": "Número de dias da semana onde são realizadas atividades da turma",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "numero_duracao_turma",
+    "description": "Duração do funcionamento da turma, em minutos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_atividade_1",
+    "description": "Código do tipo de atividade complementar 1",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_atividade_2",
+    "description": "Código do tipo de atividade complementar 2",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_atividade_3",
+    "description": "Código do tipo de atividade complementar 3",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_atividade_4",
+    "description": "Código do tipo de atividade complementar 4",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_atividade_5",
+    "description": "Código do tipo de atividade complementar 5",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_atividade_6",
+    "description": "Código do tipo de atividade complementar 6",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "id_curso_educacao_profissional",
+    "description": "Código do curso da educação profissional técnica",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "quantidade_matriculas",
+    "description": "Número de matrículas na turma",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_lingua_portuguesa",
+    "description": "Turma tem a disciplina língua portuguesa",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_educacao_fisica",
+    "description": "Turma tem a disciplina educação física",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_artes",
+    "description": "Turma tem a disciplina artes",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_lingua_ingles",
+    "description": "Turma tem a disciplina inglês",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_lingua_espanhol",
+    "description": "Turma tem a disciplina espanhol",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_lingua_frances",
+    "description": "Turma tem a disciplina francês",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_lingua_outra",
+    "description": "Turma tem disciplina sobre outras línguas estrangeiras",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_libras",
+    "description": "Turma tem a disciplina LIBRAS",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_lingua_indigena",
+    "description": "Turma tem disciplina sobre línguas indígenas",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_matematica",
+    "description": "Turma tem a disciplina matemática",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_ciencias",
+    "description": "Turma tem a disciplina ciências",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_fisica",
+    "description": "Turma tem a disciplina física",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_quimica",
+    "description": "Turma tem a disciplina química",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_biologia",
+    "description": "Turma tem a disciplina biologia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_historia",
+    "description": "Turma tem a disciplina história",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_geografia",
+    "description": "Turma tem a disciplina geografia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_sociologia",
+    "description": "Turma tem a disciplina sociologia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_filosofia",
+    "description": "Turma tem a disciplina filosofia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_estudos_sociais",
+    "description": "Turma tem a disciplina estudos sociais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_informatica_comp",
+    "description": "Turma tem a disciplina informática ou computação",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_ensino_religioso",
+    "description": "Turma tem a disciplina ensino religioso",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_profissionalizante",
+    "description": "Turma tem disciplinas profissionalizantes",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_pedagogicas",
+    "description": "Turma tem a disciplina \"disciplinas pedagógicas\"",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_outras",
+    "description": "Turma tem outras disciplinas que não se encaixam nas categorias anteriores",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_localizacao",
+    "description": "Tipo de localização da escola (e.g. Zona Urbana, Zona Rural)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_categoria_escola_privada",
+    "description": "Tipo de escola privada",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "conveniada_poder_publico",
+    "description": "A escola é conveniada com poder público",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_convenio_poder_publico",
+    "description": "Tipo de convenio com o poder publico",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "mantenedora_privada_emp",
+    "description": "A mantenedora da escola privada é uma empresa ou grupo empresarial",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mantenedora_privada_ong",
+    "description": "A mantenedora da escola privada é uma ONG",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mantenedora_privada_sind",
+    "description": "A mantenedora da escola privada é um sindicato ou associação cooperativa",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mantenedora_privada_sist_s",
+    "description": "A mantenedora da escola privada é o sistema S (SENAI, SESI, SESC, entre outros)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mantenedora_privada_s_fins",
+    "description": "A mantenedora da escola privada é uma entidade sem fins lucrativos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_regulamentacao",
+    "description": "Regulamentação/Autorização no conselho ou órgão municipal, estadual ou federal de educação",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_localizacao_diferenciada",
+    "description": "Localização diferenciada da escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "educacao_indigena",
+    "description": "A escola é uma escola indígena",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "braille",
+    "description": "Tipo de Atendimento Educacionl Especializado - Ensino do sistema braille",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "recursos_baixa_visao",
+    "description": "Tipo de Atendimento Educacionl Especializado - Ensino do uso de recursos ópticos e não ópticos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "processos_mentais",
+    "description": "Tipo de Atendimento Educacionl Especializado - Estratégias para o desenvolvimento de processos mentais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "orientacao_mobilidade",
+    "description": "Tipo de Atendimento Educacionl Especializado - Ensino de técnicas de orientação e mobilidade",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sinais",
+    "description": "Tipo de Atendimento Educacionl Especializado - Ensino da Língua Brasileira de Sinais - LIBRAS",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "comunicacao_alt_aument",
+    "description": "Tipo de Atendimento Educacionl Especializado - Ensino de uso de Comunicação Alternativa Aumentada",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "enriquecimento_curricular",
+    "description": "Tipo de Atendimento Educacionl Especializado - Ensino de estratégias para enriquecimento curricular",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "soroban",
+    "description": "Tipo de Atendimento Educacionl Especializado - Ensino de uso do Soroban",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "informatica_acessivel",
+    "description": "Tipo de Atendimento Educacionl Especializado - Ensino da usabilidade e da funcionalidade da informática acessível",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "port_escrita",
+    "description": "Tipo de Atendimento Educacionl Especializado - Ensino da Língua Portuguesa na modalidade escrita",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "autonomia_escolar",
+    "description": "Tipo de Atendimento Educacionl Especializado - Ensino de estratégias para autonomia no ambiente escolar",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_atendimento_especiais",
+    "description": "Turma tem disciplinas voltadas ao atendimento às necessidades educacionais específicas de alunos público-alvo",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_diver_socio_cultural",
+    "description": "Turma tem disciplinas voltadas à diversidade sociocultural",
+    "tipo": "INT64",
+    "obs": ""
+  }
+]

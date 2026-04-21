@@ -1,0 +1,758 @@
+[
+  {
+    "name": "ano",
+    "description": "Ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sigla_uf",
+    "description": "Sigla da Unidade da Federação",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_municipio",
+    "description": "ID Município - IBGE 7 dígitos",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "rede",
+    "description": "Rede Escolar",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_escola",
+    "description": "ID Escola - INEP",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "etapa_ensino",
+    "description": "Etapa de ensino da turma",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_turma",
+    "description": "ID Turma - INEP",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_turma",
+    "description": "Tipo de atendimento da turma (e.g. Classe hospitalar, Unidade prisional)",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_docente",
+    "description": "ID Docente - INEP",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "mes_nascimento_docente",
+    "description": "Data de nascimento - mês",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "ano_nascimento_docente",
+    "description": "Data de nascimento - ano",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "dia_nascimento_docente",
+    "description": "Data de nascimento - dia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "idade",
+    "description": "Idade calculada pelo ano de nascimento do docente",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "idade_referencia",
+    "description": "Idade do docente no mês de referência do Censo Escolar (31 de maio)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "sexo",
+    "description": "Sexo",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "raca_cor",
+    "description": "Cor/raça",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "nacionalidade",
+    "description": "Nacionalidade",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_pais_origem",
+    "description": "Código do País de origem",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_uf_nascimento",
+    "description": "Código da UF de nascimento",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_municipio_nascimento",
+    "description": "Código IBGE - 7 dígitos do Município de nascimento",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_uf_endereco",
+    "description": "Código da UF de residência",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_municipio_endereco",
+    "description": "Código IBGE - 7 dígitos do Município de residência",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "zona_residencial",
+    "description": "Localização/Zona de Residência",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "necessidade_especial",
+    "description": "Profissional Escolar com deficiência transtorno do espectro autista ou altas habilidades/superdotção",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "cegueira",
+    "description": "Profissional Escolar com deficiência transtorno do espectro autista ou altas habilidades/superdotação - Cegueira",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "baixa_visao",
+    "description": "Profissional Escolar com deficiência transtorno do espectro autista ou altas habilidades/superdotação - Baixa Visão",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "surdez",
+    "description": "Profissional Escolar com deficiência - Surdez",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "deficiencia_auditiva",
+    "description": "Profissional Escolar com deficiência transtorno do espectro autista ou altas habilidades/superdotção - Deficiência Auditiva",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "surdocegueira",
+    "description": "Profissional Escolar com deficiência transtorno do espectro autista ou altas habilidades/superdotação - Surdocegueira",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "deficiencia_fisica",
+    "description": "Profissional Escolar com deficiência - Deficiência Física",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "deficiencia_intelectual",
+    "description": "Profissional Escolar com deficiência transtorno do espectro autista ou altas habilidades/superdotação - Deficiência Intelectual",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "deficiencia_multipla",
+    "description": "Profissional Escolar com deficiência transtorno do espectro autista ou altas habilidades/superdotação - Deficiência Múltipla",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "escolaridade",
+    "description": "Maior nível de Escolaridade concluída",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "situacao_curso_1",
+    "description": "Situação do curso superior 1",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_area_curso_1",
+    "description": "Código da área do curso superior 1",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_curso_1",
+    "description": "Código do curso 1 da escolaridade superior",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "licenciatura_1",
+    "description": "Possui Licenciatura no curso 1",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_pedagogica_comp_1",
+    "description": "Possui formação/complementação pedagógica - área de conhecimento/Componentes curriculares",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "ano_inicio_curso_superior_1",
+    "description": "Ano de início do curso superior 1",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "ano_conclusao_curso_superior_1",
+    "description": "Ano de conclusão do curso superior 1",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_ies_1",
+    "description": "Tipo de instituição do curso superior 1",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_ies_1",
+    "description": "Código da Instituição do curso 1",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "situacao_curso_2",
+    "description": "Situação do curso superior 2",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_area_curso_2",
+    "description": "Código da Área do curso superior 2",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_curso_2",
+    "description": "Código do curso 2 da escolaridade superior",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "licenciatura_2",
+    "description": "Possui Licenciatura no curso superior 2",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_pedagogica_comp_2",
+    "description": "Possui formação/complementação pedagógica - área de conhecimento/Componentes curriculares",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "ano_inicio_curso_superior_2",
+    "description": "Ano de início do curso superior 2",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "ano_conclusao_curso_superior_2",
+    "description": "Ano de conclusão do curso superior 2",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_ies_2",
+    "description": "Tipo de instituição do curso superior 2",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_ies_2",
+    "description": "Código da Instituição do curso superior 2",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "situacao_curso_3",
+    "description": "Situação do curso superior 3",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_area_curso_3",
+    "description": "Código da Área do curso superior 3",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_curso_3",
+    "description": "Código do curso 3 da escolaridade superior",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "licenciatura_3",
+    "description": "Possui Licenciatura no curso superior 3",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_pedagogica_comp_3",
+    "description": "Possui formação/complementação pedagógica - Área de conhecimento/Componentes curriculares",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "ano_inicio_curso_superior_3",
+    "description": "Ano de início do curso superior 3",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "ano_conclusao_curso_superior_3",
+    "description": "Ano de conclusão do curso superior 3",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_ies_3",
+    "description": "Tipo de instituição do curso superior 3",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "id_ies_3",
+    "description": "Código da Instituição do curso superior 3",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_quimica",
+    "description": "Áreas do conhecimento/Componentes curriculares - Química",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_fisica",
+    "description": "Áreas do conhecimento/Componentes curriculares - Física",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_matematica",
+    "description": "Áreas do conhecimento/Componentes curriculares - Matemática",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_biologia",
+    "description": "Áreas do conhecimento/Componentes curriculares - Biologia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_ciencias",
+    "description": "Áreas do conhecimento/Componentes curriculares - Ciências",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_lingua_portuguesa",
+    "description": "Áreas do conhecimento/Componentes curriculares - Língua/ Literatura Portuguesa",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_lingua_ingles",
+    "description": "Áreas do conhecimento/Componentes curriculares - Língua/ Literatura estrangeira - Inglês",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_lingua_espanhol",
+    "description": "Áreas do conhecimento/Componentes curriculares - Língua/ Literatura estrangeira - Espanhol",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_lingua_frances",
+    "description": "Áreas do conhecimento/Componentes curriculares - Língua/ Literatura estrangeira - Françês",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_lingua_outra",
+    "description": "Áreas do conhecimento/Componentes curriculares - Língua/ Literatura estrangeira - Outra",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_lingua_indigena",
+    "description": "Áreas do conhecimento/Componentes curriculares - Língua Indígena",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_artes",
+    "description": "Áreas do conhecimento/Componentes curriculares - Artes (Educação Artística, Teatro, Dança, Música, Artes Plásticas e outras)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_educacao_fisica",
+    "description": "Áreas do conhecimento/Componentes curriculares - Educação Física",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_historia",
+    "description": "Áreas do conhecimento/Componentes curriculares - História",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_geografia",
+    "description": "Áreas do conhecimento/Componentes curriculares - Geografia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_filosofia",
+    "description": "Áreas do conhecimento/Componentes curriculares - Filosofia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_ensino_religioso",
+    "description": "Áreas do conhecimento/Componentes curriculares - Ensino Religioso",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_estudos_sociais",
+    "description": "Áreas do conhecimento/Componentes curriculares - Estudos Sociais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_sociologia",
+    "description": "Áreas do conhecimento/Componentes curriculares - Sociologia",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_informatica_comp",
+    "description": "Áreas do conhecimento/Componentes curriculares - Informática / Computação",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_profissionalizante",
+    "description": "Áreas do conhecimento/Componentes curriculares - Disciplinas dos cursos técnicos profissionais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_atendimento_especiais",
+    "description": "Áreas do conhecimento/Componentes curriculares - Atendimentos Especiais",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_diver_socio_cultural",
+    "description": "Áreas do conhecimento/Componentes curriculares - Diversidade Sócio-Cultural",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_libras",
+    "description": "Áreas do conhecimento/Componentes curriculares - Libras",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_pedagogicas",
+    "description": "Áreas do conhecimento/Componentes curriculares - Disciplinas pedagógicas",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "disciplina_outras",
+    "description": "Áreas do conhecimento/Componentes curriculares - Outras disciplinas",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "especializacao",
+    "description": "Possui Pós-Graduação - Especialização",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mestrado",
+    "description": "Possui Pós-Graduação - Mestrado",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "doutorado",
+    "description": "Possui Pós-Graduação - Doutorado",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "pos_nenhum",
+    "description": "Não possui Pós-Graduação",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_creche",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para creche (0 a 3 anos)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_pre_escola",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para pré-escola (4 e 5 anos)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_anos_iniciais",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para anos iniciais do ensino fundamental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_anos_finais",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para anos finais do ensino fundamental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_ens_medio",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para ensino médio",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_eja",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para educação de jovens e adultos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_ed_especial",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para educação especial",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_ed_indigena",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para educação indígena",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_campo",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Educação do Campo",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_ambiental",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Educação Ambiental",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_dir_humanos",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Educação em direitos humanos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_div_sexual",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Gênero e Diversidade Sexual",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_dir_adolesc",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Direitos de criança e adolescente",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_afro",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Educação para as relações etnicorracias e história e cultura afro-brasileira e africana",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_outros",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Outros",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "formacao_especif_nenhum",
+    "description": "Outros cursos - Formação Continuada com no mínimo 80 horas - Nenhum",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_docente",
+    "description": "Função que exerce na escola",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_contratacao",
+    "description": "Situação Funcional/Regime de contratação/Tipo de Vínculo (Apenas para docente de escola pública)",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "mediacao_didatico_pedago",
+    "description": "Tipo de mediação didático-pedagógica",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "especial_exclusiva",
+    "description": "Docente de turma exclusiva de alunos com deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (Classes Especiais)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "regular",
+    "description": "Modo, maneira ou metodologia de ensino correspondente às turmas com etapas de escolarizaçãoo consecutivas, Creche ao Ensino Médio.",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "eja",
+    "description": "Modo, maneira ou metodologia de ensino correspondente às turmas destinadas a pessoas que não cursaram o ensino fundamental e/ou médio em idade própria.",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "profissionalizante",
+    "description": "Modo profissionalizante de ensino correspondente às turmas de cursos de formação inicial e continuada ou de qualificação profissional",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "id_curso_educ_profissional",
+    "description": "Curso da Educação Profissional Técnica",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_localizacao",
+    "description": "Localização (Escola)",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_categoria_escola_privada",
+    "description": "Categoria da escola privada",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "conveniada_poder_publico",
+    "description": "Conveniada com o poder público (Escola)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_convenio_poder_publico",
+    "description": "Dependência do convênio com o poder público",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "mant_escola_privada_emp",
+    "description": "Mantenedora da escola privada - Empresa, grupo empresarial do setor privado ou pessoa física",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mant_escola_privada_ong",
+    "description": "Mantenedora da escola privada - Organização não governamental (ONG) - internacional ou nacional.",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mant_escola_privada_sind",
+    "description": "Mantenedora da escola privada - Sindicatos de trabalhadores ou patronais, associações e cooperativas.",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mant_escola_privada_sist_s",
+    "description": "Mantenedora da escola privada - Sistema S (Sesi, Senai, Sesc, Outros)",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "mant_escola_privada_s_fins",
+    "description": "Mantenedora da escola privada - Instituições sem fins lucrativos",
+    "tipo": "INT64",
+    "obs": ""
+  },
+  {
+    "name": "tipo_regulamentacao",
+    "description": "Regulamentação/Autorização no conselho ou órgão municipal, estadual ou federal de educação",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "tipo_localizacao_diferenciada",
+    "description": "Localização diferenciada da escola",
+    "tipo": "STRING",
+    "obs": ""
+  },
+  {
+    "name": "educacao_indigena",
+    "description": "Escola Indígena",
+    "tipo": "INT64",
+    "obs": ""
+  }
+]
