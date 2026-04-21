@@ -28,7 +28,7 @@ powershell -ExecutionPolicy BypassUser -c "irm https://astral.sh/uv/install.ps1 
 ### 1. Clone o repositório
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/ioolliver/ast-driven-data-augmentation-algorithm
 cd ast-driven-data-augmentation
 ```
 
