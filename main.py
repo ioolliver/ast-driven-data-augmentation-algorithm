@@ -1,389 +1,48 @@
 from augmentor import create_random_variation
-
-schema = {
-    "tables": [
-        {
-            "name": "escola",
-            "columns": [
-                {
-                    "name": "data_ano_letivo_inicio",
-                    "description": "Data do início do ano letivo da escola",
-                    "type": "date",
-                    "min": "2007-01-01",
-                    "max": "2026-12-31",
-                },
-                {"name": "id_escola", "description": "ID da Escola", "type": "string"},
-                {
-                    "name": "ano",
-                    "description": "Ano de referência para a linha atual",
-                    "type": "number",
-                    "min": 2009,
-                    "max": 2024,
-                },
-                {
-                    "name": "internet",
-                    "description": "A escola possui acesso à internet?",
-                    "type": "binary",
-                },
-                {
-                    "name": "quantidade_computador",
-                    "description": "Quantidade de computadores na escola",
-                    "type": "number",
-                    "min": 0,
-                    "max": 1000,
-                    "semantic_group": "quantidade_item",
-                },
-                {
-                    "name": "quantidade_tablet_aluno",
-                    "description": "Quantidade de tablet em uso pelos alunos",
-                    "type": "number",
-                    "min": 0,
-                    "max": 1000,
-                    "semantic_group": "quantidade_item",
-                },
-                {
-                    "name": "quantidade_desktop_aluno",
-                    "description": "Quantidade de computador de mesa (desktop) em uso pelos alunos",
-                    "type": "number",
-                    "min": 0,
-                    "max": 1000,
-                    "semantic_group": "quantidade_item",
-                },
-                {
-                    "name": "quantidade_equipamento_foto",
-                    "description": "Quantidade de equipamentos de fotografia na escola",
-                    "type": "number",
-                    "min": 0,
-                    "max": 1000,
-                    "semantic_group": "quantidade_item",
-                },
-                {
-                    "name": "quantidade_matricula_educacao_basica",
-                    "description": "Quantidade de matrículas no ensino básico",
-                    "type": "number",
-                    "min": 0,
-                    "max": 4000,
-                    "semantic_group": "quantidade_matricula",
-                },
-                {
-                    "name": "quantidade_matricula_fundamental",
-                    "description": "Quantidade de matrículas no ensino fundamental",
-                    "type": "number",
-                    "min": 0,
-                    "max": 4000,
-                    "semantic_group": "quantidade_matricula",
-                },
-                {
-                    "name": "quantidade_matricula_medio",
-                    "description": "Quantidade de matrículas no ensino médio",
-                    "type": "number",
-                    "min": 0,
-                    "max": 4000,
-                    "semantic_group": "quantidade_matricula",
-                },
-                {
-                    "name": "sigla_uf",
-                    "description": "Sigla da Unidade da Federação",
-                    "type": "enum",
-                    "value_group_labels": {
-                        "nordeste": "Nordeste",
-                        "sul": "Sul",
-                        "sudeste": "Sudeste",
-                        "norte": "Norte",
-                        "centro_oeste": "Centro-Oeste",
-                    },
-                    "enums": [
-                        {"value": "AC", "description": "Acre", "value_group": "norte"},
-                        {
-                            "value": "AL",
-                            "description": "Alagoas",
-                            "value_group": "nordeste",
-                        },
-                        {"value": "AP", "description": "Amapá", "value_group": "norte"},
-                        {
-                            "value": "AM",
-                            "description": "Amazonas",
-                            "value_group": "norte",
-                        },
-                        {
-                            "value": "BA",
-                            "description": "Bahia",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "CE",
-                            "description": "Ceará",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "DF",
-                            "description": "Distrito Federal",
-                            "value_group": "centro_oeste",
-                        },
-                        {
-                            "value": "ES",
-                            "description": "Espírito Santo",
-                            "value_group": "sudeste",
-                        },
-                        {
-                            "value": "GO",
-                            "description": "Goiás",
-                            "value_group": "centro_oeste",
-                        },
-                        {
-                            "value": "MA",
-                            "description": "Maranhão",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "MT",
-                            "description": "Mato Grosso",
-                            "value_group": "centro_oeste",
-                        },
-                        {
-                            "value": "MS",
-                            "description": "Mato Grosso do Sul",
-                            "value_group": "centro_oeste",
-                        },
-                        {
-                            "value": "MG",
-                            "description": "Minas Gerais",
-                            "value_group": "sudeste",
-                        },
-                        {"value": "PA", "description": "Pará", "value_group": "norte"},
-                        {
-                            "value": "PB",
-                            "description": "Paraíba",
-                            "value_group": "nordeste",
-                        },
-                        {"value": "PR", "description": "Paraná", "value_group": "sul"},
-                        {
-                            "value": "PE",
-                            "description": "Pernambuco",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "PI",
-                            "description": "Piauí",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "RJ",
-                            "description": "Rio de Janeiro",
-                            "value_group": "sudeste",
-                        },
-                        {
-                            "value": "RN",
-                            "description": "Rio Grande do Norte",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "RS",
-                            "description": "Rio Grande do Sul",
-                            "value_group": "sul",
-                        },
-                        {
-                            "value": "RO",
-                            "description": "Rondônia",
-                            "value_group": "norte",
-                        },
-                        {
-                            "value": "RR",
-                            "description": "Roraima",
-                            "value_group": "norte",
-                        },
-                        {
-                            "value": "SC",
-                            "description": "Santa Catarina",
-                            "value_group": "sul",
-                        },
-                        {
-                            "value": "SP",
-                            "description": "São Paulo",
-                            "value_group": "sudeste",
-                        },
-                        {
-                            "value": "SE",
-                            "description": "Sergipe",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "TO",
-                            "description": "Tocantins",
-                            "value_group": "norte",
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            "name": "matricula",
-            "columns": [
-                {
-                    "name": "id_matricula",
-                    "description": "ID da Escola",
-                    "type": "string",
-                },
-                {
-                    "name": "ano",
-                    "description": "Ano de referência para a linha atual",
-                    "type": "number",
-                    "min": 2009,
-                    "max": 2024,
-                },
-                {
-                    "name": "sigla_uf",
-                    "description": "Sigla da Unidade da Federação",
-                    "type": "enum",
-                    "value_group_labels": {
-                        "nordeste": "Nordeste",
-                        "sul": "Sul",
-                        "sudeste": "Sudeste",
-                        "norte": "Norte",
-                        "centro_oeste": "Centro-Oeste",
-                    },
-                    "enums": [
-                        {"value": "AC", "description": "Acre", "value_group": "norte"},
-                        {
-                            "value": "AL",
-                            "description": "Alagoas",
-                            "value_group": "nordeste",
-                        },
-                        {"value": "AP", "description": "Amapá", "value_group": "norte"},
-                        {
-                            "value": "AM",
-                            "description": "Amazonas",
-                            "value_group": "norte",
-                        },
-                        {
-                            "value": "BA",
-                            "description": "Bahia",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "CE",
-                            "description": "Ceará",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "DF",
-                            "description": "Distrito Federal",
-                            "value_group": "centro_oeste",
-                        },
-                        {
-                            "value": "ES",
-                            "description": "Espírito Santo",
-                            "value_group": "sudeste",
-                        },
-                        {
-                            "value": "GO",
-                            "description": "Goiás",
-                            "value_group": "centro_oeste",
-                        },
-                        {
-                            "value": "MA",
-                            "description": "Maranhão",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "MT",
-                            "description": "Mato Grosso",
-                            "value_group": "centro_oeste",
-                        },
-                        {
-                            "value": "MS",
-                            "description": "Mato Grosso do Sul",
-                            "value_group": "centro_oeste",
-                        },
-                        {
-                            "value": "MG",
-                            "description": "Minas Gerais",
-                            "value_group": "sudeste",
-                        },
-                        {"value": "PA", "description": "Pará", "value_group": "norte"},
-                        {
-                            "value": "PB",
-                            "description": "Paraíba",
-                            "value_group": "nordeste",
-                        },
-                        {"value": "PR", "description": "Paraná", "value_group": "sul"},
-                        {
-                            "value": "PE",
-                            "description": "Pernambuco",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "PI",
-                            "description": "Piauí",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "RJ",
-                            "description": "Rio de Janeiro",
-                            "value_group": "sudeste",
-                        },
-                        {
-                            "value": "RN",
-                            "description": "Rio Grande do Norte",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "RS",
-                            "description": "Rio Grande do Sul",
-                            "value_group": "sul",
-                        },
-                        {
-                            "value": "RO",
-                            "description": "Rondônia",
-                            "value_group": "norte",
-                        },
-                        {
-                            "value": "RR",
-                            "description": "Roraima",
-                            "value_group": "norte",
-                        },
-                        {
-                            "value": "SC",
-                            "description": "Santa Catarina",
-                            "value_group": "sul",
-                        },
-                        {
-                            "value": "SP",
-                            "description": "São Paulo",
-                            "value_group": "sudeste",
-                        },
-                        {
-                            "value": "SE",
-                            "description": "Sergipe",
-                            "value_group": "nordeste",
-                        },
-                        {
-                            "value": "TO",
-                            "description": "Tocantins",
-                            "value_group": "norte",
-                        },
-                    ],
-                },
-            ],
-        },
-    ]
-}
+from curseduca_schema import curseduca_schema
 
 original_sqls = [
     """
+SELECT 
+b.cd_bib,
+b.nm_bib,
+m.cd_mun,
+m.nm_mun,
+m.area_km2
+FROM public.municipio m
+LEFT JOIN public.biblioteca b
+ON ST_Intersects(m.geometry, b.geometry)
+WHERE m.area_km2 > 10000
+AND b.cd_bib IS NOT NULL
+AND (b.cep IS NULL OR b.cep = '');
+    """,
+"""
 SELECT
-    m.ano,
-    COUNT(DISTINCT m.id_matricula) AS total_alunos
-FROM matricula m
-JOIN escola e ON m.id_escola = e.id_escola AND m.ano = e.ano
-WHERE e.data_ano_letivo_inicio BETWEEN '2025-01-01' AND '2026-12-31'
-GROUP BY m.ano
-ORDER BY m.ano;
-    """
+uf.sigla_uf,
+COUNT(e.cd_entidade) AS qt_escolas_chuveiro
+FROM public.pais p
+INNER JOIN public.unidade_federativa uf
+ON p.pais = 'Brasil' AND ST_Intersects(uf.geometry, p.geometry)
+JOIN public.municipio m
+ON m.cd_uf = uf.cd_uf AND ST_Intersects(m.geometry, uf.geometry)
+JOIN public.escola e
+ON ST_Intersects(m.geometry, e.geometry)
+JOIN public.microdados_ed_basica meb
+ON meb.cd_entidade = e.cd_entidade AND meb.in_banheiro_chuveiro = 1
+WHERE uf.sigla_uf IN ('RR','AC','AM','RO','MT','MS','PR','SC','RS','AP','PA')
+AND ST_DWithin(
+e.geometry::geography,
+ST_Boundary(p.geometry)::geography,
+10000
+)
+GROUP BY uf.sigla_uf
+ORDER BY uf.sigla_uf;
+"""
 ]
 
 original_querys = [
-    "Entre 2025 e 2026, quantos alunos estão matriculados em escolas da região Norte que não possuem internet?"
+    "Quais bibliotecas com CEP ausente estão em municípios com área > 10.000 km2?",
+    "Nos estados de fronteira internacional, quantas escolas com banheiro com chuveiro ficam até 10 km da fronteira, por UF?"
 ]
 
 if __name__ == "__main__":
@@ -392,7 +51,7 @@ if __name__ == "__main__":
         original_query = original_querys[i]
         original_sql = original_sqls[i]
         (new_query, new_sql) = create_random_variation(
-            schema, original_query, original_sql
+            curseduca_schema, original_query, original_sql
         )
 
         print("============= ORIGINAL ================")
