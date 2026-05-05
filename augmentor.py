@@ -7,12 +7,14 @@ from mutations import (
     mutate_equivalent_column,
     mutate_value_group,
     mutate_binary,
+    mutate_postgis,
 )
 from llm import adapt_query
 
 
 def create_random_variation(schema, query, sql):
     changelog = []
+    mutation_state = {}
 
     def mutate_operators(node):
         node = mutate_between(node, changelog, schema)
@@ -22,6 +24,7 @@ def create_random_variation(schema, query, sql):
         node = mutate_equivalent_column(node, changelog, schema)
         node = mutate_value_group(node, changelog, schema)
         node = mutate_binary(node, changelog, schema)
+        node = mutate_postgis(node, changelog, schema, mutation_state)
         return node
 
     ast = sqlglot.parse_one(sql, read="postgres")

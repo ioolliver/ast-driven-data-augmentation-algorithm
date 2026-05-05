@@ -2,7 +2,7 @@
 
 Ferramenta para gerar variações semânticas de consultas SQL e suas descrições em linguagem natural. Usa transformações de Árvore Sintática Abstrata (AST) combinadas com LLM para criar dados de treinamento para modelos de aprendizado de máquina.
 
-**Objetivo principal:** Dada uma consulta SQL original + descrição em linguagem natural + schema, gera pares de consultas semanticamente equivalentes com SQL e descrições diferentes.
+**Objetivo principal:** Dada uma consulta SQL original + descrição em linguagem natural + schema, gera variações semânticas controladas com SQL diferente e descrições adaptadas. As mutações devem alterar a intenção da consulta de forma programática, e a camada LLM ajusta a pergunta em linguagem natural para refletir o novo SQL.
 
 ## Pré-requisitos
 
@@ -122,13 +122,14 @@ nova_descricao, novo_sql = create_random_variation(schema, descricao, sql_origin
 │   ├── threshold_shift.py         # Muda operador de inequação e valor numérico
 │   ├── equivalent_column.py       # Troca coluna por outra do mesmo grupo semântico
 │   ├── value_group.py             # Troca grupo de valores em cláusula IN (ex: Norte → Sudeste)
-│   └── binary.py                  # Inverte valor binário (0 ↔ 1)
+│   ├── binary.py                  # Inverte valor binário (0 ↔ 1)
+│   └── postgis.py                 # Muta funções PostGIS de raio, distância e operações espaciais
 ├── pyproject.toml                 # Configuração do projeto e dependências
 ├── uv.lock                        # Lockfile de dependências
 ├── .python-version                # Versão do Python (3.12)
 ├── .env.example                   # Template para variáveis de ambiente
 ├── .gitignore                     # Arquivos ignorados pelo git
-├── CLAUDE.md                      # Guia arquitetural para Claude Code
+├── AGENTS.md                      # Guia arquitetural para agentes de código
 └── README.md                      # Este arquivo
 ```
 
@@ -192,6 +193,43 @@ Troca o conjunto de valores em uma cláusula `IN` por outro grupo definido no sc
 
 ### 7. Binário (`mutations/binary.py`)
 Inverte o valor de uma coluna binária (`0` → `1` ou `1` → `0`).
+
+### 8. PostGIS (`mutations/postgis.py`)
+Aplica mutações semânticas em funções PostGIS comuns:
+
+- `ST_Buffer`: altera raios em metros, mantendo valores repetidos coordenados na mesma consulta.
+- `ST_DWithin`: altera o limite de distância em metros.
+- `ST_Intersection`: troca a operação espacial por `ST_Union` ou `ST_Difference`.
+- `ST_Intersects` com dois buffers: reescreve o padrão estrito `ST_Intersects(ST_Buffer(...), ST_Buffer(...))` para `ST_DWithin(...)`.
+
+Quando o schema não informa metadados geográficos, usa valores padrão:
+
+```python
+distance_min_m = 100
+distance_max_m = 5000
+buffer_min_m = 100
+buffer_max_m = 3000
+```
+
+Metadados opcionais recomendados para colunas de geometria:
+
+```python
+{
+    "name": "geometry",
+    "type": "geometry",
+    "description": "Geometria espacial da localização",
+    "geometry_type": "POINT",
+    "srid": 4674,
+    "metric_srid": 31983,
+    "spatial_role": "location",
+    "distance_min_m": 100,
+    "distance_max_m": 5000,
+    "buffer_min_m": 100,
+    "buffer_max_m": 3000
+}
+```
+
+O schema atual não precisa ser atualizado para usar as mutações PostGIS, mas esses campos permitem controlar melhor os intervalos de distância e buffer.
 
 ## Estendendo com Novas Mutações
 

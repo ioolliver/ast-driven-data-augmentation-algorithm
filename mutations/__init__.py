@@ -5,6 +5,7 @@ from mutations.threshold_shift import mutate_threshold_shift
 from mutations.equivalent_column import mutate_equivalent_column
 from mutations.value_group import mutate_value_group
 from mutations.binary import mutate_binary
+from mutations.postgis import mutate_postgis
 
 __all__ = [
     "mutate_between",
@@ -14,4 +15,5 @@ __all__ = [
     "mutate_equivalent_column",
     "mutate_value_group",
     "mutate_binary",
+    "mutate_postgis",
 ]

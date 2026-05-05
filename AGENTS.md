@@ -6,7 +6,7 @@ This file provides guidance to Codex when working with code in this repository.
 
 This is an **AST-driven SQL data augmentation tool** that generates semantic variations of SQL queries and their natural language descriptions. The tool uses SQL Abstract Syntax Tree (AST) transformations combined with LLM-based query adaptation to create training data for machine learning models.
 
-**Key purpose:** Given an original SQL query + natural language description + schema, generate semantically equivalent query pairs with different SQL and adapted natural language descriptions.
+**Key purpose:** Given an original SQL query + natural language description + schema, generate controlled semantic variations with different SQL and adapted natural language descriptions. Mutations should intentionally change the query semantics programmatically, while the LLM layer updates the natural language query to match the modified SQL.
 
 ## Folder Structure
 
@@ -24,7 +24,8 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 │   ├── threshold_shift.py         # mutate_threshold_shift — inequality operator + value shift
 │   ├── equivalent_column.py       # mutate_equivalent_column — semantic group column swap
 │   ├── value_group.py             # mutate_value_group — IN clause value group swap
-│   └── binary.py                  # mutate_binary — binary column value flip (0 ↔ 1)
+│   ├── binary.py                  # mutate_binary — binary column value flip (0 ↔ 1)
+│   └── postgis.py                 # mutate_postgis — semantic mutations for PostGIS functions
 ├── pyproject.toml
 ├── uv.lock
 ├── .python-version
@@ -47,6 +48,7 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - `equivalent_column.py`: Replaces a column with a peer from the same semantic group
    - `value_group.py`: Swaps an IN clause's value group (e.g. Norte → Sudeste)
    - `binary.py`: Flips a binary column value (0 → 1 or 1 → 0)
+   - `postgis.py`: Mutates PostGIS functions such as `ST_Buffer`, `ST_DWithin`, `ST_Intersection`, and strict `ST_Intersects(ST_Buffer(...), ST_Buffer(...))` patterns
    - Each mutation appends changes to a `changelog` list for LLM context
 
 2. **Schema Utilities** (`schema_utils.py`)
@@ -63,6 +65,7 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - `create_random_variation`: Parses SQL → two-pass AST transform → adapted query
    - Pass 1: column swaps (`mutate_equivalent_column`) so subsequent mutations see updated columns
    - Pass 2: all remaining mutations applied together
+   - Maintains a per-query `mutation_state` dictionary so repeated PostGIS radii/distances are changed consistently across a query
 
 5. **Entry Point** (`main.py`)
    - Holds hardcoded schema definition and test queries
@@ -93,6 +96,13 @@ Schema is a dictionary with `tables` array. Each table has:
   - `type`: "string", "number", or "enum"
   - For "number": `min`, `max` (numeric bounds)
   - For "enum": `enums` (array of `{value, description}` objects)
+  - For "geometry" (optional): `geometry_type`, `srid`, `metric_srid`, `spatial_role`, `distance_min_m`, `distance_max_m`, `buffer_min_m`, `buffer_max_m`
+
+Geometry metadata is recommended but not required. PostGIS mutations fall back to safe defaults when geometry metadata is absent:
+- `distance_min_m`: 100
+- `distance_max_m`: 5000
+- `buffer_min_m`: 100
+- `buffer_max_m`: 3000
 
 ## Current Limitations & Constraints
 
@@ -114,6 +124,8 @@ Schema is a dictionary with `tables` array. Each table has:
 2. **AST transformation pattern**: Using sqlglot's `transform()` method to recursively visit and modify nodes rather than manual tree walking
 3. **Node copying in mutations**: `mutate_agg` explicitly copies node arguments to avoid shared AST references across modifications
 4. **Type-safe mutations**: Each mutation checks column type before applying (e.g., only mutate_between on numeric columns)
+5. **Semantic-changing mutations**: Prefer mutations that deliberately change query intent in a bounded, schema-aware way over rewrites that preserve exact semantics. Equivalent rewrites are useful only as implementation helpers or secondary diversity, not as the main augmentation objective.
+6. **Coordinated PostGIS values**: Repeated spatial radii or distance thresholds in a single SQL query should be mutated to the same replacement value through shared per-query state.
 
 ## Extension Points for Future Mutations
 
@@ -133,6 +145,7 @@ Examples of potential mutations:
 - GROUP BY additions/removals
 - Subquery generation/inlining
 - Window function introduction
+- Additional PostGIS mutations such as centroid/point-on-surface swaps, validity filters, area-shape wrappers, and SRID-aware transforms
 
 ## Documentation Maintenance
 
@@ -141,7 +154,7 @@ Examples of potential mutations:
    - New dependencies (if added to `pyproject.toml`)
    - New mutation types in the "Tipos de Mutações Suportadas" section
    - Updated setup/usage instructions if affected
-2. Always update `CLAUDE.md` with:
+2. Always update `AGENTS.md` with:
    - Architecture changes (new components, modified data flow)
    - New dependencies and design decisions
    - Updated extension points and limitations
