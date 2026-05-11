@@ -11,19 +11,18 @@ DEFAULT_BUFFER_MIN_M = 100
 DEFAULT_BUFFER_MAX_M = 3000
 SET_OPERATION_TARGETS = ("ST_Union", "ST_Difference")
 
-
 def mutate_postgis(node, changelog, schema, state):
     if not isinstance(node, exp.Anonymous):
         return node
 
     function_name = _function_name(node)
 
-    if function_name == "ST_INTERSECTS":
-        return _mutate_intersects_buffer_pair(node, changelog, schema, state)
-    if function_name == "ST_BUFFER":
-        return _mutate_buffer_radius(node, changelog, schema, state)
     if function_name == "ST_DWITHIN":
         return _mutate_dwithin_distance(node, changelog, schema, state)
+    if function_name == "ST_BUFFER":
+        return _mutate_buffer_radius(node, changelog, schema, state)
+    if function_name == "ST_INTERSECTS":
+        return _mutate_intersects_buffer_pair(node, changelog, schema, state)
     if function_name == "ST_INTERSECTION":
         return _mutate_intersection_operation(node, changelog)
 

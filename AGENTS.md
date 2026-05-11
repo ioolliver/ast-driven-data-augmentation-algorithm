@@ -15,6 +15,7 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 ├── main.py                        # Entry point: schema data, test queries, run loop
 ├── augmentor.py                   # Orchestrator: create_random_variation
 ├── llm.py                         # LLM layer: prompting, Gemini call, format_changelog
+├── local-llm.py                   # Optional local Hugging Face LLM runner for Colab/GPU
 ├── schema_utils.py                # Schema helpers: get_col_info, get_table_name
 ├── mutations/
 │   ├── __init__.py                # Re-exports all mutate_* functions
@@ -58,7 +59,8 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 3. **LLM Layer** (`llm.py`)
    - `format_changelog`: Formats changelog list into readable diff string
    - `get_llm_prompt`: Builds the full prompt with original/modified SQL and changelog
-   - `send_to_llm`: Calls Google Gemini API using `GEMINI_KEY` from `.env`
+   - `send_to_llm`: Calls Google Gemini API using `GEMINI_KEY` from `.env`, or delegates to local mode when `LOCAL_LLM=true`
+   - `local-llm.py`: Exposes `send_to_local_llm(prompt)` for Hugging Face text-generation models such as Qwen 3.5 4B in Google Colab/T4
    - `adapt_query`: Composes the above to return an adapted natural language query
 
 4. **Orchestrator** (`augmentor.py`)
@@ -109,13 +111,14 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 - **Portuguese language hardcoded**: Queries adapted specifically for Portuguese language
 - **Single schema mutation**: No support for WHERE clause expansion, JOIN modifications, or subquery generation
 - **No error handling**: Missing validation for missing schema columns, invalid node types, or LLM failures
-- **Gemini API dependency**: Requires valid `GEMINI_KEY` in `.env`
+- **LLM backend required**: Gemini mode requires valid `GEMINI_KEY`; local mode requires Colab/GPU inference dependencies and a Hugging Face model available to `transformers`
 
 ## Dependencies
 
 - **sqlglot**: SQL parsing and AST manipulation (postgres dialect)
 - **google-genai**: Gemini API client (`gemini-3.1-flash-lite-preview`)
 - **python-dotenv**: Loads `GEMINI_KEY` from `.env`
+- **transformers / accelerate / torch / bitsandbytes**: Optional local LLM dependencies for `local-llm.py`, installed in the Colab runtime rather than required for default Gemini mode
 - **random**: For random selection in mutations
 
 ## Key Design Decisions
@@ -126,6 +129,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 4. **Type-safe mutations**: Each mutation checks column type before applying (e.g., only mutate_between on numeric columns)
 5. **Semantic-changing mutations**: Prefer mutations that deliberately change query intent in a bounded, schema-aware way over rewrites that preserve exact semantics. Equivalent rewrites are useful only as implementation helpers or secondary diversity, not as the main augmentation objective.
 6. **Coordinated PostGIS values**: Repeated spatial radii or distance thresholds in a single SQL query should be mutated to the same replacement value through shared per-query state.
+7. **Lazy local LLM loading**: `local-llm.py` imports and loads heavy Hugging Face dependencies only when local mode is used, keeping normal Gemini imports lightweight.
 
 ## Extension Points for Future Mutations
 

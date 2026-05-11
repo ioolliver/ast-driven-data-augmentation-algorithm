@@ -113,8 +113,13 @@ curseduca_schema = {
                 },
                 {
                     "name": "geometry",
-                    "description": "Geometria espacial da localização",
-                    "type": "string"
+                    "type": "geometry",
+                    "description": "Geometria espacial da localização da biblioteca",
+                    "geometry_type": "POINT",
+                    "distance_min_m": 100,
+                    "distance_max_m": 2000,
+                    "buffer_min_m": 100,
+                    "buffer_max_m": 1000
                 }
             ]
         },
@@ -352,8 +357,13 @@ curseduca_schema = {
                 },
                 {
                     "name": "geometry",
-                    "description": "Geometria espacial da localização",
-                    "type": "string"
+                    "type": "geometry",
+                    "description": "Geometria espacial da localização do centro populacional",
+                    "geometry_type": "POINT",
+                    "distance_min_m": 500,
+                    "distance_max_m": 10000,
+                    "buffer_min_m": 500,
+                    "buffer_max_m": 5000
                 }
             ]
         },
@@ -590,8 +600,13 @@ curseduca_schema = {
                 },
                 {
                     "name": "geometry",
-                    "description": "Geometria espacial da localização",
-                    "type": "string"
+                    "type": "geometry",
+                    "description": "Geometria espacial da localização do CRAS",
+                    "geometry_type": "POINT",
+                    "distance_min_m": 100,
+                    "distance_max_m": 3000,
+                    "buffer_min_m": 100,
+                    "buffer_max_m": 1500
                 }
             ]
         },
@@ -833,9 +848,14 @@ curseduca_schema = {
                 },
                 {
                     "name": "geometry",
-                    "description": "Geometria espacial da localização",
-                    "type": "string"
-                },
+                    "type": "geometry",
+                    "description": "Geometria espacial da localização do CREAS",
+                    "geometry_type": "POINT",
+                    "distance_min_m": 500,
+                    "distance_max_m": 5000,
+                    "buffer_min_m": 500,
+                    "buffer_max_m": 3000
+                }
             ],
         },
         {
@@ -862,10 +882,15 @@ curseduca_schema = {
                     "type": 'string',
                 },
                 {
-                    "name": 'geometry',
-                    "description": 'Geometria do distrito',
-                    "type": 'string',
-                },
+                    "name": "geometry",
+                    "type": "geometry",
+                    "description": "Geometria espacial do distrito",
+                    "geometry_type": "MULTIPOLYGON",
+                    "distance_min_m": 100,
+                    "distance_max_m": 50000,
+                    "buffer_min_m": 100,
+                    "buffer_max_m": 5000
+                }
             ],
         },
         {

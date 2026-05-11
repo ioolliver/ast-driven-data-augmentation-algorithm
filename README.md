@@ -60,6 +60,7 @@ As dependências estão definidas em `pyproject.toml`:
 - **sqlglot** (>= 30.2.1) - Parsing e manipulação de AST para SQL
 - **python-dotenv** (>= 1.0.0) - Carregamento de variáveis de ambiente do arquivo `.env`
 - **google-genai** - Cliente da API Google Gemini para adaptação de queries com LLM
+- **transformers**, **accelerate**, **torch** e **bitsandbytes** - Dependências opcionais para executar o LLM local em Colab/GPU
 
 Para instalar/atualizar dependências:
 
@@ -170,6 +171,32 @@ $env:GEMINI_KEY="sua-chave-aqui"
 ```
 
 O projeto verificará primeiro o arquivo `.env` e depois as variáveis de ambiente do sistema.
+
+## Usando LLM Local no Colab
+
+O arquivo `local-llm.py` expõe `send_to_local_llm(prompt)`, que recebe o prompt completo gerado por `llm.py` e retorna apenas o texto da resposta. Para ativar esse caminho em vez da API Gemini, defina:
+
+```env
+LOCAL_LLM=true
+LOCAL_LLM_MODEL=Qwen/Qwen3.5-4B-Instruct
+LOCAL_LLM_4BIT=true
+```
+
+Em um Google Colab com GPU T4, instale as dependências de inferência antes de executar o projeto:
+
+```bash
+pip install -U transformers accelerate bitsandbytes torch
+```
+
+Parâmetros opcionais:
+
+```env
+LOCAL_LLM_MAX_NEW_TOKENS=512
+LOCAL_LLM_TEMPERATURE=0.2
+LOCAL_LLM_TOP_P=0.9
+```
+
+O modelo é carregado de forma lazy na primeira chamada e reutilizado nas chamadas seguintes. O modo 4-bit fica ativo por padrão para reduzir uso de VRAM na T4.
 
 ## Tipos de Mutações Suportadas
 

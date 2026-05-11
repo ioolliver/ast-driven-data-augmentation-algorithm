@@ -1,4 +1,7 @@
 import os
+import importlib.util
+from pathlib import Path
+
 from dotenv import load_dotenv
 import google.genai as genai
 
@@ -42,14 +45,34 @@ Return only the new query text. Make sure that the adapted text makes sense in t
 
 """
 
+LOCAL_LLM = os.environ.get("LOCAL_LLM", "").strip().lower() in {"1", "true", "yes", "on"}
+_LOCAL_LLM_MODULE = None
+
+
+def _send_to_local_llm(prompt):
+    global _LOCAL_LLM_MODULE
+
+    if _LOCAL_LLM_MODULE is not None:
+        return _LOCAL_LLM_MODULE.send_to_local_llm(prompt)
+
+    module_path = Path(__file__).with_name("local-llm.py")
+    spec = importlib.util.spec_from_file_location("local_llm", module_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    _LOCAL_LLM_MODULE = module
+    return module.send_to_local_llm(prompt)
+
 
 def send_to_llm(prompt):
-    api_key = os.environ.get("GEMINI_KEY")
-    client = genai.Client(api_key=api_key)
-    response = client.models.generate_content(
-        model="gemini-3.1-flash-lite-preview", contents=prompt
-    )
-    return response.text
+    if LOCAL_LLM:
+        return _send_to_local_llm(prompt)
+    else:
+        api_key = os.environ.get("GEMINI_KEY")
+        client = genai.Client(api_key=api_key)
+        response = client.models.generate_content(
+            model="gemini-3.1-flash-lite-preview", contents=prompt
+        )
+        return response.text
 
 
 def adapt_query(query, sql, sql_modified, changelog):
