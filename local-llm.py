@@ -1,10 +1,12 @@
 import os
+import re
 
 
 DEFAULT_MODEL_ID = "Qwen/Qwen3.5-4B-Instruct"
 DEFAULT_MAX_NEW_TOKENS = 512
 DEFAULT_TEMPERATURE = 0.2
 DEFAULT_TOP_P = 0.9
+DEFAULT_ENABLE_THINKING = False
 
 _TEXT_GENERATORS = {}
 
@@ -63,16 +65,52 @@ def _get_text_generator(model_id, use_4bit):
     return generator
 
 
-def _build_model_input(prompt, model_id, use_4bit):
+def _strip_thinking(text):
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL | re.IGNORECASE)
+
+    if "<think>" not in text.lower():
+        return text.strip()
+
+    lines = []
+    inside_thinking = False
+    for line in text.splitlines():
+        lower_line = line.lower()
+        if "<think>" in lower_line:
+            inside_thinking = True
+            continue
+        if "</think>" in lower_line:
+            inside_thinking = False
+            continue
+        if not inside_thinking:
+            lines.append(line)
+
+    if lines:
+        return "\n".join(lines).strip()
+
+    return text.rsplit("<think>", 1)[-1].strip()
+
+
+def _build_model_input(prompt, model_id, use_4bit, enable_thinking=DEFAULT_ENABLE_THINKING):
     generator = _get_text_generator(model_id, use_4bit)
     tokenizer = getattr(generator, "tokenizer", None)
 
     if tokenizer and getattr(tokenizer, "chat_template", None):
-        return tokenizer.apply_chat_template(
-            [{"role": "user", "content": prompt}],
-            tokenize=False,
-            add_generation_prompt=True,
-        )
+        kwargs = {
+            "tokenize": False,
+            "add_generation_prompt": True,
+        }
+
+        try:
+            return tokenizer.apply_chat_template(
+                [{"role": "user", "content": prompt}],
+                enable_thinking=enable_thinking,
+                **kwargs,
+            )
+        except TypeError:
+            return tokenizer.apply_chat_template(
+                [{"role": "user", "content": prompt}],
+                **kwargs,
+            )
 
     return prompt
 
@@ -97,6 +135,7 @@ def send_to_local_llm(
     temperature=None,
     top_p=None,
     use_4bit=None,
+    enable_thinking=None,
 ):
     """Run the adaptation prompt against a local Hugging Face text-generation model."""
     model_id = model_id or os.environ.get("LOCAL_LLM_MODEL", DEFAULT_MODEL_ID)
@@ -114,8 +153,13 @@ def send_to_local_llm(
         else float(os.environ.get("LOCAL_LLM_TOP_P", DEFAULT_TOP_P))
     )
     use_4bit = _env_flag("LOCAL_LLM_4BIT", True) if use_4bit is None else use_4bit
+    enable_thinking = (
+        _env_flag("LOCAL_LLM_THINKING", DEFAULT_ENABLE_THINKING)
+        if enable_thinking is None
+        else enable_thinking
+    )
 
-    model_input = _build_model_input(prompt, model_id, use_4bit)
+    model_input = _build_model_input(prompt, model_id, use_4bit, enable_thinking)
     generator = _get_text_generator(model_id, use_4bit)
     tokenizer = getattr(generator, "tokenizer", None)
     generator_kwargs = {
@@ -138,4 +182,4 @@ def send_to_local_llm(
     if generated_text.startswith(model_input):
         generated_text = generated_text[len(model_input):]
 
-    return generated_text.strip()
+    return _strip_thinking(generated_text)

@@ -180,6 +180,7 @@ O arquivo `local-llm.py` expõe `send_to_local_llm(prompt)`, que recebe o prompt
 LOCAL_LLM=true
 LOCAL_LLM_MODEL=Qwen/Qwen3.5-4B-Instruct
 LOCAL_LLM_4BIT=true
+LOCAL_LLM_THINKING=false
 ```
 
 Em um Google Colab com GPU T4, instale as dependências de inferência antes de executar o projeto:
@@ -196,7 +197,7 @@ LOCAL_LLM_TEMPERATURE=0.2
 LOCAL_LLM_TOP_P=0.9
 ```
 
-O modelo é carregado de forma lazy na primeira chamada e reutilizado nas chamadas seguintes. O modo 4-bit fica ativo por padrão para reduzir uso de VRAM na T4.
+O modelo é carregado de forma lazy na primeira chamada e reutilizado nas chamadas seguintes. O modo 4-bit fica ativo por padrão para reduzir uso de VRAM na T4. Para modelos Qwen que suportam modo de raciocínio, `LOCAL_LLM_THINKING=false` pede ao template de chat para não gerar o bloco de pensamento; qualquer bloco `<think>...</think>` remanescente também é removido antes da resposta ser retornada.
 
 ## Tipos de Mutações Suportadas
 

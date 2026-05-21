@@ -130,6 +130,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 5. **Semantic-changing mutations**: Prefer mutations that deliberately change query intent in a bounded, schema-aware way over rewrites that preserve exact semantics. Equivalent rewrites are useful only as implementation helpers or secondary diversity, not as the main augmentation objective.
 6. **Coordinated PostGIS values**: Repeated spatial radii or distance thresholds in a single SQL query should be mutated to the same replacement value through shared per-query state.
 7. **Lazy local LLM loading**: `local-llm.py` imports and loads heavy Hugging Face dependencies only when local mode is used, keeping normal Gemini imports lightweight.
+8. **No exposed chain-of-thought**: Local Qwen calls default to `LOCAL_LLM_THINKING=false` and strip `<think>...</think>` blocks before returning text to the augmentation pipeline.
 
 ## Extension Points for Future Mutations
 
