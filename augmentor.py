@@ -35,6 +35,9 @@ def create_random_variation(schema, query, sql):
     modified_ast = modified_ast.transform(mutate_operators)
 
     sql_modified = modified_ast.sql(dialect="postgres", pretty=True)
+    if not changelog:
+        return (query, sql_modified)
+
     query_modified = adapt_query(query, sql, sql_modified, changelog)
 
     return (query_modified, sql_modified)

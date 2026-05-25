@@ -59,7 +59,7 @@ As dependências estão definidas em `pyproject.toml`:
 
 - **sqlglot** (>= 30.2.1) - Parsing e manipulação de AST para SQL
 - **python-dotenv** (>= 1.0.0) - Carregamento de variáveis de ambiente do arquivo `.env`
-- **google-genai** - Cliente da API Google Gemini para adaptação de queries com LLM
+- **openai** - Cliente compatível com Chat Completions para acessar o Amazon Bedrock
 - **transformers**, **accelerate**, **torch** e **bitsandbytes** - Dependências opcionais para executar o LLM local em Colab/GPU
 
 Para instalar/atualizar dependências:
@@ -77,6 +77,28 @@ python main.py
 ```
 
 O script irá executar o exemplo incluído que demonstra como gerar uma variação aleatória de uma consulta SQL com sua descrição em linguagem natural.
+
+### Gerar o dataset geoespacial aumentado
+
+```bash
+uv run python data/geo_dataset/apply_augmentation_geo_dataset.py --max-workers 5
+```
+
+O script lê `data/geo_dataset/geo_base_dataset.json`, contendo somente os 980 pares com `source == "base_dataset"`, e aplica uma variação por par `question` + `sql_code`. As chamadas ao Bedrock são executadas com concorrência limitada; `--max-workers` define o máximo de requisições simultâneas e seu valor padrão é `5`.
+
+O script grava:
+
+- `data/geo_dataset/geo_dataset_augmented.json`: mistura cada item original com sua versão aumentada usando os campos `question`, `level`, `sql_code` e `augmented`
+- `data/geo_dataset/geo_dataset_augmented_only.json`: registra, para cada item, `original_question`, `original_sql`, `changed_question`, `changed_sql` e `level`
+
+Durante a execução, o console mostra o total carregado, a quantidade concluída, o percentual, sucessos e falhas:
+
+```text
+2026-05-25 21:00:00 INFO Starting augmentation batch: rows=980 max_workers=5 input=...
+2026-05-25 21:00:02 INFO Progress: completed=1/980 (0.1%) succeeded=1 failed=0
+```
+
+Se uma chamada falhar, a execução registra `failed=1` e interrompe o batch sem gravar artefatos parciais.
 
 ### Usar como módulo
 
@@ -107,13 +129,20 @@ descricao = "Buscar registros com coluna numérica entre 10 e 50"
 nova_descricao, novo_sql = create_random_variation(schema, descricao, sql_original)
 ```
 
+Quando nenhuma mutação aplicável é encontrada, `create_random_variation` retorna a descrição original e o SQL serializado sem chamar o LLM. Assim, consultas sem alterações não consomem chamadas remotas ou inferência local desnecessária.
+
 ## Estrutura do Projeto
 
 ```
 .
 ├── main.py                        # Ponto de entrada: schema, queries de teste e loop de execução
 ├── augmentor.py                   # Orquestrador: create_random_variation
-├── llm.py                         # Camada LLM: prompt, chamada Gemini, format_changelog
+├── llm.py                         # Camada LLM: prompt, chamada Bedrock, format_changelog
+├── data/
+│   └── geo_dataset/
+│       ├── geo_base_dataset.json   # 980 pares base processados pelo batch
+│       ├── geodataset_schema.py   # Schema usado pelo batch do dataset geoespacial
+│       └── apply_augmentation_geo_dataset.py  # Executa o batch com concorrência limitada
 ├── schema_utils.py                # Utilitários de schema: get_col_info, get_table_name
 ├── mutations/
 │   ├── __init__.py                # Re-exporta todas as funções mutate_*
@@ -134,9 +163,9 @@ nova_descricao, novo_sql = create_random_variation(schema, descricao, sql_origin
 └── README.md                      # Este arquivo
 ```
 
-## Configuração de Secrets (Google Gemini)
+## Configuração do Amazon Bedrock
 
-O projeto usa a API Google Gemini para adaptar descrições de consultas. Você precisará configurar sua chave de API.
+Por padrão, o projeto usa `gpt-oss-120b` pelo endpoint OpenAI-compatible do Amazon Bedrock para adaptar descrições de consultas. O identificador do modelo é `openai.gpt-oss-120b`.
 
 ### Usando arquivo `.env` (Recomendado)
 
@@ -146,35 +175,41 @@ O projeto usa a API Google Gemini para adaptar descrições de consultas. Você 
 cp .env.example .env
 ```
 
-2. Obtenha sua chave de API em: https://aistudio.google.com/app/apikey
+2. Crie uma chave de API do Amazon Bedrock e escolha uma região em que `gpt-oss-120b` esteja disponível.
 
-3. Edite o arquivo `.env` e adicione sua chave:
+3. Edite o arquivo `.env` e adicione a chave e o endpoint Bedrock da região:
 
 ```env
-GEMINI_KEY=sua-chave-de-api-aqui
+OPENAI_API_KEY=sua-chave-bedrock-aqui
+OPENAI_BASE_URL=https://bedrock-mantle.us-east-1.api.aws/v1
+# BEDROCK_MODEL=openai.gpt-oss-120b
 ```
 
 4. Pronto! O arquivo será carregado automaticamente quando você executar o projeto.
 
 **Nota:** O arquivo `.env` é automaticamente ignorado pelo git e nunca será commitado, mantendo sua chave segura.
 
+`OPENAI_API_KEY` contém uma chave do Bedrock porque o endpoint segue a interface OpenAI Chat Completions. Não use a URL da plataforma OpenAI nesta configuração.
+
 ### Usando variáveis de ambiente do sistema
 
-Alternativamente, você pode definir a variável diretamente:
+Alternativamente, você pode definir as variáveis diretamente:
 
 ```bash
 # Linux/macOS
-export GEMINI_KEY="sua-chave-aqui"
+export OPENAI_API_KEY="sua-chave-bedrock-aqui"
+export OPENAI_BASE_URL="https://bedrock-mantle.us-east-1.api.aws/v1"
 
 # Windows (PowerShell)
-$env:GEMINI_KEY="sua-chave-aqui"
+$env:OPENAI_API_KEY="sua-chave-bedrock-aqui"
+$env:OPENAI_BASE_URL="https://bedrock-mantle.us-east-1.api.aws/v1"
 ```
 
-O projeto verificará primeiro o arquivo `.env` e depois as variáveis de ambiente do sistema.
+Substitua `us-east-1` pela região habilitada em sua conta, se necessário.
 
 ## Usando LLM Local no Colab
 
-O arquivo `local-llm.py` expõe `send_to_local_llm(prompt)`, que recebe o prompt completo gerado por `llm.py` e retorna apenas o texto da resposta. Para ativar esse caminho em vez da API Gemini, defina:
+O arquivo `local-llm.py` expõe `send_to_local_llm(prompt)`, que recebe o prompt completo gerado por `llm.py` e retorna apenas o texto da resposta. Para ativar esse caminho em vez do Amazon Bedrock, defina:
 
 ```env
 LOCAL_LLM=true
@@ -198,6 +233,8 @@ LOCAL_LLM_TOP_P=0.9
 ```
 
 O modelo é carregado de forma lazy na primeira chamada e reutilizado nas chamadas seguintes. O modo 4-bit fica ativo por padrão para reduzir uso de VRAM na T4. Para modelos Qwen que suportam modo de raciocínio, `LOCAL_LLM_THINKING=false` pede ao template de chat para não gerar o bloco de pensamento; qualquer bloco `<think>...</think>` remanescente também é removido antes da resposta ser retornada.
+
+Ao executar o batch geoespacial com `LOCAL_LLM=true`, use `--max-workers 1`, pois o modelo local é carregado e reutilizado no mesmo processo. A concorrência limitada do batch é destinada às chamadas remotas ao Bedrock.
 
 ## Tipos de Mutações Suportadas
 
@@ -271,5 +308,5 @@ Para adicionar um novo tipo de mutação:
 ## Referências
 
 - [sqlglot Documentation](https://sqlglot.readthedocs.io/)
-- [Google Gemini API](https://ai.google.dev/)
+- [Amazon Bedrock Chat Completions API](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-chat-completions-mantle.html)
 - [uv Documentation](https://docs.astral.sh/uv/)

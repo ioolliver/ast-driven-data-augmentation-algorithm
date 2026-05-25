@@ -14,8 +14,13 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 .
 ├── main.py                        # Entry point: schema data, test queries, run loop
 ├── augmentor.py                   # Orchestrator: create_random_variation
-├── llm.py                         # LLM layer: prompting, Gemini call, format_changelog
+├── llm.py                         # LLM layer: prompting, Bedrock call, format_changelog
 ├── local-llm.py                   # Optional local Hugging Face LLM runner for Colab/GPU
+├── data/
+│   └── geo_dataset/
+│       ├── geo_base_dataset.json   # 980 base_dataset rows processed by the batch
+│       ├── geodataset_schema.py   # Schema dedicated to the geospatial dataset batch
+│       └── apply_augmentation_geo_dataset.py  # Bounded-concurrency batch writer
 ├── schema_utils.py                # Schema helpers: get_col_info, get_table_name
 ├── mutations/
 │   ├── __init__.py                # Re-exports all mutate_* functions
@@ -59,7 +64,7 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 3. **LLM Layer** (`llm.py`)
    - `format_changelog`: Formats changelog list into readable diff string
    - `get_llm_prompt`: Builds the full prompt with original/modified SQL and changelog
-   - `send_to_llm`: Calls Google Gemini API using `GEMINI_KEY` from `.env`, or delegates to local mode when `LOCAL_LLM=true`
+   - `send_to_llm`: Calls Amazon Bedrock OpenAI-compatible Chat Completions using `OPENAI_API_KEY` and `OPENAI_BASE_URL`, or delegates to local mode when `LOCAL_LLM=true`
    - `local-llm.py`: Exposes `send_to_local_llm(prompt)` for Hugging Face text-generation models such as Qwen 3.5 4B in Google Colab/T4
    - `adapt_query`: Composes the above to return an adapted natural language query
 
@@ -68,10 +73,17 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - Pass 1: column swaps (`mutate_equivalent_column`) so subsequent mutations see updated columns
    - Pass 2: all remaining mutations applied together
    - Maintains a per-query `mutation_state` dictionary so repeated PostGIS radii/distances are changed consistently across a query
+   - Returns the original natural-language query without an LLM call when no mutation adds an entry to `changelog`
 
 5. **Entry Point** (`main.py`)
    - Holds hardcoded schema definition and test queries
    - Loops over query pairs, calls `create_random_variation`, prints results
+
+6. **Geo Dataset Batch Script** (`data/geo_dataset/apply_augmentation_geo_dataset.py`)
+   - Loads `data/geo_dataset/geo_base_dataset.json`, restricted to `source == "base_dataset"`
+   - Applies `create_random_variation` once per dataset row with at most five concurrent requests by default
+   - Logs completed, succeeded, and failed request counts as each remote call finishes
+   - Writes a mixed original+augmented dataset and an augmented-only change mapping
 
 ### Data Flow
 
@@ -84,9 +96,23 @@ Transform AST (apply mutations) → collect changelog
   ↓
 Generate modified SQL from AST
   ↓
-LLM adapts query_text based on changelog
+If changelog is empty: preserve query_text without an LLM call
+Otherwise: LLM adapts query_text based on changelog
   ↓
 Output: (adapted_query, modified_sql)
+```
+
+Batch dataset flow:
+
+```
+Input dataset JSON
+  ↓
+For each row: call create_random_variation(schema, question, sql_code) once
+with bounded concurrent requests while retaining input order
+  ↓
+Write geo_dataset_augmented.json
+  ↓
+Write geo_dataset_augmented_only.json
 ```
 
 ### Schema Format
@@ -111,14 +137,14 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 - **Portuguese language hardcoded**: Queries adapted specifically for Portuguese language
 - **Single schema mutation**: No support for WHERE clause expansion, JOIN modifications, or subquery generation
 - **No error handling**: Missing validation for missing schema columns, invalid node types, or LLM failures
-- **LLM backend required**: Gemini mode requires valid `GEMINI_KEY`; local mode requires Colab/GPU inference dependencies and a Hugging Face model available to `transformers`
+- **LLM backend required for mutated queries**: Bedrock mode requires a Bedrock API key and OpenAI-compatible base URL; local mode requires Colab/GPU inference dependencies and a Hugging Face model available to `transformers`
 
 ## Dependencies
 
 - **sqlglot**: SQL parsing and AST manipulation (postgres dialect)
-- **google-genai**: Gemini API client (`gemini-3.1-flash-lite-preview`)
-- **python-dotenv**: Loads `GEMINI_KEY` from `.env`
-- **transformers / accelerate / torch / bitsandbytes**: Optional local LLM dependencies for `local-llm.py`, installed in the Colab runtime rather than required for default Gemini mode
+- **openai**: OpenAI-compatible client for Amazon Bedrock Chat Completions (`openai.gpt-oss-120b`)
+- **python-dotenv**: Loads Bedrock endpoint and API key configuration from `.env`
+- **transformers / accelerate / torch / bitsandbytes**: Optional local LLM dependencies for `local-llm.py`, installed in the Colab runtime rather than required for default Bedrock mode
 - **random**: For random selection in mutations
 
 ## Key Design Decisions
@@ -129,8 +155,14 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 4. **Type-safe mutations**: Each mutation checks column type before applying (e.g., only mutate_between on numeric columns)
 5. **Semantic-changing mutations**: Prefer mutations that deliberately change query intent in a bounded, schema-aware way over rewrites that preserve exact semantics. Equivalent rewrites are useful only as implementation helpers or secondary diversity, not as the main augmentation objective.
 6. **Coordinated PostGIS values**: Repeated spatial radii or distance thresholds in a single SQL query should be mutated to the same replacement value through shared per-query state.
-7. **Lazy local LLM loading**: `local-llm.py` imports and loads heavy Hugging Face dependencies only when local mode is used, keeping normal Gemini imports lightweight.
+7. **Lazy local LLM loading**: `local-llm.py` imports and loads heavy Hugging Face dependencies only when local mode is used, keeping normal Bedrock imports lightweight.
 8. **No exposed chain-of-thought**: Local Qwen calls default to `LOCAL_LLM_THINKING=false` and strip `<think>...</think>` blocks before returning text to the augmentation pipeline.
+9. **Dataset batch outputs are reduced views**: The geospatial batch writer emits only the fields needed for training and change tracking instead of copying all source metadata into the derived artifacts.
+10. **Bedrock through OpenAI compatibility**: Remote adaptation uses `openai.gpt-oss-120b` on an explicitly configured `bedrock-mantle` OpenAI-compatible endpoint.
+11. **Bounded dataset concurrency**: The geospatial batch exposes `--max-workers` with a default of `5`; it limits outstanding paid LLM requests and reconstructs outputs in source order.
+12. **Local batch execution remains sequential**: When `LOCAL_LLM=true`, invoke the geospatial batch with `--max-workers 1` because the local model instance is shared within the process.
+13. **Batch failure visibility**: The geospatial batch logs progress on each completed request and stops on the first failed request rather than writing incomplete output files.
+14. **No-op mutation fast path**: If the AST passes produce an empty `changelog`, `create_random_variation` preserves the original natural-language query and skips LLM adaptation.
 
 ## Extension Points for Future Mutations
 

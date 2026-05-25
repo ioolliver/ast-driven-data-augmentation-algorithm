@@ -1,11 +1,15 @@
 import os
 import importlib.util
 from pathlib import Path
+from urllib.parse import urlparse
 
 from dotenv import load_dotenv
-import google.genai as genai
+from openai import OpenAI
 
 load_dotenv()
+
+DEFAULT_BEDROCK_MODEL = "openai.gpt-oss-120b"
+BEDROCK_MODEL = os.environ.get("BEDROCK_MODEL", DEFAULT_BEDROCK_MODEL)
 
 
 def format_changelog(changelog):
@@ -63,16 +67,42 @@ def _send_to_local_llm(prompt):
     return module.send_to_local_llm(prompt)
 
 
+def _send_to_bedrock(prompt):
+    api_key = os.environ.get("OPENAI_API_KEY")
+    base_url = os.environ.get("OPENAI_BASE_URL")
+    if not api_key or not base_url:
+        raise RuntimeError(
+            "Set OPENAI_API_KEY and OPENAI_BASE_URL for the Amazon Bedrock "
+            "OpenAI-compatible endpoint."
+        )
+
+    parsed_base_url = urlparse(base_url)
+    is_mantle_host = (
+        parsed_base_url.hostname is not None
+        and parsed_base_url.hostname.startswith("bedrock-mantle.")
+        and parsed_base_url.hostname.endswith(".api.aws")
+    )
+    if not is_mantle_host or parsed_base_url.path.rstrip("/") != "/v1":
+        raise RuntimeError(
+            "OPENAI_BASE_URL must point to an Amazon Bedrock bedrock-mantle "
+            "endpoint ending in /v1."
+        )
+
+    client = OpenAI(api_key=api_key, base_url=base_url)
+    response = client.chat.completions.create(
+        model=BEDROCK_MODEL,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    content = response.choices[0].message.content
+    if not content:
+        raise RuntimeError("Amazon Bedrock returned an empty model response.")
+    return content
+
+
 def send_to_llm(prompt):
     if LOCAL_LLM:
         return _send_to_local_llm(prompt)
-    else:
-        api_key = os.environ.get("GEMINI_KEY")
-        client = genai.Client(api_key=api_key)
-        response = client.models.generate_content(
-            model="gemini-3.1-flash-lite-preview", contents=prompt
-        )
-        return response.text
+    return _send_to_bedrock(prompt)
 
 
 def adapt_query(query, sql, sql_modified, changelog):
