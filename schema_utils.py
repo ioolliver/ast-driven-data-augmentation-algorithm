@@ -12,15 +12,16 @@ def get_col_info(schema, table_name, col_name):
 
 def get_table_name(node):
     table_name = node.table
-    if not table_name:
-        select_node = node.find_ancestor(exp.Select)
-        if select_node and select_node.args.get("from"):
-            table_name = select_node.args["from"].this.name
-
     select_node = node.find_ancestor(exp.Select)
+
+    if not table_name:
+        from_clause = _get_from_clause(select_node)
+        if from_clause:
+            table_name = from_clause.this.name
+
     if select_node:
         sources = []
-        from_clause = select_node.args.get("from")
+        from_clause = _get_from_clause(select_node)
         if from_clause:
             sources.append(from_clause.this)
         for join in select_node.args.get("joins", []):
@@ -30,3 +31,9 @@ def get_table_name(node):
             if source.alias == table_name:
                 return source.name
     return table_name
+
+
+def _get_from_clause(select_node):
+    if not select_node:
+        return None
+    return select_node.args.get("from_") or select_node.args.get("from")
