@@ -1,5 +1,5 @@
-import os
 import importlib.util
+import os
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -13,10 +13,12 @@ BEDROCK_MODEL = os.environ.get("BEDROCK_MODEL", DEFAULT_BEDROCK_MODEL)
 
 
 def format_changelog(changelog):
-    return "\n".join([
-        f"- Changed from: `{change['old_line']}` -> To: `{change['new_line']}{(' - ' + change['tip']) if 'tip' in change else ''}`"
-        for change in changelog
-    ])
+    return "\n".join(
+        [
+            f"- Changed from: `{change['old_line']}` -> To: `{change['new_line']}{(' - ' + change['tip']) if 'tip' in change else ''}`"
+            for change in changelog
+        ]
+    )
 
 
 def get_llm_prompt(query, sql, sql_modified, changelog):
@@ -45,11 +47,17 @@ use the changelog below to help you know exactly what changed in the query.
 
 # TASK
 
-Return only the new query text. Make sure that the adapted text makes sense in the portuguese language.
+Return only the new query text. Make sure that the adapted text makes sense in the target language. It must be a natural language question.
 
 """
 
-LOCAL_LLM = os.environ.get("LOCAL_LLM", "").strip().lower() in {"1", "true", "yes", "on"}
+
+LOCAL_LLM = os.environ.get("LOCAL_LLM", "").strip().lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
 _LOCAL_LLM_MODULE = None
 
 
