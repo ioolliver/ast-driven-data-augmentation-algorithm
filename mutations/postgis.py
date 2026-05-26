@@ -10,6 +10,59 @@ DEFAULT_DISTANCE_MAX_M = 5000
 DEFAULT_BUFFER_MIN_M = 100
 DEFAULT_BUFFER_MAX_M = 3000
 SET_OPERATION_TARGETS = ("ST_Union", "ST_Difference")
+INEQ_CLASSES = (exp.GT, exp.LT, exp.GTE, exp.LTE)
+
+
+def mutate_distance_threshold(node, changelog, schema, state):
+    if not isinstance(node, INEQ_CLASSES):
+        return node
+
+    if isinstance(node.left, exp.StDistance) and _is_numeric_literal(node.right):
+        distance_node = node.left
+        threshold_node = node.right
+        threshold_is_right = True
+    elif isinstance(node.right, exp.StDistance) and _is_numeric_literal(node.left):
+        distance_node = node.right
+        threshold_node = node.left
+        threshold_is_right = False
+    else:
+        return node
+
+    old_key = _literal_key(threshold_node)
+    old_value = _numeric_value(threshold_node)
+    min_value, max_value = _range_for_node(
+        distance_node,
+        schema,
+        "distance_min_m",
+        "distance_max_m",
+        DEFAULT_DISTANCE_MIN_M,
+        DEFAULT_DISTANCE_MAX_M,
+    )
+    new_value = _coordinated_numeric_change(
+        state,
+        "postgis_distance_by_old",
+        old_key,
+        old_value,
+        min_value,
+        max_value,
+    )
+
+    if new_value == old_value:
+        return node
+
+    old_sql = node.sql(dialect="postgres")
+    new_threshold = exp.Literal.number(str(new_value))
+    if threshold_is_right:
+        node.set("expression", new_threshold)
+    else:
+        node.set("this", new_threshold)
+
+    changelog.append({
+        "old_line": old_sql,
+        "new_line": node.sql(dialect="postgres"),
+        "tip": f"Limite de ST_Distance alterado de {old_key} para {new_value}",
+    })
+    return node
 
 def mutate_postgis(node, changelog, schema, state):
     if not isinstance(node, exp.Anonymous):

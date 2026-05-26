@@ -31,7 +31,8 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 │   ├── equivalent_column.py       # mutate_equivalent_column — semantic group column swap
 │   ├── value_group.py             # mutate_value_group — IN clause value group swap
 │   ├── binary.py                  # mutate_binary — binary column value flip (0 ↔ 1)
-│   └── postgis.py                 # mutate_postgis — semantic mutations for PostGIS functions
+│   ├── text_pattern.py            # mutate_text_pattern — LIKE/ILIKE pattern-shape mutation
+│   └── postgis.py                 # PostGIS function and distance-threshold mutations
 ├── pyproject.toml
 ├── uv.lock
 ├── .python-version
@@ -54,7 +55,8 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - `equivalent_column.py`: Replaces a column with a peer from the same semantic group
    - `value_group.py`: Swaps an IN clause's value group (e.g. Norte → Sudeste)
    - `binary.py`: Flips a binary column value (0 → 1 or 1 → 0)
-   - `postgis.py`: Mutates PostGIS functions such as `ST_Buffer`, `ST_DWithin`, `ST_Intersection`, and strict `ST_Intersects(ST_Buffer(...), ST_Buffer(...))` patterns
+   - `text_pattern.py`: Mutates simple `LIKE`/`ILIKE` pattern shape among exact, starts-with, ends-with, and contains semantics without schema metadata
+   - `postgis.py`: Mutates PostGIS functions such as `ST_Buffer`, `ST_DWithin`, direct `ST_Distance(...)` thresholds, `ST_Intersection`, and strict `ST_Intersects(ST_Buffer(...), ST_Buffer(...))` patterns
    - Each mutation appends changes to a `changelog` list for LLM context
 
 2. **Schema Utilities** (`schema_utils.py`)
@@ -163,6 +165,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 12. **Local batch execution remains sequential**: When `LOCAL_LLM=true`, invoke the geospatial batch with `--max-workers 1` because the local model instance is shared within the process.
 13. **Batch failure visibility**: The geospatial batch logs progress on each completed request and stops on the first failed request rather than writing incomplete output files.
 14. **No-op mutation fast path**: If the AST passes produce an empty `changelog`, `create_random_variation` preserves the original natural-language query and skips LLM adaptation.
+15. **Conservative text-pattern mutation**: `LIKE` and `ILIKE` mutations change only simple outer-wildcard shape; patterns containing `_`, escaping, or internal `%` are preserved.
 
 ## Extension Points for Future Mutations
 

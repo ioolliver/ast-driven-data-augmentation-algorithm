@@ -153,7 +153,8 @@ Quando nenhuma mutação aplicável é encontrada, `create_random_variation` ret
 │   ├── equivalent_column.py       # Troca coluna por outra do mesmo grupo semântico
 │   ├── value_group.py             # Troca grupo de valores em cláusula IN (ex: Norte → Sudeste)
 │   ├── binary.py                  # Inverte valor binário (0 ↔ 1)
-│   └── postgis.py                 # Muta funções PostGIS de raio, distância e operações espaciais
+│   ├── text_pattern.py            # Muda a semântica de padrões LIKE/ILIKE
+│   └── postgis.py                 # Muta funções PostGIS e limites de distância
 ├── pyproject.toml                 # Configuração do projeto e dependências
 ├── uv.lock                        # Lockfile de dependências
 ├── .python-version                # Versão do Python (3.12)
@@ -259,11 +260,23 @@ Troca o conjunto de valores em uma cláusula `IN` por outro grupo definido no sc
 ### 7. Binário (`mutations/binary.py`)
 Inverte o valor de uma coluna binária (`0` → `1` ou `1` → `0`).
 
-### 8. PostGIS (`mutations/postgis.py`)
+### 8. Padrão textual (`mutations/text_pattern.py`)
+Altera a relação representada por padrões simples `LIKE` e `ILIKE`, mantendo o texto pesquisado:
+
+```sql
+m.nm_mun ILIKE 'São%'
+-- passa a expressar, por exemplo:
+m.nm_mun ILIKE '%São%'
+```
+
+Os formatos suportados representam igualdade, prefixo, sufixo e contenção. Padrões com curingas internos ou `_` não são alterados.
+
+### 9. PostGIS (`mutations/postgis.py`)
 Aplica mutações semânticas em funções PostGIS comuns:
 
 - `ST_Buffer`: altera raios em metros, mantendo valores repetidos coordenados na mesma consulta.
 - `ST_DWithin`: altera o limite de distância em metros.
+- `ST_Distance(...) <op> valor`: altera o limite numérico de comparações diretas de distância, preservando o operador.
 - `ST_Intersection`: troca a operação espacial por `ST_Union` ou `ST_Difference`.
 - `ST_Intersects` com dois buffers: reescreve o padrão estrito `ST_Intersects(ST_Buffer(...), ST_Buffer(...))` para `ST_DWithin(...)`.
 

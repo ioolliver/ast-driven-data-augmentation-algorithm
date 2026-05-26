@@ -87,6 +87,81 @@ class CreateRandomVariationTest(unittest.TestCase):
         self.assertNotIn("t.a", sql_modified)
         self.assertEqual(len(adapt_query.call_args.args[3]), 1)
 
+    def test_mutates_text_pattern_without_schema_metadata(self):
+        with patch("augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query:
+            query_modified, sql_modified = create_random_variation(
+                {"tables": []},
+                "Municipios com nome iniciando por Sao",
+                "SELECT m.nm_mun FROM municipio m WHERE m.nm_mun ILIKE 'Sao%'",
+            )
+
+        self.assertEqual(query_modified, "Pergunta adaptada")
+        self.assertNotIn("ILIKE 'Sao%'", sql_modified)
+        self.assertEqual(adapt_query.call_args.args[3][0]["old_line"], "m.nm_mun ILIKE 'Sao%'")
+
+    def test_mutates_case_sensitive_like_pattern(self):
+        with (
+            patch("augmentor.adapt_query", return_value="Pergunta adaptada"),
+            patch("mutations.text_pattern.random.choice", return_value="prefix"),
+        ):
+            _, sql_modified = create_random_variation(
+                {"tables": []},
+                "Bibliotecas contendo Municipal",
+                "SELECT b.nm_bib FROM biblioteca b WHERE b.nm_bib LIKE '%Municipal%'",
+            )
+
+        self.assertIn("b.nm_bib LIKE 'Municipal%'", sql_modified)
+
+    def test_mutates_st_distance_threshold_using_postgis_distance_range(self):
+        schema = {
+            "tables": [
+                {
+                    "name": "escola",
+                    "columns": [
+                        {
+                            "name": "geometry",
+                            "type": "geometry",
+                            "distance_min_m": 100,
+                            "distance_max_m": 20000,
+                        }
+                    ],
+                }
+            ]
+        }
+
+        with (
+            patch("augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query,
+            patch("mutations.postgis.random.randint", return_value=12000),
+        ):
+            query_modified, sql_modified = create_random_variation(
+                schema,
+                "Escolas a ate 5 km da fronteira",
+                (
+                    "SELECT e.cd_entidade FROM escola e "
+                    "WHERE ST_Distance(e.geometry::geography, e.geometry::geography) <= 5000"
+                ),
+            )
+
+        self.assertEqual(query_modified, "Pergunta adaptada")
+        self.assertIn("ST_DISTANCE", sql_modified)
+        self.assertIn("<= 12000", sql_modified)
+        self.assertEqual(
+            adapt_query.call_args.args[3],
+            [
+                {
+                    "old_line": (
+                        "ST_DISTANCE(CAST(e.geometry AS GEOGRAPHY), "
+                        "CAST(e.geometry AS GEOGRAPHY)) <= 5000"
+                    ),
+                    "new_line": (
+                        "ST_DISTANCE(CAST(e.geometry AS GEOGRAPHY), "
+                        "CAST(e.geometry AS GEOGRAPHY)) <= 12000"
+                    ),
+                    "tip": "Limite de ST_Distance alterado de 5000 para 12000",
+                }
+            ],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

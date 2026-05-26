@@ -7,6 +7,8 @@ from mutations import (
     mutate_equivalent_column,
     mutate_value_group,
     mutate_binary,
+    mutate_text_pattern,
+    mutate_distance_threshold,
     mutate_postgis,
 )
 from llm import adapt_query
@@ -23,6 +25,8 @@ def create_random_variation(schema, query, sql):
         node = mutate_threshold_shift(node, changelog, schema)
         node = mutate_value_group(node, changelog, schema)
         node = mutate_binary(node, changelog, schema)
+        node = mutate_text_pattern(node, changelog, schema)
+        node = mutate_distance_threshold(node, changelog, schema, mutation_state)
         node = mutate_postgis(node, changelog, schema, mutation_state)
         return node
 
