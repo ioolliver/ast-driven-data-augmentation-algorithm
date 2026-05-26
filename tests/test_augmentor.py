@@ -63,6 +63,30 @@ class CreateRandomVariationTest(unittest.TestCase):
             [{"old_line": "m.area_km2 > 2000", "new_line": "m.area_km2 <= 500"}],
         )
 
+    def test_mutates_equivalent_column_only_once_across_passes(self):
+        schema = {
+            "tables": [
+                {
+                    "name": "t",
+                    "columns": [
+                        {"name": "a", "type": "string", "semantic_group": "group"},
+                        {"name": "b", "type": "string", "semantic_group": "group"},
+                    ],
+                }
+            ]
+        }
+
+        with patch("augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query:
+            _, sql_modified = create_random_variation(
+                schema,
+                "Mostre a coluna",
+                "SELECT t.a FROM t",
+            )
+
+        self.assertIn("t.b", sql_modified)
+        self.assertNotIn("t.a", sql_modified)
+        self.assertEqual(len(adapt_query.call_args.args[3]), 1)
+
 
 if __name__ == "__main__":
     unittest.main()

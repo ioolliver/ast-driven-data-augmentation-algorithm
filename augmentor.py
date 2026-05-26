@@ -21,7 +21,6 @@ def create_random_variation(schema, query, sql):
         node = mutate_enum(node, changelog, schema)
         node = mutate_agg(node, changelog, schema)
         node = mutate_threshold_shift(node, changelog, schema)
-        node = mutate_equivalent_column(node, changelog, schema)
         node = mutate_value_group(node, changelog, schema)
         node = mutate_binary(node, changelog, schema)
         node = mutate_postgis(node, changelog, schema, mutation_state)
