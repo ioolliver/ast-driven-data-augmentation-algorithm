@@ -8,7 +8,7 @@ from openai import OpenAI
 
 load_dotenv()
 
-DEFAULT_BEDROCK_MODEL = "openai.gpt-oss-120b"
+DEFAULT_BEDROCK_MODEL = "anthropic.claude-sonnet-4-6"
 BEDROCK_MODEL = os.environ.get("BEDROCK_MODEL", DEFAULT_BEDROCK_MODEL)
 
 
@@ -116,3 +116,6 @@ def send_to_llm(prompt):
 def adapt_query(query, sql, sql_modified, changelog):
     prompt = get_llm_prompt(query, sql, sql_modified, changelog)
     return send_to_llm(prompt)
+
+
+send_to_llm("Quem é você?")

@@ -20,7 +20,8 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 │   └── geo_dataset/
 │       ├── geo_base_dataset.json   # 980 base_dataset rows processed by the batch
 │       ├── geodataset_schema.py   # Schema dedicated to the geospatial dataset batch
-│       └── apply_augmentation_geo_dataset.py  # Bounded-concurrency batch writer
+│       ├── apply_augmentation_geo_dataset.py  # Bounded-concurrency batch writer
+│       └── analyze_semantic_variation.py      # Embedding-based score/report generator
 ├── schema_utils.py                # Schema helpers: get_col_info, get_table_name
 ├── mutations/
 │   ├── __init__.py                # Re-exports all mutate_* functions
@@ -87,6 +88,12 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - Logs completed, succeeded, and failed request counts as each remote call finishes
    - Writes a mixed original+augmented dataset and an augmented-only change mapping
 
+7. **Semantic Variation Analysis** (`data/geo_dataset/analyze_semantic_variation.py`)
+   - Loads `data/geo_dataset/geo_dataset_augmented_only.json`
+   - Uses `jinaai/jina-embeddings-v3` with the symmetric `text-matching` task on Colab/T4
+   - Calculates clipped cosine variation scores independently for SQL and question text plus their equal-weight mean
+   - Writes row-level scores as JSON and aggregate statistics as Markdown
+
 ### Data Flow
 
 ```
@@ -117,6 +124,20 @@ Write geo_dataset_augmented.json
 Write geo_dataset_augmented_only.json
 ```
 
+Semantic variation report flow:
+
+```
+Input: geo_dataset_augmented_only.json
+  ↓
+Embed original/changed SQL and original/changed questions with Jina v3
+  ↓
+Compute score = clip(1 - cosine_similarity, 0, 1)
+  ↓
+Write geo_dataset_semantic_variation_scores.json
+  ↓
+Write geo_dataset_semantic_variation_report.md
+```
+
 ### Schema Format
 
 Schema is a dictionary with `tables` array. Each table has:
@@ -140,6 +161,8 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 - **Single schema mutation**: No support for WHERE clause expansion, JOIN modifications, or subquery generation
 - **No error handling**: Missing validation for missing schema columns, invalid node types, or LLM failures
 - **LLM backend required for mutated queries**: Bedrock mode requires a Bedrock API key and OpenAI-compatible base URL; local mode requires Colab/GPU inference dependencies and a Hugging Face model available to `transformers`
+- **Embedding scores are heuristic**: General-purpose semantic distances cannot prove whether a SQL mutation is behaviorally equivalent or different
+- **Jina license constraint**: The default semantic-analysis model is licensed `CC BY-NC 4.0` and is selected for non-commercial analysis
 
 ## Dependencies
 
@@ -147,6 +170,8 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 - **openai**: OpenAI-compatible client for Amazon Bedrock Chat Completions (`openai.gpt-oss-120b`)
 - **python-dotenv**: Loads Bedrock endpoint and API key configuration from `.env`
 - **transformers / accelerate / torch / bitsandbytes**: Optional local LLM dependencies for `local-llm.py`, installed in the Colab runtime rather than required for default Bedrock mode
+- **numpy**: Vector math, clipping, percentiles, and aggregate statistics for `analyze_semantic_variation.py`
+- **sentence-transformers / einops**: Optional embedding-model dependencies for `analyze_semantic_variation.py`, installed in the Colab runtime rather than required for augmentation
 - **random**: For random selection in mutations
 
 ## Key Design Decisions
@@ -166,6 +191,8 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 13. **Batch failure visibility**: The geospatial batch logs progress on each completed request and stops on the first failed request rather than writing incomplete output files.
 14. **No-op mutation fast path**: If the AST passes produce an empty `changelog`, `create_random_variation` preserves the original natural-language query and skips LLM adaptation.
 15. **Conservative text-pattern mutation**: `LIKE` and `ILIKE` mutations change only simple outer-wildcard shape; patterns containing `_`, escaping, or internal `%` are preserved.
+16. **Embedding-based variation report**: The geo analysis scores SQL and question pairs separately using `clip(1 - cosine_similarity, 0, 1)` and reports an equal-weight combined score without treating it as formal SQL equivalence checking.
+17. **Long-context multilingual embedding model**: Semantic analysis defaults to `jinaai/jina-embeddings-v3` with `text-matching` because it handles Portuguese and long SQL text on a Colab T4; this default is restricted to non-commercial use by its license.
 
 ## Extension Points for Future Mutations
 

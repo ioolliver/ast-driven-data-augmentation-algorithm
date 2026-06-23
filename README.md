@@ -60,7 +60,9 @@ As dependências estão definidas em `pyproject.toml`:
 - **sqlglot** (>= 30.2.1) - Parsing e manipulação de AST para SQL
 - **python-dotenv** (>= 1.0.0) - Carregamento de variáveis de ambiente do arquivo `.env`
 - **openai** - Cliente compatível com Chat Completions para acessar o Amazon Bedrock
+- **numpy** - Operações vetorizadas de similaridade, clipping, percentis e estatísticas do analisador semântico
 - **transformers**, **accelerate**, **torch** e **bitsandbytes** - Dependências opcionais para executar o LLM local em Colab/GPU
+- **sentence-transformers** e **einops** - Dependências opcionais para analisar distância semântica dos pares aumentados com Jina Embeddings v3 em Colab/GPU
 
 Para instalar/atualizar dependências:
 
@@ -99,6 +101,37 @@ Durante a execução, o console mostra o total carregado, a quantidade concluíd
 ```
 
 Se uma chamada falhar, a execução registra `failed=1` e interrompe o batch sem gravar artefatos parciais.
+
+### Medir variação semântica do dataset aumentado
+
+Depois de gerar `data/geo_dataset/geo_dataset_augmented_only.json`, execute a análise de embeddings em um Google Colab com GPU T4:
+
+```bash
+pip install "sentence-transformers==3.1.0" "transformers==4.57.6" einops "numpy<2"
+python data/geo_dataset/analyze_semantic_variation.py --device cuda --batch-size 16
+```
+
+O script usa `jinaai/jina-embeddings-v3` com a tarefa simétrica `text-matching` para comparar, separadamente, SQL original versus SQL aumentado e pergunta original versus pergunta aumentada. O modelo suporta textos multilíngues e janela longa, adequada às consultas SQL maiores deste dataset.
+
+Também é possível executar em CPU substituindo `--device cuda` por `--device cpu`. A métrica e os artefatos gerados são os mesmos; a inferência é mais lenta e pode haver diferenças numéricas insignificantes nos scores. Os pins de `sentence-transformers` e `transformers` evitam incompatibilidades entre o código customizado do Jina v3 e versões mais recentes da biblioteca.
+
+Se o notebook já importou uma versão diferente de `transformers`, reinicie o runtime após o `pip install` antes de executar a análise.
+
+Cada pontuação é calculada como:
+
+```text
+variation_score = clip(1 - cosine_similarity(original, changed), 0, 1)
+combined_variation_score = (sql_variation_score + question_variation_score) / 2
+```
+
+Assim, `0` indica ausência de variação detectada no espaço de embeddings e `1` indica a maior variação representada pela métrica limitada. A execução grava:
+
+- `data/geo_dataset/geo_dataset_semantic_variation_scores.json`: pontuações por par, estatísticas agregadas e metadados do modelo.
+- `data/geo_dataset/geo_dataset_semantic_variation_report.md`: média, mediana, mínimo, máximo, desvio padrão, percentis, agrupamento por nível, faixas de score e extremos observados.
+
+Esses scores são indicadores heurísticos. Uma alteração pequena na distância de embedding ainda pode representar uma diferença lógica crítica no SQL, como troca de operador, literal ou predicado espacial.
+
+`jinaai/jina-embeddings-v3` é distribuído sob licença `CC BY-NC 4.0`; este fluxo deve ser usado somente em contexto não comercial ou após escolher um modelo com licença compatível.
 
 ### Usar como módulo
 
@@ -142,7 +175,8 @@ Quando nenhuma mutação aplicável é encontrada, `create_random_variation` ret
 │   └── geo_dataset/
 │       ├── geo_base_dataset.json   # 980 pares base processados pelo batch
 │       ├── geodataset_schema.py   # Schema usado pelo batch do dataset geoespacial
-│       └── apply_augmentation_geo_dataset.py  # Executa o batch com concorrência limitada
+│       ├── apply_augmentation_geo_dataset.py  # Executa o batch com concorrência limitada
+│       └── analyze_semantic_variation.py      # Mede variação semântica e gera relatório
 ├── schema_utils.py                # Utilitários de schema: get_col_info, get_table_name
 ├── mutations/
 │   ├── __init__.py                # Re-exporta todas as funções mutate_*

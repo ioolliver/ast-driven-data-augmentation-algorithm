@@ -8,4 +8,5 @@ dependencies = [
     "sqlglot>=30.2.1",
     "python-dotenv>=1.0.0",
     "openai>=1.0.0",
+    "numpy<2",
 ]
