@@ -21,7 +21,8 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 │       ├── geo_base_dataset.json   # 980 base_dataset rows processed by the batch
 │       ├── geodataset_schema.py   # Schema dedicated to the geospatial dataset batch
 │       ├── apply_augmentation_geo_dataset.py  # Bounded-concurrency batch writer
-│       └── analyze_semantic_variation.py      # Embedding-based score/report generator
+│       ├── analyze_semantic_variation.py      # Embedding-based score/report generator
+│       └── analyze_component_matching.py      # SQL AST component matching report
 ├── schema_utils.py                # Schema helpers: get_col_info, get_table_name
 ├── mutations/
 │   ├── __init__.py                # Re-exports all mutate_* functions
@@ -94,6 +95,12 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - Calculates clipped cosine variation scores independently for SQL and question text plus their equal-weight mean
    - Writes row-level scores as JSON and aggregate statistics as Markdown
 
+8. **Component Matching Analysis** (`data/geo_dataset/analyze_component_matching.py`)
+   - Loads `data/geo_dataset/geo_dataset_augmented_only.json`
+   - Parses original and changed SQL with SQLGlot using the Postgres dialect
+   - Extracts normalized AST component slots for projections, aggregations, tables, joins, predicates, literals, grouping, ordering, limits, and PostGIS function arguments
+   - Computes `changed_component_count / component_total` and writes row-level changed components plus aggregate statistics as JSON and Markdown
+
 ### Data Flow
 
 ```
@@ -138,6 +145,22 @@ Write geo_dataset_semantic_variation_scores.json
 Write geo_dataset_semantic_variation_report.md
 ```
 
+Component matching report flow:
+
+```
+Input: geo_dataset_augmented_only.json
+  ↓
+Parse original/changed SQL with SQLGlot
+  ↓
+Extract normalized SQL component slots
+  ↓
+Compute score = changed_component_count / component_total
+  ↓
+Write geo_dataset_component_matching_scores.json
+  ↓
+Write geo_dataset_component_matching_report.md
+```
+
 ### Schema Format
 
 Schema is a dictionary with `tables` array. Each table has:
@@ -170,7 +193,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 - **openai**: OpenAI-compatible client for Amazon Bedrock Chat Completions (`openai.gpt-oss-120b`)
 - **python-dotenv**: Loads Bedrock endpoint and API key configuration from `.env`
 - **transformers / accelerate / torch / bitsandbytes**: Optional local LLM dependencies for `local-llm.py`, installed in the Colab runtime rather than required for default Bedrock mode
-- **numpy**: Vector math, clipping, percentiles, and aggregate statistics for `analyze_semantic_variation.py`
+- **numpy**: Vector math, clipping, percentiles, and aggregate statistics for geo dataset analysis scripts
 - **sentence-transformers / einops**: Optional embedding-model dependencies for `analyze_semantic_variation.py`, installed in the Colab runtime rather than required for augmentation
 - **random**: For random selection in mutations
 
@@ -193,6 +216,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 15. **Conservative text-pattern mutation**: `LIKE` and `ILIKE` mutations change only simple outer-wildcard shape; patterns containing `_`, escaping, or internal `%` are preserved.
 16. **Embedding-based variation report**: The geo analysis scores SQL and question pairs separately using `clip(1 - cosine_similarity, 0, 1)` and reports an equal-weight combined score without treating it as formal SQL equivalence checking.
 17. **Long-context multilingual embedding model**: Semantic analysis defaults to `jinaai/jina-embeddings-v3` with `text-matching` because it handles Portuguese and long SQL text on a Colab T4; this default is restricted to non-commercial use by its license.
+18. **Component matching is structural and interpretable**: The geo component analyzer compares normalized SQL AST slots and reports changed components. It complements the embedding report but does not prove SQL correctness, behavioral equivalence, or natural-language alignment.
 
 ## Extension Points for Future Mutations
 

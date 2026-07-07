@@ -60,7 +60,7 @@ As dependências estão definidas em `pyproject.toml`:
 - **sqlglot** (>= 30.2.1) - Parsing e manipulação de AST para SQL
 - **python-dotenv** (>= 1.0.0) - Carregamento de variáveis de ambiente do arquivo `.env`
 - **openai** - Cliente compatível com Chat Completions para acessar o Amazon Bedrock
-- **numpy** - Operações vetorizadas de similaridade, clipping, percentis e estatísticas do analisador semântico
+- **numpy** - Operações vetorizadas de similaridade, clipping, percentis e estatísticas dos analisadores
 - **transformers**, **accelerate**, **torch** e **bitsandbytes** - Dependências opcionais para executar o LLM local em Colab/GPU
 - **sentence-transformers** e **einops** - Dependências opcionais para analisar distância semântica dos pares aumentados com Jina Embeddings v3 em Colab/GPU
 
@@ -133,6 +133,29 @@ Esses scores são indicadores heurísticos. Uma alteração pequena na distânci
 
 `jinaai/jina-embeddings-v3` é distribuído sob licença `CC BY-NC 4.0`; este fluxo deve ser usado somente em contexto não comercial ou após escolher um modelo com licença compatível.
 
+### Medir alterações interpretáveis por componentes SQL
+
+Para uma análise local, rápida e interpretável das mudanças estruturais no SQL, execute:
+
+```bash
+uv run python data/geo_dataset/analyze_component_matching.py
+```
+
+O script compara `original_sql` e `changed_sql` com SQLGlot usando o dialeto Postgres. Ele decompõe as consultas em slots atômicos como projeções, agregações, tabelas, joins, predicados, operadores, literais, limites de `BETWEEN`, padrões `LIKE`/`ILIKE`, componentes de `GROUP BY`, `ORDER BY`, `LIMIT` e argumentos de funções PostGIS.
+
+Cada pontuação é calculada como:
+
+```text
+component_matching_score = changed_component_count / component_total
+```
+
+Assim, `0` indica que nenhum componente SQL normalizado mudou; valores maiores indicam uma fração maior de componentes alterados. A execução grava:
+
+- `data/geo_dataset/geo_dataset_component_matching_scores.json`: score por par, componentes alterados e estatísticas agregadas.
+- `data/geo_dataset/geo_dataset_component_matching_report.md`: distribuição geral, agrupamento por nível, faixas de score, famílias de componentes mais alteradas e extremos observados.
+
+Esse score complementa o relatório de embeddings: ele é mais interpretável para entender o que mudou no SQL, mas continua sendo uma heurística estrutural, não uma prova de correção SQL ou alinhamento com a pergunta em linguagem natural.
+
 ### Usar como módulo
 
 Importe as funções de mutação em seu próprio código:
@@ -176,7 +199,8 @@ Quando nenhuma mutação aplicável é encontrada, `create_random_variation` ret
 │       ├── geo_base_dataset.json   # 980 pares base processados pelo batch
 │       ├── geodataset_schema.py   # Schema usado pelo batch do dataset geoespacial
 │       ├── apply_augmentation_geo_dataset.py  # Executa o batch com concorrência limitada
-│       └── analyze_semantic_variation.py      # Mede variação semântica e gera relatório
+│       ├── analyze_semantic_variation.py      # Mede variação por embeddings
+│       └── analyze_component_matching.py      # Mede mudanças interpretáveis no SQL
 ├── schema_utils.py                # Utilitários de schema: get_col_info, get_table_name
 ├── mutations/
 │   ├── __init__.py                # Re-exporta todas as funções mutate_*
