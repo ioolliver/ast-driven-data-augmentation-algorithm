@@ -17,6 +17,12 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 ├── llm.py                         # LLM layer: prompting, Bedrock call, format_changelog
 ├── local-llm.py                   # Optional local Hugging Face LLM runner for Colab/GPU
 ├── data/
+│   ├── analysis_dataset.py        # Shared analyzer row loader for flat and censo query-shaped augmented pairs
+│   ├── censo_escolar_dataset/
+│   │   ├── original_dataset.json  # CensoBench source rows in dataset_info + queries format
+│   │   ├── schema.py              # Schema dedicated to Censo Escolar mutations
+│   │   ├── analyze_semantic_variation.py   # Censo wrapper over the shared embedding analyzer
+│   │   └── analyze_component_matching.py   # Censo wrapper over the shared SQL component analyzer
 │   └── geo_dataset/
 │       ├── geo_base_dataset.json   # 980 base_dataset rows processed by the batch
 │       ├── geodataset_schema.py   # Schema dedicated to the geospatial dataset batch
@@ -101,6 +107,17 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - Extracts normalized AST component slots for projections, aggregations, tables, joins, predicates, literals, grouping, ordering, limits, and PostGIS function arguments
    - Computes `changed_component_count / component_total` and writes row-level changed components plus aggregate statistics as JSON and Markdown
 
+9. **Shared Analysis Dataset Loader** (`data/analysis_dataset.py`)
+   - Validates the flat augmented-pair contract used by the geo batch: `original_question`, `original_sql`, `changed_question`, `changed_sql`, and `level`
+   - Also normalizes Censo Escolar `{"queries": [...]}` rows once each query has `changed_question` and `changed_sql`, deriving `level` from `complexidade.nivel`
+   - Fails loudly when the raw Censo Escolar source file is used before augmentation, because semantic/component variation metrics require original/changed pairs
+
+10. **Censo Escolar Analysis Wrappers** (`data/censo_escolar_dataset/analyze_*.py`)
+   - Reuse the geo analyzer implementations and scoring logic with Censo-specific default paths and report titles
+   - Default input is `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json`
+   - Component matching defaults to SQLGlot `bigquery` because CensoBench declares Standard SQL and includes BigQuery functions such as `SAFE_DIVIDE`
+   - Write Censo-specific score/report artifacts under `data/censo_escolar_dataset/`
+
 ### Data Flow
 
 ```
@@ -134,7 +151,9 @@ Write geo_dataset_augmented_only.json
 Semantic variation report flow:
 
 ```
-Input: geo_dataset_augmented_only.json
+Input: geo_dataset_augmented_only.json or censo_escolar_dataset_augmented_only.json
+  ↓
+Normalize augmented rows through data/analysis_dataset.py
   ↓
 Embed original/changed SQL and original/changed questions with Jina v3
   ↓
@@ -148,7 +167,9 @@ Write geo_dataset_semantic_variation_report.md
 Component matching report flow:
 
 ```
-Input: geo_dataset_augmented_only.json
+Input: geo_dataset_augmented_only.json or censo_escolar_dataset_augmented_only.json
+  ↓
+Normalize augmented rows through data/analysis_dataset.py
   ↓
 Parse original/changed SQL with SQLGlot
   ↓
@@ -186,6 +207,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 - **LLM backend required for mutated queries**: Bedrock mode requires a Bedrock API key and OpenAI-compatible base URL; local mode requires Colab/GPU inference dependencies and a Hugging Face model available to `transformers`
 - **Embedding scores are heuristic**: General-purpose semantic distances cannot prove whether a SQL mutation is behaviorally equivalent or different
 - **Jina license constraint**: The default semantic-analysis model is licensed `CC BY-NC 4.0` and is selected for non-commercial analysis
+- **Analysis requires augmented pairs**: `data/censo_escolar_dataset/original_dataset.json` is a source dataset only. The analysis wrappers require a censo augmented-pair file with `changed_question` and `changed_sql`.
 
 ## Dependencies
 
@@ -217,6 +239,8 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 16. **Embedding-based variation report**: The geo analysis scores SQL and question pairs separately using `clip(1 - cosine_similarity, 0, 1)` and reports an equal-weight combined score without treating it as formal SQL equivalence checking.
 17. **Long-context multilingual embedding model**: Semantic analysis defaults to `jinaai/jina-embeddings-v3` with `text-matching` because it handles Portuguese and long SQL text on a Colab T4; this default is restricted to non-commercial use by its license.
 18. **Component matching is structural and interpretable**: The geo component analyzer compares normalized SQL AST slots and reports changed components. It complements the embedding report but does not prove SQL correctness, behavioral equivalence, or natural-language alignment.
+19. **Analyzer row loading is shared**: Geo and Censo analysis entry points share `data/analysis_dataset.py` so validation, censo query normalization, and raw-source failure behavior stay consistent across embedding and component reports.
+20. **Censo analysis wrappers reuse scoring logic**: Censo Escolar scripts import the existing geo analyzers instead of copying scoring code, keeping dataset-specific defaults separate from the algorithms.
 
 ## Extension Points for Future Mutations
 

@@ -1,6 +1,7 @@
 import argparse
 import json
 import logging
+import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 from importlib import metadata as importlib_metadata
@@ -10,21 +11,21 @@ import numpy as np
 
 LOGGER = logging.getLogger(__name__)
 SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from data.analysis_dataset import load_augmented_rows
+
 INPUT_DATASET_PATH = SCRIPT_DIR / "geo_dataset_augmented_only.json"
 SCORES_OUTPUT_PATH = SCRIPT_DIR / "geo_dataset_semantic_variation_scores.json"
 REPORT_OUTPUT_PATH = SCRIPT_DIR / "geo_dataset_semantic_variation_report.md"
+DEFAULT_DATASET_LABEL = "Geo Dataset"
 DEFAULT_MODEL_ID = "jinaai/jina-embeddings-v3"
 DEFAULT_BATCH_SIZE = 16
 EMBEDDING_TASK = "text-matching"
 MODEL_LICENSE = "CC BY-NC 4.0"
 SCORE_FORMULA = "clip(1 - cosine_similarity(original, changed), 0, 1)"
-REQUIRED_FIELDS = (
-    "original_question",
-    "original_sql",
-    "changed_question",
-    "changed_sql",
-    "level",
-)
 COMPARISONS = (
     ("sql", "sql_variation_score"),
     ("question", "question_variation_score"),
@@ -37,24 +38,7 @@ BAND_LABELS = tuple(
 
 
 def load_rows(dataset_path):
-    with dataset_path.open(encoding="utf-8") as file_obj:
-        rows = json.load(file_obj)
-
-    if not isinstance(rows, list):
-        raise ValueError("Input dataset must be a JSON array.")
-    if not rows:
-        raise ValueError("Input dataset must contain at least one row.")
-
-    for index, row in enumerate(rows):
-        if not isinstance(row, dict):
-            raise ValueError(f"Row {index} must be a JSON object.")
-        for field in REQUIRED_FIELDS:
-            if field not in row:
-                raise ValueError(f"Row {index} is missing required field: {field}")
-            if not isinstance(row[field], str):
-                raise ValueError(f"Row {index} field {field} must be a string.")
-
-    return rows
+    return load_augmented_rows(dataset_path)
 
 
 def write_json(output_path, payload):
@@ -287,7 +271,7 @@ def build_report(metadata, summary, scored_rows):
     lowest_rows = sorted_rows[:10]
     highest_rows = list(reversed(sorted_rows[-10:]))
     lines = [
-        "# Geo Dataset Semantic Variation Report",
+        f"# {metadata['dataset_label']} Semantic Variation Report",
         "",
         "## Method",
         "",
@@ -367,6 +351,7 @@ def run_analysis(
     device=None,
     embedder=None,
     generated_at=None,
+    dataset_label=DEFAULT_DATASET_LABEL,
 ):
     if batch_size <= 0:
         raise ValueError("batch_size must be greater than zero.")
@@ -378,6 +363,7 @@ def run_analysis(
         "generated_at": generated_at
         or datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "input_path": str(input_path),
+        "dataset_label": dataset_label,
         "row_count": len(rows),
         "model_id": model_id,
         "embedding_task": EMBEDDING_TASK,
@@ -412,6 +398,7 @@ def main():
     parser.add_argument("--input", type=Path, default=INPUT_DATASET_PATH)
     parser.add_argument("--scores-output", type=Path, default=SCORES_OUTPUT_PATH)
     parser.add_argument("--report-output", type=Path, default=REPORT_OUTPUT_PATH)
+    parser.add_argument("--dataset-label", default=DEFAULT_DATASET_LABEL)
     parser.add_argument("--model", default=DEFAULT_MODEL_ID)
     parser.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE)
     parser.add_argument(
@@ -427,6 +414,7 @@ def main():
         model_id=args.model,
         batch_size=args.batch_size,
         device=args.device,
+        dataset_label=args.dataset_label,
     )
 
 

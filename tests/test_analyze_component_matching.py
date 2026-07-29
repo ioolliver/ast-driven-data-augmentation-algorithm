@@ -18,6 +18,19 @@ def load_analysis_module():
     return module
 
 
+def load_censo_component_module():
+    module_path = (
+        Path(__file__).resolve().parents[1]
+        / "data"
+        / "censo_escolar_dataset"
+        / "analyze_component_matching.py"
+    )
+    spec = importlib.util.spec_from_file_location("censo_component_script", module_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 class AnalyzeComponentMatchingTest(unittest.TestCase):
     def setUp(self):
         self.rows = [
@@ -54,6 +67,78 @@ class AnalyzeComponentMatchingTest(unittest.TestCase):
 
             with self.assertRaisesRegex(
                 ValueError, "Row 0 is missing required field: original_question"
+            ):
+                module.load_rows(input_path)
+
+    def test_load_rows_normalizes_censo_query_dataset_shape(self):
+        module = load_analysis_module()
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            input_path = Path(tmp_dir) / "censo.json"
+            input_path.write_text(
+                json.dumps(
+                    {
+                        "queries": [
+                            {
+                                "id": 7,
+                                "pergunta_nl": "Quantas escolas existem?",
+                                "sql": "SELECT COUNT(*) FROM escola",
+                                "changed_question": "Quantas escolas rurais existem?",
+                                "changed_sql": (
+                                    "SELECT COUNT(*) FROM escola "
+                                    "WHERE tipo_localizacao = 'Rural'"
+                                ),
+                                "complexidade": {"nivel": "Fácil"},
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            rows = module.load_rows(input_path)
+
+        self.assertEqual(
+            rows,
+            [
+                {
+                    "id": 7,
+                    "original_question": "Quantas escolas existem?",
+                    "original_sql": "SELECT COUNT(*) FROM escola",
+                    "changed_question": "Quantas escolas rurais existem?",
+                    "changed_sql": (
+                        "SELECT COUNT(*) FROM escola WHERE tipo_localizacao = 'Rural'"
+                    ),
+                    "level": "Fácil",
+                }
+            ],
+        )
+
+    def test_load_rows_requires_augmented_fields_for_censo_query_dataset(self):
+        module = load_analysis_module()
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            input_path = Path(tmp_dir) / "censo.json"
+            input_path.write_text(
+                json.dumps(
+                    {
+                        "queries": [
+                            {
+                                "pergunta_nl": "Quantas escolas existem?",
+                                "sql": "SELECT COUNT(*) FROM escola",
+                                "complexidade": {"nivel": "Fácil"},
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(
+                ValueError,
+                "Row 0 is missing augmented censo field: changed_question",
             ):
                 module.load_rows(input_path)
 
@@ -128,6 +213,44 @@ class AnalyzeComponentMatchingTest(unittest.TestCase):
                 ]
             )
 
+    def test_censo_wrapper_defaults_to_bigquery_sql_dialect(self):
+        module = load_censo_component_module()
+
+        rows = [
+            {
+                "original_question": "Relação entre alunos e docentes",
+                "original_sql": (
+                    "SELECT SAFE_DIVIDE(COUNT(DISTINCT id_matricula), "
+                    "COUNT(DISTINCT id_docente)) AS relacao FROM matricula"
+                ),
+                "changed_question": "Relação ajustada entre alunos e docentes",
+                "changed_sql": (
+                    "SELECT SAFE_DIVIDE(COUNT(DISTINCT id_matricula), "
+                    "COUNT(DISTINCT id_docente)) AS relacao FROM matricula "
+                    "WHERE sigla_uf = 'SP'"
+                ),
+                "level": "Média",
+            }
+        ]
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            input_path = Path(tmp_dir) / "input.json"
+            scores_path = Path(tmp_dir) / "scores.json"
+            report_path = Path(tmp_dir) / "report.md"
+            input_path.write_text(
+                json.dumps(rows, ensure_ascii=False), encoding="utf-8"
+            )
+
+            payload = module.run_analysis(
+                input_path=input_path,
+                scores_output_path=scores_path,
+                report_output_path=report_path,
+            )
+
+        self.assertEqual(payload["metadata"]["sql_dialect"], "bigquery")
+        self.assertEqual(payload["metadata"]["dataset_label"], "Censo Escolar Dataset")
+        self.assertGreater(payload["rows"][0]["changed_component_count"], 0)
+
     def test_run_analysis_writes_utf8_scores_and_markdown_report(self):
         module = load_analysis_module()
 
@@ -158,6 +281,29 @@ class AnalyzeComponentMatchingTest(unittest.TestCase):
         self.assertIn("structural-change heuristic", report)
         self.assertEqual(payload["statistics"]["overall"]["count"], 2)
         self.assertEqual(payload["statistics"]["unchanged_sql"], 1)
+
+    def test_run_analysis_uses_custom_dataset_label_in_report(self):
+        module = load_analysis_module()
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            input_path = Path(tmp_dir) / "input.json"
+            scores_path = Path(tmp_dir) / "scores.json"
+            report_path = Path(tmp_dir) / "report.md"
+            input_path.write_text(
+                json.dumps(self.rows, ensure_ascii=False), encoding="utf-8"
+            )
+
+            module.run_analysis(
+                input_path=input_path,
+                scores_output_path=scores_path,
+                report_output_path=report_path,
+                generated_at="2026-06-23T12:00:00+00:00",
+                dataset_label="Censo Escolar Dataset",
+            )
+
+            report = report_path.read_text(encoding="utf-8")
+
+        self.assertIn("# Censo Escolar Dataset Component Matching Report", report)
 
 
 if __name__ == "__main__":

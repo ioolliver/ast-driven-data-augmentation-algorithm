@@ -1,6 +1,7 @@
 import argparse
 import json
 import logging
+import sys
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -12,18 +13,18 @@ from sqlglot.errors import ParseError
 
 LOGGER = logging.getLogger(__name__)
 SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from data.analysis_dataset import load_augmented_rows
+
 INPUT_DATASET_PATH = SCRIPT_DIR / "geo_dataset_augmented_only.json"
 SCORES_OUTPUT_PATH = SCRIPT_DIR / "geo_dataset_component_matching_scores.json"
 REPORT_OUTPUT_PATH = SCRIPT_DIR / "geo_dataset_component_matching_report.md"
+DEFAULT_DATASET_LABEL = "Geo Dataset"
 SQL_DIALECT = "postgres"
 SCORE_FORMULA = "changed_component_count / component_total"
-REQUIRED_FIELDS = (
-    "original_question",
-    "original_sql",
-    "changed_question",
-    "changed_sql",
-    "level",
-)
 BAND_LABELS = tuple(
     [f"[{index / 10:.1f}, {(index + 1) / 10:.1f})" for index in range(9)]
     + ["[0.9, 1.0]"]
@@ -40,24 +41,7 @@ COMPARISON_OPERATOR_TYPES = tuple(COMPARISON_OPERATORS)
 
 
 def load_rows(dataset_path):
-    with dataset_path.open(encoding="utf-8") as file_obj:
-        rows = json.load(file_obj)
-
-    if not isinstance(rows, list):
-        raise ValueError("Input dataset must be a JSON array.")
-    if not rows:
-        raise ValueError("Input dataset must contain at least one row.")
-
-    for index, row in enumerate(rows):
-        if not isinstance(row, dict):
-            raise ValueError(f"Row {index} must be a JSON object.")
-        for field in REQUIRED_FIELDS:
-            if field not in row:
-                raise ValueError(f"Row {index} is missing required field: {field}")
-            if not isinstance(row[field], str):
-                raise ValueError(f"Row {index} field {field} must be a string.")
-
-    return rows
+    return load_augmented_rows(dataset_path)
 
 
 def write_json(output_path, payload):
@@ -70,7 +54,7 @@ def _format_number(value):
     return f"{value:.6f}"
 
 
-def _normalize_sql(node):
+def _normalize_sql(node, sql_dialect=SQL_DIALECT):
     if node is None:
         return ""
     if isinstance(node, exp.Identifier):
@@ -78,12 +62,12 @@ def _normalize_sql(node):
     if isinstance(node, exp.Table):
         return node.name.lower()
     if isinstance(node, exp.Column):
-        return node.sql(dialect=SQL_DIALECT, normalize=True).lower()
+        return node.sql(dialect=sql_dialect, normalize=True).lower()
     if isinstance(node, exp.Literal):
         if node.is_string:
             return str(node.this)
         return str(node.this).lower()
-    return node.sql(dialect=SQL_DIALECT, normalize=True).lower()
+    return node.sql(dialect=sql_dialect, normalize=True).lower()
 
 
 def _function_name(node):
@@ -115,23 +99,23 @@ def _flatten_logical_and(node):
     return [node]
 
 
-def _extract_projection_components(tree, components):
+def _extract_projection_components(tree, components, sql_dialect):
     for index, expression in enumerate(tree.expressions or []):
         if isinstance(expression, exp.AggFunc):
-            value = _normalize_sql(expression.this)
+            value = _normalize_sql(expression.this, sql_dialect)
         else:
-            value = _normalize_sql(expression)
+            value = _normalize_sql(expression, sql_dialect)
         _add_component(components, "select", f"select:{index}", value)
 
 
-def _extract_table_components(tree, components):
+def _extract_table_components(tree, components, sql_dialect):
     from_expression = tree.args.get("from_") or tree.args.get("from")
     if from_expression and from_expression.this:
         _add_component(
             components,
             "table",
             "table:0",
-            _normalize_sql(from_expression.this),
+            _normalize_sql(from_expression.this, sql_dialect),
         )
 
     for index, join in enumerate(tree.args.get("joins") or [], start=1):
@@ -139,11 +123,11 @@ def _extract_table_components(tree, components):
             components,
             "table",
             f"table:{index}",
-            _normalize_sql(join.this),
+            _normalize_sql(join.this, sql_dialect),
         )
 
 
-def _extract_aggregation_components(tree, components):
+def _extract_aggregation_components(tree, components, sql_dialect):
     for index, aggregation in enumerate(tree.find_all(exp.AggFunc)):
         _add_component(
             components,
@@ -155,11 +139,11 @@ def _extract_aggregation_components(tree, components):
             components,
             "aggregation",
             f"aggregation:{index}:arg",
-            _normalize_sql(aggregation.this),
+            _normalize_sql(aggregation.this, sql_dialect),
         )
 
 
-def _extract_function_components(node, components, prefix):
+def _extract_function_components(node, components, prefix, sql_dialect):
     function_nodes = [
         child
         for child in node.find_all(exp.Func)
@@ -178,17 +162,17 @@ def _extract_function_components(node, components, prefix):
                 components,
                 "spatial_function",
                 f"{base_key}:arg:{arg_index}",
-                _normalize_sql(arg),
+                _normalize_sql(arg, sql_dialect),
             )
 
 
-def _extract_predicate_components(predicate, components, prefix):
+def _extract_predicate_components(predicate, components, prefix, sql_dialect):
     if isinstance(predicate, COMPARISON_OPERATOR_TYPES):
         _add_component(
             components,
             "predicate",
             f"{prefix}:left",
-            _normalize_sql(predicate.this),
+            _normalize_sql(predicate.this, sql_dialect),
         )
         _add_component(
             components,
@@ -200,82 +184,91 @@ def _extract_predicate_components(predicate, components, prefix):
             components,
             "predicate",
             f"{prefix}:right",
-            _normalize_sql(predicate.expression),
+            _normalize_sql(predicate.expression, sql_dialect),
         )
     elif isinstance(predicate, exp.Between):
         _add_component(
             components,
             "predicate",
             f"{prefix}:left",
-            _normalize_sql(predicate.this),
+            _normalize_sql(predicate.this, sql_dialect),
         )
         _add_component(components, "predicate", f"{prefix}:operator", "BETWEEN")
         _add_component(
             components,
             "predicate",
             f"{prefix}:low",
-            _normalize_sql(predicate.args.get("low")),
+            _normalize_sql(predicate.args.get("low"), sql_dialect),
         )
         _add_component(
             components,
             "predicate",
             f"{prefix}:high",
-            _normalize_sql(predicate.args.get("high")),
+            _normalize_sql(predicate.args.get("high"), sql_dialect),
         )
     elif isinstance(predicate, exp.In):
         _add_component(
             components,
             "predicate",
             f"{prefix}:left",
-            _normalize_sql(predicate.this),
+            _normalize_sql(predicate.this, sql_dialect),
         )
         _add_component(components, "predicate", f"{prefix}:operator", "IN")
-        values = tuple(_normalize_sql(value) for value in predicate.expressions or [])
+        values = tuple(
+            _normalize_sql(value, sql_dialect) for value in predicate.expressions or []
+        )
         _add_component(components, "predicate", f"{prefix}:values", values)
     elif isinstance(predicate, (exp.Like, exp.ILike)):
         _add_component(
             components,
             "predicate",
             f"{prefix}:left",
-            _normalize_sql(predicate.this),
+            _normalize_sql(predicate.this, sql_dialect),
         )
         _add_component(components, "predicate", f"{prefix}:operator", predicate.key.upper())
         _add_component(
             components,
             "predicate",
             f"{prefix}:right",
-            _normalize_sql(predicate.expression),
+            _normalize_sql(predicate.expression, sql_dialect),
         )
     elif isinstance(predicate, exp.Is):
         _add_component(
             components,
             "predicate",
             f"{prefix}:left",
-            _normalize_sql(predicate.this),
+            _normalize_sql(predicate.this, sql_dialect),
         )
         _add_component(components, "predicate", f"{prefix}:operator", "IS")
         _add_component(
             components,
             "predicate",
             f"{prefix}:right",
-            _normalize_sql(predicate.expression),
+            _normalize_sql(predicate.expression, sql_dialect),
         )
     else:
-        _add_component(components, "predicate", f"{prefix}:expression", _normalize_sql(predicate))
+        _add_component(
+            components,
+            "predicate",
+            f"{prefix}:expression",
+            _normalize_sql(predicate, sql_dialect),
+        )
 
-    _extract_function_components(predicate, components, prefix)
+    _extract_function_components(predicate, components, prefix, sql_dialect)
 
 
-def _extract_where_components(tree, components):
+def _extract_where_components(tree, components, sql_dialect):
     where = tree.args.get("where")
     if not where:
         return
 
     for index, predicate in enumerate(_flatten_logical_and(where.this)):
-        _extract_predicate_components(predicate, components, f"where:{index}")
+        _extract_predicate_components(
+            predicate, components, f"where:{index}", sql_dialect
+        )
 
 
-def _extract_join_components(tree, components):
+def _extract_join_components(tree, components, sql_dialect):
     for join_index, join in enumerate(tree.args.get("joins") or []):
         side = str(join.args.get("side") or "INNER").upper()
         kind = str(join.args.get("kind") or "").upper()
@@ -290,24 +283,27 @@ def _extract_join_components(tree, components):
             components,
             "join",
             f"join:{join_index}:table",
-            _normalize_sql(join.this),
+            _normalize_sql(join.this, sql_dialect),
         )
 
         on_expression = join.args.get("on")
         if not on_expression:
             continue
         if isinstance(on_expression, exp.Func):
-            _extract_function_components(on_expression, components, f"join:{join_index}")
+            _extract_function_components(
+                on_expression, components, f"join:{join_index}", sql_dialect
+            )
             continue
         for predicate_index, predicate in enumerate(_flatten_logical_and(on_expression)):
             _extract_predicate_components(
                 predicate,
                 components,
                 f"join:{join_index}:predicate:{predicate_index}",
+                sql_dialect,
             )
 
 
-def _extract_group_components(tree, components):
+def _extract_group_components(tree, components, sql_dialect):
     group = tree.args.get("group")
     if not group:
         return
@@ -317,11 +313,11 @@ def _extract_group_components(tree, components):
             components,
             "group_by",
             f"group_by:{index}",
-            _normalize_sql(expression),
+            _normalize_sql(expression, sql_dialect),
         )
 
 
-def _extract_order_components(tree, components):
+def _extract_order_components(tree, components, sql_dialect):
     order = tree.args.get("order")
     if not order:
         return
@@ -331,7 +327,7 @@ def _extract_order_components(tree, components):
             components,
             "order_by",
             f"order_by:{index}:expression",
-            _normalize_sql(ordered.this),
+            _normalize_sql(ordered.this, sql_dialect),
         )
         direction = "DESC" if ordered.args.get("desc") else "ASC"
         _add_component(
@@ -342,7 +338,7 @@ def _extract_order_components(tree, components):
         )
 
 
-def _extract_limit_components(tree, components):
+def _extract_limit_components(tree, components, sql_dialect):
     limit = tree.args.get("limit")
     if not limit:
         return
@@ -351,33 +347,33 @@ def _extract_limit_components(tree, components):
         components,
         "limit",
         "limit:0",
-        _normalize_sql(limit.args.get("expression")),
+        _normalize_sql(limit.args.get("expression"), sql_dialect),
     )
 
 
-def extract_components(sql):
-    tree = sqlglot.parse_one(sql, read=SQL_DIALECT)
+def extract_components(sql, sql_dialect=SQL_DIALECT):
+    tree = sqlglot.parse_one(sql, read=sql_dialect)
     components = {}
-    _extract_projection_components(tree, components)
-    _extract_table_components(tree, components)
-    _extract_aggregation_components(tree, components)
-    _extract_join_components(tree, components)
-    _extract_where_components(tree, components)
-    _extract_group_components(tree, components)
-    _extract_order_components(tree, components)
-    _extract_limit_components(tree, components)
+    _extract_projection_components(tree, components, sql_dialect)
+    _extract_table_components(tree, components, sql_dialect)
+    _extract_aggregation_components(tree, components, sql_dialect)
+    _extract_join_components(tree, components, sql_dialect)
+    _extract_where_components(tree, components, sql_dialect)
+    _extract_group_components(tree, components, sql_dialect)
+    _extract_order_components(tree, components, sql_dialect)
+    _extract_limit_components(tree, components, sql_dialect)
     return components
 
 
-def compare_sql_components(original_sql, changed_sql):
-    original_components = extract_components(original_sql)
-    changed_components = extract_components(changed_sql)
+def compare_sql_components(original_sql, changed_sql, sql_dialect=SQL_DIALECT):
+    original_components = extract_components(original_sql, sql_dialect=sql_dialect)
+    changed_components = extract_components(changed_sql, sql_dialect=sql_dialect)
     return _compare_component_maps(original_components, changed_components)
 
 
-def _extract_row_components(row, index, field):
+def _extract_row_components(row, index, field, sql_dialect):
     try:
-        return extract_components(row[field])
+        return extract_components(row[field], sql_dialect=sql_dialect)
     except ParseError as exc:
         raise ValueError(f"Row {index} {field} could not be parsed: {exc}") from exc
 
@@ -415,11 +411,15 @@ def _compare_component_maps(original_components, changed_components):
     }
 
 
-def score_rows(rows):
+def score_rows(rows, sql_dialect=SQL_DIALECT):
     scored_rows = []
     for index, row in enumerate(rows):
-        original_components = _extract_row_components(row, index, "original_sql")
-        changed_components = _extract_row_components(row, index, "changed_sql")
+        original_components = _extract_row_components(
+            row, index, "original_sql", sql_dialect
+        )
+        changed_components = _extract_row_components(
+            row, index, "changed_sql", sql_dialect
+        )
         comparison = _compare_component_maps(original_components, changed_components)
 
         scored_rows.append({**row, "row_index": index, **comparison})
@@ -531,7 +531,7 @@ def build_report(metadata, summary, scored_rows):
     lowest_rows = sorted_rows[:10]
     highest_rows = list(reversed(sorted_rows[-10:]))
     lines = [
-        "# Geo Dataset Component Matching Report",
+        f"# {metadata['dataset_label']} Component Matching Report",
         "",
         "## Method",
         "",
@@ -612,16 +612,19 @@ def run_analysis(
     scores_output_path=SCORES_OUTPUT_PATH,
     report_output_path=REPORT_OUTPUT_PATH,
     generated_at=None,
+    dataset_label=DEFAULT_DATASET_LABEL,
+    sql_dialect=SQL_DIALECT,
 ):
     rows = load_rows(input_path)
-    scored_rows = score_rows(rows)
+    scored_rows = score_rows(rows, sql_dialect=sql_dialect)
     summary = summarize_scores(scored_rows)
     metadata = {
         "generated_at": generated_at
         or datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "input_path": str(input_path),
+        "dataset_label": dataset_label,
         "row_count": len(rows),
-        "sql_dialect": SQL_DIALECT,
+        "sql_dialect": sql_dialect,
         "score_formula": SCORE_FORMULA,
     }
     payload = {"metadata": metadata, "statistics": summary, "rows": scored_rows}
@@ -653,11 +656,15 @@ def main():
     parser.add_argument("--input", type=Path, default=INPUT_DATASET_PATH)
     parser.add_argument("--scores-output", type=Path, default=SCORES_OUTPUT_PATH)
     parser.add_argument("--report-output", type=Path, default=REPORT_OUTPUT_PATH)
+    parser.add_argument("--dataset-label", default=DEFAULT_DATASET_LABEL)
+    parser.add_argument("--sql-dialect", default=SQL_DIALECT)
     args = parser.parse_args()
     run_analysis(
         input_path=args.input,
         scores_output_path=args.scores_output,
         report_output_path=args.report_output,
+        dataset_label=args.dataset_label,
+        sql_dialect=args.sql_dialect,
     )
 
 

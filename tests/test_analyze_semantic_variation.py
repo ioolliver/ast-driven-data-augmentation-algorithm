@@ -70,6 +70,78 @@ class AnalyzeSemanticVariationTest(unittest.TestCase):
             ):
                 module.load_rows(input_path)
 
+    def test_load_rows_normalizes_censo_query_dataset_shape(self):
+        module = load_analysis_module()
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            input_path = Path(tmp_dir) / "censo.json"
+            input_path.write_text(
+                json.dumps(
+                    {
+                        "queries": [
+                            {
+                                "id": 7,
+                                "pergunta_nl": "Quantas escolas existem?",
+                                "sql": "SELECT COUNT(*) FROM escola",
+                                "changed_question": "Quantas escolas rurais existem?",
+                                "changed_sql": (
+                                    "SELECT COUNT(*) FROM escola "
+                                    "WHERE tipo_localizacao = 'Rural'"
+                                ),
+                                "complexidade": {"nivel": "Fácil"},
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            rows = module.load_rows(input_path)
+
+        self.assertEqual(
+            rows,
+            [
+                {
+                    "id": 7,
+                    "original_question": "Quantas escolas existem?",
+                    "original_sql": "SELECT COUNT(*) FROM escola",
+                    "changed_question": "Quantas escolas rurais existem?",
+                    "changed_sql": (
+                        "SELECT COUNT(*) FROM escola WHERE tipo_localizacao = 'Rural'"
+                    ),
+                    "level": "Fácil",
+                }
+            ],
+        )
+
+    def test_load_rows_requires_augmented_fields_for_censo_query_dataset(self):
+        module = load_analysis_module()
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            input_path = Path(tmp_dir) / "censo.json"
+            input_path.write_text(
+                json.dumps(
+                    {
+                        "queries": [
+                            {
+                                "pergunta_nl": "Quantas escolas existem?",
+                                "sql": "SELECT COUNT(*) FROM escola",
+                                "complexidade": {"nivel": "Fácil"},
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(
+                ValueError,
+                "Row 0 is missing augmented censo field: changed_question",
+            ):
+                module.load_rows(input_path)
+
     def test_score_rows_calculates_bounded_sql_question_and_combined_scores(self):
         module = load_analysis_module()
         embedder = FakeEmbedder(self.embeddings)
@@ -150,6 +222,32 @@ class AnalyzeSemanticVariationTest(unittest.TestCase):
         self.assertIn("## Overall Statistics", report)
         self.assertIn("## Statistics By Level", report)
         self.assertIn("embedding-based heuristic", report)
+
+    def test_run_analysis_uses_custom_dataset_label_in_report(self):
+        module = load_analysis_module()
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            input_path = Path(tmp_dir) / "input.json"
+            scores_path = Path(tmp_dir) / "scores.json"
+            report_path = Path(tmp_dir) / "report.md"
+            input_path.write_text(
+                json.dumps(self.rows, ensure_ascii=False), encoding="utf-8"
+            )
+
+            module.run_analysis(
+                input_path=input_path,
+                scores_output_path=scores_path,
+                report_output_path=report_path,
+                model_id="jinaai/jina-embeddings-v3",
+                batch_size=2,
+                embedder=FakeEmbedder(self.embeddings),
+                generated_at="2026-05-27T12:00:00+00:00",
+                dataset_label="Censo Escolar Dataset",
+            )
+
+            report = report_path.read_text(encoding="utf-8")
+
+        self.assertIn("# Censo Escolar Dataset Semantic Variation Report", report)
 
 
 if __name__ == "__main__":

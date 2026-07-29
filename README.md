@@ -133,6 +133,19 @@ Esses scores são indicadores heurísticos. Uma alteração pequena na distânci
 
 `jinaai/jina-embeddings-v3` é distribuído sob licença `CC BY-NC 4.0`; este fluxo deve ser usado somente em contexto não comercial ou após escolher um modelo com licença compatível.
 
+Para analisar o dataset do Censo Escolar, primeiro gere um arquivo aumentado com pares original/alterado. O analisador espera `original_question`, `original_sql`, `changed_question`, `changed_sql` e `level`; também aceita o formato `{"queries": [...]}` de `data/censo_escolar_dataset/original_dataset.json` quando cada item já tiver `changed_question` e `changed_sql`.
+
+O wrapper do Censo Escolar usa como entrada padrão `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json` e grava os artefatos na mesma pasta:
+
+```bash
+python data/censo_escolar_dataset/analyze_semantic_variation.py --device cuda --batch-size 16
+```
+
+Artefatos gerados pelo wrapper:
+
+- `data/censo_escolar_dataset/censo_escolar_dataset_semantic_variation_scores.json`
+- `data/censo_escolar_dataset/censo_escolar_dataset_semantic_variation_report.md`
+
 ### Medir alterações interpretáveis por componentes SQL
 
 Para uma análise local, rápida e interpretável das mudanças estruturais no SQL, execute:
@@ -155,6 +168,17 @@ Assim, `0` indica que nenhum componente SQL normalizado mudou; valores maiores i
 - `data/geo_dataset/geo_dataset_component_matching_report.md`: distribuição geral, agrupamento por nível, faixas de score, famílias de componentes mais alteradas e extremos observados.
 
 Esse score complementa o relatório de embeddings: ele é mais interpretável para entender o que mudou no SQL, mas continua sendo uma heurística estrutural, não uma prova de correção SQL ou alinhamento com a pergunta em linguagem natural.
+
+Para o dataset do Censo Escolar, use o wrapper equivalente:
+
+```bash
+uv run python data/censo_escolar_dataset/analyze_component_matching.py
+```
+
+Ele lê `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json` por padrão, usa o dialeto SQLGlot `bigquery` para o Standard SQL do CensoBench e grava:
+
+- `data/censo_escolar_dataset/censo_escolar_dataset_component_matching_scores.json`
+- `data/censo_escolar_dataset/censo_escolar_dataset_component_matching_report.md`
 
 ### Usar como módulo
 
