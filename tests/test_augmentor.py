@@ -33,6 +33,66 @@ class CreateRandomVariationTest(unittest.TestCase):
         self.assertNotEqual(sql_modified, "SELECT\n  SUM(1)")
         self.assertTrue(adapt_query.call_args.args[3])
 
+    def test_applies_equivalent_rewrites_without_calling_llm(self):
+        query = "Liste as categorias com pontuação entre 10 e 20"
+
+        with patch("augmentor.adapt_query") as adapt_query:
+            query_modified, sql_modified = create_random_variation(
+                {"tables": []},
+                query,
+                (
+                    "SELECT DISTINCT t.category FROM t "
+                    "WHERE t.score BETWEEN 10 AND 20 "
+                    "ORDER BY t.category"
+                ),
+            )
+
+        self.assertEqual(query_modified, query)
+        self.assertNotIn("DISTINCT", sql_modified)
+        self.assertIn("GROUP BY", sql_modified)
+        self.assertIn("t.score >= 10", sql_modified)
+        self.assertIn("t.score <= 20", sql_modified)
+        adapt_query.assert_not_called()
+
+    def test_applies_equivalent_between_rewrite_after_semantic_mutation(self):
+        schema = {
+            "tables": [
+                {
+                    "name": "t",
+                    "columns": [
+                        {"name": "score", "type": "number", "min": 0, "max": 100}
+                    ],
+                }
+            ]
+        }
+
+        with (
+            patch("augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query,
+            patch(
+                "mutations.between.random.randint",
+                side_effect=(12, 18),
+            ),
+        ):
+            query_modified, sql_modified = create_random_variation(
+                schema,
+                "Registros com pontuação entre 10 e 20",
+                "SELECT t.score FROM t WHERE t.score BETWEEN 10 AND 20",
+            )
+
+        self.assertEqual(query_modified, "Pergunta adaptada")
+        self.assertNotIn("BETWEEN", sql_modified)
+        self.assertIn("t.score >= 12", sql_modified)
+        self.assertIn("t.score <= 18", sql_modified)
+        self.assertEqual(
+            adapt_query.call_args.args[3],
+            [
+                {
+                    "old_line": "t.score BETWEEN 10 AND 20",
+                    "new_line": "t.score BETWEEN 12 AND 18",
+                }
+            ],
+        )
+
     def test_mutates_numeric_predicate_for_aliased_primary_from_table(self):
         schema = {
             "tables": [

@@ -40,7 +40,9 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 │   ├── value_group.py             # mutate_value_group — IN clause value group swap
 │   ├── binary.py                  # mutate_binary — binary column value flip (0 ↔ 1)
 │   ├── text_pattern.py            # mutate_text_pattern — LIKE/ILIKE pattern-shape mutation
-│   └── postgis.py                 # PostGIS function and distance-threshold mutations
+│   ├── postgis.py                 # PostGIS function and distance-threshold mutations
+│   ├── distinct_group_by.py       # DISTINCT-to-GROUP-BY equivalent rewrite
+│   └── between_comparisons.py     # BETWEEN-to-comparisons equivalent rewrite
 ├── pyproject.toml
 ├── uv.lock
 ├── .python-version
@@ -65,7 +67,9 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - `binary.py`: Flips a binary column value (0 → 1 or 1 → 0)
    - `text_pattern.py`: Mutates simple `LIKE`/`ILIKE` pattern shape among exact, starts-with, ends-with, and contains semantics without schema metadata
    - `postgis.py`: Mutates PostGIS functions such as `ST_Buffer`, `ST_DWithin`, direct `ST_Distance(...)` thresholds, `ST_Intersection`, and strict `ST_Intersects(ST_Buffer(...), ST_Buffer(...))` patterns
-   - Each mutation appends changes to a `changelog` list for LLM context
+   - `distinct_group_by.py`: Rewrites simple `SELECT DISTINCT` column projections as an equivalent `GROUP BY`
+   - `between_comparisons.py`: Rewrites a column `BETWEEN` literal bounds as inclusive `>=` and `<=` comparisons
+   - Semantic mutations append changes to a changelog for LLM context; equivalent rewrites do not
 
 2. **Schema Utilities** (`schema_utils.py`)
    - `get_col_info`: Resolves column metadata from schema by table + column name
@@ -79,11 +83,12 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - `adapt_query`: Composes the above to return an adapted natural language query
 
 4. **Orchestrator** (`augmentor.py`)
-   - `create_random_variation`: Parses SQL → two-pass AST transform → adapted query
+   - `create_random_variation`: Parses SQL → three-pass AST transform → adapted query
    - Pass 1: column swaps (`mutate_equivalent_column`) so subsequent mutations see updated columns
    - Pass 2: all remaining mutations applied together
+   - Pass 3: forward-only equivalent rewrites applied to the semantics produced by the first two passes
    - Maintains a per-query `mutation_state` dictionary so repeated PostGIS radii/distances are changed consistently across a query
-   - Returns the original natural-language query without an LLM call when no mutation adds an entry to `changelog`
+   - Returns the original natural-language query without an LLM call when no semantic mutation adds an entry to `semantic_changelog`, even if an equivalent rewrite changes the SQL structure
 
 5. **Entry Point** (`main.py`)
    - Holds hardcoded schema definition and test queries
@@ -125,12 +130,14 @@ Input: schema + query_text + sql
   ↓
 Parse SQL → AST
   ↓
-Transform AST (apply mutations) → collect changelog
+Apply semantic mutation passes → collect semantic changelog
+  ↓
+Apply equivalent structural rewrites without changing the changelog
   ↓
 Generate modified SQL from AST
   ↓
-If changelog is empty: preserve query_text without an LLM call
-Otherwise: LLM adapts query_text based on changelog
+If semantic changelog is empty: preserve query_text without an LLM call
+Otherwise: LLM adapts query_text based on semantic changelog
   ↓
 Output: (adapted_query, modified_sql)
 ```
@@ -208,6 +215,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 - **Embedding scores are heuristic**: General-purpose semantic distances cannot prove whether a SQL mutation is behaviorally equivalent or different
 - **Jina license constraint**: The default semantic-analysis model is licensed `CC BY-NC 4.0` and is selected for non-commercial analysis
 - **Analysis requires augmented pairs**: `data/censo_escolar_dataset/original_dataset.json` is a source dataset only. The analysis wrappers require a censo augmented-pair file with `changed_question` and `changed_sql`.
+- **Equivalent rewrites are intentionally conservative**: `DISTINCT` rewriting supports only plain column projections, and `BETWEEN` rewriting supports only a column with literal bounds.
 
 ## Dependencies
 
@@ -225,7 +233,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 2. **AST transformation pattern**: Using sqlglot's `transform()` method to recursively visit and modify nodes rather than manual tree walking
 3. **Node copying in mutations**: `mutate_agg` explicitly copies node arguments to avoid shared AST references across modifications
 4. **Type-safe mutations**: Each mutation checks column type before applying (e.g., only mutate_between on numeric columns)
-5. **Semantic-changing mutations**: Prefer mutations that deliberately change query intent in a bounded, schema-aware way over rewrites that preserve exact semantics. Equivalent rewrites are useful only as implementation helpers or secondary diversity, not as the main augmentation objective.
+5. **Semantic-changing mutations remain primary**: Prefer mutations that deliberately change query intent in a bounded, schema-aware way. Forward-only equivalent rewrites run afterward as secondary structural diversity.
 6. **Coordinated PostGIS values**: Repeated spatial radii or distance thresholds in a single SQL query should be mutated to the same replacement value through shared per-query state.
 7. **Lazy local LLM loading**: `local-llm.py` imports and loads heavy Hugging Face dependencies only when local mode is used, keeping normal Bedrock imports lightweight.
 8. **No exposed chain-of-thought**: Local Qwen calls default to `LOCAL_LLM_THINKING=false` and strip `<think>...</think>` blocks before returning text to the augmentation pipeline.
@@ -234,13 +242,14 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 11. **Bounded dataset concurrency**: The geospatial batch exposes `--max-workers` with a default of `5`; it limits outstanding paid LLM requests and reconstructs outputs in source order.
 12. **Local batch execution remains sequential**: When `LOCAL_LLM=true`, invoke the geospatial batch with `--max-workers 1` because the local model instance is shared within the process.
 13. **Batch failure visibility**: The geospatial batch logs progress on each completed request and stops on the first failed request rather than writing incomplete output files.
-14. **No-op mutation fast path**: If the AST passes produce an empty `changelog`, `create_random_variation` preserves the original natural-language query and skips LLM adaptation.
+14. **Semantic no-op fast path**: If the semantic mutation passes produce an empty `semantic_changelog`, `create_random_variation` preserves the original natural-language query and skips LLM adaptation, even when the equivalent pass changes the SQL.
 15. **Conservative text-pattern mutation**: `LIKE` and `ILIKE` mutations change only simple outer-wildcard shape; patterns containing `_`, escaping, or internal `%` are preserved.
 16. **Embedding-based variation report**: The geo analysis scores SQL and question pairs separately using `clip(1 - cosine_similarity, 0, 1)` and reports an equal-weight combined score without treating it as formal SQL equivalence checking.
 17. **Long-context multilingual embedding model**: Semantic analysis defaults to `jinaai/jina-embeddings-v3` with `text-matching` because it handles Portuguese and long SQL text on a Colab T4; this default is restricted to non-commercial use by its license.
 18. **Component matching is structural and interpretable**: The geo component analyzer compares normalized SQL AST slots and reports changed components. It complements the embedding report but does not prove SQL correctness, behavioral equivalence, or natural-language alignment.
 19. **Analyzer row loading is shared**: Geo and Censo analysis entry points share `data/analysis_dataset.py` so validation, censo query normalization, and raw-source failure behavior stay consistent across embedding and component reports.
 20. **Censo analysis wrappers reuse scoring logic**: Censo Escolar scripts import the existing geo analyzers instead of copying scoring code, keeping dataset-specific defaults separate from the algorithms.
+21. **Equivalent rewrites are isolated from LLM context**: `DISTINCT`-to-`GROUP BY` and `BETWEEN`-to-comparisons run only after semantic mutations and never add changelog entries.
 
 ## Extension Points for Future Mutations
 
@@ -253,6 +262,12 @@ To add a new mutation type:
 2. Export it from `mutations/__init__.py`
 3. Import and call it inside `mutate_operators()` in `augmentor.py`
 4. Update schema format in `main.py` if new column metadata is needed
+
+To add an equivalent structural rewrite:
+1. Create a focused `rewrite_<feature>(node)` function under `mutations/`
+2. Return the original node when the conservative equivalence guards do not match
+3. Export it from `mutations/__init__.py` and call it in the orchestrator's third pass
+4. Do not append equivalent rewrites to `semantic_changelog`
 
 Examples of potential mutations:
 - LIMIT clause modifications

@@ -209,7 +209,7 @@ descricao = "Buscar registros com coluna numérica entre 10 e 50"
 nova_descricao, novo_sql = create_random_variation(schema, descricao, sql_original)
 ```
 
-Quando nenhuma mutação aplicável é encontrada, `create_random_variation` retorna a descrição original e o SQL serializado sem chamar o LLM. Assim, consultas sem alterações não consomem chamadas remotas ou inferência local desnecessária.
+Quando nenhuma mutação semântica aplicável é encontrada, `create_random_variation` preserva a descrição original e não chama o LLM. O SQL ainda pode receber uma reescrita estrutural equivalente, que não exige adaptação da pergunta.
 
 ## Estrutura do Projeto
 
@@ -236,7 +236,9 @@ Quando nenhuma mutação aplicável é encontrada, `create_random_variation` ret
 │   ├── value_group.py             # Troca grupo de valores em cláusula IN (ex: Norte → Sudeste)
 │   ├── binary.py                  # Inverte valor binário (0 ↔ 1)
 │   ├── text_pattern.py            # Muda a semântica de padrões LIKE/ILIKE
-│   └── postgis.py                 # Muta funções PostGIS e limites de distância
+│   ├── postgis.py                 # Muta funções PostGIS e limites de distância
+│   ├── distinct_group_by.py       # Reescreve DISTINCT como GROUP BY equivalente
+│   └── between_comparisons.py     # Expande BETWEEN em comparações equivalentes
 ├── pyproject.toml                 # Configuração do projeto e dependências
 ├── uv.lock                        # Lockfile de dependências
 ├── .python-version                # Versão do Python (3.12)
@@ -391,14 +393,47 @@ Metadados opcionais recomendados para colunas de geometria:
 
 O schema atual não precisa ser atualizado para usar as mutações PostGIS, mas esses campos permitem controlar melhor os intervalos de distância e buffer.
 
+### 10. DISTINCT para GROUP BY (`mutations/distinct_group_by.py`)
+Reescreve consultas simples com `SELECT DISTINCT` para um `GROUP BY` equivalente:
+
+```sql
+SELECT DISTINCT estado, cidade
+FROM escola
+
+-- torna-se
+
+SELECT estado, cidade
+FROM escola
+GROUP BY estado, cidade
+```
+
+A reescrita aceita apenas projeções formadas por colunas simples, com ou sem alias. Consultas com `DISTINCT ON`, `*`, expressões, agregações, janelas, `GROUP BY` ou `HAVING` não são alteradas.
+
+### 11. BETWEEN para comparações (`mutations/between_comparisons.py`)
+Expande um `BETWEEN` de coluna e limites literais em comparações inclusivas equivalentes:
+
+```sql
+ano BETWEEN 2020 AND 2025
+
+-- torna-se
+
+(ano >= 2020 AND ano <= 2025)
+```
+
+Os limites originais são preservados. Se uma mutação semântica de `BETWEEN` alterar os limites, ela acontece primeiro e a reescrita equivalente expande os novos valores.
+
+Essas duas reescritas são aplicadas depois das mutações semânticas, não são adicionadas ao changelog enviado ao LLM e mantêm a pergunta original quando nenhuma alteração semântica ocorre.
+
 ## Estendendo com Novas Mutações
 
-Para adicionar um novo tipo de mutação:
+Para adicionar uma mutação semântica:
 
 1. Crie `mutations/<feature>.py` com a função `mutate_<feature>(node, changelog, schema)`
 2. Exporte em `mutations/__init__.py`
 3. Importe e chame dentro de `mutate_operators()` em `augmentor.py`
 4. Atualize o schema em `main.py` se precisar de novos metadados de coluna
+
+Para adicionar uma reescrita equivalente, use uma função pura `rewrite_<feature>(node)`, exporte-a em `mutations/__init__.py` e aplique-a no terceiro passe do orquestrador. Reescritas equivalentes não devem adicionar entradas ao changelog semântico.
 
 ## Referências
 

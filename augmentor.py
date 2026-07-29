@@ -10,37 +10,50 @@ from mutations import (
     mutate_text_pattern,
     mutate_distance_threshold,
     mutate_postgis,
+    rewrite_between_as_comparisons,
+    rewrite_distinct_as_group_by,
 )
 from llm import adapt_query
 
 
 def create_random_variation(schema, query, sql):
-    changelog = []
+    semantic_changelog = []
     mutation_state = {}
 
     def mutate_operators(node):
-        node = mutate_between(node, changelog, schema)
-        node = mutate_enum(node, changelog, schema)
-        node = mutate_agg(node, changelog, schema)
-        node = mutate_threshold_shift(node, changelog, schema)
-        node = mutate_value_group(node, changelog, schema)
-        node = mutate_binary(node, changelog, schema)
-        node = mutate_text_pattern(node, changelog, schema)
-        node = mutate_distance_threshold(node, changelog, schema, mutation_state)
-        node = mutate_postgis(node, changelog, schema, mutation_state)
+        node = mutate_between(node, semantic_changelog, schema)
+        node = mutate_enum(node, semantic_changelog, schema)
+        node = mutate_agg(node, semantic_changelog, schema)
+        node = mutate_threshold_shift(node, semantic_changelog, schema)
+        node = mutate_value_group(node, semantic_changelog, schema)
+        node = mutate_binary(node, semantic_changelog, schema)
+        node = mutate_text_pattern(node, semantic_changelog, schema)
+        node = mutate_distance_threshold(
+            node, semantic_changelog, schema, mutation_state
+        )
+        node = mutate_postgis(node, semantic_changelog, schema, mutation_state)
+        return node
+
+    def rewrite_equivalent_expressions(node):
+        node = rewrite_distinct_as_group_by(node)
+        node = rewrite_between_as_comparisons(node)
         return node
 
     ast = sqlglot.parse_one(sql, read="postgres")
 
     # Pass 1: column swaps first so operator mutations see the updated columns
-    modified_ast = ast.transform(lambda n: mutate_equivalent_column(n, changelog, schema))
+    modified_ast = ast.transform(
+        lambda n: mutate_equivalent_column(n, semantic_changelog, schema)
+    )
     # Pass 2: all remaining operator mutations
     modified_ast = modified_ast.transform(mutate_operators)
+    # Pass 3: structural rewrites preserve the semantics produced by the first passes
+    modified_ast = modified_ast.transform(rewrite_equivalent_expressions)
 
     sql_modified = modified_ast.sql(dialect="postgres", pretty=True)
-    if not changelog:
+    if not semantic_changelog:
         return (query, sql_modified)
 
-    query_modified = adapt_query(query, sql, sql_modified, changelog)
+    query_modified = adapt_query(query, sql, sql_modified, semantic_changelog)
 
     return (query_modified, sql_modified)
