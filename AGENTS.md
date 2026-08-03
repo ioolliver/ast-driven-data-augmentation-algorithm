@@ -23,6 +23,8 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 │   │   ├── original_dataset.json  # CensoBench source rows in dataset_info + queries format
 │   │   ├── schema.py              # Schema dedicated to Censo Escolar mutations
 │   │   ├── apply_augmentation_censo_escolar_dataset.py  # Bounded-concurrency Censo batch writer
+│   │   ├── compare_augmentation_methods.py  # Three-method JSON/XLSX comparison runner
+│   │   ├── analyze_semantic_variation_methods.py  # Shared-model three-method analyzer runner
 │   │   ├── analyze_semantic_variation.py   # Censo wrapper over the shared embedding analyzer
 │   │   └── analyze_component_matching.py   # Censo wrapper over the shared SQL component analyzer
 │   └── geo_dataset/
@@ -113,29 +115,40 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - Applies `create_random_variation` once per query with bounded concurrency while preserving source order
    - Validates source fields before remote work and stops without writing partial outputs when a query fails
 
-8. **Semantic Variation Analysis** (`data/geo_dataset/analyze_semantic_variation.py`)
+8. **Censo Escolar Method Comparison Script** (`data/censo_escolar_dataset/compare_augmentation_methods.py`)
+   - Runs question paraphrasing only, AST algorithm only, and AST algorithm with question paraphrasing sequentially
+   - Reuses the Censo batch validation, bounded concurrency, source-order reconstruction, and failure context
+   - Writes one augmented-pair JSON and one review-friendly XLSX per method under `augmentation_method_results/`
+   - Includes the source query ID, difficulty, and original/changed question and SQL in every output; it does not build a consolidated comparison workbook
+
+9. **Censo Three-Method Semantic Analysis** (`data/censo_escolar_dataset/analyze_semantic_variation_methods.py`)
+   - Validates all three augmented JSON inputs before loading the embedding model
+   - Loads the configured Jina embedder once and reuses it sequentially across the three methods
+   - Writes separate semantic score JSON and XLSX files beside each augmented input
+
+10. **Semantic Variation Analysis** (`data/geo_dataset/analyze_semantic_variation.py`)
    - Loads `data/geo_dataset/geo_dataset_augmented_only.json`
    - Uses `jinaai/jina-embeddings-v3` with the symmetric `text-matching` task on Colab/T4
    - Calculates clipped cosine variation scores independently for SQL and question text plus their equal-weight mean
    - Writes row-level scores as JSON and aggregate statistics as Markdown or XLSX based on the report output suffix
 
-9. **Component Matching Analysis** (`data/geo_dataset/analyze_component_matching.py`)
+11. **Component Matching Analysis** (`data/geo_dataset/analyze_component_matching.py`)
    - Loads `data/geo_dataset/geo_dataset_augmented_only.json`
    - Parses original and changed SQL with SQLGlot using the Postgres dialect
    - Extracts normalized AST component slots for projections, aggregations, tables, joins, predicates, literals, grouping, ordering, limits, and PostGIS function arguments
    - Computes `changed_component_count / component_total` and writes row-level changed components plus aggregate statistics as JSON and Markdown or XLSX
 
-10. **Shared Analysis Dataset Loader** (`data/analysis_dataset.py`)
+12. **Shared Analysis Dataset Loader** (`data/analysis_dataset.py`)
    - Validates the flat augmented-pair contract used by the geo batch: `original_question`, `original_sql`, `changed_question`, `changed_sql`, and `level`
    - Also normalizes Censo Escolar `{"queries": [...]}` rows once each query has `changed_question` and `changed_sql`, deriving `level` from `complexidade.nivel`
    - Fails loudly when the raw Censo Escolar source file is used before augmentation, because semantic/component variation metrics require original/changed pairs
 
-11. **Shared Analysis Workbook Writer** (`data/analysis_workbook.py`)
+13. **Shared Analysis Workbook Writer** (`data/analysis_workbook.py`)
    - Builds styled XLSX workbooks directly from analyzer metadata, statistics, and scored rows using OpenPyXL
    - Semantic reports contain `Resumo`, `Por Nível`, `Distribuição`, `Extremos`, and `Metadados`
    - Component reports add the `Componentes` sheet; both formats include typed numeric cells, tables, frozen panes, and charts
 
-12. **Censo Escolar Analysis Wrappers** (`data/censo_escolar_dataset/analyze_*.py`)
+14. **Censo Escolar Analysis Wrappers** (`data/censo_escolar_dataset/analyze_*.py`)
    - Reuse the geo analyzer implementations and scoring logic with Censo-specific default paths and report titles
    - Default input is `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json`
    - Component matching defaults to SQLGlot `bigquery` because CensoBench declares Standard SQL and includes BigQuery functions such as `SAFE_DIVIDE`
@@ -272,6 +285,8 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 21. **Equivalent rewrites are isolated from LLM context**: `DISTINCT`-to-`GROUP BY` and `BETWEEN`-to-comparisons run only after semantic mutations and never add changelog entries.
 22. **Analysis report format follows the output suffix**: Shared analyzers preserve Markdown support for `.md` paths and write structured workbooks for `.xlsx` paths. Censo wrappers default to the example workbook filenames while retaining JSON score artifacts.
 23. **Comparison strategies share one mutation pipeline**: Algorithm-only and algorithm-plus-paraphrasing call the same private AST transformation function. Paraphrase-only bypasses SQL parsing and preserves the SQL string exactly.
+24. **Censo method outputs stay independent**: The comparison runner writes three separate JSON/XLSX pairs instead of a consolidated workbook. All workbooks use the same ordered columns and source query IDs so results can be aligned manually.
+25. **Three-method semantic analysis shares one embedder**: The Censo multi-method runner validates every input first, then reuses one embedding-model instance to avoid three expensive model loads while retaining separate score and workbook artifacts.
 
 ## Extension Points for Future Mutations
 

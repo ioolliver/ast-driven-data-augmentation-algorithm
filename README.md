@@ -118,6 +118,37 @@ O script grava:
 
 `--max-workers` limita as requisições simultâneas e tem valor padrão `5`. Se uma consulta falhar, o erro identifica seu `id`, o batch registra a falha e não grava artefatos parciais.
 
+### Comparar os três métodos de aumento no Censo Escolar
+
+```bash
+uv run python data/censo_escolar_dataset/compare_augmentation_methods.py --max-workers 5
+```
+
+O script valida o dataset uma vez e executa, em sequência, os três métodos: somente paráfrase da pergunta, somente o algoritmo AST atual e algoritmo AST + paráfrase. Dentro de cada método, `--max-workers` limita as chamadas simultâneas. Para execução com `LOCAL_LLM=true`, use `--max-workers 1`.
+
+Os seis arquivos são gravados em `data/censo_escolar_dataset/augmentation_method_results/`:
+
+- `censo_escolar_paraphrase_only_augmented.json` e `.xlsx`
+- `censo_escolar_algorithm_only_augmented.json` e `.xlsx`
+- `censo_escolar_algorithm_with_paraphrasing_augmented.json` e `.xlsx`
+
+Cada JSON contém `id`, `level`, `original_question`, `changed_question`, `original_sql` e `changed_sql`. Cada planilha contém os mesmos pares na aba `Augmented Pairs`, com uma planilha independente por método e sem uma comparação consolidada. Use `--input` e `--output-dir` para alterar os caminhos padrão.
+
+Para executar a análise de variação semântica nos três JSONs com um único carregamento do modelo de embeddings:
+
+```bash
+uv run \
+  --with "sentence-transformers==3.1.0" \
+  --with "transformers==4.57.6" \
+  --with einops \
+  --with "numpy<2" \
+  python data/censo_escolar_dataset/analyze_semantic_variation_methods.py \
+  --device cpu \
+  --batch-size 16
+```
+
+Use `--device cuda` em um ambiente com GPU compatível. Antes de carregar o modelo, o script verifica a existência dos três datasets. Para cada método, ele grava um arquivo `*_semantic_variation_scores.json` e uma planilha `*_semantic_variation.xlsx` no mesmo diretório `augmentation_method_results/`.
+
 ### Medir variação semântica do dataset aumentado
 
 Depois de gerar `data/geo_dataset/geo_dataset_augmented_only.json`, execute a análise de embeddings em um Google Colab com GPU T4:
@@ -260,6 +291,8 @@ Essas três funções permitem comparar: somente paráfrase, somente o algoritmo
 │   │   ├── original_dataset.json  # Consultas fonte do CensoBench
 │   │   ├── schema.py              # Schema usado pelas mutações do Censo Escolar
 │   │   ├── apply_augmentation_censo_escolar_dataset.py  # Executa o batch do Censo Escolar
+│   │   ├── compare_augmentation_methods.py  # Exporta JSON/XLSX para os três métodos
+│   │   ├── analyze_semantic_variation_methods.py  # Analisa os três métodos com um modelo
 │   │   ├── analyze_semantic_variation.py   # Wrapper da análise por embeddings
 │   │   └── analyze_component_matching.py   # Wrapper da análise estrutural do SQL
 │   └── geo_dataset/
