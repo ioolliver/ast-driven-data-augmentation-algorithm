@@ -216,6 +216,8 @@ class AnalyzeComponentMatchingTest(unittest.TestCase):
     def test_censo_wrapper_defaults_to_bigquery_sql_dialect(self):
         module = load_censo_component_module()
 
+        self.assertEqual(module.REPORT_OUTPUT_PATH.suffix, ".xlsx")
+
         rows = [
             {
                 "original_question": "Relação entre alunos e docentes",
@@ -236,7 +238,7 @@ class AnalyzeComponentMatchingTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp_dir:
             input_path = Path(tmp_dir) / "input.json"
             scores_path = Path(tmp_dir) / "scores.json"
-            report_path = Path(tmp_dir) / "report.md"
+            report_path = Path(tmp_dir) / "report.xlsx"
             input_path.write_text(
                 json.dumps(rows, ensure_ascii=False), encoding="utf-8"
             )
@@ -246,10 +248,12 @@ class AnalyzeComponentMatchingTest(unittest.TestCase):
                 scores_output_path=scores_path,
                 report_output_path=report_path,
             )
+            report_was_written = report_path.is_file()
 
         self.assertEqual(payload["metadata"]["sql_dialect"], "bigquery")
         self.assertEqual(payload["metadata"]["dataset_label"], "Censo Escolar Dataset")
         self.assertGreater(payload["rows"][0]["changed_component_count"], 0)
+        self.assertTrue(report_was_written)
 
     def test_run_analysis_writes_utf8_scores_and_markdown_report(self):
         module = load_analysis_module()

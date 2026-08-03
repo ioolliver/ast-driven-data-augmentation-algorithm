@@ -1,5 +1,17 @@
 from sqlglot import exp
 
+"""
+Antes:
+
+SELECT DISTINCT estado, municipio
+FROM escolas;
+
+Depois:
+
+SELECT estado
+FROM escolas
+GROUP BY estado, municipio;
+"""
 
 def rewrite_distinct_as_group_by(node):
     if not isinstance(node, exp.Select):

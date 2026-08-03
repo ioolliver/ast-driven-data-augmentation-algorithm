@@ -342,6 +342,25 @@ def build_report(metadata, summary, scored_rows):
     return "\n".join(lines)
 
 
+def write_report(output_path, metadata, summary, scored_rows):
+    suffix = output_path.suffix.lower()
+    if suffix == ".md":
+        output_path.write_text(
+            build_report(metadata, summary, scored_rows), encoding="utf-8"
+        )
+        return
+    if suffix == ".xlsx":
+        from data.analysis_workbook import write_semantic_variation_workbook
+
+        write_semantic_variation_workbook(
+            output_path, metadata, summary, scored_rows
+        )
+        return
+    raise ValueError(
+        f"Unsupported report format {output_path.suffix!r}; use .md or .xlsx."
+    )
+
+
 def run_analysis(
     input_path=INPUT_DATASET_PATH,
     scores_output_path=SCORES_OUTPUT_PATH,
@@ -373,10 +392,8 @@ def run_analysis(
         "batch_size": batch_size,
     }
     payload = {"metadata": metadata, "statistics": summary, "rows": scored_rows}
-    report = build_report(metadata, summary, scored_rows)
-
     write_json(scores_output_path, payload)
-    report_output_path.write_text(report, encoding="utf-8")
+    write_report(report_output_path, metadata, summary, scored_rows)
     LOGGER.info(
         "Wrote semantic variation analysis: rows=%d scores=%s report=%s",
         len(rows),

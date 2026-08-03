@@ -61,6 +61,7 @@ As dependências estão definidas em `pyproject.toml`:
 - **python-dotenv** (>= 1.0.0) - Carregamento de variáveis de ambiente do arquivo `.env`
 - **openai** - Cliente compatível com Chat Completions para acessar o Amazon Bedrock
 - **numpy** - Operações vetorizadas de similaridade, clipping, percentis e estatísticas dos analisadores
+- **openpyxl** - Geração dos relatórios XLSX estruturados dos analisadores do Censo Escolar
 - **transformers**, **accelerate**, **torch** e **bitsandbytes** - Dependências opcionais para executar o LLM local em Colab/GPU
 - **sentence-transformers** e **einops** - Dependências opcionais para analisar distância semântica dos pares aumentados com Jina Embeddings v3 em Colab/GPU
 
@@ -102,6 +103,21 @@ Durante a execução, o console mostra o total carregado, a quantidade concluíd
 
 Se uma chamada falhar, a execução registra `failed=1` e interrompe o batch sem gravar artefatos parciais.
 
+### Gerar o dataset do Censo Escolar aumentado
+
+```bash
+uv run python data/censo_escolar_dataset/apply_augmentation_censo_escolar_dataset.py --max-workers 5
+```
+
+O script lê as 107 consultas de `data/censo_escolar_dataset/original_dataset.json`, aplica uma variação por par `pergunta_nl` + `sql` usando `data/censo_escolar_dataset/schema.py` e mantém a ordem original mesmo quando as chamadas ao Bedrock terminam fora de ordem.
+
+O script grava:
+
+- `data/censo_escolar_dataset/censo_escolar_dataset_augmented.json`: alterna cada consulta original com sua versão aumentada usando os campos `question`, `level`, `sql_code` e `augmented`
+- `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json`: registra, para cada consulta, `original_question`, `original_sql`, `changed_question`, `changed_sql` e `level`
+
+`--max-workers` limita as requisições simultâneas e tem valor padrão `5`. Se uma consulta falhar, o erro identifica seu `id`, o batch registra a falha e não grava artefatos parciais.
+
 ### Medir variação semântica do dataset aumentado
 
 Depois de gerar `data/geo_dataset/geo_dataset_augmented_only.json`, execute a análise de embeddings em um Google Colab com GPU T4:
@@ -133,7 +149,7 @@ Esses scores são indicadores heurísticos. Uma alteração pequena na distânci
 
 `jinaai/jina-embeddings-v3` é distribuído sob licença `CC BY-NC 4.0`; este fluxo deve ser usado somente em contexto não comercial ou após escolher um modelo com licença compatível.
 
-Para analisar o dataset do Censo Escolar, primeiro gere um arquivo aumentado com pares original/alterado. O analisador espera `original_question`, `original_sql`, `changed_question`, `changed_sql` e `level`; também aceita o formato `{"queries": [...]}` de `data/censo_escolar_dataset/original_dataset.json` quando cada item já tiver `changed_question` e `changed_sql`.
+Para analisar o dataset do Censo Escolar, primeiro execute o batch de aumento descrito acima. O analisador espera `original_question`, `original_sql`, `changed_question`, `changed_sql` e `level`; também aceita o formato `{"queries": [...]}` quando cada item já tiver `changed_question` e `changed_sql`.
 
 O wrapper do Censo Escolar usa como entrada padrão `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json` e grava os artefatos na mesma pasta:
 
@@ -144,7 +160,9 @@ python data/censo_escolar_dataset/analyze_semantic_variation.py --device cuda --
 Artefatos gerados pelo wrapper:
 
 - `data/censo_escolar_dataset/censo_escolar_dataset_semantic_variation_scores.json`
-- `data/censo_escolar_dataset/censo_escolar_dataset_semantic_variation_report.md`
+- `data/censo_escolar_dataset/censo_escolar_variacao_semantica_analise.xlsx`
+
+A planilha segue o modelo existente na pasta e contém as abas `Resumo`, `Por Nível`, `Distribuição`, `Extremos` e `Metadados`, com tabelas formatadas e gráfico de distribuição. O JSON continua sendo gravado para preservar os scores detalhados e permitir processamento automatizado.
 
 ### Medir alterações interpretáveis por componentes SQL
 
@@ -178,7 +196,9 @@ uv run python data/censo_escolar_dataset/analyze_component_matching.py
 Ele lê `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json` por padrão, usa o dialeto SQLGlot `bigquery` para o Standard SQL do CensoBench e grava:
 
 - `data/censo_escolar_dataset/censo_escolar_dataset_component_matching_scores.json`
-- `data/censo_escolar_dataset/censo_escolar_dataset_component_matching_report.md`
+- `data/censo_escolar_dataset/censo_escolar_component_matching_analise.xlsx`
+
+A planilha contém as abas `Resumo`, `Por Nível`, `Distribuição`, `Componentes`, `Extremos` e `Metadados`. Os analisadores compartilhados escolhem o formato pelo sufixo de `--report-output`: `.xlsx` gera a planilha e `.md` mantém disponível o relatório textual. Os wrappers do Censo usam `.xlsx` por padrão; os scripts do Geo continuam usando `.md` por padrão.
 
 ### Usar como módulo
 
@@ -219,6 +239,12 @@ Quando nenhuma mutação semântica aplicável é encontrada, `create_random_var
 ├── augmentor.py                   # Orquestrador: create_random_variation
 ├── llm.py                         # Camada LLM: prompt, chamada Bedrock, format_changelog
 ├── data/
+│   ├── censo_escolar_dataset/
+│   │   ├── original_dataset.json  # Consultas fonte do CensoBench
+│   │   ├── schema.py              # Schema usado pelas mutações do Censo Escolar
+│   │   ├── apply_augmentation_censo_escolar_dataset.py  # Executa o batch do Censo Escolar
+│   │   ├── analyze_semantic_variation.py   # Wrapper da análise por embeddings
+│   │   └── analyze_component_matching.py   # Wrapper da análise estrutural do SQL
 │   └── geo_dataset/
 │       ├── geo_base_dataset.json   # 980 pares base processados pelo batch
 │       ├── geodataset_schema.py   # Schema usado pelo batch do dataset geoespacial
@@ -319,7 +345,7 @@ LOCAL_LLM_TOP_P=0.9
 
 O modelo é carregado de forma lazy na primeira chamada e reutilizado nas chamadas seguintes. O modo 4-bit fica ativo por padrão para reduzir uso de VRAM na T4. Para modelos Qwen que suportam modo de raciocínio, `LOCAL_LLM_THINKING=false` pede ao template de chat para não gerar o bloco de pensamento; qualquer bloco `<think>...</think>` remanescente também é removido antes da resposta ser retornada.
 
-Ao executar o batch geoespacial com `LOCAL_LLM=true`, use `--max-workers 1`, pois o modelo local é carregado e reutilizado no mesmo processo. A concorrência limitada do batch é destinada às chamadas remotas ao Bedrock.
+Ao executar qualquer batch com `LOCAL_LLM=true`, use `--max-workers 1`, pois o modelo local é carregado e reutilizado no mesmo processo. A concorrência limitada dos batches é destinada às chamadas remotas ao Bedrock.
 
 ## Tipos de Mutações Suportadas
 

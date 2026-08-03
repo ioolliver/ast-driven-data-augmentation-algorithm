@@ -47,7 +47,7 @@ use the changelog below to help you know exactly what changed in the query.
 
 # TASK
 
-Return only the new query text. Make sure that the adapted text makes sense in the target language. It must be a natural language question.
+Return only the new query text. Make sure that the adapted text makes sense in the target language (PORTUGUESE). It must be a natural language question.
 
 """
 

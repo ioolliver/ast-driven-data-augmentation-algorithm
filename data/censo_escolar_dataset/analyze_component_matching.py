@@ -9,7 +9,7 @@ REPO_ROOT = SCRIPT_DIR.parents[1]
 GEO_ANALYZER_PATH = REPO_ROOT / "data" / "geo_dataset" / "analyze_component_matching.py"
 INPUT_DATASET_PATH = SCRIPT_DIR / "censo_escolar_dataset_augmented_only.json"
 SCORES_OUTPUT_PATH = SCRIPT_DIR / "censo_escolar_dataset_component_matching_scores.json"
-REPORT_OUTPUT_PATH = SCRIPT_DIR / "censo_escolar_dataset_component_matching_report.md"
+REPORT_OUTPUT_PATH = SCRIPT_DIR / "censo_escolar_component_matching_analise.xlsx"
 DATASET_LABEL = "Censo Escolar Dataset"
 SQL_DIALECT = "bigquery"
 

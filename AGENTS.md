@@ -18,9 +18,11 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 ├── local-llm.py                   # Optional local Hugging Face LLM runner for Colab/GPU
 ├── data/
 │   ├── analysis_dataset.py        # Shared analyzer row loader for flat and censo query-shaped augmented pairs
+│   ├── analysis_workbook.py       # Styled XLSX report writer shared by both analysis types
 │   ├── censo_escolar_dataset/
 │   │   ├── original_dataset.json  # CensoBench source rows in dataset_info + queries format
 │   │   ├── schema.py              # Schema dedicated to Censo Escolar mutations
+│   │   ├── apply_augmentation_censo_escolar_dataset.py  # Bounded-concurrency Censo batch writer
 │   │   ├── analyze_semantic_variation.py   # Censo wrapper over the shared embedding analyzer
 │   │   └── analyze_component_matching.py   # Censo wrapper over the shared SQL component analyzer
 │   └── geo_dataset/
@@ -100,28 +102,39 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - Logs completed, succeeded, and failed request counts as each remote call finishes
    - Writes a mixed original+augmented dataset and an augmented-only change mapping
 
-7. **Semantic Variation Analysis** (`data/geo_dataset/analyze_semantic_variation.py`)
+7. **Censo Escolar Batch Script** (`data/censo_escolar_dataset/apply_augmentation_censo_escolar_dataset.py`)
+   - Loads the `queries` array from `data/censo_escolar_dataset/original_dataset.json`
+   - Maps `pergunta_nl`, `sql`, and `complexidade.nivel` into the shared reduced output contracts
+   - Applies `create_random_variation` once per query with bounded concurrency while preserving source order
+   - Validates source fields before remote work and stops without writing partial outputs when a query fails
+
+8. **Semantic Variation Analysis** (`data/geo_dataset/analyze_semantic_variation.py`)
    - Loads `data/geo_dataset/geo_dataset_augmented_only.json`
    - Uses `jinaai/jina-embeddings-v3` with the symmetric `text-matching` task on Colab/T4
    - Calculates clipped cosine variation scores independently for SQL and question text plus their equal-weight mean
-   - Writes row-level scores as JSON and aggregate statistics as Markdown
+   - Writes row-level scores as JSON and aggregate statistics as Markdown or XLSX based on the report output suffix
 
-8. **Component Matching Analysis** (`data/geo_dataset/analyze_component_matching.py`)
+9. **Component Matching Analysis** (`data/geo_dataset/analyze_component_matching.py`)
    - Loads `data/geo_dataset/geo_dataset_augmented_only.json`
    - Parses original and changed SQL with SQLGlot using the Postgres dialect
    - Extracts normalized AST component slots for projections, aggregations, tables, joins, predicates, literals, grouping, ordering, limits, and PostGIS function arguments
-   - Computes `changed_component_count / component_total` and writes row-level changed components plus aggregate statistics as JSON and Markdown
+   - Computes `changed_component_count / component_total` and writes row-level changed components plus aggregate statistics as JSON and Markdown or XLSX
 
-9. **Shared Analysis Dataset Loader** (`data/analysis_dataset.py`)
+10. **Shared Analysis Dataset Loader** (`data/analysis_dataset.py`)
    - Validates the flat augmented-pair contract used by the geo batch: `original_question`, `original_sql`, `changed_question`, `changed_sql`, and `level`
    - Also normalizes Censo Escolar `{"queries": [...]}` rows once each query has `changed_question` and `changed_sql`, deriving `level` from `complexidade.nivel`
    - Fails loudly when the raw Censo Escolar source file is used before augmentation, because semantic/component variation metrics require original/changed pairs
 
-10. **Censo Escolar Analysis Wrappers** (`data/censo_escolar_dataset/analyze_*.py`)
+11. **Shared Analysis Workbook Writer** (`data/analysis_workbook.py`)
+   - Builds styled XLSX workbooks directly from analyzer metadata, statistics, and scored rows using OpenPyXL
+   - Semantic reports contain `Resumo`, `Por Nível`, `Distribuição`, `Extremos`, and `Metadados`
+   - Component reports add the `Componentes` sheet; both formats include typed numeric cells, tables, frozen panes, and charts
+
+12. **Censo Escolar Analysis Wrappers** (`data/censo_escolar_dataset/analyze_*.py`)
    - Reuse the geo analyzer implementations and scoring logic with Censo-specific default paths and report titles
    - Default input is `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json`
    - Component matching defaults to SQLGlot `bigquery` because CensoBench declares Standard SQL and includes BigQuery functions such as `SAFE_DIVIDE`
-   - Write Censo-specific score/report artifacts under `data/censo_escolar_dataset/`
+   - Keep the detailed score artifacts as JSON and write the human-readable reports as XLSX by default under `data/censo_escolar_dataset/`
 
 ### Data Flow
 
@@ -147,12 +160,13 @@ Batch dataset flow:
 ```
 Input dataset JSON
   ↓
-For each row: call create_random_variation(schema, question, sql_code) once
+For each source row/query: map its dataset-specific question, SQL, and level fields,
+then call create_random_variation(schema, question, sql_code) once
 with bounded concurrent requests while retaining input order
   ↓
-Write geo_dataset_augmented.json
+Write the dataset-specific mixed original+augmented JSON
   ↓
-Write geo_dataset_augmented_only.json
+Write the dataset-specific augmented-only JSON used by the analyzers
 ```
 
 Semantic variation report flow:
@@ -168,7 +182,7 @@ Compute score = clip(1 - cosine_similarity, 0, 1)
   ↓
 Write geo_dataset_semantic_variation_scores.json
   ↓
-Write geo_dataset_semantic_variation_report.md
+Write the report selected by its suffix: Geo defaults to Markdown and Censo defaults to XLSX
 ```
 
 Component matching report flow:
@@ -186,7 +200,7 @@ Compute score = changed_component_count / component_total
   ↓
 Write geo_dataset_component_matching_scores.json
   ↓
-Write geo_dataset_component_matching_report.md
+Write the report selected by its suffix: Geo defaults to Markdown and Censo defaults to XLSX
 ```
 
 ### Schema Format
@@ -224,6 +238,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 - **python-dotenv**: Loads Bedrock endpoint and API key configuration from `.env`
 - **transformers / accelerate / torch / bitsandbytes**: Optional local LLM dependencies for `local-llm.py`, installed in the Colab runtime rather than required for default Bedrock mode
 - **numpy**: Vector math, clipping, percentiles, and aggregate statistics for geo dataset analysis scripts
+- **openpyxl**: Styled XLSX report generation for Censo Escolar semantic and component analyses
 - **sentence-transformers / einops**: Optional embedding-model dependencies for `analyze_semantic_variation.py`, installed in the Colab runtime rather than required for augmentation
 - **random**: For random selection in mutations
 
@@ -237,11 +252,11 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 6. **Coordinated PostGIS values**: Repeated spatial radii or distance thresholds in a single SQL query should be mutated to the same replacement value through shared per-query state.
 7. **Lazy local LLM loading**: `local-llm.py` imports and loads heavy Hugging Face dependencies only when local mode is used, keeping normal Bedrock imports lightweight.
 8. **No exposed chain-of-thought**: Local Qwen calls default to `LOCAL_LLM_THINKING=false` and strip `<think>...</think>` blocks before returning text to the augmentation pipeline.
-9. **Dataset batch outputs are reduced views**: The geospatial batch writer emits only the fields needed for training and change tracking instead of copying all source metadata into the derived artifacts.
+9. **Dataset batch outputs are reduced views**: The geo and Censo batch writers emit only the fields needed for training and change tracking instead of copying all source metadata into the derived artifacts.
 10. **Bedrock through OpenAI compatibility**: Remote adaptation uses `openai.gpt-oss-120b` on an explicitly configured `bedrock-mantle` OpenAI-compatible endpoint.
-11. **Bounded dataset concurrency**: The geospatial batch exposes `--max-workers` with a default of `5`; it limits outstanding paid LLM requests and reconstructs outputs in source order.
-12. **Local batch execution remains sequential**: When `LOCAL_LLM=true`, invoke the geospatial batch with `--max-workers 1` because the local model instance is shared within the process.
-13. **Batch failure visibility**: The geospatial batch logs progress on each completed request and stops on the first failed request rather than writing incomplete output files.
+11. **Bounded dataset concurrency**: Both dataset batches expose `--max-workers` with a default of `5`; they limit outstanding paid LLM requests and reconstruct outputs in source order.
+12. **Local batch execution remains sequential**: When `LOCAL_LLM=true`, invoke either batch with `--max-workers 1` because the local model instance is shared within the process.
+13. **Batch failure visibility**: Both dataset batches log progress on each completed request and stop on the first failed row/query rather than writing incomplete output files.
 14. **Semantic no-op fast path**: If the semantic mutation passes produce an empty `semantic_changelog`, `create_random_variation` preserves the original natural-language query and skips LLM adaptation, even when the equivalent pass changes the SQL.
 15. **Conservative text-pattern mutation**: `LIKE` and `ILIKE` mutations change only simple outer-wildcard shape; patterns containing `_`, escaping, or internal `%` are preserved.
 16. **Embedding-based variation report**: The geo analysis scores SQL and question pairs separately using `clip(1 - cosine_similarity, 0, 1)` and reports an equal-weight combined score without treating it as formal SQL equivalence checking.
@@ -250,6 +265,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 19. **Analyzer row loading is shared**: Geo and Censo analysis entry points share `data/analysis_dataset.py` so validation, censo query normalization, and raw-source failure behavior stay consistent across embedding and component reports.
 20. **Censo analysis wrappers reuse scoring logic**: Censo Escolar scripts import the existing geo analyzers instead of copying scoring code, keeping dataset-specific defaults separate from the algorithms.
 21. **Equivalent rewrites are isolated from LLM context**: `DISTINCT`-to-`GROUP BY` and `BETWEEN`-to-comparisons run only after semantic mutations and never add changelog entries.
+22. **Analysis report format follows the output suffix**: Shared analyzers preserve Markdown support for `.md` paths and write structured workbooks for `.xlsx` paths. Censo wrappers default to the example workbook filenames while retaining JSON score artifacts.
 
 ## Extension Points for Future Mutations
 

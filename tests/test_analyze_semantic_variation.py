@@ -19,6 +19,21 @@ def load_analysis_module():
     return module
 
 
+def load_censo_analysis_module():
+    module_path = (
+        Path(__file__).resolve().parents[1]
+        / "data"
+        / "censo_escolar_dataset"
+        / "analyze_semantic_variation.py"
+    )
+    spec = importlib.util.spec_from_file_location(
+        "censo_semantic_variation_script", module_path
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 class FakeEmbedder:
     def __init__(self, embeddings):
         self.embeddings = embeddings
@@ -248,6 +263,11 @@ class AnalyzeSemanticVariationTest(unittest.TestCase):
             report = report_path.read_text(encoding="utf-8")
 
         self.assertIn("# Censo Escolar Dataset Semantic Variation Report", report)
+
+    def test_censo_wrapper_defaults_to_xlsx_report(self):
+        module = load_censo_analysis_module()
+
+        self.assertEqual(module.REPORT_OUTPUT_PATH.suffix, ".xlsx")
 
 
 if __name__ == "__main__":

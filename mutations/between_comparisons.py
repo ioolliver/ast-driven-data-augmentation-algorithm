@@ -1,5 +1,19 @@
 from sqlglot import exp
 
+"""
+Antes:
+
+SELECT *
+FROM escolas
+WHERE numero_alunos BETWEEN 100 AND 500;
+
+Depois:
+
+SELECT *
+FROM escolas
+WHERE numero_alunos >= 100
+AND numero_alunos <= 500;
+"""
 
 def rewrite_between_as_comparisons(node):
     if not isinstance(node, exp.Between):
