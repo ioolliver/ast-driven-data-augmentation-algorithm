@@ -21,7 +21,14 @@ def format_changelog(changelog):
     )
 
 
-def get_llm_prompt(query, sql, sql_modified, changelog):
+def get_llm_prompt(query, sql, sql_modified, changelog, paraphrase=False):
+    paraphrase_instruction = ""
+    if paraphrase:
+        paraphrase_instruction = (
+            "Also paraphrase the question: do not merely replace the parts affected "
+            "by the SQL changes. Rephrase its wording while preserving its meaning.\n"
+        )
+
     return f"""
 You will receive an original SQL query and an updated version of it. Your task is to adapt the query in natural language to match the new SQL changes.
 
@@ -47,8 +54,23 @@ use the changelog below to help you know exactly what changed in the query.
 
 # TASK
 
-Return only the new query text. Make sure that the adapted text makes sense in the target language (PORTUGUESE). It must be a natural language question.
+{paraphrase_instruction}Return only the new query text. Make sure that the adapted text makes sense in the target language (PORTUGUESE). It must be a natural language question.
 
+"""
+
+
+def get_paraphrase_prompt(query):
+    return f"""
+Paraphrase the question below in Portuguese while preserving its exact meaning.
+Do not add or remove filters, values, entities, or any other information.
+
+# ORIGINAL QUESTION
+
+{query}
+
+# TASK
+
+Return only the paraphrased question in Portuguese, without explanations or answers.
 """
 
 
@@ -113,9 +135,16 @@ def send_to_llm(prompt):
     return _send_to_bedrock(prompt)
 
 
-def adapt_query(query, sql, sql_modified, changelog):
-    prompt = get_llm_prompt(query, sql, sql_modified, changelog)
+def paraphrase_query(query):
+    return send_to_llm(get_paraphrase_prompt(query))
+
+
+def adapt_query(query, sql, sql_modified, changelog, *, paraphrase=False):
+    prompt = get_llm_prompt(
+        query,
+        sql,
+        sql_modified,
+        changelog,
+        paraphrase=paraphrase,
+    )
     return send_to_llm(prompt)
-
-
-send_to_llm("Quem é você?")

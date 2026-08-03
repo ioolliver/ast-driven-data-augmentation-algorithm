@@ -3,10 +3,56 @@ from unittest.mock import patch
 
 from sqlglot import exp
 
-from augmentor import create_random_variation
+from augmentor import (
+    create_paraphrase_only_variation,
+    create_random_variation,
+    create_random_variation_with_paraphrasing,
+)
 
 
 class CreateRandomVariationTest(unittest.TestCase):
+    def test_paraphrase_only_changes_question_and_preserves_sql_exactly(self):
+        sql = "SELECT COUNT(*) FROM escola"
+
+        with patch(
+            "augmentor.paraphrase_query", return_value="Quantas escolas existem?"
+        ) as paraphrase_query:
+            query_modified, sql_modified = create_paraphrase_only_variation(
+                "Qual e o total de escolas?",
+                sql,
+            )
+
+        self.assertEqual(query_modified, "Quantas escolas existem?")
+        self.assertEqual(sql_modified, sql)
+        paraphrase_query.assert_called_once_with("Qual e o total de escolas?")
+
+    def test_combined_variation_requests_paraphrasing_after_semantic_mutation(self):
+        with patch("augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query:
+            query_modified, sql_modified = create_random_variation_with_paraphrasing(
+                {"tables": []},
+                "Calcule a soma",
+                "SELECT SUM(1)",
+            )
+
+        self.assertEqual(query_modified, "Pergunta adaptada")
+        self.assertNotEqual(sql_modified, "SELECT\n  SUM(1)")
+        self.assertTrue(adapt_query.call_args.args[3])
+        self.assertEqual(adapt_query.call_args.kwargs, {"paraphrase": True})
+
+    def test_combined_variation_keeps_no_op_fast_path(self):
+        query = "Mostre o valor constante"
+
+        with patch("augmentor.adapt_query") as adapt_query:
+            query_modified, sql_modified = create_random_variation_with_paraphrasing(
+                {"tables": []},
+                query,
+                "SELECT 1",
+            )
+
+        self.assertEqual(query_modified, query)
+        self.assertEqual(sql_modified, "SELECT\n  1")
+        adapt_query.assert_not_called()
+
     def test_returns_original_query_without_calling_llm_when_no_mutation_applies(self):
         query = "Mostre o valor constante"
 

@@ -15,6 +15,29 @@ def load_llm_module():
 
 
 class RemoteLLMTest(unittest.TestCase):
+    def test_paraphrase_prompt_preserves_meaning_and_requests_only_the_question(self):
+        llm = load_llm_module()
+
+        prompt = llm.get_paraphrase_prompt("Qual e o total de escolas?")
+
+        self.assertIn("Qual e o total de escolas?", prompt)
+        self.assertIn("preserving its exact meaning", prompt)
+        self.assertIn("Return only the paraphrased question in Portuguese", prompt)
+
+    def test_adaptation_prompt_can_also_request_paraphrasing(self):
+        llm = load_llm_module()
+
+        prompt = llm.get_llm_prompt(
+            "Calcule a soma",
+            "SELECT SUM(valor)",
+            "SELECT AVG(valor)",
+            [{"old_line": "SUM(valor)", "new_line": "AVG(valor)"}],
+            paraphrase=True,
+        )
+
+        self.assertIn("also paraphrase the question", prompt.lower())
+        self.assertIn("rephrase its wording", prompt.lower())
+
     def test_send_to_llm_uses_bedrock_chat_completions(self):
         llm = load_llm_module()
         llm.LOCAL_LLM = False

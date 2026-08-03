@@ -202,10 +202,14 @@ A planilha contém as abas `Resumo`, `Por Nível`, `Distribuição`, `Componente
 
 ### Usar como módulo
 
-Importe as funções de mutação em seu próprio código:
+Importe as estratégias de aumento em seu próprio código:
 
 ```python
-from augmentor import create_random_variation
+from augmentor import (
+    create_paraphrase_only_variation,
+    create_random_variation,
+    create_random_variation_with_paraphrasing,
+)
 from mutations import mutate_between, mutate_enum, mutate_agg
 
 schema = {
@@ -227,17 +231,30 @@ sql_original = "SELECT * FROM sua_tabela WHERE coluna_numero BETWEEN 10 AND 50"
 descricao = "Buscar registros com coluna numérica entre 10 e 50"
 
 nova_descricao, novo_sql = create_random_variation(schema, descricao, sql_original)
+
+# Parafraseia apenas a pergunta e preserva o SQL exatamente como recebido.
+descricao_parafraseada, mesmo_sql = create_paraphrase_only_variation(
+    descricao,
+    sql_original,
+)
+
+# Aplica as mesmas mutações AST e também pede uma reformulação da pergunta.
+descricao_combinada, sql_combinado = create_random_variation_with_paraphrasing(
+    schema,
+    descricao,
+    sql_original,
+)
 ```
 
-Quando nenhuma mutação semântica aplicável é encontrada, `create_random_variation` preserva a descrição original e não chama o LLM. O SQL ainda pode receber uma reescrita estrutural equivalente, que não exige adaptação da pergunta.
+Essas três funções permitem comparar: somente paráfrase, somente o algoritmo atual e algoritmo + paráfrase. `create_paraphrase_only_variation` não analisa nem reformata o SQL. Quando nenhuma mutação semântica aplicável é encontrada, tanto `create_random_variation` quanto `create_random_variation_with_paraphrasing` preservam a descrição original e não chamam o LLM. O SQL ainda pode receber uma reescrita estrutural equivalente, que não exige adaptação da pergunta.
 
 ## Estrutura do Projeto
 
 ```
 .
 ├── main.py                        # Ponto de entrada: schema, queries de teste e loop de execução
-├── augmentor.py                   # Orquestrador: create_random_variation
-├── llm.py                         # Camada LLM: prompt, chamada Bedrock, format_changelog
+├── augmentor.py                   # Orquestrador das três estratégias de aumento
+├── llm.py                         # Camada LLM: adaptação, paráfrase e chamada Bedrock
 ├── data/
 │   ├── censo_escolar_dataset/
 │   │   ├── original_dataset.json  # Consultas fonte do CensoBench

@@ -13,7 +13,7 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 ```
 .
 ├── main.py                        # Entry point: schema data, test queries, run loop
-├── augmentor.py                   # Orchestrator: create_random_variation
+├── augmentor.py                   # Orchestrator: SQL mutation and comparison strategies
 ├── llm.py                         # LLM layer: prompting, Bedrock call, format_changelog
 ├── local-llm.py                   # Optional local Hugging Face LLM runner for Colab/GPU
 ├── data/
@@ -79,13 +79,18 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 
 3. **LLM Layer** (`llm.py`)
    - `format_changelog`: Formats changelog list into readable diff string
-   - `get_llm_prompt`: Builds the full prompt with original/modified SQL and changelog
+   - `get_llm_prompt`: Builds the English prompt with original/modified SQL and changelog, with an optional explicit paraphrasing instruction and Portuguese output requirement
+   - `get_paraphrase_prompt`: Builds an English, meaning-preserving paraphrase prompt that requires a Portuguese question as output
    - `send_to_llm`: Calls Amazon Bedrock OpenAI-compatible Chat Completions using `OPENAI_API_KEY` and `OPENAI_BASE_URL`, or delegates to local mode when `LOCAL_LLM=true`
    - `local-llm.py`: Exposes `send_to_local_llm(prompt)` for Hugging Face text-generation models such as Qwen 3.5 4B in Google Colab/T4
    - `adapt_query`: Composes the above to return an adapted natural language query
+   - `paraphrase_query`: Paraphrases a natural-language question without receiving or changing SQL
 
 4. **Orchestrator** (`augmentor.py`)
    - `create_random_variation`: Parses SQL → three-pass AST transform → adapted query
+   - `create_paraphrase_only_variation`: Paraphrases the question and returns the input SQL unchanged
+   - `create_random_variation_with_paraphrasing`: Reuses the same three-pass AST pipeline and adds an explicit paraphrasing instruction when adapting the question
+   - `_create_sql_variation`: Keeps the shared AST pipeline identical across both SQL-mutation strategies
    - Pass 1: column swaps (`mutate_equivalent_column`) so subsequent mutations see updated columns
    - Pass 2: all remaining mutations applied together
    - Pass 3: forward-only equivalent rewrites applied to the semantics produced by the first two passes
@@ -266,6 +271,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 20. **Censo analysis wrappers reuse scoring logic**: Censo Escolar scripts import the existing geo analyzers instead of copying scoring code, keeping dataset-specific defaults separate from the algorithms.
 21. **Equivalent rewrites are isolated from LLM context**: `DISTINCT`-to-`GROUP BY` and `BETWEEN`-to-comparisons run only after semantic mutations and never add changelog entries.
 22. **Analysis report format follows the output suffix**: Shared analyzers preserve Markdown support for `.md` paths and write structured workbooks for `.xlsx` paths. Censo wrappers default to the example workbook filenames while retaining JSON score artifacts.
+23. **Comparison strategies share one mutation pipeline**: Algorithm-only and algorithm-plus-paraphrasing call the same private AST transformation function. Paraphrase-only bypasses SQL parsing and preserves the SQL string exactly.
 
 ## Extension Points for Future Mutations
 

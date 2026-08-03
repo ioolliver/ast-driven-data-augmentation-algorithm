@@ -13,10 +13,10 @@ from mutations import (
     rewrite_between_as_comparisons,
     rewrite_distinct_as_group_by,
 )
-from llm import adapt_query
+from llm import adapt_query, paraphrase_query
 
 
-def create_random_variation(schema, query, sql):
+def _create_sql_variation(schema, sql):
     semantic_changelog = []
     mutation_state = {}
 
@@ -51,9 +51,34 @@ def create_random_variation(schema, query, sql):
     modified_ast = modified_ast.transform(rewrite_equivalent_expressions)
 
     sql_modified = modified_ast.sql(dialect="postgres", pretty=True)
+    return sql_modified, semantic_changelog
+
+
+def create_paraphrase_only_variation(query, sql):
+    return paraphrase_query(query), sql
+
+
+def create_random_variation(schema, query, sql):
+    sql_modified, semantic_changelog = _create_sql_variation(schema, sql)
     if not semantic_changelog:
         return (query, sql_modified)
 
     query_modified = adapt_query(query, sql, sql_modified, semantic_changelog)
+
+    return (query_modified, sql_modified)
+
+
+def create_random_variation_with_paraphrasing(schema, query, sql):
+    sql_modified, semantic_changelog = _create_sql_variation(schema, sql)
+    if not semantic_changelog:
+        return (query, sql_modified)
+
+    query_modified = adapt_query(
+        query,
+        sql,
+        sql_modified,
+        semantic_changelog,
+        paraphrase=True,
+    )
 
     return (query_modified, sql_modified)
