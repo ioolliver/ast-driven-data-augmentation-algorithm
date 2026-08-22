@@ -64,7 +64,7 @@ As dependências estão definidas em `pyproject.toml`:
 - **openpyxl** - Geração dos relatórios XLSX estruturados dos analisadores do Censo Escolar
 - **PyYAML** - Leitura e persistência da configuração reproduzível do benchmark de fine-tuning
 - **transformers**, **accelerate**, **torch** e **bitsandbytes** - Dependências opcionais para executar o LLM local em Colab/GPU
-- **sentence-transformers** e **einops** - Dependências opcionais para analisar distância semântica dos pares aumentados com Jina Embeddings v3 em Colab/GPU
+- **sentence-transformers** e **einops** - Dependências opcionais para analisar distância semântica dos pares aumentados com Jina Embeddings v3 ou Qwen3-Embedding-4B em Colab/GPU
 
 Para instalar/atualizar dependências:
 
@@ -161,7 +161,7 @@ Depois da geração, execute o component matching dos três métodos:
 uv run python data/geo_dataset/analyze_component_matching_methods.py
 ```
 
-Em seguida, execute a análise semântica. O modelo Jina é carregado uma vez e reutilizado para os três arquivos:
+Em seguida, execute a análise semântica. O modelo escolhido é carregado uma vez e reutilizado para os três arquivos. Use `--model qwen` para Qwen3-Embedding-4B ou `--model jina` para Jina Embeddings v3:
 
 ```bash
 UV_CACHE_DIR=/tmp/uv-cache uv run \
@@ -170,8 +170,9 @@ UV_CACHE_DIR=/tmp/uv-cache uv run \
   --with einops \
   --with "numpy<2" \
   python data/geo_dataset/analyze_semantic_variation_methods.py \
+  --model qwen \
   --device cpu \
-  --batch-size 16
+  --batch-size 4
 ```
 
 Use `--device cuda` em um ambiente com GPU compatível. Os dois runners validam os três JSONs de entrada antes de começar. Para cada método, o component matching grava `*_component_matching_scores.json` e `*_component_matching.xlsx`; a análise semântica grava `*_semantic_variation_scores.json` e `*_semantic_variation.xlsx`, sempre no mesmo diretório de resultados.
@@ -216,8 +217,9 @@ uv run \
   --with einops \
   --with "numpy<2" \
   python data/censo_escolar_dataset/analyze_semantic_variation_methods.py \
+  --model qwen \
   --device cpu \
-  --batch-size 16
+  --batch-size 4
 ```
 
 Use `--device cuda` em um ambiente com GPU compatível. Antes de carregar o modelo, o script verifica a existência dos três datasets. Para cada método, ele grava um arquivo `*_semantic_variation_scores.json` e uma planilha `*_semantic_variation.xlsx` no mesmo diretório `augmentation_method_results/`.
@@ -228,10 +230,18 @@ Depois de gerar `data/geo_dataset/geo_dataset_augmented_only.json`, execute a an
 
 ```bash
 pip install "sentence-transformers==3.1.0" "transformers==4.57.6" einops "numpy<2"
-python data/geo_dataset/analyze_semantic_variation.py --device cuda --batch-size 16
+python data/geo_dataset/analyze_semantic_variation.py \
+  --model qwen \
+  --device cuda \
+  --batch-size 4
 ```
 
-O script usa `jinaai/jina-embeddings-v3` com a tarefa simétrica `text-matching` para comparar, separadamente, SQL original versus SQL aumentado e pergunta original versus pergunta aumentada. O modelo suporta textos multilíngues e janela longa, adequada às consultas SQL maiores deste dataset.
+`--model` aceita dois perfis:
+
+- `qwen`: usa `Qwen/Qwen3-Embedding-4B` para similaridade simétrica, sem prompt de retrieval. O modelo é distribuído sob licença `Apache-2.0` e requer `transformers>=4.51.0`.
+- `jina`: usa `jinaai/jina-embeddings-v3` com a tarefa simétrica `text-matching`. O alias `jirai` também é aceito como `jina` por compatibilidade.
+
+Ambos comparam, separadamente, SQL original versus SQL aumentado e pergunta original versus pergunta aumentada. O perfil padrão continua sendo `jina` para preservar o comportamento anterior. Como o Qwen tem 4 bilhões de parâmetros, comece com `--batch-size 4` e aumente apenas se houver memória de GPU disponível.
 
 Também é possível executar em CPU substituindo `--device cuda` por `--device cpu`. A métrica e os artefatos gerados são os mesmos; a inferência é mais lenta e pode haver diferenças numéricas insignificantes nos scores. Os pins de `sentence-transformers` e `transformers` evitam incompatibilidades entre o código customizado do Jina v3 e versões mais recentes da biblioteca.
 
@@ -251,14 +261,17 @@ Assim, `0` indica ausência de variação detectada no espaço de embeddings e `
 
 Esses scores são indicadores heurísticos. Uma alteração pequena na distância de embedding ainda pode representar uma diferença lógica crítica no SQL, como troca de operador, literal ou predicado espacial.
 
-`jinaai/jina-embeddings-v3` é distribuído sob licença `CC BY-NC 4.0`; este fluxo deve ser usado somente em contexto não comercial ou após escolher um modelo com licença compatível.
+`jinaai/jina-embeddings-v3` é distribuído sob licença `CC BY-NC 4.0`; esse perfil deve ser usado somente em contexto não comercial. `Qwen/Qwen3-Embedding-4B` é distribuído sob licença `Apache-2.0`. A licença efetiva é registrada nos metadados de cada execução.
 
 Para analisar o dataset do Censo Escolar, primeiro execute o batch de aumento descrito acima. O analisador espera `original_question`, `original_sql`, `changed_question`, `changed_sql` e `level`; também aceita o formato `{"queries": [...]}` quando cada item já tiver `changed_question` e `changed_sql`.
 
 O wrapper do Censo Escolar usa como entrada padrão `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json` e grava os artefatos na mesma pasta:
 
 ```bash
-python data/censo_escolar_dataset/analyze_semantic_variation.py --device cuda --batch-size 16
+python data/censo_escolar_dataset/analyze_semantic_variation.py \
+  --model qwen \
+  --device cuda \
+  --batch-size 4
 ```
 
 Artefatos gerados pelo wrapper:

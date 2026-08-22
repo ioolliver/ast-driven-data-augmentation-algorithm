@@ -140,12 +140,13 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 
 10. **Censo Three-Method Semantic Analysis** (`data/censo_escolar_dataset/analyze_semantic_variation_methods.py`)
    - Validates all three augmented JSON inputs before loading the embedding model
-   - Loads the configured Jina embedder once and reuses it sequentially across the three methods
+   - Resolves the `--model` profile (`jina` or `qwen`), loads that embedder once, and reuses it sequentially across the three methods
    - Writes separate semantic score JSON and XLSX files beside each augmented input
 
 11. **Semantic Variation Analysis** (`data/geo_dataset/analyze_semantic_variation.py`)
    - Loads `data/geo_dataset/geo_dataset_augmented_only.json`
-   - Uses `jinaai/jina-embeddings-v3` with the symmetric `text-matching` task on Colab/T4
+   - Uses `--model jina` for `jinaai/jina-embeddings-v3` with `text-matching`, or `--model qwen` for `Qwen/Qwen3-Embedding-4B` with symmetric no-prompt encoding; `jirai` is accepted as a compatibility alias for `jina`
+   - Keeps model-specific IDs, embedding tasks, licenses, encode arguments, and runtime compatibility checks in one shared profile registry
    - Calculates clipped cosine variation scores independently for SQL and question text plus their equal-weight mean
    - Writes row-level scores as JSON and aggregate statistics as Markdown or XLSX based on the report output suffix
 
@@ -222,7 +223,7 @@ Input: geo_dataset_augmented_only.json or censo_escolar_dataset_augmented_only.j
   ↓
 Normalize augmented rows through data/analysis_dataset.py
   ↓
-Embed original/changed SQL and original/changed questions with Jina v3
+Embed original/changed SQL and original/changed questions with the selected Jina v3 or Qwen3-Embedding-4B profile
   ↓
 Compute score = clip(1 - cosine_similarity, 0, 1)
   ↓
@@ -273,7 +274,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 - **No error handling**: Missing validation for missing schema columns, invalid node types, or LLM failures
 - **LLM backend required for mutated queries**: Bedrock mode requires a Bedrock API key and OpenAI-compatible base URL; local mode requires Colab/GPU inference dependencies and a Hugging Face model available to `transformers`
 - **Embedding scores are heuristic**: General-purpose semantic distances cannot prove whether a SQL mutation is behaviorally equivalent or different
-- **Jina license constraint**: The default semantic-analysis model is licensed `CC BY-NC 4.0` and is selected for non-commercial analysis
+- **Embedding model resources and licenses**: The default Jina profile is licensed `CC BY-NC 4.0` for non-commercial analysis; the Apache-2.0 Qwen profile has 4 billion parameters and may require a smaller batch size
 - **Analysis requires augmented pairs**: `data/censo_escolar_dataset/original_dataset.json` is a source dataset only. The analysis wrappers require a censo augmented-pair file with `changed_question` and `changed_sql`.
 - **Equivalent rewrites are intentionally conservative**: `DISTINCT` rewriting supports only plain column projections, `BETWEEN` rewriting supports only a column with literal bounds, and join-to-subquery rewriting supports one simple inner equijoin whose qualified projections and outer filters reference only the primary table.
 - **Fine-tuning requires CUDA**: The benchmark intentionally fails before training or inference when a compatible CUDA GPU is unavailable; evaluation metrics are deferred to a separate future workflow.
@@ -309,7 +310,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 14. **Semantic no-op fast path**: If the semantic mutation passes produce an empty `semantic_changelog`, `create_random_variation` preserves the original natural-language query and skips LLM adaptation, even when the equivalent pass changes the SQL.
 15. **Conservative text-pattern mutation**: `LIKE` and `ILIKE` mutations change only simple outer-wildcard shape; patterns containing `_`, escaping, or internal `%` are preserved.
 16. **Embedding-based variation report**: The geo analysis scores SQL and question pairs separately using `clip(1 - cosine_similarity, 0, 1)` and reports an equal-weight combined score without treating it as formal SQL equivalence checking.
-17. **Long-context multilingual embedding model**: Semantic analysis defaults to `jinaai/jina-embeddings-v3` with `text-matching` because it handles Portuguese and long SQL text on a Colab T4; this default is restricted to non-commercial use by its license.
+17. **Selectable multilingual embedding profile**: Semantic analysis defaults to `jinaai/jina-embeddings-v3` with `text-matching` for backward compatibility, while `--model qwen` selects `Qwen/Qwen3-Embedding-4B` with symmetric no-prompt encoding. Reports record the effective model ID, task, and license.
 18. **Component matching is structural and interpretable**: The geo component analyzer compares normalized SQL AST slots and reports changed components. It complements the embedding report but does not prove SQL correctness, behavioral equivalence, or natural-language alignment.
 19. **Analyzer row loading is shared**: Geo and Censo analysis entry points share `data/analysis_dataset.py` so validation, censo query normalization, and raw-source failure behavior stay consistent across embedding and component reports.
 20. **Censo analysis wrappers reuse scoring logic**: Censo Escolar scripts import the existing geo analyzers instead of copying scoring code, keeping dataset-specific defaults separate from the algorithms.
@@ -317,7 +318,7 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 22. **Analysis report format follows the output suffix**: Shared analyzers preserve Markdown support for `.md` paths and write structured workbooks for `.xlsx` paths. Censo wrappers default to the example workbook filenames while retaining JSON score artifacts.
 23. **Comparison strategies share one mutation pipeline**: Algorithm-only and algorithm-plus-paraphrasing call the same private AST transformation function. Paraphrase-only bypasses SQL parsing and preserves the SQL string exactly.
 24. **Censo method outputs stay independent**: The comparison runner writes three separate JSON/XLSX pairs instead of a consolidated workbook. All workbooks use the same ordered columns and source query IDs so results can be aligned manually.
-25. **Three-method semantic analysis shares one embedder**: The Censo multi-method runner validates every input first, then reuses one embedding-model instance to avoid three expensive model loads while retaining separate score and workbook artifacts.
+25. **Three-method semantic analysis shares one embedder**: The Censo multi-method runner validates every input first, then reuses one selected Jina or Qwen embedding-model instance to avoid three expensive model loads while retaining separate score and workbook artifacts.
 26. **Join-to-subquery preserves duplicate semantics**: The conservative rewrite retains the outer `DISTINCT`; without schema uniqueness metadata, removing it could introduce duplicate projected rows. It skips unqualified projections, joined-table filters outside the join, compound join conditions, and advanced clauses.
 27. **Geo method artifacts are independently comparable**: The Geo comparison runner preserves source IDs and writes separate JSON/XLSX pairs for paraphrase-only, algorithm-only, and combined augmentation under one results directory.
 28. **Geo evaluates every method through both heuristics**: The multi-method semantic runner shares one embedder, while the component runner uses the Postgres dialect; both validate all inputs first and write separate JSON/XLSX outputs per method.

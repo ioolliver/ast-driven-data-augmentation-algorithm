@@ -57,7 +57,7 @@ def main():
     parser.add_argument("--input", type=Path, default=INPUT_DATASET_PATH)
     parser.add_argument("--scores-output", type=Path, default=SCORES_OUTPUT_PATH)
     parser.add_argument("--report-output", type=Path, default=REPORT_OUTPUT_PATH)
-    parser.add_argument("--model", default=analyzer.DEFAULT_MODEL_ID)
+    analyzer.add_model_argument(parser)
     parser.add_argument("--batch-size", type=int, default=analyzer.DEFAULT_BATCH_SIZE)
     parser.add_argument(
         "--device",

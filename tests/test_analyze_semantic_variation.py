@@ -1,3 +1,4 @@
+import argparse
 import importlib.util
 import json
 import tempfile
@@ -176,6 +177,46 @@ class AnalyzeSemanticVariationTest(unittest.TestCase):
         self.assertTrue(embedder.calls[0][1]["normalize_embeddings"])
         self.assertEqual(embedder.calls[0][1]["batch_size"], 2)
 
+    def test_resolves_qwen_and_accepts_jirai_as_a_jina_alias(self):
+        module = load_analysis_module()
+
+        qwen = module.resolve_model_config("qwen")
+        jina = module.resolve_model_config("jirai")
+
+        self.assertEqual(qwen.model_id, "Qwen/Qwen3-Embedding-4B")
+        self.assertEqual(qwen.embedding_task, "symmetric text similarity")
+        self.assertEqual(qwen.model_license, "Apache-2.0")
+        self.assertEqual(jina, module.resolve_model_config("jina"))
+        self.assertEqual(jina.model_id, "jinaai/jina-embeddings-v3")
+
+    def test_model_parser_rejects_unknown_model_with_actionable_choices(self):
+        module = load_analysis_module()
+
+        with self.assertRaisesRegex(
+            argparse.ArgumentTypeError, "Choose one of: jina, qwen"
+        ):
+            module.parse_model_choice("unknown")
+
+    def test_model_argument_normalizes_jirai_alias(self):
+        module = load_analysis_module()
+        parser = argparse.ArgumentParser()
+        module.add_model_argument(parser)
+
+        args = parser.parse_args(["--model", "jirai"])
+
+        self.assertEqual(args.model, "jina")
+
+    def test_qwen_encoding_does_not_receive_the_jina_task_argument(self):
+        module = load_analysis_module()
+        embedder = FakeEmbedder(self.embeddings)
+
+        module.score_rows(self.rows, embedder, batch_size=2, model="qwen")
+
+        self.assertEqual(len(embedder.calls), 4)
+        for _, encode_kwargs in embedder.calls:
+            self.assertNotIn("task", encode_kwargs)
+            self.assertTrue(encode_kwargs["normalize_embeddings"])
+
     def test_rejects_transformers_5_for_default_jina_model(self):
         module = load_analysis_module()
 
@@ -184,6 +225,13 @@ class AnalyzeSemanticVariationTest(unittest.TestCase):
                 RuntimeError, "transformers==4.57.6.*Restart the runtime"
             ):
                 module.validate_embedding_runtime(module.DEFAULT_MODEL_ID)
+
+    def test_rejects_transformers_older_than_qwen_minimum(self):
+        module = load_analysis_module()
+
+        with patch.object(module.importlib_metadata, "version", return_value="4.50.3"):
+            with self.assertRaisesRegex(RuntimeError, "transformers>=4.51.0"):
+                module.validate_embedding_runtime("qwen")
 
     def test_summarize_scores_includes_percentiles_levels_unchanged_and_bands(self):
         module = load_analysis_module()
@@ -263,6 +311,38 @@ class AnalyzeSemanticVariationTest(unittest.TestCase):
             report = report_path.read_text(encoding="utf-8")
 
         self.assertIn("# Censo Escolar Dataset Semantic Variation Report", report)
+
+    def test_run_analysis_records_qwen_model_metadata(self):
+        module = load_analysis_module()
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            input_path = Path(tmp_dir) / "input.json"
+            scores_path = Path(tmp_dir) / "scores.json"
+            report_path = Path(tmp_dir) / "report.md"
+            input_path.write_text(
+                json.dumps(self.rows, ensure_ascii=False), encoding="utf-8"
+            )
+
+            payload = module.run_analysis(
+                input_path=input_path,
+                scores_output_path=scores_path,
+                report_output_path=report_path,
+                model_id="qwen",
+                batch_size=2,
+                embedder=FakeEmbedder(self.embeddings),
+                generated_at="2026-08-22T12:00:00+00:00",
+            )
+            report = report_path.read_text(encoding="utf-8")
+
+        self.assertEqual(
+            payload["metadata"]["model_id"], "Qwen/Qwen3-Embedding-4B"
+        )
+        self.assertEqual(
+            payload["metadata"]["embedding_task"], "symmetric text similarity"
+        )
+        self.assertEqual(payload["metadata"]["model_license"], "Apache-2.0")
+        self.assertIn("Qwen/Qwen3-Embedding-4B", report)
+        self.assertNotIn("non-commercial use", report)
 
     def test_censo_wrapper_defaults_to_xlsx_report(self):
         module = load_censo_analysis_module()

@@ -118,6 +118,7 @@ def main():
         format="%(asctime)s %(levelname)s %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )
+    analyzer = load_analyzer()
     parser = argparse.ArgumentParser(
         description=(
             "Run semantic variation analysis for all three Geo Dataset augmentation "
@@ -125,7 +126,7 @@ def main():
         )
     )
     parser.add_argument("--results-dir", type=Path, default=DEFAULT_RESULTS_DIR)
-    parser.add_argument("--model", default=None)
+    analyzer.add_model_argument(parser)
     parser.add_argument("--batch-size", type=int, default=None)
     parser.add_argument(
         "--device",
@@ -141,6 +142,7 @@ def main():
         model_id=args.model,
         batch_size=args.batch_size,
         device=args.device,
+        analyzer=analyzer,
     )
 
 

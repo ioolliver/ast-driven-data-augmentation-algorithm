@@ -6,6 +6,7 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from importlib import metadata as importlib_metadata
 from pathlib import Path
+from typing import NamedTuple
 
 import numpy as np
 
@@ -21,10 +22,10 @@ INPUT_DATASET_PATH = SCRIPT_DIR / "geo_dataset_augmented_only.json"
 SCORES_OUTPUT_PATH = SCRIPT_DIR / "geo_dataset_semantic_variation_scores.json"
 REPORT_OUTPUT_PATH = SCRIPT_DIR / "geo_dataset_semantic_variation_report.md"
 DEFAULT_DATASET_LABEL = "Geo Dataset"
+DEFAULT_MODEL = "jina"
 DEFAULT_MODEL_ID = "jinaai/jina-embeddings-v3"
+QWEN_MODEL_ID = "Qwen/Qwen3-Embedding-4B"
 DEFAULT_BATCH_SIZE = 16
-EMBEDDING_TASK = "text-matching"
-MODEL_LICENSE = "CC BY-NC 4.0"
 SCORE_FORMULA = "clip(1 - cosine_similarity(original, changed), 0, 1)"
 COMPARISONS = (
     ("sql", "sql_variation_score"),
@@ -37,6 +38,39 @@ BAND_LABELS = tuple(
 )
 
 
+class EmbeddingModelConfig(NamedTuple):
+    key: str
+    model_id: str
+    embedding_task: str
+    model_license: str
+    encode_task: str | None = None
+    trust_remote_code: bool = False
+
+
+MODEL_CONFIGS = {
+    "jina": EmbeddingModelConfig(
+        key="jina",
+        model_id=DEFAULT_MODEL_ID,
+        embedding_task="text-matching",
+        model_license="CC BY-NC 4.0",
+        encode_task="text-matching",
+        trust_remote_code=True,
+    ),
+    "qwen": EmbeddingModelConfig(
+        key="qwen",
+        model_id=QWEN_MODEL_ID,
+        embedding_task="symmetric text similarity",
+        model_license="Apache-2.0",
+    ),
+}
+MODEL_CHOICES = tuple(MODEL_CONFIGS)
+MODEL_ALIASES = {
+    "jirai": "jina",
+    DEFAULT_MODEL_ID.lower(): "jina",
+    QWEN_MODEL_ID.lower(): "qwen",
+}
+
+
 def load_rows(dataset_path):
     return load_augmented_rows(dataset_path)
 
@@ -47,39 +81,95 @@ def write_json(output_path, payload):
         file_obj.write("\n")
 
 
-def validate_embedding_runtime(model_id):
-    if model_id != DEFAULT_MODEL_ID:
-        return
+def resolve_model_config(model):
+    if not isinstance(model, str) or not model.strip():
+        raise ValueError("model must be one of: jina, qwen")
+
+    normalized_model = model.strip().lower()
+    model_key = MODEL_ALIASES.get(normalized_model, normalized_model)
+    try:
+        return MODEL_CONFIGS[model_key]
+    except KeyError as exc:
+        raise ValueError(
+            f"Unknown embedding model {model!r}. Choose one of: jina, qwen."
+        ) from exc
+
+
+def parse_model_choice(value):
+    try:
+        return resolve_model_config(value).key
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError(str(exc)) from exc
+
+
+def add_model_argument(parser, default=DEFAULT_MODEL):
+    parser.add_argument(
+        "--model",
+        type=parse_model_choice,
+        choices=MODEL_CHOICES,
+        default=default,
+        help=(
+            "Embedding model profile: jina (jinaai/jina-embeddings-v3) or "
+            "qwen (Qwen/Qwen3-Embedding-4B). The compatibility alias 'jirai' is "
+            "accepted as jina."
+        ),
+    )
+
+
+def _version_prefix(version, length=2):
+    numeric_parts = []
+    for part in version.split("."):
+        digits = "".join(character for character in part if character.isdigit())
+        if not digits:
+            break
+        numeric_parts.append(int(digits))
+        if len(numeric_parts) == length:
+            break
+    return tuple(numeric_parts + [0] * (length - len(numeric_parts)))
+
+
+def validate_embedding_runtime(model):
+    model_config = resolve_model_config(model)
 
     try:
         transformers_version = importlib_metadata.version("transformers")
     except importlib_metadata.PackageNotFoundError:
         return
 
-    if int(transformers_version.split(".", 1)[0]) >= 5:
+    transformers_version_prefix = _version_prefix(transformers_version)
+    if model_config.key == "jina" and transformers_version_prefix >= (5, 0):
         raise RuntimeError(
             f"{DEFAULT_MODEL_ID} is not compatible with the installed transformers "
             f"{transformers_version} runtime. Install "
             '"sentence-transformers==3.1.0" "transformers==4.57.6" einops "numpy<2". '
             "Restart the runtime before running the analysis again."
         )
+    if model_config.key == "qwen" and transformers_version_prefix < (4, 51):
+        raise RuntimeError(
+            f"{QWEN_MODEL_ID} requires transformers>=4.51.0, but "
+            f"{transformers_version} is installed. Upgrade transformers before "
+            "running the analysis."
+        )
 
 
-def load_embedder(model_id, device=None):
-    validate_embedding_runtime(model_id)
+def load_embedder(model, device=None):
+    model_config = resolve_model_config(model)
+    validate_embedding_runtime(model_config.key)
     try:
         from sentence_transformers import SentenceTransformer
     except ImportError as exc:
         raise RuntimeError(
             "Semantic variation analysis requires sentence-transformers and einops. "
-            'Install a Jina-compatible stack with: pip install "sentence-transformers==3.1.0" '
+            'Install the supported stack with: pip install "sentence-transformers==3.1.0" '
             '"transformers==4.57.6" einops "numpy<2".'
         ) from exc
 
-    model_kwargs = {"trust_remote_code": True}
+    model_kwargs = {}
+    if model_config.trust_remote_code:
+        model_kwargs["trust_remote_code"] = True
     if device:
         model_kwargs["device"] = device
-    return SentenceTransformer(model_id, **model_kwargs)
+    return SentenceTransformer(model_config.model_id, **model_kwargs)
 
 
 def cosine_similarities(first_vectors, second_vectors):
@@ -104,20 +194,22 @@ def variation_scores(similarities):
     return np.clip(1.0 - similarities, 0.0, 1.0)
 
 
-def _encode_field(rows, field, embedder, batch_size):
-    return embedder.encode(
-        [row[field] for row in rows],
-        batch_size=batch_size,
-        task=EMBEDDING_TASK,
-        normalize_embeddings=True,
-        convert_to_numpy=True,
-        show_progress_bar=True,
-    )
+def _encode_field(rows, field, embedder, batch_size, model_config):
+    encode_kwargs = {
+        "batch_size": batch_size,
+        "normalize_embeddings": True,
+        "convert_to_numpy": True,
+        "show_progress_bar": True,
+    }
+    if model_config.encode_task:
+        encode_kwargs["task"] = model_config.encode_task
+    return embedder.encode([row[field] for row in rows], **encode_kwargs)
 
 
-def score_rows(rows, embedder, batch_size=DEFAULT_BATCH_SIZE):
+def score_rows(rows, embedder, batch_size=DEFAULT_BATCH_SIZE, model=DEFAULT_MODEL):
+    model_config = resolve_model_config(model)
     embeddings = {
-        field: _encode_field(rows, field, embedder, batch_size)
+        field: _encode_field(rows, field, embedder, batch_size, model_config)
         for field in (
             "original_sql",
             "changed_sql",
@@ -270,6 +362,11 @@ def build_report(metadata, summary, scored_rows):
     )
     lowest_rows = sorted_rows[:10]
     highest_rows = list(reversed(sorted_rows[-10:]))
+    model_license = f"- Model license: `{metadata['model_license']}`."
+    if metadata["model_license"] == "CC BY-NC 4.0":
+        model_license = (
+            f"- Model license: `{metadata['model_license']}` (non-commercial use)."
+        )
     lines = [
         f"# {metadata['dataset_label']} Semantic Variation Report",
         "",
@@ -281,7 +378,7 @@ def build_report(metadata, summary, scored_rows):
         f"- Embedding model: `{metadata['model_id']}`",
         f"- Embedding task: `{metadata['embedding_task']}`",
         f"- Score formula: `{metadata['score_formula']}`",
-        f"- Model license: `{metadata['model_license']}` (non-commercial use).",
+        model_license,
         "",
         "A score of `0` represents no detected semantic variation in embedding space; "
         "a score of `1` represents maximum variation under the clipped cosine metric.",
@@ -374,9 +471,15 @@ def run_analysis(
 ):
     if batch_size <= 0:
         raise ValueError("batch_size must be greater than zero.")
+    model_config = resolve_model_config(model_id)
     rows = load_rows(input_path)
-    active_embedder = embedder or load_embedder(model_id, device=device)
-    scored_rows = score_rows(rows, active_embedder, batch_size=batch_size)
+    active_embedder = embedder or load_embedder(model_config.key, device=device)
+    scored_rows = score_rows(
+        rows,
+        active_embedder,
+        batch_size=batch_size,
+        model=model_config.key,
+    )
     summary = summarize_scores(scored_rows)
     metadata = {
         "generated_at": generated_at
@@ -384,10 +487,10 @@ def run_analysis(
         "input_path": str(input_path),
         "dataset_label": dataset_label,
         "row_count": len(rows),
-        "model_id": model_id,
-        "embedding_task": EMBEDDING_TASK,
+        "model_id": model_config.model_id,
+        "embedding_task": model_config.embedding_task,
         "score_formula": SCORE_FORMULA,
-        "model_license": MODEL_LICENSE,
+        "model_license": model_config.model_license,
         "requested_device": device or "auto",
         "batch_size": batch_size,
     }
@@ -416,7 +519,7 @@ def main():
     parser.add_argument("--scores-output", type=Path, default=SCORES_OUTPUT_PATH)
     parser.add_argument("--report-output", type=Path, default=REPORT_OUTPUT_PATH)
     parser.add_argument("--dataset-label", default=DEFAULT_DATASET_LABEL)
-    parser.add_argument("--model", default=DEFAULT_MODEL_ID)
+    add_model_argument(parser)
     parser.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE)
     parser.add_argument(
         "--device",
