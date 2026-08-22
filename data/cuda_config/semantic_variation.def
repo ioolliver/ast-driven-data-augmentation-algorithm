@@ -1,0 +1,23 @@
+Bootstrap: docker
+From: pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime
+
+%post
+    apt-get update && apt-get install -y \
+        git \
+        && rm -rf /var/lib/apt/lists/*
+
+    pip install --no-cache-dir \
+        "sentence-transformers==3.1.0" \
+        "transformers==4.57.6" \
+        einops \
+        "numpy<2" \
+        openpyxl \
+        sqlglot \
+        pyyaml \
+        python-dotenv
+
+%environment
+    export PYTHONUNBUFFERED=1
+
+%runscript
+    exec python "$@"
