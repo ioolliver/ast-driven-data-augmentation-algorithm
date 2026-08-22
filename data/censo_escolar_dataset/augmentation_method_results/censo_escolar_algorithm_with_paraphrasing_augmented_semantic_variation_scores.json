@@ -1,206 +1,206 @@
 {
   "metadata": {
-    "generated_at": "2026-08-22T23:32:14+00:00",
-    "input_path": "/home/isaquenascimento/ast-driven-data-augmentation-algorithm/data/censo_escolar_dataset/augmentation_method_results/censo_escolar_algorithm_with_paraphrasing_augmented.json",
+    "generated_at": "2026-08-03T21:45:12+00:00",
+    "input_path": "/home/ioolliver/Workspace/ast-driven-data-augmentation-algorithm/data/censo_escolar_dataset/augmentation_method_results/censo_escolar_algorithm_with_paraphrasing_augmented.json",
     "dataset_label": "Censo Escolar Dataset - AST algorithm augmentation with question paraphrasing",
     "row_count": 107,
-    "model_id": "Qwen/Qwen3-Embedding-4B",
-    "embedding_task": "symmetric text similarity",
+    "model_id": "jinaai/jina-embeddings-v3",
+    "embedding_task": "text-matching",
     "score_formula": "clip(1 - cosine_similarity(original, changed), 0, 1)",
-    "model_license": "Apache-2.0",
-    "requested_device": "cuda",
+    "model_license": "CC BY-NC 4.0",
+    "requested_device": "cpu",
     "batch_size": 16
   },
   "statistics": {
     "overall": {
       "sql": {
         "count": 107,
-        "min": 0.00545572229427993,
-        "max": 0.3910181333423479,
-        "average": 0.12166668214084247,
-        "median": 0.11494403560681399,
-        "standard_deviation": 0.08099872493263098,
-        "p25": 0.049947259508688835,
-        "p75": 0.1720245990225907,
-        "p90": 0.23499821128608406,
-        "p95": 0.2626877258795383
+        "min": 0.0015421174675449567,
+        "max": 0.1681621173616764,
+        "average": 0.05676154760542439,
+        "median": 0.04953219146263699,
+        "standard_deviation": 0.0379730298310586,
+        "p25": 0.024997785831090857,
+        "p75": 0.07577386651158918,
+        "p90": 0.11172461752486391,
+        "p95": 0.1313218377106815
       },
       "question": {
         "count": 107,
         "min": 0.0,
-        "max": 0.5596412961064696,
-        "average": 0.30324679218474476,
-        "median": 0.3046894104416529,
-        "standard_deviation": 0.1349502210894539,
-        "p25": 0.20219359538995219,
-        "p75": 0.40336280582494016,
-        "p90": 0.4831300028994988,
-        "p95": 0.5132965434706683
+        "max": 0.5683522486864312,
+        "average": 0.2739764300796345,
+        "median": 0.2650686028320681,
+        "standard_deviation": 0.13098365220173908,
+        "p25": 0.18853994242843347,
+        "p75": 0.3705992115621604,
+        "p90": 0.44580352937352663,
+        "p95": 0.49062334528496815
       },
       "combined": {
         "count": 107,
-        "min": 0.002727861147139965,
-        "max": 0.43221837458157636,
-        "average": 0.2124567371627936,
-        "median": 0.21499521918182213,
-        "standard_deviation": 0.10112111866564295,
-        "p25": 0.1342573640468928,
-        "p75": 0.28277363644054676,
-        "p90": 0.3546502632140395,
-        "p95": 0.36882201131232223
+        "min": 0.0007710587337724784,
+        "max": 0.3324900766620051,
+        "average": 0.16536898884252943,
+        "median": 0.15530927161781904,
+        "standard_deviation": 0.07775610457322059,
+        "p25": 0.114556406313505,
+        "p75": 0.2275468161045712,
+        "p90": 0.26933838614699107,
+        "p95": 0.2892990197620025
       }
     },
     "by_level": {
       "Média": {
         "sql": {
           "count": 29,
-          "min": 0.009177108301621995,
-          "max": 0.26421583891111644,
-          "average": 0.11890200318021964,
-          "median": 0.11494403560681399,
-          "standard_deviation": 0.06628388975576097,
-          "p25": 0.07145806413193934,
-          "p75": 0.1691362221266799,
-          "p90": 0.18975368389428582,
-          "p95": 0.24692842051922337
+          "min": 0.01253394878377867,
+          "max": 0.12481719430035676,
+          "average": 0.05015700435375209,
+          "median": 0.04688924644925674,
+          "standard_deviation": 0.025158637674344016,
+          "p25": 0.031217040067707202,
+          "p75": 0.06440936671588116,
+          "p90": 0.08076765640538885,
+          "p95": 0.08661910318264886
         },
         "question": {
           "count": 29,
-          "min": 1.0316192344816955e-12,
-          "max": 0.503565019104802,
-          "average": 0.30133665090193557,
-          "median": 0.3042429843710823,
-          "standard_deviation": 0.10913108939526577,
-          "p25": 0.2303883561875507,
-          "p75": 0.3749343560816256,
-          "p90": 0.4265151012020558,
-          "p95": 0.44083754168695655
+          "min": 0.0,
+          "max": 0.4024297796108337,
+          "average": 0.24718083361535562,
+          "median": 0.2434733552805335,
+          "standard_deviation": 0.09214066590028644,
+          "p25": 0.20976553209130966,
+          "p75": 0.3216018263283609,
+          "p90": 0.36698099739559903,
+          "p95": 0.37853576363831193
         },
         "combined": {
           "count": 29,
-          "min": 0.004588554151326807,
-          "max": 0.3838904290079592,
-          "average": 0.21011932704107758,
-          "median": 0.21553935295763632,
-          "standard_deviation": 0.08122256737732776,
-          "p25": 0.14768323894002844,
-          "p75": 0.2753607172842387,
-          "p90": 0.29563315619309116,
-          "p95": 0.3238924334336508
+          "min": 0.02838366138606202,
+          "max": 0.26362348695559523,
+          "average": 0.1486689189845538,
+          "median": 0.1435399379835821,
+          "standard_deviation": 0.05219200940393788,
+          "p25": 0.12463778741908377,
+          "p75": 0.18275175007453703,
+          "p90": 0.2182015822387432,
+          "p95": 0.22804175596833354
         }
       },
       "Fácil": {
         "sql": {
           "count": 46,
-          "min": 0.00956551253727389,
-          "max": 0.3910181333423479,
-          "average": 0.165093403450305,
-          "median": 0.1571954426587437,
-          "standard_deviation": 0.07659562110129675,
-          "p25": 0.11303518581472868,
-          "p75": 0.1995672649339582,
-          "p90": 0.2727833122407413,
-          "p95": 0.3002019339263975
+          "min": 0.003713468660734187,
+          "max": 0.1681621173616764,
+          "average": 0.07672174141225746,
+          "median": 0.07245169580569921,
+          "standard_deviation": 0.04134397758660753,
+          "p25": 0.04872734912556698,
+          "p75": 0.10406702913026114,
+          "p90": 0.13345202886036556,
+          "p95": 0.14878583874697618
         },
         "question": {
           "count": 46,
-          "min": 1.5256684804398901e-12,
-          "max": 0.5596412961064696,
-          "average": 0.3769496275636387,
-          "median": 0.394135289750339,
-          "standard_deviation": 0.11968444688969791,
-          "p25": 0.31377726119872046,
-          "p75": 0.46744939065316304,
-          "p90": 0.5146841058296631,
-          "p95": 0.5362197551333727
+          "min": 8.215650382226158e-14,
+          "max": 0.5683522486864312,
+          "average": 0.35294451518176373,
+          "median": 0.3719950261063286,
+          "standard_deviation": 0.12488190375605482,
+          "p25": 0.2948836580363199,
+          "p75": 0.44521016768829147,
+          "p90": 0.49722339157157514,
+          "p95": 0.5144190538433724
         },
         "combined": {
           "count": 46,
-          "min": 0.004782756269399779,
-          "max": 0.43221837458157636,
-          "average": 0.27102151550697184,
-          "median": 0.27100467040983844,
-          "standard_deviation": 0.08677608140868591,
-          "p25": 0.21893126317653067,
-          "p75": 0.3421562553240357,
-          "p90": 0.3673632118667438,
-          "p95": 0.3752524128181346
+          "min": 0.0018567343304081718,
+          "max": 0.3324900766620051,
+          "average": 0.21483312829701062,
+          "median": 0.23124989001840898,
+          "standard_deviation": 0.07275796079911537,
+          "p25": 0.17874803117083787,
+          "p75": 0.2658774714822248,
+          "p90": 0.2901995967753198,
+          "p95": 0.30722107689575745
         }
       },
       "Difícil": {
         "sql": {
           "count": 8,
-          "min": 0.00545572229427993,
-          "max": 0.2445387410812987,
-          "average": 0.07875808897947968,
-          "median": 0.03610579806822961,
-          "standard_deviation": 0.083266022638979,
-          "p25": 0.012632280831692044,
-          "p75": 0.13344483818168418,
-          "p90": 0.1879754153284134,
-          "p95": 0.216257078204856
+          "min": 0.0015421174675449567,
+          "max": 0.08058978715490661,
+          "average": 0.02556606454599071,
+          "median": 0.017303333035521007,
+          "standard_deviation": 0.02456332671077964,
+          "p25": 0.009800898899583549,
+          "p75": 0.031909217173993754,
+          "p90": 0.05579013293846507,
+          "p95": 0.06818996004668583
         },
         "question": {
           "count": 8,
           "min": 0.0,
-          "max": 0.47254226019056833,
-          "average": 0.18282101697594186,
-          "median": 0.20997771768610002,
-          "standard_deviation": 0.16107548770423658,
-          "p25": 8.603673329332651e-13,
-          "p75": 0.2756544114555761,
-          "p90": 0.35442046427516405,
-          "p95": 0.41348136223286613
+          "max": 0.3331276606072371,
+          "average": 0.15742976091093525,
+          "median": 0.2084155540507066,
+          "standard_deviation": 0.12810640146201585,
+          "p25": 0.0,
+          "p75": 0.2434918928500536,
+          "p90": 0.2940029326998693,
+          "p95": 0.3135652966535532
         },
         "combined": {
           "count": 8,
-          "min": 0.002727861147139965,
-          "max": 0.3585405006359335,
-          "average": 0.13078955297771078,
-          "median": 0.14944968441028225,
-          "standard_deviation": 0.11652971020825877,
-          "p25": 0.006316140416276206,
-          "p75": 0.18441492762654216,
-          "p90": 0.24392987015116527,
-          "p95": 0.3012351853935493
+          "min": 0.0007710587337724784,
+          "max": 0.1803096901358065,
+          "average": 0.09149791272846297,
+          "median": 0.12736360872547062,
+          "standard_deviation": 0.07016172200513605,
+          "p25": 0.006032513648111665,
+          "p75": 0.14112587363400614,
+          "p90": 0.1579692252967436,
+          "p95": 0.16913945771627503
         }
       },
       "Muito Difícil": {
         "sql": {
           "count": 24,
-          "min": 0.0070403951615292115,
-          "max": 0.14553182931100772,
-          "average": 0.05607565109557943,
-          "median": 0.046308300730649676,
-          "standard_deviation": 0.042960912317400284,
-          "p25": 0.016065813506494636,
-          "p75": 0.0850595716346989,
-          "p90": 0.11998547668548093,
-          "p95": 0.13019377184966743
+          "min": 0.007950494394785457,
+          "max": 0.10674188244263383,
+          "average": 0.0368834935912429,
+          "median": 0.025083871103921462,
+          "standard_deviation": 0.02550886799493819,
+          "p25": 0.0200607302756729,
+          "p75": 0.05889731492159009,
+          "p90": 0.06620308774960021,
+          "p95": 0.07858178021013436
         },
         "question": {
           "count": 24,
-          "min": 0.08703157686457874,
-          "max": 0.36280622575205357,
-          "average": 0.2044330368281937,
-          "median": 0.20064007953434154,
-          "standard_deviation": 0.07539728620061202,
-          "p25": 0.14647236780933354,
-          "p75": 0.26016829233206873,
-          "p90": 0.31120413714191575,
-          "p95": 0.3228298500571042
+          "min": 0.056880127250045764,
+          "max": 0.40223403283149184,
+          "average": 0.19384783575112338,
+          "median": 0.18846704966760502,
+          "standard_deviation": 0.08427228165116918,
+          "p25": 0.1483385272826203,
+          "p75": 0.24546202404224274,
+          "p90": 0.29681548947963854,
+          "p95": 0.31289072523623734
         },
         "combined": {
           "count": 24,
-          "min": 0.04924321965046258,
-          "max": 0.22976399609080378,
-          "average": 0.13025434396188654,
-          "median": 0.121818516140826,
-          "standard_deviation": 0.0556523119478078,
-          "p25": 0.08341335923285548,
-          "p75": 0.16629056139620535,
-          "p90": 0.21788190564221457,
-          "p95": 0.2271341939346665
+          "min": 0.03289598944293015,
+          "max": 0.2414558747877325,
+          "average": 0.11536566467118314,
+          "median": 0.113201877790298,
+          "standard_deviation": 0.05030531873086111,
+          "p25": 0.09004255313281048,
+          "p75": 0.13887779548478218,
+          "p90": 0.17439049351603006,
+          "p95": 0.20309185473305744
         }
       }
     },
@@ -210,10 +210,10 @@
     },
     "bands": {
       "sql": {
-        "[0.0, 0.1)": 45,
-        "[0.1, 0.2)": 46,
-        "[0.2, 0.3)": 12,
-        "[0.3, 0.4)": 4,
+        "[0.0, 0.1)": 92,
+        "[0.1, 0.2)": 15,
+        "[0.2, 0.3)": 0,
+        "[0.3, 0.4)": 0,
         "[0.4, 0.5)": 0,
         "[0.5, 0.6)": 0,
         "[0.6, 0.7)": 0,
@@ -222,23 +222,23 @@
         "[0.9, 1.0]": 0
       },
       "question": {
-        "[0.0, 0.1)": 6,
-        "[0.1, 0.2)": 19,
-        "[0.2, 0.3)": 26,
-        "[0.3, 0.4)": 28,
-        "[0.4, 0.5)": 18,
-        "[0.5, 0.6)": 10,
+        "[0.0, 0.1)": 9,
+        "[0.1, 0.2)": 21,
+        "[0.2, 0.3)": 32,
+        "[0.3, 0.4)": 24,
+        "[0.4, 0.5)": 16,
+        "[0.5, 0.6)": 5,
         "[0.6, 0.7)": 0,
         "[0.7, 0.8)": 0,
         "[0.8, 0.9)": 0,
         "[0.9, 1.0]": 0
       },
       "combined": {
-        "[0.0, 0.1)": 15,
-        "[0.1, 0.2)": 32,
-        "[0.2, 0.3)": 37,
-        "[0.3, 0.4)": 22,
-        "[0.4, 0.5)": 1,
+        "[0.0, 0.1)": 24,
+        "[0.1, 0.2)": 46,
+        "[0.2, 0.3)": 33,
+        "[0.3, 0.4)": 4,
+        "[0.4, 0.5)": 0,
         "[0.5, 0.6)": 0,
         "[0.6, 0.7)": 0,
         "[0.7, 0.8)": 0,
@@ -256,11 +256,11 @@
       "changed_sql": "SELECT\n  m.ano,\n  m.sigla_uf,\n  m.rede,\n  CASE\n    WHEN m.regular = 0\n    THEN 'Regular'\n    WHEN m.eja = 0\n    THEN 'EJA'\n    WHEN m.profissionalizante = 0\n    THEN 'Profissionalizante'\n    ELSE 'Outro'\n  END AS nivel_ensino,\n  COUNT(*) AS total_matriculas\nFROM matricula AS m\nWHERE\n  m.ano < 2000\nGROUP BY\n  m.ano,\n  m.sigla_uf,\n  m.rede,\n  nivel_ensino\nORDER BY\n  m.ano,\n  m.sigla_uf",
       "level": "Média",
       "row_index": 0,
-      "sql_similarity": 0.8308637778733201,
-      "sql_variation_score": 0.1691362221266799,
-      "question_similarity": 0.7380575162114072,
-      "question_variation_score": 0.26194248378859275,
-      "combined_variation_score": 0.21553935295763632
+      "sql_similarity": 0.946190389461026,
+      "sql_variation_score": 0.05380961053897404,
+      "question_similarity": 0.8066711944195935,
+      "question_variation_score": 0.19332880558040655,
+      "combined_variation_score": 0.1235692080596903
     },
     {
       "id": 2,
@@ -270,11 +270,11 @@
       "changed_sql": "SELECT\n  ano,\n  sigla_uf,\n  rede,\n  COUNT(*) AS total_matriculas\nFROM matricula\nGROUP BY\n  ano,\n  sigla_uf,\n  rede\nORDER BY\n  ano,\n  sigla_uf",
       "level": "Fácil",
       "row_index": 1,
-      "sql_similarity": 0.9904344874627261,
-      "sql_variation_score": 0.00956551253727389,
-      "question_similarity": 0.9999999999984743,
-      "question_variation_score": 1.5256684804398901e-12,
-      "combined_variation_score": 0.004782756269399779
+      "sql_similarity": 0.9962865313392658,
+      "sql_variation_score": 0.003713468660734187,
+      "question_similarity": 0.9999999999999178,
+      "question_variation_score": 8.215650382226158e-14,
+      "combined_variation_score": 0.0018567343304081718
     },
     {
       "id": 3,
@@ -284,11 +284,11 @@
       "changed_sql": "SELECT\n  COALESCE(m.ano, d.ano) AS ano,\n  COALESCE(m.sigla_uf, d.sigla_uf) AS sigla_uf,\n  COALESCE(m.rede, d.rede) AS rede,\n  COUNT(DISTINCT m.id_matricula) AS total_matriculas,\n  COUNT(DISTINCT d.id_docente) AS total_docentes,\n  CASE\n    WHEN COUNT(DISTINCT d.id_docente) <> 0\n    THEN CAST(COUNT(DISTINCT m.id_matricula) AS DOUBLE PRECISION) / COUNT(DISTINCT d.id_docente)\n    ELSE NULL\n  END AS relacao_alunos_docente\nFROM matricula AS m\nFULL OUTER JOIN docente AS d\n  ON m.ano = d.ano AND m.sigla_uf = d.sigla_uf AND m.rede = d.rede\nGROUP BY\n  ano,\n  sigla_uf,\n  rede\nORDER BY\n  ano,\n  sigla_uf",
       "level": "Média",
       "row_index": 2,
-      "sql_similarity": 0.990822891698378,
-      "sql_variation_score": 0.009177108301621995,
-      "question_similarity": 0.9999999999989684,
-      "question_variation_score": 1.0316192344816955e-12,
-      "combined_variation_score": 0.004588554151326807
+      "sql_similarity": 0.943232677227876,
+      "sql_variation_score": 0.05676732277212404,
+      "question_similarity": 1.0,
+      "question_variation_score": 0.0,
+      "combined_variation_score": 0.02838366138606202
     },
     {
       "id": 4,
@@ -298,11 +298,11 @@
       "changed_sql": "SELECT\n  AVG(quantidade_matricula_parda) / 10 AS media_quantidade_matricula_indigena\nFROM escola\nWHERE\n  id_municipio = '2304400' AND ano < 2022",
       "level": "Fácil",
       "row_index": 3,
-      "sql_similarity": 0.7766280429000594,
-      "sql_variation_score": 0.22337195709994062,
-      "question_similarity": 0.5597280448610031,
-      "question_variation_score": 0.44027195513899686,
-      "combined_variation_score": 0.33182195611946874
+      "sql_similarity": 0.927640246939501,
+      "sql_variation_score": 0.07235975306049902,
+      "question_similarity": 0.4978032104407688,
+      "question_variation_score": 0.5021967895592312,
+      "combined_variation_score": 0.2872782713098651
     },
     {
       "id": 5,
@@ -312,11 +312,11 @@
       "changed_sql": "SELECT\n  m.ano,\n  m.idade,\n  COUNT(*) AS quantidade_alunos\nFROM matricula AS m\nJOIN escola AS e\n  ON m.id_escola = e.id_escola AND m.ano = e.ano\nWHERE\n  m.rede = '1'\n  AND e.tipo_localizacao = 'Urbana'\n  AND e.sigla_uf IN ('AL', 'BA', 'CE', 'MA', 'PB', 'PE', 'PI', 'RN', 'SE') /* Centro-Oeste */\n  AND m.ano > 2013\nGROUP BY\n  m.ano,\n  m.idade\nORDER BY\n  m.ano,\n  m.idade",
       "level": "Média",
       "row_index": 4,
-      "sql_similarity": 0.8697099069707918,
-      "sql_variation_score": 0.13029009302920824,
-      "question_similarity": 0.6414183426163925,
-      "question_variation_score": 0.3585816573836075,
-      "combined_variation_score": 0.24443587520640786
+      "sql_similarity": 0.9269567756870662,
+      "sql_variation_score": 0.07304322431293375,
+      "question_similarity": 0.6783981736716391,
+      "question_variation_score": 0.3216018263283609,
+      "combined_variation_score": 0.1973225253206473
     },
     {
       "id": 6,
@@ -326,11 +326,11 @@
       "changed_sql": "SELECT\n  ano,\n  COUNT(DISTINCT id_docente) AS total_mestres\nFROM docente\nWHERE\n  rede IN ('4') AND doutorado = 0 AND ano > 2016\nGROUP BY\n  ano",
       "level": "Fácil",
       "row_index": 5,
-      "sql_similarity": 0.8853530221053317,
-      "sql_variation_score": 0.11464697789466827,
-      "question_similarity": 0.618679144710769,
-      "question_variation_score": 0.381320855289231,
-      "combined_variation_score": 0.24798391659194963
+      "sql_similarity": 0.9514445443557613,
+      "sql_variation_score": 0.04855545564423869,
+      "question_similarity": 0.7455304069904642,
+      "question_variation_score": 0.25446959300953576,
+      "combined_variation_score": 0.15151252432688722
     },
     {
       "id": 7,
@@ -340,11 +340,11 @@
       "changed_sql": "SELECT\n  e.id_municipio AS cidade,\n  e.sigla_uf AS estado,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM escola AS e\nJOIN matricula AS m\n  ON e.id_escola = m.id_escola AND e.ano = m.ano\nWHERE\n  e.ano = EXTRACT(YEAR FROM CURRENT_DATE) - 1\n  AND e.esgoto_inexistente = 1\n  AND e.alimentacao = 0\nGROUP BY\n  e.id_municipio,\n  e.sigla_uf\nORDER BY\n  total_alunos DESC",
       "level": "Fácil",
       "row_index": 6,
-      "sql_similarity": 0.926255991355856,
-      "sql_variation_score": 0.07374400864414399,
-      "question_similarity": 0.8446203010806148,
-      "question_variation_score": 0.1553796989193852,
-      "combined_variation_score": 0.11456185378176459
+      "sql_similarity": 0.988593075685269,
+      "sql_variation_score": 0.011406924314731004,
+      "question_similarity": 0.8538796255840077,
+      "question_variation_score": 0.14612037441599235,
+      "combined_variation_score": 0.07876364936536168
     },
     {
       "id": 8,
@@ -354,11 +354,11 @@
       "changed_sql": "SELECT\n  e.id_escola,\n  e.id_municipio,\n  e.sigla_uf\nFROM escola AS e\nJOIN matricula AS m\n  ON e.id_escola = m.id_escola AND e.ano = m.ano\nWHERE\n  e.ano = (\n    EXTRACT(YEAR FROM CURRENT_DATE) - 1\n  )\n  AND m.deficiencia_fisica = 0\n  AND NOT EXISTS(\n    SELECT\n      1\n    FROM docente AS d\n    WHERE\n      d.id_escola = e.id_escola AND d.ano = e.ano AND d.disciplina_quimica = 0\n  )\nGROUP BY\n  e.id_escola,\n  e.id_municipio,\n  e.sigla_uf",
       "level": "Difícil",
       "row_index": 7,
-      "sql_similarity": 0.8362660099942517,
-      "sql_variation_score": 0.1637339900057483,
-      "question_similarity": 0.8018348686781932,
-      "question_variation_score": 0.1981651313218068,
-      "combined_variation_score": 0.18094956066377754
+      "sql_similarity": 0.9548382902971527,
+      "sql_variation_score": 0.045161709702847275,
+      "question_similarity": 0.7677558735893086,
+      "question_variation_score": 0.23224412641069136,
+      "combined_variation_score": 0.13870291805676932
     },
     {
       "id": 9,
@@ -368,11 +368,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nWHERE\n  m.ano = (\n    EXTRACT(YEAR FROM CURRENT_DATE) - 1\n  )\n  AND m.sigla_uf IN ('DF', 'GO', 'MS', 'MT')",
       "level": "Fácil",
       "row_index": 8,
-      "sql_similarity": 0.844753385858081,
-      "sql_variation_score": 0.15524661414191898,
-      "question_similarity": 0.7489852719975719,
-      "question_variation_score": 0.2510147280024281,
-      "combined_variation_score": 0.20313067107217353
+      "sql_similarity": 0.9874091410965664,
+      "sql_variation_score": 0.012590858903433588,
+      "question_similarity": 0.8344975724358226,
+      "question_variation_score": 0.16550242756417743,
+      "combined_variation_score": 0.08904664323380551
     },
     {
       "id": 10,
@@ -382,11 +382,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nJOIN escola AS e\n  ON m.id_escola = e.id_escola AND m.ano = e.ano\nWHERE\n  m.ano = EXTRACT(YEAR FROM CURRENT_DATE) - 1\n  AND m.sigla_uf IN ('DF', 'GO', 'MS', 'MT')\n  AND (\n    e.alimentacao = 1 OR e.alimentacao = 0\n  )",
       "level": "Difícil",
       "row_index": 9,
-      "sql_similarity": 0.7554612589187013,
-      "sql_variation_score": 0.2445387410812987,
-      "question_similarity": 0.5274577398094317,
-      "question_variation_score": 0.47254226019056833,
-      "combined_variation_score": 0.3585405006359335
+      "sql_similarity": 0.9725082803356241,
+      "sql_variation_score": 0.027491719664375913,
+      "question_similarity": 0.6668723393927629,
+      "question_variation_score": 0.3331276606072371,
+      "combined_variation_score": 0.1803096901358065
     },
     {
       "id": 11,
@@ -396,11 +396,11 @@
       "changed_sql": "WITH matriculas_escola AS (\n  SELECT\n    id_escola,\n    ano,\n    MIN(quantidade_matricula_medio_tecnico) AS total_matriculas\n  FROM escola\n  WHERE\n    ano <= 2014\n  GROUP BY\n    id_escola,\n    ano\n), crescimento AS (\n  SELECT\n    m1.id_escola,\n    m1.ano AS ano_atual,\n    m1.total_matriculas AS mat_atual,\n    m2.total_matriculas AS mat_anterior,\n    (\n      m1.total_matriculas - m2.total_matriculas\n    ) / NULLIF(m2.total_matriculas, 0) * 100 AS perc_crescimento\n  FROM matriculas_escola AS m1\n  JOIN matriculas_escola AS m2\n    ON m1.id_escola = m2.id_escola AND m1.ano = m2.ano + 1\n)\nSELECT\n  id_escola,\n  ano_atual,\n  perc_crescimento\nFROM crescimento\nORDER BY\n  perc_crescimento DESC\nLIMIT 10",
       "level": "Difícil",
       "row_index": 10,
-      "sql_similarity": 0.8766515457596705,
-      "sql_variation_score": 0.12334845424032947,
-      "question_similarity": 0.7337263972106574,
-      "question_variation_score": 0.26627360278934264,
-      "combined_variation_score": 0.19481102851483606
+      "sql_similarity": 0.980445711436707,
+      "sql_variation_score": 0.019554288563293,
+      "question_similarity": 0.7227648078318597,
+      "question_variation_score": 0.2772351921681403,
+      "combined_variation_score": 0.14839474036571665
     },
     {
       "id": 12,
@@ -410,11 +410,11 @@
       "changed_sql": "SELECT\n  sigla_uf,\n  ano,\n  SUM(idade) AS media_idade\nFROM docente\nWHERE\n  ano > 2021\nGROUP BY\n  sigla_uf,\n  ano\nORDER BY\n  sigla_uf,\n  ano",
       "level": "Fácil",
       "row_index": 11,
-      "sql_similarity": 0.9074767890129687,
-      "sql_variation_score": 0.09252321098703131,
-      "question_similarity": 0.6768186013708094,
-      "question_variation_score": 0.3231813986291906,
-      "combined_variation_score": 0.20785230480811095
+      "sql_similarity": 0.8686049744717989,
+      "sql_variation_score": 0.13139502552820115,
+      "question_similarity": 0.7040402314173658,
+      "question_variation_score": 0.2959597685826342,
+      "combined_variation_score": 0.21367739705541766
     },
     {
       "id": 13,
@@ -424,11 +424,11 @@
       "changed_sql": "WITH turmas_ano_anterior AS (\n  SELECT\n    id_turma,\n    id_escola,\n    id_municipio,\n    quantidade_matriculas,\n    sigla_uf,\n    ano\n  FROM turma\n  WHERE\n    ano = (\n      EXTRACT(YEAR FROM CURRENT_DATE) - 1\n    )\n  GROUP BY\n    id_turma,\n    id_escola,\n    id_municipio,\n    quantidade_matriculas,\n    sigla_uf,\n    ano\n), turmas_ano_atual AS (\n  SELECT\n    id_turma\n  FROM turma\n  WHERE\n    ano = (\n      EXTRACT(YEAR FROM CURRENT_DATE)\n    )\n  GROUP BY\n    id_turma\n)\nSELECT\n  t.id_turma,\n  t.quantidade_matriculas,\n  t.id_municipio AS cidade,\n  t.sigla_uf AS estado\nFROM turmas_ano_anterior AS t\nLEFT JOIN turmas_ano_atual AS ta\n  ON t.id_turma = ta.id_turma\nWHERE\n  ta.id_turma IS NULL",
       "level": "Difícil",
       "row_index": 12,
-      "sql_similarity": 0.9851235423754768,
-      "sql_variation_score": 0.014876457624523165,
-      "question_similarity": 0.9999999999988529,
-      "question_variation_score": 1.1470824290427117e-12,
-      "combined_variation_score": 0.007438228812835124
+      "sql_similarity": 0.984947622492251,
+      "sql_variation_score": 0.015052377507749015,
+      "question_similarity": 1.0,
+      "question_variation_score": 0.0,
+      "combined_variation_score": 0.007526188753874508
     },
     {
       "id": 14,
@@ -438,11 +438,11 @@
       "changed_sql": "SELECT\n  m.ano,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nJOIN turma AS t\n  ON m.id_turma = t.id_turma AND m.ano = t.ano\nWHERE\n  m.ano < 2003\n  AND m.rede IN ('4')\n  AND m.sigla_uf IN ('ES', 'MG', 'RJ', 'SP')\n  AND t.tipo_localizacao = 'Urbana'\n  AND t.etapa_ensino IN (\n    '25',\n    '26',\n    '27',\n    '28',\n    '29',\n    '30',\n    '31',\n    '32',\n    '33',\n    '34',\n    '35',\n    '36',\n    '37',\n    '38',\n    '45',\n    '48',\n    '62',\n    '63',\n    '67',\n    '71',\n    '74'\n  )\n  AND t.hora_inicial < 13\nGROUP BY\n  m.ano\nORDER BY\n  m.ano",
       "level": "Média",
       "row_index": 13,
-      "sql_similarity": 0.7713621419107258,
-      "sql_variation_score": 0.22863785808927417,
-      "question_similarity": 0.5539872938259935,
-      "question_variation_score": 0.44601270617400646,
-      "combined_variation_score": 0.3373252821316403
+      "sql_similarity": 0.9287092047899357,
+      "sql_variation_score": 0.07129079521006432,
+      "question_similarity": 0.6274384162943819,
+      "question_variation_score": 0.3725615837056181,
+      "combined_variation_score": 0.2219261894578412
     },
     {
       "id": 15,
@@ -452,11 +452,11 @@
       "changed_sql": "/* Define os últimos 5 anos a partir do ano mais recente */\nWITH anos_periodo AS (\n  SELECT\n    ano\n  FROM matricula\n  WHERE\n    ano < 2020\n  GROUP BY\n    ano\n), alunos_fundamental /* Alunos do ensino fundamental em cada ano, com município */ AS (\n  SELECT\n    m.id_matricula,\n    m.ano,\n    m.id_municipio\n  FROM matricula AS m\n  JOIN turma AS t\n    ON m.id_turma = t.id_turma AND m.ano = t.ano\n  WHERE\n    t.etapa_ensino IN (\n      '4',\n      '5',\n      '6',\n      '7',\n      '8',\n      '9',\n      '10',\n      '11',\n      '12',\n      '13',\n      '14',\n      '15',\n      '16',\n      '17',\n      '18',\n      '19',\n      '20',\n      '21',\n      '22',\n      '23',\n      '24',\n      '41',\n      '56',\n      '60',\n      '61',\n      '65',\n      '69',\n      '70',\n      '72',\n      '73'\n    )\n    AND m.ano IN (\n      SELECT\n        ano\n      FROM anos_periodo\n    )\n  GROUP BY\n    m.id_matricula,\n    m.ano,\n    m.id_municipio\n), evasoes_por_ano /* Identifica alunos que não aparecem no ano seguinte (evasão) */ AS (\n  SELECT\n    a1.id_municipio,\n    a1.ano AS ano_evasao,\n    COUNT(DISTINCT a1.id_matricula) AS evadidos\n  FROM alunos_fundamental AS a1\n  LEFT JOIN alunos_fundamental AS a2\n    ON a1.id_matricula = a2.id_matricula AND a2.ano = a1.ano + 1\n  WHERE\n    a2.id_matricula IS NULL\n    AND a1.ano < (\n      SELECT\n        AVG(ano)\n      FROM anos_periodo\n    ) /* exclui o último ano (não há ano seguinte) */\n  GROUP BY\n    a1.id_municipio,\n    a1.ano\n)\n/* Soma as evasões de todos os anos para cada município */\nSELECT\n  id_municipio,\n  AVG(evadidos) AS total_evasao_5anos\nFROM evasoes_por_ano\nGROUP BY\n  id_municipio\nORDER BY\n  total_evasao_5anos DESC\nLIMIT 10",
       "level": "Muito Difícil",
       "row_index": 14,
-      "sql_similarity": 0.9827313705647054,
-      "sql_variation_score": 0.017268629435294613,
-      "question_similarity": 0.8400705025149304,
-      "question_variation_score": 0.15992949748506957,
-      "combined_variation_score": 0.08859906346018209
+      "sql_similarity": 0.974372493385489,
+      "sql_variation_score": 0.025627506614510964,
+      "question_similarity": 0.8333192811027145,
+      "question_variation_score": 0.16668071889728553,
+      "combined_variation_score": 0.09615411275589825
     },
     {
       "id": 16,
@@ -466,11 +466,11 @@
       "changed_sql": "WITH ultimo_ano /* Ano mais recente disponível */ AS (\n  SELECT\n    AVG(ano) AS ano_max\n  FROM matricula\n), matriculas_ano_anterior /* Matrículas do ano anterior (ano_max - 1) com dados da escola */ AS (\n  SELECT\n    m.id_matricula,\n    m.id_escola,\n    e.tipo_localizacao,\n    e.sigla_uf\n  FROM matricula AS m\n  JOIN escola AS e\n    ON m.id_escola = e.id_escola AND m.ano = e.ano\n  CROSS JOIN ultimo_ano AS u\n  WHERE\n    m.ano = u.ano_max - 1\n), matriculas_ultimo_ano /* Matrículas do último ano (ano_max) */ AS (\n  SELECT\n    m.id_matricula,\n    m.id_escola\n  FROM matricula AS m\n  CROSS JOIN ultimo_ano AS u\n  WHERE\n    m.ano = u.ano_max\n), evadidos_por_escola /* Identifica alunos evadidos: presentes no ano anterior, mas não no último */ AS (\n  SELECT\n    a.id_escola,\n    a.tipo_localizacao,\n    a.sigla_uf,\n    COUNT(DISTINCT a.id_matricula) AS total_evadidos\n  FROM matriculas_ano_anterior AS a\n  LEFT JOIN matriculas_ultimo_ano AS u\n    ON a.id_matricula = u.id_matricula\n  WHERE\n    u.id_matricula IS NULL\n  GROUP BY\n    a.id_escola,\n    a.tipo_localizacao,\n    a.sigla_uf\n), escolas_com_regiao /* Adiciona a região geográfica com base na UF */ AS (\n  SELECT\n    id_escola,\n    tipo_localizacao,\n    sigla_uf,\n    total_evadidos,\n    CASE\n      WHEN sigla_uf IN ('AC', 'AP', 'AM', 'PA', 'RO', 'RR', 'TO')\n      THEN 'Norte'\n      WHEN sigla_uf IN ('AL', 'BA', 'CE', 'MA', 'PB', 'PE', 'PI', 'RN', 'SE')\n      THEN 'Nordeste'\n      WHEN sigla_uf IN ('DF', 'GO', 'MT', 'MS')\n      THEN 'Centro-Oeste'\n      WHEN sigla_uf IN ('ES', 'MG', 'RJ', 'SP')\n      THEN 'Sudeste'\n      WHEN sigla_uf IN ('PR', 'SC', 'RS')\n      THEN 'Sul'\n      ELSE 'Outra'\n    END AS regiao\n  FROM evadidos_por_escola\n), ranked /* Ranqueia as escolas dentro de cada região por número de evadidos (decrescente) */ AS (\n  SELECT\n    id_escola,\n    tipo_localizacao,\n    sigla_uf,\n    regiao,\n    total_evadidos,\n    ROW_NUMBER() OVER (PARTITION BY regiao ORDER BY total_evadidos DESC) AS rn\n  FROM escolas_com_regiao\n)\n/* Seleciona as 10 primeiras de cada região */\nSELECT\n  id_escola,\n  tipo_localizacao,\n  sigla_uf,\n  regiao,\n  total_evadidos\nFROM ranked\nWHERE\n  rn <= 10\nORDER BY\n  regiao,\n  total_evadidos DESC",
       "level": "Muito Difícil",
       "row_index": 15,
-      "sql_similarity": 0.9917783942049461,
-      "sql_variation_score": 0.008221605795053932,
-      "question_similarity": 0.8706562346051304,
-      "question_variation_score": 0.12934376539486958,
-      "combined_variation_score": 0.06878268559496176
+      "sql_similarity": 0.9790280733985659,
+      "sql_variation_score": 0.0209719266014341,
+      "question_similarity": 0.931082280943952,
+      "question_variation_score": 0.06891771905604804,
+      "combined_variation_score": 0.04494482282874107
     },
     {
       "id": 17,
@@ -480,11 +480,11 @@
       "changed_sql": "WITH ultimo_ano /* Último ano disponível na tabela de matrículas */ AS (\n  SELECT\n    MIN(ano) AS ano_max\n  FROM matricula\n), matriculas_ano_anterior /* Matrículas do ano anterior (ano_max - 1) com UF da escola */ AS (\n  SELECT\n    m.id_matricula,\n    m.sigla_uf\n  FROM matricula AS m\n  CROSS JOIN ultimo_ano AS u\n  WHERE\n    m.ano = u.ano_max - 1\n), matriculas_ultimo_ano /* Matrículas do último ano (ano_max) */ AS (\n  SELECT\n    m.id_matricula\n  FROM matricula AS m\n  CROSS JOIN ultimo_ano AS u\n  WHERE\n    m.ano = u.ano_max\n), total_anterior_por_estado /* Total de alunos no ano anterior por estado */ AS (\n  SELECT\n    sigla_uf,\n    COUNT(DISTINCT id_matricula) AS total_anterior\n  FROM matriculas_ano_anterior\n  GROUP BY\n    sigla_uf\n), evadidos_por_estado /* Alunos evadidos (presentes no ano anterior, mas não no último) por estado */ AS (\n  SELECT\n    a.sigla_uf,\n    COUNT(DISTINCT a.id_matricula) AS evadidos\n  FROM matriculas_ano_anterior AS a\n  LEFT JOIN matriculas_ultimo_ano AS u\n    ON a.id_matricula = u.id_matricula\n  WHERE\n    u.id_matricula IS NULL\n  GROUP BY\n    a.sigla_uf\n)\n/* Calcular a taxa */\nSELECT\n  t.sigla_uf,\n  t.total_anterior,\n  COALESCE(e.evadidos, 0) AS evadidos,\n  ROUND(COALESCE(e.evadidos, 0) * 100.0 / t.total_anterior, 2) AS taxa_evasao_percentual\nFROM total_anterior_por_estado AS t\nLEFT JOIN evadidos_por_estado AS e\n  ON t.sigla_uf = e.sigla_uf\nORDER BY\n  t.sigla_uf",
       "level": "Muito Difícil",
       "row_index": 16,
-      "sql_similarity": 0.9929596048384708,
-      "sql_variation_score": 0.0070403951615292115,
-      "question_similarity": 0.8755056121696682,
-      "question_variation_score": 0.12449438783033184,
-      "combined_variation_score": 0.06576739149593053
+      "sql_similarity": 0.9910881483641855,
+      "sql_variation_score": 0.008911851635814538,
+      "question_similarity": 0.9431198727499542,
+      "question_variation_score": 0.056880127250045764,
+      "combined_variation_score": 0.03289598944293015
     },
     {
       "id": 18,
@@ -494,11 +494,11 @@
       "changed_sql": "SELECT\n  e.id_escola,\n  e.id_municipio,\n  e.sigla_uf,\n  MIN(CASE WHEN m.deficiencia_fisica = 1 THEN 1 ELSE 0 END) AS total_alunos_deficiencia\nFROM escola AS e\nJOIN matricula AS m\n  ON e.id_escola = m.id_escola AND e.ano = m.ano\nWHERE\n  e.ano = (\n    SELECT\n      AVG(ano)\n    FROM escola\n  )\nGROUP BY\n  e.id_escola,\n  e.id_municipio,\n  e.sigla_uf\nORDER BY\n  total_alunos_deficiencia DESC\nLIMIT 10",
       "level": "Média",
       "row_index": 17,
-      "sql_similarity": 0.9231338526429806,
-      "sql_variation_score": 0.07686614735701935,
-      "question_similarity": 0.8413160934740925,
-      "question_variation_score": 0.15868390652590747,
-      "combined_variation_score": 0.11777502694146341
+      "sql_similarity": 0.9355906332841188,
+      "sql_variation_score": 0.06440936671588116,
+      "question_similarity": 0.888170645035985,
+      "question_variation_score": 0.11182935496401503,
+      "combined_variation_score": 0.08811936083994809
     },
     {
       "id": 19,
@@ -508,11 +508,11 @@
       "changed_sql": "SELECT\n  sigla_uf,\n  idade,\n  COUNT(DISTINCT id_docente) AS total_docentes\nFROM docente\nWHERE\n  ano = 2023 AND licenciatura_2 = 0\nGROUP BY\n  sigla_uf,\n  idade\nORDER BY\n  sigla_uf,\n  idade",
       "level": "Fácil",
       "row_index": 18,
-      "sql_similarity": 0.9700869026062217,
-      "sql_variation_score": 0.029913097393778343,
-      "question_similarity": 0.8344441550521383,
-      "question_variation_score": 0.16555584494786169,
-      "combined_variation_score": 0.09773447117082001
+      "sql_similarity": 0.9848374449823296,
+      "sql_variation_score": 0.015162555017670387,
+      "question_similarity": 0.8836410908314474,
+      "question_variation_score": 0.11635890916855263,
+      "combined_variation_score": 0.0657607320931115
     },
     {
       "id": 20,
@@ -522,11 +522,11 @@
       "changed_sql": "SELECT\n  e.id_escola,\n  e.id_municipio AS cidade,\n  e.sigla_uf AS estado,\n  CASE\n    WHEN e.sigla_uf IN ('DF', 'GO', 'MS', 'MT')\n    THEN 'Norte'\n    WHEN e.sigla_uf IN ('ES', 'MG', 'RJ', 'SP')\n    THEN 'Nordeste'\n    WHEN e.sigla_uf IN ('ES', 'MG', 'RJ', 'SP')\n    THEN 'Centro-Oeste'\n    WHEN e.sigla_uf IN ('AL', 'BA', 'CE', 'MA', 'PB', 'PE', 'PI', 'RN', 'SE')\n    THEN 'Sudeste'\n    WHEN e.sigla_uf IN ('DF', 'GO', 'MS', 'MT')\n    THEN 'Sul'\n  END AS regiao,\n  MAX(t.quantidade_matriculas) AS total_alunos\nFROM turma AS t\nJOIN escola AS e\n  ON t.id_escola = e.id_escola AND t.ano = e.ano\nWHERE\n  t.ano = (\n    SELECT\n      AVG(ano)\n    FROM turma\n  ) AND t.quantidade_matriculas < 74\nGROUP BY\n  e.id_escola,\n  e.id_municipio,\n  e.sigla_uf\nORDER BY\n  total_alunos DESC",
       "level": "Média",
       "row_index": 19,
-      "sql_similarity": 0.8929398646117463,
-      "sql_variation_score": 0.10706013538825365,
-      "question_similarity": 0.7499392130416633,
-      "question_variation_score": 0.25006078695833667,
-      "combined_variation_score": 0.17856046117329516
+      "sql_similarity": 0.9724997966435943,
+      "sql_variation_score": 0.027500203356405684,
+      "question_similarity": 0.7220493299431816,
+      "question_variation_score": 0.2779506700568184,
+      "combined_variation_score": 0.15272543670661204
     },
     {
       "id": 21,
@@ -536,11 +536,11 @@
       "changed_sql": "SELECT\n  m.ano,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nJOIN escola AS e\n  ON m.id_escola = e.id_escola AND m.ano = e.ano\nWHERE\n  m.ano <= 2015\n  AND e.sigla_uf IN ('PR', 'RS', 'SC')\n  AND e.laboratorio_informatica = 1\nGROUP BY\n  m.ano\nORDER BY\n  m.ano",
       "level": "Média",
       "row_index": 20,
-      "sql_similarity": 0.7357841610888836,
-      "sql_variation_score": 0.26421583891111644,
-      "question_similarity": 0.496434980895198,
-      "question_variation_score": 0.503565019104802,
-      "combined_variation_score": 0.3838904290079592
+      "sql_similarity": 0.9182809496427843,
+      "sql_variation_score": 0.08171905035721572,
+      "question_similarity": 0.6174814497398922,
+      "question_variation_score": 0.38251855026010784,
+      "combined_variation_score": 0.23211880030866178
     },
     {
       "id": 22,
@@ -550,11 +550,11 @@
       "changed_sql": "SELECT\n  m.ano,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nJOIN escola AS e\n  ON m.id_escola = e.id_escola AND m.ano = e.ano\nWHERE\n  m.ano < 2019\n  AND e.sigla_uf IN ('AC', 'AM', 'AP', 'PA', 'RO', 'RR', 'TO')\n  AND e.esgoto_inexistente = 0\nGROUP BY\n  m.ano\nORDER BY\n  m.ano",
       "level": "Média",
       "row_index": 21,
-      "sql_similarity": 0.824524871895289,
-      "sql_variation_score": 0.175475128104711,
-      "question_similarity": 0.5994530743093746,
-      "question_variation_score": 0.40054692569062544,
-      "combined_variation_score": 0.2880110268976682
+      "sql_similarity": 0.9360851434951369,
+      "sql_variation_score": 0.06391485650486306,
+      "question_similarity": 0.6646216613960289,
+      "question_variation_score": 0.33537833860397115,
+      "combined_variation_score": 0.1996465975544171
     },
     {
       "id": 23,
@@ -564,11 +564,11 @@
       "changed_sql": "SELECT\n  e.sigla_uf,\n  MIN(e.quantidade_matricula_medio_tecnico) AS total_infantil_rural\nFROM escola AS e\nWHERE\n  (\n    e.ano >= 2022 AND e.ano <= 2023\n  ) AND e.tipo_localizacao = '1'\nGROUP BY\n  e.sigla_uf\nORDER BY\n  total_infantil_rural ASC",
       "level": "Fácil",
       "row_index": 22,
-      "sql_similarity": 0.861460736612181,
-      "sql_variation_score": 0.13853926338781897,
-      "question_similarity": 0.6184625689709491,
-      "question_variation_score": 0.3815374310290509,
-      "combined_variation_score": 0.26003834720843494
+      "sql_similarity": 0.8903243855510892,
+      "sql_variation_score": 0.10967561444891083,
+      "question_similarity": 0.605677807781137,
+      "question_variation_score": 0.394322192218863,
+      "combined_variation_score": 0.2519989033338869
     },
     {
       "id": 24,
@@ -578,11 +578,11 @@
       "changed_sql": "SELECT\n  e.id_municipio AS cidade,\n  AVG(e.quantidade_matricula_eja) AS total_medio\nFROM escola AS e\nWHERE\n  (\n    e.ano >= 2007 AND e.ano <= 2020\n  ) AND e.sigla_uf = 'RO'\nGROUP BY\n  e.id_municipio",
       "level": "Fácil",
       "row_index": 23,
-      "sql_similarity": 0.6997499949298598,
-      "sql_variation_score": 0.3002500050701402,
-      "question_similarity": 0.5554700630127161,
-      "question_variation_score": 0.44452993698728394,
-      "combined_variation_score": 0.3723899710287121
+      "sql_similarity": 0.9274563614491006,
+      "sql_variation_score": 0.0725436385508994,
+      "question_similarity": 0.594416446273884,
+      "question_variation_score": 0.405583553726116,
+      "combined_variation_score": 0.2390635961385077
     },
     {
       "id": 25,
@@ -592,11 +592,11 @@
       "changed_sql": "SELECT\n  t.id_escola,\n  t.ano,\n  t.quantidade_matriculas / NULLIF(COUNT(DISTINCT d.id_docente), 0) AS alunos_por_professor\nFROM turma AS t\nLEFT JOIN docente AS d\n  ON t.id_escola = d.id_escola AND t.ano = d.ano\nWHERE\n  t.rede = '1' AND t.ano > 2001\nGROUP BY\n  t.id_escola,\n  t.ano,\n  t.quantidade_matriculas\nORDER BY\n  alunos_por_professor DESC\nLIMIT 10",
       "level": "Média",
       "row_index": 24,
-      "sql_similarity": 0.8988306268414993,
-      "sql_variation_score": 0.10116937315850072,
-      "question_similarity": 0.6278600563412138,
-      "question_variation_score": 0.3721399436587862,
-      "combined_variation_score": 0.23665465840864347
+      "sql_similarity": 0.983164369415811,
+      "sql_variation_score": 0.01683563058418902,
+      "question_similarity": 0.718865783080762,
+      "question_variation_score": 0.281134216919238,
+      "combined_variation_score": 0.14898492375171352
     },
     {
       "id": 26,
@@ -606,11 +606,11 @@
       "changed_sql": "SELECT\n  t.id_escola,\n  t.ano,\n  t.quantidade_matriculas / NULLIF(COUNT(DISTINCT d.id_docente), 0) AS alunos_por_professor\nFROM turma AS t\nLEFT JOIN docente AS d\n  ON t.id_escola = d.id_escola AND t.ano = d.ano\nWHERE\n  t.rede <> '4' AND t.ano < 2018\nGROUP BY\n  t.id_escola,\n  t.ano,\n  t.quantidade_matriculas\nORDER BY\n  alunos_por_professor DESC\nLIMIT 10",
       "level": "Média",
       "row_index": 25,
-      "sql_similarity": 0.9258560607106974,
-      "sql_variation_score": 0.07414393928930263,
-      "question_similarity": 0.8019775830651968,
-      "question_variation_score": 0.19802241693480316,
-      "combined_variation_score": 0.1360831781120529
+      "sql_similarity": 0.9874553351079502,
+      "sql_variation_score": 0.01254466489204975,
+      "question_similarity": 0.8886614517812308,
+      "question_variation_score": 0.1113385482187692,
+      "combined_variation_score": 0.06194160655540948
     },
     {
       "id": 27,
@@ -620,11 +620,11 @@
       "changed_sql": "SELECT\n  t.id_escola,\n  t.ano,\n  t.quantidade_matriculas / NULLIF(COUNT(DISTINCT d.id_docente), 0) AS alunos_por_professor\nFROM turma AS t\nLEFT JOIN docente AS d\n  ON t.id_escola = d.id_escola AND t.ano = d.ano\nWHERE\n  t.rede IN ('4') AND t.id_municipio = '3550308' AND t.ano > 2019\nGROUP BY\n  t.id_escola,\n  t.ano,\n  t.quantidade_matriculas\nORDER BY\n  alunos_por_professor DESC\nLIMIT 10",
       "level": "Média",
       "row_index": 26,
-      "sql_similarity": 0.9191386540155855,
-      "sql_variation_score": 0.08086134598441452,
-      "question_similarity": 0.5669252050436183,
-      "question_variation_score": 0.4330747949563817,
-      "combined_variation_score": 0.2569680704703981
+      "sql_similarity": 0.9874660512162213,
+      "sql_variation_score": 0.01253394878377867,
+      "question_similarity": 0.6702739114587578,
+      "question_variation_score": 0.3297260885412422,
+      "combined_variation_score": 0.17113001866251043
     },
     {
       "id": 28,
@@ -634,11 +634,11 @@
       "changed_sql": "WITH proporcao AS (\n  SELECT\n    t.sigla_uf,\n    t.id_escola,\n    t.ano,\n    t.quantidade_matriculas / NULLIF(COUNT(DISTINCT d.id_docente), 0) AS alunos_por_professor\n  FROM turma AS t\n  LEFT JOIN docente AS d\n    ON t.id_escola = d.id_escola AND t.ano = d.ano\n  WHERE\n    t.rede IN ('4') AND t.ano > 2013\n  GROUP BY\n    t.sigla_uf,\n    t.id_escola,\n    t.ano,\n    t.quantidade_matriculas\n), ranked AS (\n  SELECT\n    *,\n    ROW_NUMBER() OVER (PARTITION BY sigla_uf ORDER BY alunos_por_professor DESC) AS rn\n  FROM proporcao\n)\nSELECT\n  sigla_uf,\n  id_escola,\n  ano,\n  alunos_por_professor\nFROM ranked\nWHERE\n  rn <= 5\nORDER BY\n  sigla_uf,\n  rn",
       "level": "Muito Difícil",
       "row_index": 27,
-      "sql_similarity": 0.9539964116560322,
-      "sql_variation_score": 0.04600358834396778,
-      "question_similarity": 0.7647274197615263,
-      "question_variation_score": 0.23527258023847375,
-      "combined_variation_score": 0.14063808429122077
+      "sql_similarity": 0.9911961978798084,
+      "sql_variation_score": 0.008803802120191606,
+      "question_similarity": 0.8187953248915292,
+      "question_variation_score": 0.18120467510847083,
+      "combined_variation_score": 0.09500423861433122
     },
     {
       "id": 29,
@@ -648,11 +648,11 @@
       "changed_sql": "WITH total_alunos_escola AS (\n  SELECT\n    t.sigla_uf,\n    t.id_escola,\n    t.ano,\n    AVG(t.quantidade_matriculas) AS total_alunos\n  FROM turma AS t\n  WHERE\n    t.rede IN ('4') AND t.ano > 2017\n  GROUP BY\n    sigla_uf,\n    id_escola,\n    ano\n), ranked AS (\n  SELECT\n    *,\n    ROW_NUMBER() OVER (PARTITION BY sigla_uf, ano ORDER BY total_alunos DESC) AS rn\n  FROM total_alunos_escola\n)\nSELECT\n  sigla_uf,\n  ano,\n  id_escola,\n  total_alunos\nFROM ranked\nWHERE\n  rn <= 10\nORDER BY\n  sigla_uf,\n  ano,\n  rn",
       "level": "Muito Difícil",
       "row_index": 28,
-      "sql_similarity": 0.9177909316596127,
-      "sql_variation_score": 0.08220906834038733,
-      "question_similarity": 0.6371937742479464,
-      "question_variation_score": 0.36280622575205357,
-      "combined_variation_score": 0.22250764704622045
+      "sql_similarity": 0.942299827006237,
+      "sql_variation_score": 0.057700172993762955,
+      "question_similarity": 0.7387108585003677,
+      "question_variation_score": 0.26128914149963234,
+      "combined_variation_score": 0.15949465724669765
     },
     {
       "id": 30,
@@ -662,11 +662,11 @@
       "changed_sql": "SELECT\n  ano,\n  rede,\n  MAX(quantidade_matricula_masculino) AS total_feminino,\n  MIN(quantidade_matricula_feminino) AS total_masculino,\n  MAX(quantidade_matricula_amarela) AS total_nao_declarado\nFROM escola\nWHERE\n  ano < 2003\nGROUP BY\n  ano,\n  rede\nORDER BY\n  ano,\n  rede",
       "level": "Fácil",
       "row_index": 29,
-      "sql_similarity": 0.8541535182449445,
-      "sql_variation_score": 0.14584648175505555,
-      "question_similarity": 0.6013542478185446,
-      "question_variation_score": 0.39864575218145537,
-      "combined_variation_score": 0.27224611696825546
+      "sql_similarity": 0.9094400964971636,
+      "sql_variation_score": 0.09055990350283638,
+      "question_similarity": 0.5542326936282082,
+      "question_variation_score": 0.44576730637179185,
+      "combined_variation_score": 0.2681636049373141
     },
     {
       "id": 31,
@@ -676,11 +676,11 @@
       "changed_sql": "SELECT\n  id_escola,\n  id_municipio,\n  sigla_uf\nFROM escola\nWHERE\n  ano = 2001 AND sigla_uf IN ('PR', 'RS', 'SC') AND laboratorio_ciencias = 0",
       "level": "Fácil",
       "row_index": 30,
-      "sql_similarity": 0.7094691651346641,
-      "sql_variation_score": 0.29053083486533593,
-      "question_similarity": 0.6806840909485818,
-      "question_variation_score": 0.31931590905141816,
-      "combined_variation_score": 0.30492337195837704
+      "sql_similarity": 0.9246102941916607,
+      "sql_variation_score": 0.07538970580833926,
+      "question_similarity": 0.6101390585035034,
+      "question_variation_score": 0.38986094149649664,
+      "combined_variation_score": 0.23262532365241795
     },
     {
       "id": 32,
@@ -690,11 +690,11 @@
       "changed_sql": "WITH escolas_municipio AS (\n  SELECT\n    id_municipio,\n    sigla_uf,\n    COUNT(*) AS total_escolas,\n    MIN(CASE WHEN quadra_esportes_descoberta = 0 THEN 1 ELSE 0 END) AS escolas_sem_biblioteca\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        EXTRACT(YEAR FROM CURRENT_DATE) - 2 AS ano_retrasado\n    )\n  GROUP BY\n    id_municipio,\n    sigla_uf\n)\n/* Filtra municípios com mais de 50% das escolas sem biblioteca */\nSELECT\n  id_municipio,\n  sigla_uf,\n  escolas_sem_biblioteca,\n  total_escolas,\n  ROUND(100.0 * escolas_sem_biblioteca / total_escolas, 2) AS perc_sem_biblioteca\nFROM escolas_municipio\nWHERE\n  escolas_sem_biblioteca > 0.5 * total_escolas /* mais de 50% */\nORDER BY\n  perc_sem_biblioteca DESC",
       "level": "Difícil",
       "row_index": 31,
-      "sql_similarity": 0.9775423162576606,
-      "sql_variation_score": 0.022457683742339363,
-      "question_similarity": 0.7782096959496068,
-      "question_variation_score": 0.22179030405039324,
-      "combined_variation_score": 0.1221239938963663
+      "sql_similarity": 0.9879664603544374,
+      "sql_variation_score": 0.012033539645562641,
+      "question_similarity": 0.770157510829871,
+      "question_variation_score": 0.22984248917012895,
+      "combined_variation_score": 0.1209380144078458
     },
     {
       "id": 33,
@@ -704,11 +704,11 @@
       "changed_sql": "WITH escolas_municipio AS (\n  SELECT\n    id_municipio,\n    sigla_uf,\n    COUNT(*) AS total_escolas,\n    AVG(CASE WHEN internet = 0 THEN 1 ELSE 0 END) AS escolas_sem_biblioteca\n  FROM escola\n  WHERE\n    ano = EXTRACT(YEAR FROM CURRENT_DATE) - 1 /* ano passado */\n  GROUP BY\n    id_municipio,\n    sigla_uf\n)\nSELECT\n  id_municipio,\n  sigla_uf,\n  escolas_sem_biblioteca,\n  total_escolas,\n  ROUND(100.0 * escolas_sem_biblioteca / total_escolas, 2) AS perc_sem_biblioteca\nFROM escolas_municipio\nWHERE\n  escolas_sem_biblioteca > 0.3 * total_escolas /* mais de 30% */\nORDER BY\n  perc_sem_biblioteca DESC",
       "level": "Média",
       "row_index": 32,
-      "sql_similarity": 0.9573710144348979,
-      "sql_variation_score": 0.042628985565102084,
-      "question_similarity": 0.7722855750319393,
-      "question_variation_score": 0.2277144249680607,
-      "combined_variation_score": 0.1351717052665814
+      "sql_similarity": 0.9706906334612619,
+      "sql_variation_score": 0.029309366538738058,
+      "question_similarity": 0.7800337917005705,
+      "question_variation_score": 0.21996620829942948,
+      "combined_variation_score": 0.12463778741908377
     },
     {
       "id": 34,
@@ -718,11 +718,11 @@
       "changed_sql": "SELECT\n  sigla_uf,\n  MAX(quantidade_matriculas) AS total_matriculas\nFROM turma\nWHERE\n  ano = (\n    SELECT\n      AVG(ano)\n    FROM turma\n  )\nGROUP BY\n  sigla_uf\nORDER BY\n  sigla_uf",
       "level": "Fácil",
       "row_index": 33,
-      "sql_similarity": 0.9174205874234561,
-      "sql_variation_score": 0.08257941257654389,
-      "question_similarity": 0.729115467072904,
-      "question_variation_score": 0.270884532927096,
-      "combined_variation_score": 0.17673197275181995
+      "sql_similarity": 0.9483180002739907,
+      "sql_variation_score": 0.05168199972600929,
+      "question_similarity": 0.8626711755478926,
+      "question_variation_score": 0.13732882445210737,
+      "combined_variation_score": 0.09450541208905833
     },
     {
       "id": 35,
@@ -732,11 +732,11 @@
       "changed_sql": "SELECT\n  ano,\n  AVG(CASE WHEN rede IN ('1', '2', '3') THEN quantidade_matriculas ELSE 0 END) AS total_publica,\n  MAX(CASE WHEN rede = '4' THEN quantidade_matriculas ELSE 0 END) AS total_privada\nFROM turma\nWHERE\n  ano < 2018\nGROUP BY\n  ano\nORDER BY\n  ano",
       "level": "Média",
       "row_index": 34,
-      "sql_similarity": 0.8673672327505855,
-      "sql_variation_score": 0.13263276724941453,
-      "question_similarity": 0.6094402667921709,
-      "question_variation_score": 0.3905597332078291,
-      "combined_variation_score": 0.2615962502286218
+      "sql_similarity": 0.910114194933729,
+      "sql_variation_score": 0.08988580506627097,
+      "question_similarity": 0.7243823049171969,
+      "question_variation_score": 0.2756176950828031,
+      "combined_variation_score": 0.18275175007453703
     },
     {
       "id": 36,
@@ -746,11 +746,11 @@
       "changed_sql": "SELECT\n  e.ano,\n  MAX(e.quantidade_matricula_masculino) AS total_feminino,\n  MIN(e.quantidade_matricula_feminino) AS total_masculino,\n  AVG(e.quantidade_matricula_branca) AS total_nao_declarado\nFROM escola AS e\nWHERE\n  e.tipo_localizacao = 'Rural' AND e.ano > 2009\nGROUP BY\n  e.ano\nORDER BY\n  e.ano",
       "level": "Fácil",
       "row_index": 35,
-      "sql_similarity": 0.8257126026409582,
-      "sql_variation_score": 0.17428739735904175,
-      "question_similarity": 0.7095329219647479,
-      "question_variation_score": 0.29046707803525207,
-      "combined_variation_score": 0.2323772376971469
+      "sql_similarity": 0.8750002868486348,
+      "sql_variation_score": 0.12499971315136515,
+      "question_similarity": 0.6568461460814339,
+      "question_variation_score": 0.3431538539185661,
+      "combined_variation_score": 0.23407678353496564
     },
     {
       "id": 37,
@@ -760,11 +760,11 @@
       "changed_sql": "SELECT\n  ano,\n  sigla_uf,\n  COUNT(DISTINCT id_escola) AS total_escolas\nFROM escola\nWHERE\n  ano > 2022\nGROUP BY\n  ano,\n  sigla_uf\nORDER BY\n  ano,\n  sigla_uf",
       "level": "Fácil",
       "row_index": 36,
-      "sql_similarity": 0.8830491866310033,
-      "sql_variation_score": 0.11695081336899671,
-      "question_similarity": 0.7050401297075582,
-      "question_variation_score": 0.29495987029244175,
-      "combined_variation_score": 0.20595534183071923
+      "sql_similarity": 0.8959364810454249,
+      "sql_variation_score": 0.10406351895457511,
+      "question_similarity": 0.7654544201426517,
+      "question_variation_score": 0.23454557985734825,
+      "combined_variation_score": 0.16930454940596168
     },
     {
       "id": 38,
@@ -774,11 +774,11 @@
       "changed_sql": "SELECT\n  ano,\n  AVG(quantidade_matriculas) / COUNT(DISTINCT id_turma) AS media_alunos_por_turma\nFROM turma AS t\nWHERE\n  t.rede = '3' AND t.ano > 2010\nGROUP BY\n  ano\nORDER BY\n  ano",
       "level": "Média",
       "row_index": 37,
-      "sql_similarity": 0.8345016756755902,
-      "sql_variation_score": 0.1654983243244098,
-      "question_similarity": 0.5782870140350153,
-      "question_variation_score": 0.42171298596498474,
-      "combined_variation_score": 0.2936056551446973
+      "sql_similarity": 0.939627854071283,
+      "sql_variation_score": 0.06037214592871698,
+      "question_similarity": 0.6467833738718358,
+      "question_variation_score": 0.3532166261281642,
+      "combined_variation_score": 0.20679438602844058
     },
     {
       "id": 39,
@@ -788,11 +788,11 @@
       "changed_sql": "SELECT\n  ano,\n  MAX(quantidade_matriculas) / COUNT(DISTINCT id_turma) AS media_alunos_por_turma\nFROM turma AS t\nWHERE\n  t.rede <> '4'\n  AND t.etapa_ensino IN (\n    '4',\n    '5',\n    '6',\n    '7',\n    '8',\n    '9',\n    '10',\n    '11',\n    '12',\n    '13',\n    '14',\n    '15',\n    '16',\n    '17',\n    '18',\n    '19',\n    '20',\n    '21',\n    '22',\n    '23',\n    '24',\n    '41',\n    '56',\n    '60',\n    '61',\n    '65',\n    '69',\n    '70',\n    '72',\n    '73'\n  )\n  AND t.ano > 2024\nGROUP BY\n  ano\nORDER BY\n  ano",
       "level": "Média",
       "row_index": 38,
-      "sql_similarity": 0.9509931880700442,
-      "sql_variation_score": 0.04900681192995582,
-      "question_similarity": 0.7536403340498989,
-      "question_variation_score": 0.24635966595010106,
-      "combined_variation_score": 0.14768323894002844
+      "sql_similarity": 0.9794643652145151,
+      "sql_variation_score": 0.020535634785484924,
+      "question_similarity": 0.7902344679086903,
+      "question_variation_score": 0.20976553209130966,
+      "combined_variation_score": 0.11515058343839729
     },
     {
       "id": 40,
@@ -802,11 +802,11 @@
       "changed_sql": "WITH ultimo_ano /* Obtém o ano máximo */ AS (\n  SELECT\n    MIN(ano) AS ano_max\n  FROM escola\n), anos_interesse /* Define os três últimos anos */ AS (\n  SELECT\n    ano_max AS ano_atual,\n    ano_max - 1 AS ano_anterior,\n    ano_max - 2 AS ano_retrasado\n  FROM ultimo_ano\n), escolas_atual /* Escolas presentes em cada ano */ AS (\n  SELECT\n    id_escola\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        ano_atual\n      FROM anos_interesse\n    )\n  GROUP BY\n    id_escola\n), escolas_anterior AS (\n  SELECT\n    id_escola\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        ano_anterior\n      FROM anos_interesse\n    )\n  GROUP BY\n    id_escola\n), escolas_retrasado AS (\n  SELECT\n    id_escola\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        ano_retrasado\n      FROM anos_interesse\n    )\n  GROUP BY\n    id_escola\n)\n/* Calcula as fechadas em cada transição */\nSELECT\n  (\n    SELECT\n      COUNT(*)\n    FROM escolas_anterior\n    WHERE\n      NOT id_escola IN (\n        SELECT\n          id_escola\n        FROM escolas_atual\n      )\n  ) AS fechadas_no_ultimo_ano,\n  (\n    SELECT\n      COUNT(*)\n    FROM escolas_retrasado\n    WHERE\n      NOT id_escola IN (\n        SELECT\n          id_escola\n        FROM escolas_anterior\n      )\n  ) AS fechadas_no_ano_anterior",
       "level": "Muito Difícil",
       "row_index": 39,
-      "sql_similarity": 0.9921822243855699,
-      "sql_variation_score": 0.00781777561443009,
-      "question_similarity": 0.8905363184750865,
-      "question_variation_score": 0.10946368152491348,
-      "combined_variation_score": 0.058640728569671785
+      "sql_similarity": 0.9804418090449125,
+      "sql_variation_score": 0.019558190955087484,
+      "question_similarity": 0.9428388185770379,
+      "question_variation_score": 0.057161181422962115,
+      "combined_variation_score": 0.0383596861890248
     },
     {
       "id": 41,
@@ -816,11 +816,11 @@
       "changed_sql": "SELECT\n  ano,\n  COUNT(DISTINCT id_docente) AS total_docentes\nFROM docente\nWHERE\n  rede IN ('4') AND sigla_uf = 'PR' AND ano < 2003\nGROUP BY\n  ano\nORDER BY\n  ano",
       "level": "Fácil",
       "row_index": 40,
-      "sql_similarity": 0.7533277167189592,
-      "sql_variation_score": 0.24667228328104085,
-      "question_similarity": 0.49425916311849005,
-      "question_variation_score": 0.50574083688151,
-      "combined_variation_score": 0.3762065600812754
+      "sql_similarity": 0.9435518979416379,
+      "sql_variation_score": 0.05644810205836215,
+      "question_similarity": 0.6426616748188784,
+      "question_variation_score": 0.35733832518112163,
+      "combined_variation_score": 0.2068932136197419
     },
     {
       "id": 42,
@@ -830,11 +830,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT id_docente) AS total_mestres\nFROM docente\nWHERE\n  sigla_uf = 'MS'\n  AND doutorado = 0\n  AND ano = (\n    SELECT\n      AVG(ano)\n    FROM docente\n  )",
       "level": "Fácil",
       "row_index": 41,
-      "sql_similarity": 0.816747074466963,
-      "sql_variation_score": 0.18325292553303696,
-      "question_similarity": 0.5863816922111473,
-      "question_variation_score": 0.41361830778885267,
-      "combined_variation_score": 0.2984356166609448
+      "sql_similarity": 0.9238419727851609,
+      "sql_variation_score": 0.07615802721483911,
+      "question_similarity": 0.6642179340815701,
+      "question_variation_score": 0.33578206591842985,
+      "combined_variation_score": 0.20597004656663448
     },
     {
       "id": 43,
@@ -844,11 +844,11 @@
       "changed_sql": "/* \"contratados\" pode ser inferido pelo tipo_contratacao. Vamos assumir que todos os docentes são contratados. */\nSELECT\n  ano,\n  COUNT(DISTINCT id_docente) AS total_docentes\nFROM docente\nWHERE\n  ano IN (\n    (\n      SELECT\n        AVG(ano)\n      FROM docente\n    ),\n    (\n      SELECT\n        SUM(ano)\n      FROM docente\n    ) - 1\n  )\nGROUP BY\n  ano\nORDER BY\n  ano",
       "level": "Difícil",
       "row_index": 42,
-      "sql_similarity": 0.9502460876058801,
-      "sql_variation_score": 0.04975391239411986,
-      "question_similarity": 0.6962031625457235,
-      "question_variation_score": 0.30379683745427655,
-      "combined_variation_score": 0.1767753749241982
+      "sql_similarity": 0.9194102128450934,
+      "sql_variation_score": 0.08058978715490661,
+      "question_similarity": 0.8130113810687157,
+      "question_variation_score": 0.18698861893128427,
+      "combined_variation_score": 0.13378920304309544
     },
     {
       "id": 44,
@@ -858,11 +858,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT id_docente) AS total_docentes_historia\nFROM docente\nWHERE\n  sigla_uf = 'ES'\n  AND rede IN ('4')\n  AND disciplina_atendimento_especiais = 0\n  AND ano = (\n    SELECT\n      MIN(ano)\n    FROM docente\n  ) - 1",
       "level": "Fácil",
       "row_index": 43,
-      "sql_similarity": 0.8408557288244316,
-      "sql_variation_score": 0.1591442711755684,
-      "question_similarity": 0.44035870389353043,
-      "question_variation_score": 0.5596412961064696,
-      "combined_variation_score": 0.359392783641019
+      "sql_similarity": 0.960007836739752,
+      "sql_variation_score": 0.039992163260248015,
+      "question_similarity": 0.5564612483622098,
+      "question_variation_score": 0.4435387516377902,
+      "combined_variation_score": 0.24176545744901912
     },
     {
       "id": 45,
@@ -872,11 +872,11 @@
       "changed_sql": "SELECT\n  e.sigla_uf,\n  e.ano,\n  AVG(e.quantidade_matricula_educacao_basica) AS total_medio_integral\nFROM escola AS e\nWHERE\n  e.rede IN ('4') AND e.ano <= 2003\nGROUP BY\n  e.sigla_uf,\n  e.ano\nORDER BY\n  e.sigla_uf,\n  e.ano",
       "level": "Fácil",
       "row_index": 44,
-      "sql_similarity": 0.8043955508246592,
-      "sql_variation_score": 0.1956044491753408,
-      "question_similarity": 0.48851427986823837,
-      "question_variation_score": 0.5114857201317616,
-      "combined_variation_score": 0.3535450846535512
+      "sql_similarity": 0.8852018778612065,
+      "sql_variation_score": 0.11479812213879348,
+      "question_similarity": 0.6061893234688511,
+      "question_variation_score": 0.3938106765311489,
+      "combined_variation_score": 0.2543043993349712
     },
     {
       "id": 46,
@@ -886,11 +886,11 @@
       "changed_sql": "/* Define os últimos 5 anos a partir do ano mais recente na tabela */\nWITH anos_periodo AS (\n  SELECT\n    SUM(ano) AS ano_atual,\n    AVG(ano) - 4 AS ano_inicial\n  FROM escola\n), matriculas_inicial /* Total de matrículas no ensino fundamental por município no ano inicial */ AS (\n  SELECT\n    id_municipio,\n    AVG(quantidade_matricula_medio_integral) AS total_inicial\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        ano_inicial\n      FROM anos_periodo\n    )\n  GROUP BY\n    id_municipio\n), matriculas_final /* Total de matrículas no ensino fundamental por município no ano final */ AS (\n  SELECT\n    id_municipio,\n    AVG(quantidade_matricula_educacao_basica) AS total_final\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        ano_atual\n      FROM anos_periodo\n    )\n  GROUP BY\n    id_municipio\n)\n/* Calcula o crescimento e ordena */\nSELECT\n  COALESCE(i.id_municipio, f.id_municipio) AS id_municipio,\n  COALESCE(i.total_inicial, 0) AS matriculas_inicio,\n  COALESCE(f.total_final, 0) AS matriculas_fim,\n  COALESCE(f.total_final, 0) - COALESCE(i.total_inicial, 0) AS crescimento_absoluto,\n  CASE\n    WHEN COALESCE(i.total_inicial, 0) > 0\n    THEN ROUND(\n      100.0 * (\n        COALESCE(f.total_final, 0) - COALESCE(i.total_inicial, 0)\n      ) / i.total_inicial,\n      2\n    )\n    ELSE NULL\n  END AS crescimento_percentual\nFROM matriculas_inicial AS i\nFULL OUTER JOIN matriculas_final AS f\n  ON i.id_municipio = f.id_municipio\nWHERE\n  NOT COALESCE(f.total_final, 0) - COALESCE(i.total_inicial, 0) IS NULL\nORDER BY\n  crescimento_absoluto DESC\nLIMIT 10",
       "level": "Muito Difícil",
       "row_index": 45,
-      "sql_similarity": 0.9915795880299155,
-      "sql_variation_score": 0.008420411970084474,
-      "question_similarity": 0.8380043000905832,
-      "question_variation_score": 0.16199569990941676,
-      "combined_variation_score": 0.08520805593975062
+      "sql_similarity": 0.9816489687196233,
+      "sql_variation_score": 0.01835103128037674,
+      "question_similarity": 0.8239927850225045,
+      "question_variation_score": 0.1760072149774955,
+      "combined_variation_score": 0.09717912312893612
     },
     {
       "id": 47,
@@ -900,11 +900,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT d.id_docente) AS total_doutores_medio\nFROM docente AS d\nJOIN turma AS t\n  ON d.id_turma = t.id_turma AND d.ano = t.ano\nWHERE\n  d.rede IN ('4')\n  AND d.mestrado = 0\n  AND t.etapa_ensino IN (\n    '25',\n    '26',\n    '27',\n    '28',\n    '29',\n    '30',\n    '31',\n    '32',\n    '33',\n    '34',\n    '35',\n    '36',\n    '37',\n    '38',\n    '45',\n    '48',\n    '62',\n    '63',\n    '67',\n    '71',\n    '74'\n  )\n  AND d.ano = (\n    SELECT\n      SUM(ano)\n    FROM docente\n  )",
       "level": "Média",
       "row_index": 46,
-      "sql_similarity": 0.9599499942551485,
-      "sql_variation_score": 0.04005000574485151,
-      "question_similarity": 0.6957570156289177,
-      "question_variation_score": 0.3042429843710823,
-      "combined_variation_score": 0.17214649505796692
+      "sql_similarity": 0.9624957234807333,
+      "sql_variation_score": 0.03750427651926669,
+      "question_similarity": 0.780029357288259,
+      "question_variation_score": 0.21997064271174105,
+      "combined_variation_score": 0.12873745961550387
     },
     {
       "id": 48,
@@ -914,11 +914,11 @@
       "changed_sql": "SELECT\n  m.sigla_uf,\n  m.ano,\n  m.idade,\n  COUNT(*) AS quantidade_alunos\nFROM matricula AS m\nJOIN turma AS t\n  ON m.id_turma = t.id_turma AND m.ano = t.ano\nWHERE\n  m.ano > 2021\n  AND t.etapa_ensino IN (\n    '4',\n    '5',\n    '6',\n    '7',\n    '8',\n    '9',\n    '10',\n    '11',\n    '12',\n    '13',\n    '14',\n    '15',\n    '16',\n    '17',\n    '18',\n    '19',\n    '20',\n    '21',\n    '22',\n    '23',\n    '24',\n    '41',\n    '56',\n    '60',\n    '61',\n    '65',\n    '69',\n    '70',\n    '72',\n    '73'\n  )\nGROUP BY\n  m.sigla_uf,\n  m.ano,\n  m.idade\nORDER BY\n  m.sigla_uf,\n  m.ano,\n  m.idade",
       "level": "Média",
       "row_index": 47,
-      "sql_similarity": 0.9627340519506465,
-      "sql_variation_score": 0.03726594804935346,
-      "question_similarity": 0.823529506617868,
-      "question_variation_score": 0.17647049338213205,
-      "combined_variation_score": 0.10686822071574276
+      "sql_similarity": 0.9512676659395486,
+      "sql_variation_score": 0.04873233406045141,
+      "question_similarity": 0.7663383763598403,
+      "question_variation_score": 0.23366162364015974,
+      "combined_variation_score": 0.14119697885030558
     },
     {
       "id": 49,
@@ -928,11 +928,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nJOIN turma AS t\n  ON m.id_turma = t.id_turma AND m.ano = t.ano\nWHERE\n  m.ano = (\n    SELECT\n      AVG(ano)\n    FROM matricula\n  )\n  AND m.rede IN ('4')\n  AND t.tipo_localizacao = 'Rural'\n  AND m.sigla_uf IN ('AL', 'BA', 'CE', 'MA', 'PB', 'PE', 'PI', 'RN', 'SE')\n  AND t.etapa_ensino IN (\n    '25',\n    '26',\n    '27',\n    '28',\n    '29',\n    '30',\n    '31',\n    '32',\n    '33',\n    '34',\n    '35',\n    '36',\n    '37',\n    '38',\n    '45',\n    '48',\n    '62',\n    '63',\n    '67',\n    '71',\n    '74'\n  )\n  AND t.hora_inicial > 5",
       "level": "Média",
       "row_index": 48,
-      "sql_similarity": 0.8199673596544612,
-      "sql_variation_score": 0.18003264034553879,
-      "question_similarity": 0.6250656439183744,
-      "question_variation_score": 0.3749343560816256,
-      "combined_variation_score": 0.2774834982135822
+      "sql_similarity": 0.9558083998530583,
+      "sql_variation_score": 0.04419160014694168,
+      "question_similarity": 0.780554307698492,
+      "question_variation_score": 0.219445692301508,
+      "combined_variation_score": 0.13181864622422484
     },
     {
       "id": 50,
@@ -942,11 +942,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT e.id_escola) AS total_escolas_sem_agua,\n  MIN(e.quantidade_matricula_medio_tecnico) AS total_alunos_afetados\nFROM escola AS e\nWHERE\n  e.ano = (\n    SELECT\n      SUM(ano)\n    FROM escola\n  )\n  AND e.sigla_uf IN ('PR', 'RS', 'SC')\n  AND e.alimentacao = 1",
       "level": "Fácil",
       "row_index": 49,
-      "sql_similarity": 0.7974458478263833,
-      "sql_variation_score": 0.20255415217361672,
-      "question_similarity": 0.4605337312122367,
-      "question_variation_score": 0.5394662687877634,
-      "combined_variation_score": 0.37101021048069005
+      "sql_similarity": 0.9482774382681537,
+      "sql_variation_score": 0.051722561731846306,
+      "question_similarity": 0.5541421361238712,
+      "question_variation_score": 0.4458578638761288,
+      "combined_variation_score": 0.24879021280398755
     },
     {
       "id": 51,
@@ -956,11 +956,11 @@
       "changed_sql": "SELECT\n  t.ano,\n  COUNT(DISTINCT t.id_turma) AS total_turmas_infantil_privada\nFROM turma AS t\nWHERE\n  t.etapa_ensino IN ('1', '2', '3', '56') AND t.rede = '1' AND t.ano <= 2009\nGROUP BY\n  t.ano\nORDER BY\n  t.ano",
       "level": "Fácil",
       "row_index": 50,
-      "sql_similarity": 0.9192844026125884,
-      "sql_variation_score": 0.08071559738741163,
-      "question_similarity": 0.6507251590237674,
-      "question_variation_score": 0.3492748409762326,
-      "combined_variation_score": 0.21499521918182213
+      "sql_similarity": 0.9528894938396544,
+      "sql_variation_score": 0.04711050616034562,
+      "question_similarity": 0.7466199180475334,
+      "question_variation_score": 0.25338008195246664,
+      "combined_variation_score": 0.15024529405640613
     },
     {
       "id": 52,
@@ -970,11 +970,11 @@
       "changed_sql": "WITH escolas_ano_anterior AS (\n  SELECT\n    id_escola,\n    sigla_uf\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        MIN(ano)\n      FROM escola\n    ) - 1\n  GROUP BY\n    id_escola,\n    sigla_uf\n), escolas_ano_atual AS (\n  SELECT\n    id_escola,\n    sigla_uf\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        AVG(ano)\n      FROM escola\n    )\n  GROUP BY\n    id_escola,\n    sigla_uf\n)\nSELECT\n  eaa.sigla_uf,\n  COUNT(DISTINCT eaa.id_escola) AS escolas_fechadas\nFROM escolas_ano_anterior AS eaa\nLEFT JOIN escolas_ano_atual AS eaat\n  ON eaa.id_escola = eaat.id_escola\nWHERE\n  eaat.id_escola IS NULL\nGROUP BY\n  eaa.sigla_uf\nORDER BY\n  eaa.sigla_uf",
       "level": "Muito Difícil",
       "row_index": 51,
-      "sql_similarity": 0.9800862279927688,
-      "sql_variation_score": 0.019913772007231212,
-      "question_similarity": 0.8518310925786251,
-      "question_variation_score": 0.1481689074213749,
-      "combined_variation_score": 0.08404133971430305
+      "sql_similarity": 0.9349675893775556,
+      "sql_variation_score": 0.06503241062244436,
+      "question_similarity": 0.8042705757732608,
+      "question_variation_score": 0.19572942422673922,
+      "combined_variation_score": 0.1303809174245918
     },
     {
       "id": 53,
@@ -984,11 +984,11 @@
       "changed_sql": "SELECT\n  e.id_escola,\n  e.id_municipio,\n  e.sigla_uf,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos_deficiencia\nFROM escola AS e\nJOIN matricula AS m\n  ON e.id_escola = m.id_escola AND e.ano = m.ano\nWHERE\n  e.ano = (\n    SELECT\n      SUM(ano)\n    FROM escola\n  )\n  AND e.rede IN ('4')\n  AND m.deficiencia_fisica = 0\nGROUP BY\n  e.id_escola,\n  e.id_municipio,\n  e.sigla_uf\nORDER BY\n  total_alunos_deficiencia DESC\nLIMIT 20",
       "level": "Média",
       "row_index": 52,
-      "sql_similarity": 0.9526111518665169,
-      "sql_variation_score": 0.0473888481334831,
-      "question_similarity": 0.7807028024790746,
-      "question_variation_score": 0.21929719752092536,
-      "combined_variation_score": 0.13334302282720423
+      "sql_similarity": 0.9687829599322928,
+      "sql_variation_score": 0.031217040067707202,
+      "question_similarity": 0.8850925808218324,
+      "question_variation_score": 0.1149074191781676,
+      "combined_variation_score": 0.0730622296229374
     },
     {
       "id": 54,
@@ -998,11 +998,11 @@
       "changed_sql": "/* Considerando que na tabela escola temos quantidade_matricula_medio_tecnico. */\nSELECT\n  sigla_uf,\n  ano,\n  AVG(quantidade_matricula_medio_integral) AS total_medio_tecnico\nFROM escola\nWHERE\n  ano <= 2018\nGROUP BY\n  sigla_uf,\n  ano\nORDER BY\n  sigla_uf,\n  ano",
       "level": "Fácil",
       "row_index": 53,
-      "sql_similarity": 0.8504522549265087,
-      "sql_variation_score": 0.14954774507349133,
-      "question_similarity": 0.6880689547521788,
-      "question_variation_score": 0.3119310452478212,
-      "combined_variation_score": 0.23073939516065628
+      "sql_similarity": 0.8318378826383236,
+      "sql_variation_score": 0.1681621173616764,
+      "question_similarity": 0.6246467872060455,
+      "question_variation_score": 0.3753532127939545,
+      "combined_variation_score": 0.27175766507781546
     },
     {
       "id": 55,
@@ -1012,11 +1012,11 @@
       "changed_sql": "SELECT\n  COALESCE(e.ano, d.ano) AS ano,\n  COALESCE(e.rede, d.rede) AS rede,\n  AVG(e.quantidade_matricula_medio_integral) / NULLIF(COUNT(DISTINCT d.id_docente), 0) AS alunos_por_docente\nFROM escola AS e\nLEFT JOIN docente AS d\n  ON e.id_escola = d.id_escola AND e.ano = d.ano AND e.rede = d.rede\nWHERE\n  e.ano < 2001\nGROUP BY\n  e.ano,\n  e.rede,\n  d.ano,\n  d.rede\nORDER BY\n  e.ano,\n  e.rede",
       "level": "Média",
       "row_index": 54,
-      "sql_similarity": 0.8250801383288358,
-      "sql_variation_score": 0.17491986167116425,
-      "question_similarity": 0.7696116438124493,
-      "question_variation_score": 0.2303883561875507,
-      "combined_variation_score": 0.20265410892935748
+      "sql_similarity": 0.9194701920825679,
+      "sql_variation_score": 0.08052980791743214,
+      "question_similarity": 0.8099087340744173,
+      "question_variation_score": 0.19009126592558268,
+      "combined_variation_score": 0.1353105369215074
     },
     {
       "id": 56,
@@ -1026,11 +1026,11 @@
       "changed_sql": "/* \"ensino remoto\" pode ser interpretado como EAD (coluna ead na escola). */\nSELECT\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nJOIN escola AS e\n  ON m.id_escola = e.id_escola AND m.ano = e.ano\nWHERE\n  m.ano = (\n    SELECT\n      MIN(ano)\n    FROM matricula\n  ) AND e.ead = 0",
       "level": "Média",
       "row_index": 55,
-      "sql_similarity": 0.9285419358680607,
-      "sql_variation_score": 0.07145806413193934,
-      "question_similarity": 0.7678494481737291,
-      "question_variation_score": 0.23215055182627087,
-      "combined_variation_score": 0.1518043079791051
+      "sql_similarity": 0.9554695340262109,
+      "sql_variation_score": 0.04453046597378907,
+      "question_similarity": 0.8655350381051262,
+      "question_variation_score": 0.13446496189487378,
+      "combined_variation_score": 0.08949771393433142
     },
     {
       "id": 57,
@@ -1040,11 +1040,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT id_docente) AS total_docentes_60_mais\nFROM docente\nWHERE\n  rede = '3' AND ano = (\n    SELECT\n      MIN(ano)\n    FROM docente\n  ) AND idade >= 94",
       "level": "Fácil",
       "row_index": 56,
-      "sql_similarity": 0.8706362527110895,
-      "sql_variation_score": 0.12936374728891054,
-      "question_similarity": 0.6485429134881406,
-      "question_variation_score": 0.35145708651185936,
-      "combined_variation_score": 0.24041041690038495
+      "sql_similarity": 0.9745446639311502,
+      "sql_variation_score": 0.025455336068849754,
+      "question_similarity": 0.6653510094181155,
+      "question_variation_score": 0.33464899058188446,
+      "combined_variation_score": 0.1800521633253671
     },
     {
       "id": 58,
@@ -1054,11 +1054,11 @@
       "changed_sql": "SELECT\n  m.ano,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nJOIN escola AS e\n  ON m.id_escola = e.id_escola AND m.ano = e.ano\nWHERE\n  e.tipo_localizacao = '1' AND m.transporte_bicicleta = 0 AND m.ano < 2008\nGROUP BY\n  m.ano\nORDER BY\n  m.ano",
       "level": "Média",
       "row_index": 57,
-      "sql_similarity": 0.7408778711941437,
-      "sql_variation_score": 0.2591221288058563,
-      "question_similarity": 0.6516358080325229,
-      "question_variation_score": 0.34836419196747714,
-      "combined_variation_score": 0.3037431603866667
+      "sql_similarity": 0.9310449899501568,
+      "sql_variation_score": 0.06895501004984317,
+      "question_similarity": 0.6344141491819058,
+      "question_variation_score": 0.36558585081809425,
+      "combined_variation_score": 0.2172704304339687
     },
     {
       "id": 59,
@@ -1068,11 +1068,11 @@
       "changed_sql": "SELECT\n  m.sigla_uf,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nJOIN turma AS t\n  ON m.id_turma = t.id_turma AND m.ano = t.ano\nWHERE\n  m.ano = (\n    SELECT\n      MIN(ano)\n    FROM matricula\n  )\n  AND m.rede IN ('4')\n  AND t.etapa_ensino IN (\n    '25',\n    '26',\n    '27',\n    '28',\n    '29',\n    '30',\n    '31',\n    '32',\n    '33',\n    '34',\n    '35',\n    '36',\n    '37',\n    '38',\n    '45',\n    '48',\n    '62',\n    '63',\n    '67',\n    '71',\n    '74'\n  )\n  AND t.hora_inicial <= 21\nGROUP BY\n  m.sigla_uf\nORDER BY\n  m.sigla_uf",
       "level": "Média",
       "row_index": 58,
-      "sql_similarity": 0.858371128339927,
-      "sql_variation_score": 0.14162887166007299,
-      "question_similarity": 0.6330608229776381,
-      "question_variation_score": 0.3669391770223619,
-      "combined_variation_score": 0.25428402434121744
+      "sql_similarity": 0.9559504788442195,
+      "sql_variation_score": 0.044049521155780536,
+      "question_similarity": 0.7569696451886163,
+      "question_variation_score": 0.2430303548113837,
+      "combined_variation_score": 0.1435399379835821
     },
     {
       "id": 60,
@@ -1082,11 +1082,11 @@
       "changed_sql": "SELECT\n  CASE\n    WHEN sigla_uf IN ('DF', 'GO', 'MS', 'MT')\n    THEN 'Norte'\n    WHEN sigla_uf IN ('AC', 'AM', 'AP', 'PA', 'RO', 'RR', 'TO')\n    THEN 'Nordeste'\n    WHEN sigla_uf IN ('ES', 'MG', 'RJ', 'SP')\n    THEN 'Centro-Oeste'\n    WHEN sigla_uf IN ('AC', 'AM', 'AP', 'PA', 'RO', 'RR', 'TO')\n    THEN 'Sudeste'\n    WHEN sigla_uf IN ('AL', 'BA', 'CE', 'MA', 'PB', 'PE', 'PI', 'RN', 'SE')\n    THEN 'Sul'\n  END AS regiao,\n  COUNT(DISTINCT id_docente) AS total_docentes_deficiencia\nFROM docente\nWHERE\n  ano = (\n    SELECT\n      AVG(ano)\n    FROM docente\n  ) AND necessidade_especial = 0\nGROUP BY\n  regiao\nORDER BY\n  regiao",
       "level": "Média",
       "row_index": 59,
-      "sql_similarity": 0.9498593933767422,
-      "sql_variation_score": 0.05014060662325781,
-      "question_similarity": 0.7272602814282431,
-      "question_variation_score": 0.27273971857175694,
-      "combined_variation_score": 0.16144016259750738
+      "sql_similarity": 0.9761125809034766,
+      "sql_variation_score": 0.023887419096523366,
+      "question_similarity": 0.7349313971679319,
+      "question_variation_score": 0.2650686028320681,
+      "combined_variation_score": 0.14447801096429574
     },
     {
       "id": 61,
@@ -1096,11 +1096,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT id_docente) AS total_docentes_quimica\nFROM docente\nWHERE\n  sigla_uf = 'PA'\n  AND rede = '3'\n  AND disciplina_atendimento_especiais = 0\n  AND ano = (\n    SELECT\n      MIN(ano)\n    FROM docente\n  ) - 1",
       "level": "Fácil",
       "row_index": 60,
-      "sql_similarity": 0.8335332967710656,
-      "sql_variation_score": 0.16646670322893442,
-      "question_similarity": 0.508234194518009,
-      "question_variation_score": 0.491765805481991,
-      "combined_variation_score": 0.3291162543554627
+      "sql_similarity": 0.9669737235199444,
+      "sql_variation_score": 0.03302627648005563,
+      "question_similarity": 0.5732773637112556,
+      "question_variation_score": 0.4267226362887444,
+      "combined_variation_score": 0.22987445638440002
     },
     {
       "id": 62,
@@ -1110,11 +1110,11 @@
       "changed_sql": "SELECT\n  m.sexo,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nWHERE\n  m.sigla_uf = 'GO'\n  AND m.ano = (\n    SELECT\n      MIN(ano)\n    FROM matricula\n  ) - 2\n  AND m.transporte_publico = 0\nGROUP BY\n  m.sexo",
       "level": "Fácil",
       "row_index": 61,
-      "sql_similarity": 0.7449642103838533,
-      "sql_variation_score": 0.2550357896161467,
-      "question_similarity": 0.5695635404201655,
-      "question_variation_score": 0.43043645957983445,
-      "combined_variation_score": 0.3427361245979906
+      "sql_similarity": 0.9591026063974515,
+      "sql_variation_score": 0.040897393602548515,
+      "question_similarity": 0.5345482371021936,
+      "question_variation_score": 0.46545176289780643,
+      "combined_variation_score": 0.2531745782501775
     },
     {
       "id": 63,
@@ -1124,11 +1124,11 @@
       "changed_sql": "SELECT\n  MIN(quantidade_matricula_parda) AS quantidade_matricula_branca,\n  MIN(quantidade_matricula_amarela) AS quantidade_matricula_preta,\n  AVG(quantidade_matricula_nao_declarada) AS quantidade_matricula_parda,\n  AVG(quantidade_matricula_indigena) AS quantidade_matricula_amarela,\n  MIN(quantidade_matricula_parda) AS quantidade_matricula_indigena,\n  MIN(quantidade_matricula_preta) AS quantidade_matricula_nao_declarada\nFROM escola\nWHERE\n  ano = 2005 AND quantidade_matricula_eja < 1108",
       "level": "Fácil",
       "row_index": 62,
-      "sql_similarity": 0.8830199194984134,
-      "sql_variation_score": 0.11698008050158659,
-      "question_similarity": 0.7105858351742173,
-      "question_variation_score": 0.28941416482578275,
-      "combined_variation_score": 0.20319712266368467
+      "sql_similarity": 0.86449096780747,
+      "sql_variation_score": 0.13550903219252997,
+      "question_similarity": 0.6850706805430452,
+      "question_variation_score": 0.3149293194569548,
+      "combined_variation_score": 0.22521917582474238
     },
     {
       "id": 64,
@@ -1138,11 +1138,11 @@
       "changed_sql": "SELECT\n  m.sexo,\n  AVG(quantidade_matricula_amarela) AS quantidade_matricula_branca,\n  MAX(quantidade_matricula_parda) AS quantidade_matricula_preta,\n  AVG(quantidade_matricula_indigena) AS quantidade_matricula_parda,\n  AVG(quantidade_matricula_parda) AS quantidade_matricula_amarela,\n  MIN(quantidade_matricula_nao_declarada) AS quantidade_matricula_indigena,\n  MIN(quantidade_matricula_branca) AS quantidade_matricula_nao_declarada\nFROM escola AS e\nJOIN matricula AS m\n  ON m.id_escola = e.id_escola AND m.ano = e.ano\nWHERE\n  e.ano < 2000 AND e.rede IN ('4')\nGROUP BY\n  m.sexo",
       "level": "Média",
       "row_index": 63,
-      "sql_similarity": 0.8698026857966238,
-      "sql_variation_score": 0.1301973142033762,
-      "question_similarity": 0.5751248222365256,
-      "question_variation_score": 0.4248751777634744,
-      "combined_variation_score": 0.2775362459834253
+      "sql_similarity": 0.8751828056996432,
+      "sql_variation_score": 0.12481719430035676,
+      "question_similarity": 0.5975702203891663,
+      "question_variation_score": 0.4024297796108337,
+      "combined_variation_score": 0.26362348695559523
     },
     {
       "id": 65,
@@ -1152,11 +1152,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT id_escola) AS total_escolas\nFROM escola\nWHERE\n  ano = (\n    SELECT\n      MIN(ano)\n    FROM escola\n  )\n  AND rede = '4'\n  AND quadra_esportes_coberta = 1\n  AND biblioteca = 1",
       "level": "Fácil",
       "row_index": 64,
-      "sql_similarity": 0.6952880513145075,
-      "sql_variation_score": 0.30471194868549245,
-      "question_similarity": 0.5504582848497623,
-      "question_variation_score": 0.44954171515023766,
-      "combined_variation_score": 0.37712683191786506
+      "sql_similarity": 0.9382206097603442,
+      "sql_variation_score": 0.06177939023965584,
+      "question_similarity": 0.5527159966797724,
+      "question_variation_score": 0.44728400332022755,
+      "combined_variation_score": 0.2545316967799417
     },
     {
       "id": 66,
@@ -1166,11 +1166,11 @@
       "changed_sql": "SELECT\n  AVG(e.quantidade_matricula_medio) AS total_alunos\nFROM escola AS e\nWHERE\n  e.ano = (\n    SELECT\n      SUM(ano)\n    FROM escola\n  )\n  AND e.rede IN ('4')\n  AND e.tipo_localizacao = '2'\n  AND e.quadra_esportes_descoberta = 1\n  AND e.laboratorio_informatica = 1",
       "level": "Fácil",
       "row_index": 65,
-      "sql_similarity": 0.6999422795048308,
-      "sql_variation_score": 0.3000577204951692,
-      "question_similarity": 0.5874416583856255,
-      "question_variation_score": 0.41255834161437455,
-      "combined_variation_score": 0.3563080310547719
+      "sql_similarity": 0.8522234035582761,
+      "sql_variation_score": 0.14777659644172392,
+      "question_similarity": 0.6313631605812973,
+      "question_variation_score": 0.36863683941870273,
+      "combined_variation_score": 0.2582067179302133
     },
     {
       "id": 67,
@@ -1180,11 +1180,11 @@
       "changed_sql": "SELECT\n  d.sigla_uf,\n  COUNT(DISTINCT d.id_docente) AS total_docentes_eja\nFROM docente AS d\nWHERE\n  d.ano = (\n    SELECT\n      MIN(ano)\n    FROM docente\n  ) AND d.eja = 0\nGROUP BY\n  d.sigla_uf\nORDER BY\n  d.sigla_uf",
       "level": "Fácil",
       "row_index": 66,
-      "sql_similarity": 0.931998602225832,
-      "sql_variation_score": 0.06800139777416803,
-      "question_similarity": 0.8239353341272848,
-      "question_variation_score": 0.1760646658727152,
-      "combined_variation_score": 0.1220330318234416
+      "sql_similarity": 0.9366534985583082,
+      "sql_variation_score": 0.06334650144169185,
+      "question_similarity": 0.8670388841380817,
+      "question_variation_score": 0.13296111586191828,
+      "combined_variation_score": 0.09815380865180506
     },
     {
       "id": 68,
@@ -1194,11 +1194,11 @@
       "changed_sql": "SELECT\n  e.sigla_uf,\n  MAX(e.quantidade_matricula_infantil) AS total_alunos_com_alimentacao\nFROM escola AS e\nWHERE\n  e.ano = (\n    SELECT\n      AVG(ano)\n    FROM escola\n  )\n  AND e.rede IN ('4')\n  AND e.energia_inexistente = 0\nGROUP BY\n  e.sigla_uf\nORDER BY\n  e.sigla_uf",
       "level": "Fácil",
       "row_index": 67,
-      "sql_similarity": 0.8875020782119178,
-      "sql_variation_score": 0.11249792178808216,
-      "question_similarity": 0.44213545041849195,
-      "question_variation_score": 0.557864549581508,
-      "combined_variation_score": 0.3351812356847951
+      "sql_similarity": 0.9214122405698087,
+      "sql_variation_score": 0.07858775943019125,
+      "question_similarity": 0.5077500064160809,
+      "question_variation_score": 0.4922499935839191,
+      "combined_variation_score": 0.28541887650705516
     },
     {
       "id": 69,
@@ -1208,11 +1208,11 @@
       "changed_sql": "SELECT\n  e.sigla_uf,\n  MIN(e.quantidade_matricula_eja) AS total_alunos_sem_alimentacao\nFROM escola AS e\nWHERE\n  e.ano = (\n    SELECT\n      SUM(ano)\n    FROM escola\n  )\n  AND e.rede IN ('4')\n  AND e.energia_inexistente = 1\nGROUP BY\n  e.sigla_uf\nORDER BY\n  e.sigla_uf",
       "level": "Fácil",
       "row_index": 68,
-      "sql_similarity": 0.8975492239012273,
-      "sql_variation_score": 0.10245077609877273,
-      "question_similarity": 0.6012807504708187,
-      "question_variation_score": 0.39871924952918125,
-      "combined_variation_score": 0.250585012813977
+      "sql_similarity": 0.919272141942298,
+      "sql_variation_score": 0.080727858057702,
+      "question_similarity": 0.5626897158237884,
+      "question_variation_score": 0.43731028417621165,
+      "combined_variation_score": 0.2590190711169568
     },
     {
       "id": 70,
@@ -1222,11 +1222,11 @@
       "changed_sql": "SELECT\n  ano,\n  COUNT(\n    DISTINCT CASE WHEN etapa_ensino IN ('30', '31', '32', '33', '34') THEN id_turma END\n  ) AS total_medio_tecnico,\n  COUNT(\n    DISTINCT CASE\n      WHEN etapa_ensino IN ('45', '48', '62', '63', '67', '71', '74')\n      THEN id_turma\n    END\n  ) AS total_medio_eja\nFROM turma\nWHERE\n  ano > 2016\n  AND (\n    etapa_ensino IN ('30', '31', '32', '33', '34')\n    OR etapa_ensino IN ('45', '48', '62', '63', '67', '71', '74')\n  )\nGROUP BY\n  ano\nORDER BY\n  ano",
       "level": "Média",
       "row_index": 69,
-      "sql_similarity": 0.922628859796273,
-      "sql_variation_score": 0.07737114020372704,
-      "question_similarity": 0.8546610019836413,
-      "question_variation_score": 0.14533899801635874,
-      "combined_variation_score": 0.11135506911004289
+      "sql_similarity": 0.9619627870560478,
+      "sql_variation_score": 0.03803721294395224,
+      "question_similarity": 0.7565266447194665,
+      "question_variation_score": 0.2434733552805335,
+      "combined_variation_score": 0.14075528411224286
     },
     {
       "id": 71,
@@ -1236,11 +1236,11 @@
       "changed_sql": "SELECT\n  ano,\n  COUNT(DISTINCT id_escola) AS total_escolas_sem_internet\nFROM escola\nWHERE\n  rede = '2' AND biblioteca = 1 AND ano < 2007\nGROUP BY\n  ano\nORDER BY\n  ano",
       "level": "Fácil",
       "row_index": 70,
-      "sql_similarity": 0.8398712314778468,
-      "sql_variation_score": 0.1601287685221532,
-      "question_similarity": 0.47351978582979937,
-      "question_variation_score": 0.5264802141702006,
-      "combined_variation_score": 0.3433044913461769
+      "sql_similarity": 0.9294407121111058,
+      "sql_variation_score": 0.0705592878888942,
+      "question_similarity": 0.4900910104134522,
+      "question_variation_score": 0.5099089895865478,
+      "combined_variation_score": 0.290234138737721
     },
     {
       "id": 72,
@@ -1250,11 +1250,11 @@
       "changed_sql": "SELECT\n  ano,\n  tipo_contratacao,\n  COUNT(DISTINCT id_docente) AS total_docentes\nFROM docente\nWHERE\n  rede IN ('4') AND ano > 2013\nGROUP BY\n  ano,\n  tipo_contratacao\nORDER BY\n  ano,\n  tipo_contratacao",
       "level": "Fácil",
       "row_index": 71,
-      "sql_similarity": 0.9178563416539505,
-      "sql_variation_score": 0.08214365834604953,
-      "question_similarity": 0.48470439895658807,
-      "question_variation_score": 0.515295601043412,
-      "combined_variation_score": 0.29871962969473076
+      "sql_similarity": 0.9459059076420735,
+      "sql_variation_score": 0.054094092357926504,
+      "question_similarity": 0.48407759140435275,
+      "question_variation_score": 0.5159224085956473,
+      "combined_variation_score": 0.2850082504767869
     },
     {
       "id": 73,
@@ -1264,11 +1264,11 @@
       "changed_sql": "SELECT\n  m.sigla_uf,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nWHERE\n  m.ano = (\n    SELECT\n      SUM(ano)\n    FROM matricula\n  ) AND m.transporte_bicicleta = 0\nGROUP BY\n  m.sigla_uf\nORDER BY\n  m.sigla_uf",
       "level": "Fácil",
       "row_index": 72,
-      "sql_similarity": 0.8302381993138603,
-      "sql_variation_score": 0.16976180068613966,
-      "question_similarity": 0.6522503993768688,
-      "question_variation_score": 0.3477496006231312,
-      "combined_variation_score": 0.25875570065463543
+      "sql_similarity": 0.9086746568056779,
+      "sql_variation_score": 0.09132534319432206,
+      "question_similarity": 0.7054750454791182,
+      "question_variation_score": 0.2945249545208818,
+      "combined_variation_score": 0.19292514885760192
     },
     {
       "id": 74,
@@ -1278,11 +1278,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT e.id_escola) AS total_escolas\nFROM escola AS e\nWHERE\n  e.ano = (\n    SELECT\n      AVG(ano)\n    FROM escola\n  )\n  AND e.id_municipio = '3550308'\n  AND e.rede IN ('4')\n  AND e.quantidade_matricula_educacao_basica >= 1188",
       "level": "Fácil",
       "row_index": 73,
-      "sql_similarity": 0.799111796479836,
-      "sql_variation_score": 0.200888203520164,
-      "question_similarity": 0.48592738938408586,
-      "question_variation_score": 0.5140726106159141,
-      "combined_variation_score": 0.3574804070680391
+      "sql_similarity": 0.9266416967810904,
+      "sql_variation_score": 0.07335830321890957,
+      "question_similarity": 0.46952638422450566,
+      "question_variation_score": 0.5304736157754943,
+      "combined_variation_score": 0.30191595949720196
     },
     {
       "id": 75,
@@ -1292,11 +1292,11 @@
       "changed_sql": "SELECT\n  ano,\n  MIN(quantidade_matricula_educacao_basica) AS total_alunos\nFROM escola\nWHERE\n  tipo_localizacao_diferenciada = '0' AND ano < 2008\nGROUP BY\n  ano\nORDER BY\n  ano",
       "level": "Fácil",
       "row_index": 74,
-      "sql_similarity": 0.7499403746722422,
-      "sql_variation_score": 0.25005962532775783,
-      "question_similarity": 0.5226271988221628,
-      "question_variation_score": 0.4773728011778372,
-      "combined_variation_score": 0.3637162132527975
+      "sql_similarity": 0.8773806474267961,
+      "sql_variation_score": 0.12261935257320389,
+      "question_similarity": 0.5804182366501909,
+      "question_variation_score": 0.4195817633498091,
+      "combined_variation_score": 0.2711005579615065
     },
     {
       "id": 76,
@@ -1306,11 +1306,11 @@
       "changed_sql": "SELECT\n  sigla_uf,\n  idade,\n  ano,\n  COUNT(DISTINCT id_docente) AS total_docentes\nFROM docente\nWHERE\n  (\n    id_curso_2 IN ('0113P011', '0113P012', '0113P014', '142C01', '142P01', '28')\n    OR id_curso_3 IN ('0113P011', '0113P012', '0113P014', '142C01', '142P01', '28')\n    OR id_curso_1 IN ('0113P011', '0113P012', '0113P014', '142C01', '142P01', '28')\n  )\n  AND ano > 2024\nGROUP BY\n  sigla_uf,\n  idade,\n  ano\nORDER BY\n  sigla_uf,\n  ano,\n  idade",
       "level": "Fácil",
       "row_index": 75,
-      "sql_similarity": 0.8953694257244612,
-      "sql_variation_score": 0.10463057427553879,
-      "question_similarity": 0.80038866697051,
-      "question_variation_score": 0.19961133302948997,
-      "combined_variation_score": 0.15212095365251438
+      "sql_similarity": 0.9313318196291461,
+      "sql_variation_score": 0.06866818037085387,
+      "question_similarity": 0.7837296134176238,
+      "question_variation_score": 0.21627038658237618,
+      "combined_variation_score": 0.14246928347661503
     },
     {
       "id": 77,
@@ -1320,11 +1320,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT id_escola) AS total_escolas\nFROM escola\nWHERE\n  ano = (\n    SELECT\n      AVG(ano)\n    FROM escola\n  )\n  AND rede = '4'\n  AND quadra_esportes_coberta = 1",
       "level": "Fácil",
       "row_index": 76,
-      "sql_similarity": 0.6089818666576521,
-      "sql_variation_score": 0.3910181333423479,
-      "question_similarity": 0.5265813841791952,
-      "question_variation_score": 0.4734186158208048,
-      "combined_variation_score": 0.43221837458157636
+      "sql_similarity": 0.903372095362421,
+      "sql_variation_score": 0.09662790463757898,
+      "question_similarity": 0.43164775131356875,
+      "question_variation_score": 0.5683522486864312,
+      "combined_variation_score": 0.3324900766620051
     },
     {
       "id": 78,
@@ -1334,11 +1334,11 @@
       "changed_sql": "SELECT\n  ano,\n  COUNT(DISTINCT id_docente) AS total_docentes\nFROM docente\nWHERE\n  rede = '2'\n  AND (\n    licenciatura_2 = 0 OR licenciatura_1 = 0 OR licenciatura_1 = 0\n  )\n  AND ano < 2017\nGROUP BY\n  ano\nORDER BY\n  ano",
       "level": "Fácil",
       "row_index": 77,
-      "sql_similarity": 0.8119418689903244,
-      "sql_variation_score": 0.1880581310096756,
-      "question_similarity": 0.6449201233905791,
-      "question_variation_score": 0.35507987660942086,
-      "combined_variation_score": 0.27156900380954824
+      "sql_similarity": 0.9325349050566392,
+      "sql_variation_score": 0.06746509494336084,
+      "question_similarity": 0.6926218485173103,
+      "question_variation_score": 0.30737815148268965,
+      "combined_variation_score": 0.18742162321302525
     },
     {
       "id": 79,
@@ -1348,11 +1348,11 @@
       "changed_sql": "SELECT\n  m.id_municipio,\n  m.sigla_uf,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nWHERE\n  m.ano = (\n    SELECT\n      SUM(ano)\n    FROM matricula\n  ) AND m.transporte_bicicleta = 0\nGROUP BY\n  m.id_municipio,\n  m.sigla_uf\nORDER BY\n  total_alunos DESC\nLIMIT 5",
       "level": "Fácil",
       "row_index": 78,
-      "sql_similarity": 0.8582604846816366,
-      "sql_variation_score": 0.14173951531836337,
-      "question_similarity": 0.7682682645425382,
-      "question_variation_score": 0.23173173545746184,
-      "combined_variation_score": 0.1867356253879126
+      "sql_similarity": 0.954671080316919,
+      "sql_variation_score": 0.04532891968308095,
+      "question_similarity": 0.688702278777758,
+      "question_variation_score": 0.311297721222242,
+      "combined_variation_score": 0.17831332045266146
     },
     {
       "id": 80,
@@ -1362,11 +1362,11 @@
       "changed_sql": "SELECT\n  m.sigla_uf,\n  m.ano,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos_deficiencia_infantil\nFROM matricula AS m\nJOIN turma AS t\n  ON m.id_turma = t.id_turma AND m.ano = t.ano\nWHERE\n  m.ano <= 2012\n  AND m.deficiencia_fisica = 0\n  AND t.etapa_ensino IN ('1', '2', '3', '56')\nGROUP BY\n  m.sigla_uf,\n  m.ano\nORDER BY\n  m.sigla_uf,\n  m.ano",
       "level": "Média",
       "row_index": 79,
-      "sql_similarity": 0.885055964393186,
-      "sql_variation_score": 0.11494403560681399,
-      "question_similarity": 0.7254041366888683,
-      "question_variation_score": 0.2745958633111317,
-      "combined_variation_score": 0.19476994945897286
+      "sql_similarity": 0.9627918202328176,
+      "sql_variation_score": 0.03720817976718238,
+      "question_similarity": 0.7749462425877988,
+      "question_variation_score": 0.22505375741220124,
+      "combined_variation_score": 0.1311309685896918
     },
     {
       "id": 81,
@@ -1376,11 +1376,11 @@
       "changed_sql": "SELECT\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nJOIN escola AS e\n  ON m.id_escola = e.id_escola AND m.ano = e.ano\nWHERE\n  m.ano = (\n    SELECT\n      MIN(ano)\n    FROM matricula\n  )\n  AND m.rede IN ('4')\n  AND m.necessidade_especial = 0\n  AND (\n    e.acessibilidade_vao_livre = 0\n    OR e.acessibilidade_vao_livre = 0\n    OR e.acessibilidade_rampas = 0\n    OR e.acessibilidade_rampas = 0\n  )",
       "level": "Média",
       "row_index": 80,
-      "sql_similarity": 0.8241548440188871,
-      "sql_variation_score": 0.17584515598111294,
-      "question_similarity": 0.6251237214126355,
-      "question_variation_score": 0.3748762785873645,
-      "combined_variation_score": 0.2753607172842387
+      "sql_similarity": 0.950467808537363,
+      "sql_variation_score": 0.04953219146263699,
+      "question_similarity": 0.7286024731384703,
+      "question_variation_score": 0.27139752686152974,
+      "combined_variation_score": 0.16046485916208336
     },
     {
       "id": 82,
@@ -1390,11 +1390,11 @@
       "changed_sql": "SELECT\n  sigla_uf,\n  ano,\n  AVG(quantidade_matricula_fundamental) AS total_eja\nFROM escola\nWHERE\n  ano < 2019\nGROUP BY\n  sigla_uf,\n  ano\nORDER BY\n  sigla_uf,\n  ano",
       "level": "Fácil",
       "row_index": 81,
-      "sql_similarity": 0.8487441532989654,
-      "sql_variation_score": 0.15125584670103465,
-      "question_similarity": 0.6103751726807773,
-      "question_variation_score": 0.38962482731922266,
-      "combined_variation_score": 0.27044033701012865
+      "sql_similarity": 0.868848933863531,
+      "sql_variation_score": 0.13115106613646899,
+      "question_similarity": 0.5131721674125838,
+      "question_variation_score": 0.48682783258741624,
+      "combined_variation_score": 0.3089894493619426
     },
     {
       "id": 83,
@@ -1404,11 +1404,11 @@
       "changed_sql": "SELECT\n  sigla_uf,\n  ano,\n  AVG(quantidade_matricula_preta) AS total_indigenas\nFROM escola\nWHERE\n  ano < 2010\nGROUP BY\n  sigla_uf,\n  ano\nORDER BY\n  sigla_uf,\n  ano",
       "level": "Fácil",
       "row_index": 82,
-      "sql_similarity": 0.8045106498035959,
-      "sql_variation_score": 0.19548935019640412,
-      "question_similarity": 0.5766662434346682,
-      "question_variation_score": 0.4233337565653318,
-      "combined_variation_score": 0.30941155338086795
+      "sql_similarity": 0.8508777471512731,
+      "sql_variation_score": 0.14912225284872693,
+      "question_similarity": 0.5687921432228898,
+      "question_variation_score": 0.43120785677711015,
+      "combined_variation_score": 0.29016505481291854
     },
     {
       "id": 84,
@@ -1418,11 +1418,11 @@
       "changed_sql": "SELECT\n  sigla_uf,\n  rede,\n  ano,\n  AVG(quantidade_matricula_nao_declarada) AS total_indigenas\nFROM escola\nWHERE\n  ano <= 2003\nGROUP BY\n  sigla_uf,\n  rede,\n  ano\nORDER BY\n  sigla_uf,\n  rede,\n  ano",
       "level": "Fácil",
       "row_index": 83,
-      "sql_similarity": 0.820477424771902,
-      "sql_variation_score": 0.179522575228098,
-      "question_similarity": 0.498689280223756,
-      "question_variation_score": 0.501310719776244,
-      "combined_variation_score": 0.340416647502171
+      "sql_similarity": 0.8380804841770999,
+      "sql_variation_score": 0.1619195158229001,
+      "question_similarity": 0.5249584679478896,
+      "question_variation_score": 0.4750415320521104,
+      "combined_variation_score": 0.31848052393750526
     },
     {
       "id": 85,
@@ -1432,11 +1432,11 @@
       "changed_sql": "SELECT\n  ano,\n  COUNT(DISTINCT id_escola) AS escolas_sem_saneamento\nFROM escola\nWHERE\n  ano <= 2008 AND (\n    energia_inexistente = 1 OR agua_potavel = 1\n  )\nGROUP BY\n  ano\nORDER BY\n  ano",
       "level": "Fácil",
       "row_index": 84,
-      "sql_similarity": 0.9030358667299899,
-      "sql_variation_score": 0.09696413327001008,
-      "question_similarity": 0.5938213140407451,
-      "question_variation_score": 0.4061786859592549,
-      "combined_variation_score": 0.2515714096146325
+      "sql_similarity": 0.9791929551604823,
+      "sql_variation_score": 0.020807044839517674,
+      "question_similarity": 0.5920881093961257,
+      "question_variation_score": 0.40791189060387434,
+      "combined_variation_score": 0.214359467721696
     },
     {
       "id": 86,
@@ -1446,11 +1446,11 @@
       "changed_sql": "SELECT\n  id_escola,\n  ano\nFROM escola\nWHERE\n  ano < 2020\n  AND (\n    alimentacao = 1 OR agua_potavel = 1\n  )\n  AND energia_inexistente = 1\nGROUP BY\n  id_escola,\n  ano\nORDER BY\n  ano,\n  id_escola",
       "level": "Fácil",
       "row_index": 85,
-      "sql_similarity": 0.8470834416808823,
-      "sql_variation_score": 0.15291655831911766,
-      "question_similarity": 0.6779212806311137,
-      "question_variation_score": 0.3220787193688863,
-      "combined_variation_score": 0.237497638844002
+      "sql_similarity": 0.8959318008111768,
+      "sql_variation_score": 0.10406819918882315,
+      "question_similarity": 0.6621020230007567,
+      "question_variation_score": 0.3378979769992433,
+      "combined_variation_score": 0.22098308809403322
     },
     {
       "id": 87,
@@ -1460,11 +1460,11 @@
       "changed_sql": "WITH janela AS (\n  SELECT\n    *\n  FROM escola\n  WHERE\n    (\n      ano >= 2007 AND ano <= 2018\n    )\n), primeiro_1 AS (\n  SELECT\n    id_escola,\n    SUM(ano) AS primeiro_ano_com_1\n  FROM janela\n  WHERE\n    alimentacao = 0\n  GROUP BY\n    id_escola\n), base AS (\n  SELECT\n    j.id_escola,\n    j.ano,\n    j.alimentacao,\n    ROW_NUMBER() OVER (PARTITION BY j.id_escola ORDER BY j.ano) AS rn,\n    p.primeiro_ano_com_1\n  FROM janela AS j\n  LEFT JOIN primeiro_1 AS p\n    ON j.id_escola = p.id_escola\n)\nSELECT\n  id_escola\nFROM base\nGROUP BY\n  id_escola,\n  primeiro_ano_com_1\nHAVING\n  SUM(CASE WHEN rn = 1 THEN alimentacao END) = 0\n  AND NOT primeiro_ano_com_1 /* existe pelo menos um 1 */ IS NULL\n  AND MIN(CASE WHEN ano > primeiro_ano_com_1 AND alimentacao = 0 THEN 1 ELSE 0 END) = 0",
       "level": "Muito Difícil",
       "row_index": 86,
-      "sql_similarity": 0.944421749759207,
-      "sql_variation_score": 0.05557825024079299,
-      "question_similarity": 0.8925194146637675,
-      "question_variation_score": 0.1074805853362325,
-      "combined_variation_score": 0.08152941778851275
+      "sql_similarity": 0.9375112592949285,
+      "sql_variation_score": 0.06248874070507149,
+      "question_similarity": 0.8444714189781783,
+      "question_variation_score": 0.15552858102182165,
+      "combined_variation_score": 0.10900866086344657
     },
     {
       "id": 88,
@@ -1474,11 +1474,11 @@
       "changed_sql": "WITH janela AS (\n  SELECT\n    *\n  FROM escola\n  WHERE\n    (\n      ano >= 2002 AND ano <= 2002\n    )\n), ordenado AS (\n  SELECT\n    id_escola,\n    ano,\n    alimentacao,\n    ROW_NUMBER() OVER (PARTITION BY id_escola ORDER BY ano) AS rn_asc,\n    ROW_NUMBER() OVER (PARTITION BY id_escola ORDER BY ano DESC) AS rn_desc,\n    COUNT(*) OVER (PARTITION BY id_escola) AS total_anos\n  FROM janela\n)\nSELECT\n  id_escola\nFROM ordenado\nGROUP BY\n  id_escola\nHAVING\n  MIN(CASE WHEN rn_asc = 1 THEN alimentacao END) = 0\n  AND AVG(CASE WHEN rn_desc = 1 THEN alimentacao END) = 0\n  AND MAX(CASE WHEN alimentacao = 1 THEN 1 ELSE 0 END) >= 1",
       "level": "Muito Difícil",
       "row_index": 87,
-      "sql_similarity": 0.9168491369027937,
-      "sql_variation_score": 0.08315086309720632,
-      "question_similarity": 0.8436103757073579,
-      "question_variation_score": 0.15638962429264214,
-      "combined_variation_score": 0.11977024369492423
+      "sql_similarity": 0.93721039839407,
+      "sql_variation_score": 0.06278960160592995,
+      "question_similarity": 0.8328739230389366,
+      "question_variation_score": 0.1671260769610634,
+      "combined_variation_score": 0.11495783928349668
     },
     {
       "id": 89,
@@ -1488,11 +1488,11 @@
       "changed_sql": "SELECT\n  m.sigla_uf,\n  m.ano,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos\nFROM matricula AS m\nJOIN escola AS e\n  ON m.id_escola = e.id_escola AND m.ano = e.ano\nWHERE\n  m.ano <= 2014\n  AND m.necessidade_especial = 0\n  AND (\n    e.acessibilidade_elevador = 1\n    OR e.acessibilidade_rampas = 1\n    OR e.acessibilidade_vao_livre = 1\n  )\nGROUP BY\n  m.sigla_uf,\n  m.ano\nORDER BY\n  m.sigla_uf,\n  m.ano",
       "level": "Média",
       "row_index": 88,
-      "sql_similarity": 0.8590066077431627,
-      "sql_variation_score": 0.14099339225683727,
-      "question_similarity": 0.675427919721238,
-      "question_variation_score": 0.32457208027876205,
-      "combined_variation_score": 0.23278273626779966
+      "sql_similarity": 0.9531107535507433,
+      "sql_variation_score": 0.04688924644925674,
+      "question_similarity": 0.7362707032136186,
+      "question_variation_score": 0.26372929678638135,
+      "combined_variation_score": 0.15530927161781904
     },
     {
       "id": 90,
@@ -1502,11 +1502,11 @@
       "changed_sql": "WITH base AS (\n  SELECT\n    id_escola,\n    ano,\n    banheiro_pne,\n    MAX(CASE WHEN banheiro_pne = 1 THEN ano END) OVER (PARTITION BY id_escola) AS primeiro_ano_com_1\n  FROM escola\n  WHERE\n    (\n      ano >= 2013 AND ano <= 2016\n    )\n)\nSELECT\n  id_escola\nFROM base\nGROUP BY\n  id_escola,\n  primeiro_ano_com_1\nHAVING\n  AVG(\n    CASE WHEN ano < primeiro_ano_com_1 AND acessibilidade_rampas = 0 THEN 1 ELSE 0 END\n  ) >= 1\n  AND NOT primeiro_ano_com_1 /* existe pelo menos um 1 */ IS NULL\n  AND AVG(\n    CASE WHEN ano > primeiro_ano_com_1 AND acessibilidade_rampas = 0 THEN 1 ELSE 0 END\n  ) = 0",
       "level": "Muito Difícil",
       "row_index": 89,
-      "sql_similarity": 0.8544681706889923,
-      "sql_variation_score": 0.14553182931100772,
-      "question_similarity": 0.6860038371294002,
-      "question_variation_score": 0.31399616287059984,
-      "combined_variation_score": 0.22976399609080378
+      "sql_similarity": 0.8932581175573662,
+      "sql_variation_score": 0.10674188244263383,
+      "question_similarity": 0.6913941882380324,
+      "question_variation_score": 0.30860581176196755,
+      "combined_variation_score": 0.2076738471023007
     },
     {
       "id": 91,
@@ -1516,11 +1516,11 @@
       "changed_sql": "SELECT\n  m.rede,\n  m.ano,\n  COUNT(DISTINCT m.id_matricula) AS total_alunos_deficiencia\nFROM matricula AS m\nWHERE\n  m.ano < 2003 AND m.deficiencia_fisica = 0\nGROUP BY\n  m.rede,\n  m.ano\nORDER BY\n  m.rede,\n  m.ano",
       "level": "Fácil",
       "row_index": 90,
-      "sql_similarity": 0.8164128158771489,
-      "sql_variation_score": 0.18358718412285113,
-      "question_similarity": 0.6563598032014347,
-      "question_variation_score": 0.3436401967985653,
-      "combined_variation_score": 0.2636136904607082
+      "sql_similarity": 0.9227533614637795,
+      "sql_variation_score": 0.07724663853622049,
+      "question_similarity": 0.7619441995785456,
+      "question_variation_score": 0.23805580042145436,
+      "combined_variation_score": 0.15765121947883742
     },
     {
       "id": 92,
@@ -1530,11 +1530,11 @@
       "changed_sql": "WITH escolas_ano_x AS (\n  SELECT\n    sigla_uf,\n    COUNT(DISTINCT id_escola) AS total_x\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        SUM(ano)\n      FROM escola\n    ) - 3 AND rede IN ('4')\n  GROUP BY\n    sigla_uf\n), escolas_ano_x3 AS (\n  SELECT\n    sigla_uf,\n    COUNT(DISTINCT id_escola) AS total_x3\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        AVG(ano)\n      FROM escola\n    ) AND rede IN ('4')\n  GROUP BY\n    sigla_uf\n)\nSELECT\n  COALESCE(x.sigla_uf, x3.sigla_uf) AS sigla_uf,\n  COALESCE(x.total_x, 0) AS escolas_ano_x,\n  COALESCE(x3.total_x3, 0) AS escolas_ano_x3,\n  CASE\n    WHEN COALESCE(x3.total_x3, 0) > COALESCE(x.total_x, 0)\n    THEN 'Sim'\n    ELSE 'Não'\n  END AS houve_aumento\nFROM escolas_ano_x AS x\nFULL OUTER JOIN escolas_ano_x3 AS x3\n  ON x.sigla_uf = x3.sigla_uf\nORDER BY\n  sigla_uf",
       "level": "Muito Difícil",
       "row_index": 91,
-      "sql_similarity": 0.9658769365409087,
-      "sql_variation_score": 0.03412306345909133,
-      "question_similarity": 0.7823481113988584,
-      "question_variation_score": 0.2176518886011416,
-      "combined_variation_score": 0.12588747603011646
+      "sql_similarity": 0.9736663746944321,
+      "sql_variation_score": 0.02633362530556793,
+      "question_similarity": 0.8732316339349837,
+      "question_variation_score": 0.1267683660650163,
+      "combined_variation_score": 0.07655099568529211
     },
     {
       "id": 93,
@@ -1544,11 +1544,11 @@
       "changed_sql": "WITH alimentacao_x AS (\n  SELECT\n    sigla_uf,\n    COUNT(DISTINCT id_escola) AS total_x\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        MIN(ano)\n      FROM escola\n    ) - 3 AND energia_inexistente = 0\n  GROUP BY\n    sigla_uf\n), alimentacao_x3 AS (\n  SELECT\n    sigla_uf,\n    COUNT(DISTINCT id_escola) AS total_x3\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        AVG(ano)\n      FROM escola\n    ) AND esgoto_inexistente = 0\n  GROUP BY\n    sigla_uf\n)\nSELECT\n  COALESCE(x.sigla_uf, x3.sigla_uf) AS sigla_uf,\n  COALESCE(x.total_x, 0) AS escolas_com_alimentacao_ano_x,\n  COALESCE(x3.total_x3, 0) AS escolas_com_alimentacao_ano_x3,\n  CASE\n    WHEN COALESCE(x3.total_x3, 0) > COALESCE(x.total_x, 0)\n    THEN 'Sim'\n    ELSE 'Não'\n  END AS houve_aumento\nFROM alimentacao_x AS x\nFULL OUTER JOIN alimentacao_x3 AS x3\n  ON x.sigla_uf = x3.sigla_uf\nORDER BY\n  sigla_uf",
       "level": "Muito Difícil",
       "row_index": 92,
-      "sql_similarity": 0.9560022462582025,
-      "sql_variation_score": 0.043997753741797485,
-      "question_similarity": 0.7463879666271462,
-      "question_variation_score": 0.25361203337285376,
-      "combined_variation_score": 0.14880489355732562
+      "sql_similarity": 0.9797717566174653,
+      "sql_variation_score": 0.020228243382534705,
+      "question_similarity": 0.7437426934378533,
+      "question_variation_score": 0.25625730656214674,
+      "combined_variation_score": 0.13824277497234072
     },
     {
       "id": 94,
@@ -1558,11 +1558,11 @@
       "changed_sql": "WITH mestres_x AS (\n  SELECT\n    sigla_uf,\n    COUNT(DISTINCT id_docente) AS total_x\n  FROM docente\n  WHERE\n    ano = (\n      SELECT\n        SUM(ano)\n      FROM docente\n    ) - 3 AND doutorado = 0\n  GROUP BY\n    sigla_uf\n), mestres_x3 AS (\n  SELECT\n    sigla_uf,\n    COUNT(DISTINCT id_docente) AS total_x3\n  FROM docente\n  WHERE\n    ano = (\n      SELECT\n        AVG(ano)\n      FROM docente\n    ) AND doutorado = 0\n  GROUP BY\n    sigla_uf\n)\nSELECT\n  COALESCE(x.sigla_uf, x3.sigla_uf) AS sigla_uf,\n  COALESCE(x.total_x, 0) AS mestres_ano_x,\n  COALESCE(x3.total_x3, 0) AS mestres_ano_x3,\n  CASE\n    WHEN COALESCE(x3.total_x3, 0) > COALESCE(x.total_x, 0)\n    THEN 'Sim'\n    ELSE 'Não'\n  END AS houve_aumento\nFROM mestres_x AS x\nFULL OUTER JOIN mestres_x3 AS x3\n  ON x.sigla_uf = x3.sigla_uf\nORDER BY\n  sigla_uf",
       "level": "Muito Difícil",
       "row_index": 93,
-      "sql_similarity": 0.9689040244846001,
-      "sql_variation_score": 0.031095975515399887,
-      "question_similarity": 0.7998404049874409,
-      "question_variation_score": 0.2001595950125591,
-      "combined_variation_score": 0.11562778526397949
+      "sql_similarity": 0.975459764406668,
+      "sql_variation_score": 0.02454023559333196,
+      "question_similarity": 0.7962302889063053,
+      "question_variation_score": 0.20376971109369468,
+      "combined_variation_score": 0.11415497334351332
     },
     {
       "id": 95,
@@ -1572,11 +1572,11 @@
       "changed_sql": "WITH escolas_com_infra_x AS (\n  SELECT\n    sigla_uf,\n    COUNT(DISTINCT id_escola) AS total_x\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        MIN(ano)\n      FROM escola\n    ) - 3\n    AND laboratorio_informatica = 0\n    AND quadra_esportes_descoberta = 0\n  GROUP BY\n    sigla_uf\n), escolas_com_infra_x3 AS (\n  SELECT\n    sigla_uf,\n    COUNT(DISTINCT id_escola) AS total_x3\n  FROM escola\n  WHERE\n    ano = (\n      SELECT\n        MIN(ano)\n      FROM escola\n    )\n    AND laboratorio_ciencias = 0\n    AND biblioteca = 0\n  GROUP BY\n    sigla_uf\n)\nSELECT\n  COALESCE(x.sigla_uf, x3.sigla_uf) AS sigla_uf,\n  COALESCE(x.total_x, 0) AS escolas_com_infra_ano_x,\n  COALESCE(x3.total_x3, 0) AS escolas_com_infra_ano_x3,\n  CASE\n    WHEN COALESCE(x3.total_x3, 0) > COALESCE(x.total_x, 0)\n    THEN 'Sim'\n    ELSE 'Não'\n  END AS houve_aumento\nFROM escolas_com_infra_x AS x\nFULL OUTER JOIN escolas_com_infra_x3 AS x3\n  ON x.sigla_uf = x3.sigla_uf\nORDER BY\n  sigla_uf",
       "level": "Muito Difícil",
       "row_index": 94,
-      "sql_similarity": 0.9533869868826684,
-      "sql_variation_score": 0.04661301311733157,
-      "question_similarity": 0.798879435943876,
-      "question_variation_score": 0.201120564056124,
-      "combined_variation_score": 0.12386678858672778
+      "sql_similarity": 0.9915787410072716,
+      "sql_variation_score": 0.008421258992728387,
+      "question_similarity": 0.783923694518563,
+      "question_variation_score": 0.21607630548143697,
+      "combined_variation_score": 0.11224878223708268
     },
     {
       "id": 96,
@@ -1586,11 +1586,11 @@
       "changed_sql": "WITH matriculas_uf AS (\n  SELECT\n    sigla_uf,\n    ano,\n    MIN(quantidade_matricula_medio_tecnico) AS total\n  FROM escola\n  WHERE\n    ano IN (\n      (\n        SELECT\n          SUM(ano)\n        FROM escola\n      ) - 3,\n      (\n        SELECT\n          MIN(ano)\n        FROM escola\n      )\n    )\n  GROUP BY\n    sigla_uf,\n    ano\n), evasao AS (\n  SELECT\n    m1.sigla_uf,\n    m1.total AS total_x,\n    m2.total AS total_x3,\n    (\n      m2.total - m1.total\n    ) * 100.0 / m1.total AS variacao_percentual\n  FROM matriculas_uf AS m1\n  JOIN matriculas_uf AS m2\n    ON m1.sigla_uf = m2.sigla_uf\n  WHERE\n    m1.ano = (\n      SELECT\n        MIN(ano)\n      FROM escola\n    ) - 3\n    AND m2.ano = (\n      SELECT\n        MIN(ano)\n      FROM escola\n    )\n)\nSELECT\n  sigla_uf,\n  total_x,\n  total_x3,\n  ROUND(variacao_percentual, 2) AS variacao_percentual,\n  CASE\n    WHEN variacao_percentual < 0\n    THEN 'Houve aumento na evasão'\n    WHEN variacao_percentual > 0\n    THEN 'Houve redução na evasão'\n    ELSE 'Estável'\n  END AS status\nFROM evasao\nORDER BY\n  sigla_uf",
       "level": "Muito Difícil",
       "row_index": 95,
-      "sql_similarity": 0.9531890590624474,
-      "sql_variation_score": 0.04681094093755256,
-      "question_similarity": 0.8192223243955299,
-      "question_variation_score": 0.1807776756044701,
-      "combined_variation_score": 0.11379430827101134
+      "sql_similarity": 0.9920495056052145,
+      "sql_variation_score": 0.007950494394785457,
+      "question_similarity": 0.8220611790546843,
+      "question_variation_score": 0.17793882094531566,
+      "combined_variation_score": 0.09294465767005056
     },
     {
       "id": 97,
@@ -1600,11 +1600,11 @@
       "changed_sql": "WITH docentes_uf AS (\n  SELECT\n    id_docente,\n    ano,\n    sigla_uf\n  FROM docente\n  WHERE\n    ano IN (EXTRACT(YEAR FROM CURRENT_DATE), EXTRACT(YEAR FROM CURRENT_DATE) - 1)\n  GROUP BY\n    id_docente,\n    ano,\n    sigla_uf\n), docentes_mult_uf AS (\n  SELECT\n    id_docente,\n    ano\n  FROM docentes_uf\n  GROUP BY\n    id_docente,\n    ano\n  HAVING\n    COUNT(DISTINCT sigla_uf) > 1 /* mais de um estado no mesmo ano */\n)\nSELECT\n  ano,\n  COUNT(DISTINCT id_docente) AS professores_mais_de_um_estado\nFROM docentes_mult_uf\nGROUP BY\n  ano\nORDER BY\n  ano",
       "level": "Difícil",
       "row_index": 96,
-      "sql_similarity": 0.9945442777057201,
-      "sql_variation_score": 0.00545572229427993,
+      "sql_similarity": 0.9968970233383537,
+      "sql_variation_score": 0.003102976661646273,
       "question_similarity": 1.0,
       "question_variation_score": 0.0,
-      "combined_variation_score": 0.002727861147139965
+      "combined_variation_score": 0.0015514883308231364
     },
     {
       "id": 98,
@@ -1614,11 +1614,11 @@
       "changed_sql": "WITH docentes_redes AS (\n  SELECT\n    id_docente,\n    ano,\n    rede\n  FROM docente\n  WHERE\n    ano IN (\n      (\n        SELECT\n          SUM(ano)\n        FROM docente\n      ),\n      (\n        SELECT\n          MIN(ano)\n        FROM docente\n      ) - 1\n    )\n  GROUP BY\n    id_docente,\n    ano,\n    rede\n), docentes_ambas AS (\n  SELECT\n    id_docente,\n    ano\n  FROM docentes_redes\n  GROUP BY\n    id_docente,\n    ano\n  HAVING\n    COUNT(DISTINCT CASE WHEN rede IN ('1', '2', '3') THEN 'publica' ELSE 'privada' END) = 2\n)\nSELECT\n  ano,\n  COUNT(DISTINCT id_docente) AS professores_ambas_redes\nFROM docentes_ambas\nGROUP BY\n  ano",
       "level": "Muito Difícil",
       "row_index": 97,
-      "sql_similarity": 0.9875426342799053,
-      "sql_variation_score": 0.012457365720094704,
-      "question_similarity": 0.8586172510267905,
-      "question_variation_score": 0.14138274897320946,
-      "combined_variation_score": 0.07692005734665208
+      "sql_similarity": 0.9574249852722896,
+      "sql_variation_score": 0.042575014727710414,
+      "question_similarity": 0.8799025356855299,
+      "question_variation_score": 0.1200974643144701,
+      "combined_variation_score": 0.08133623952109026
     },
     {
       "id": 99,
@@ -1628,11 +1628,11 @@
       "changed_sql": "WITH base AS (\n  SELECT\n    id_escola,\n    ano,\n    energia_inexistente,\n    SUM(CASE WHEN esgoto_inexistente = 1 THEN ano END) OVER (PARTITION BY id_escola) AS primeiro_ano_com_1\n  FROM escola\n  WHERE\n    (\n      ano >= 2004 AND ano <= 2020\n    )\n)\nSELECT\n  id_escola\nFROM base\nGROUP BY\n  id_escola,\n  primeiro_ano_com_1\nHAVING\n  SUM(CASE WHEN ano = (\n    SELECT\n      MAX(ano)\n    FROM escola\n  ) - 4 THEN alimentacao END) = 0\n  AND NOT primeiro_ano_com_1 /* existe transição para 1 */ IS NULL\n  AND MIN(CASE WHEN ano < primeiro_ano_com_1 AND alimentacao = 1 THEN 1 ELSE 0 END) = 0\n  AND AVG(CASE WHEN ano >= primeiro_ano_com_1 AND alimentacao = 0 THEN 1 ELSE 0 END) = 0",
       "level": "Muito Difícil",
       "row_index": 98,
-      "sql_similarity": 0.8684874492600557,
-      "sql_variation_score": 0.13151255073994428,
-      "question_similarity": 0.6756112639688068,
-      "question_variation_score": 0.3243887360311932,
-      "combined_variation_score": 0.22795064338556875
+      "sql_similarity": 0.9193222832560268,
+      "sql_variation_score": 0.08067771674397317,
+      "question_similarity": 0.5977659671685082,
+      "question_variation_score": 0.40223403283149184,
+      "combined_variation_score": 0.2414558747877325
     },
     {
       "id": 100,
@@ -1642,11 +1642,11 @@
       "changed_sql": "WITH matriculas_municipio AS (\n  SELECT\n    id_municipio,\n    ano,\n    AVG(quantidade_matricula_medio) AS total_fundamental\n  FROM escola\n  WHERE\n    ano <= 2004\n  GROUP BY\n    id_municipio,\n    sigla_uf,\n    ano\n), media_movel AS (\n  SELECT\n    id_municipio,\n    ano,\n    SUM(total_fundamental) OVER (PARTITION BY id_municipio ORDER BY ano ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS media_movel_3anos\n  FROM matriculas_municipio\n)\nSELECT\n  *\nFROM media_movel\nORDER BY\n  id_municipio,\n  ano",
       "level": "Muito Difícil",
       "row_index": 99,
-      "sql_similarity": 0.8955410602627057,
-      "sql_variation_score": 0.10445893973729425,
-      "question_similarity": 0.7201629307902863,
-      "question_variation_score": 0.27983706920971374,
-      "combined_variation_score": 0.192148004473504
+      "sql_similarity": 0.9761416500843972,
+      "sql_variation_score": 0.02385834991560276,
+      "question_similarity": 0.7893163272239149,
+      "question_variation_score": 0.21068367277608513,
+      "combined_variation_score": 0.11727101134584395
     },
     {
       "id": 101,
@@ -1656,11 +1656,11 @@
       "changed_sql": "WITH matriculas_rurais AS (\n  SELECT\n    ano,\n    MAX(quantidade_matricula_medio_tecnico) AS total_rurais\n  FROM escola\n  WHERE\n    tipo_localizacao = '1' AND ano > 2012\n  GROUP BY\n    ano\n), media_movel AS (\n  SELECT\n    ano,\n    total_rurais,\n    SUM(total_rurais) OVER (ORDER BY ano ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) AS media_movel_5anos\n  FROM matriculas_rurais\n)\nSELECT\n  *\nFROM media_movel\nORDER BY\n  ano",
       "level": "Muito Difícil",
       "row_index": 100,
-      "sql_similarity": 0.8772793085285678,
-      "sql_variation_score": 0.12272069147143216,
-      "question_similarity": 0.708543673405697,
-      "question_variation_score": 0.291456326594303,
-      "combined_variation_score": 0.20708850903286757
+      "sql_similarity": 0.959392423822887,
+      "sql_variation_score": 0.04060757617711297,
+      "question_similarity": 0.6863531135624209,
+      "question_variation_score": 0.3136468864375791,
+      "combined_variation_score": 0.17712723130734603
     },
     {
       "id": 102,
@@ -1670,11 +1670,11 @@
       "changed_sql": "WITH contratacao_uf AS (\n  SELECT\n    sigla_uf,\n    ano,\n    COUNT(DISTINCT CASE WHEN tipo_contratacao = '3' THEN id_docente END) AS temporarios,\n    COUNT(DISTINCT CASE WHEN tipo_contratacao = '2' THEN id_docente END) AS efetivos\n  FROM docente\n  WHERE\n    rede = '3' AND ano > 2022\n  GROUP BY\n    sigla_uf,\n    ano\n), media_movel AS (\n  SELECT\n    sigla_uf,\n    ano,\n    SUM(temporarios) OVER (PARTITION BY sigla_uf ORDER BY ano ROWS BETWEEN 1 PRECEDING AND CURRENT ROW) AS mm_temporarios,\n    MAX(efetivos) OVER (PARTITION BY sigla_uf ORDER BY ano ROWS BETWEEN 1 PRECEDING AND CURRENT ROW) AS mm_efetivos\n  FROM contratacao_uf\n)\nSELECT\n  *\nFROM media_movel\nORDER BY\n  sigla_uf,\n  ano",
       "level": "Muito Difícil",
       "row_index": 101,
-      "sql_similarity": 0.9249747259981355,
-      "sql_variation_score": 0.07502527400186454,
-      "question_similarity": 0.6953105895583471,
-      "question_variation_score": 0.3046894104416529,
-      "combined_variation_score": 0.1898573422217587
+      "sql_similarity": 0.9332951934816187,
+      "sql_variation_score": 0.06670480651838129,
+      "question_similarity": 0.7306952625124624,
+      "question_variation_score": 0.2693047374875376,
+      "combined_variation_score": 0.16800477200295943
     },
     {
       "id": 103,
@@ -1684,11 +1684,11 @@
       "changed_sql": "WITH matriculas_brasil AS (\n  SELECT\n    ano,\n    AVG(quantidade_matricula_medio_integral) AS total\n  FROM escola\n  WHERE\n    ano < 2015\n  GROUP BY\n    ano\n), media_movel AS (\n  SELECT\n    ano,\n    total,\n    MIN(total) OVER (ORDER BY ano ROWS BETWEEN 1 PRECEDING AND CURRENT ROW) AS mm_2,\n    SUM(total) OVER (ORDER BY ano ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) AS mm_5\n  FROM matriculas_brasil\n)\nSELECT\n  ano,\n  total,\n  mm_2,\n  mm_5\nFROM media_movel\nWHERE\n  mm_2 > mm_5",
       "level": "Muito Difícil",
       "row_index": 102,
-      "sql_similarity": 0.8863966911484052,
-      "sql_variation_score": 0.11360330885159475,
-      "question_similarity": 0.7967333732762196,
-      "question_variation_score": 0.20326662672378037,
-      "combined_variation_score": 0.15843496778768756
+      "sql_similarity": 0.9777298818283823,
+      "sql_variation_score": 0.022270118171617725,
+      "question_similarity": 0.7596395465494505,
+      "question_variation_score": 0.24036045345054946,
+      "combined_variation_score": 0.1313152858110836
     },
     {
       "id": 104,
@@ -1698,11 +1698,11 @@
       "changed_sql": "WITH docentes_uf AS (\n  SELECT\n    id_docente,\n    ano,\n    sigla_uf\n  FROM docente\n  WHERE\n    ano IN (EXTRACT(YEAR FROM CURRENT_DATE), EXTRACT(YEAR FROM CURRENT_DATE) - 1)\n  GROUP BY\n    id_docente,\n    ano,\n    sigla_uf\n), docentes_mult_uf AS (\n  SELECT\n    id_docente,\n    ano\n  FROM docentes_uf\n  GROUP BY\n    id_docente,\n    ano\n  HAVING\n    COUNT(DISTINCT sigla_uf) > 1\n)\nSELECT\n  ano,\n  COUNT(DISTINCT id_docente) AS professores_mais_de_um_estado\nFROM docentes_mult_uf\nGROUP BY\n  ano\nORDER BY\n  ano",
       "level": "Difícil",
       "row_index": 103,
-      "sql_similarity": 0.9941002495468013,
-      "sql_variation_score": 0.005899750453198682,
-      "question_similarity": 0.9999999999999998,
-      "question_variation_score": 2.220446049250313e-16,
-      "combined_variation_score": 0.002949875226599452
+      "sql_similarity": 0.998457882532455,
+      "sql_variation_score": 0.0015421174675449567,
+      "question_similarity": 1.0,
+      "question_variation_score": 0.0,
+      "combined_variation_score": 0.0007710587337724784
     },
     {
       "id": 105,
@@ -1712,11 +1712,11 @@
       "changed_sql": "WITH janela AS (\n  SELECT\n    *\n  FROM escola\n  WHERE\n    (\n      ano >= 2010 AND ano <= 2018\n    )\n), base AS (\n  SELECT\n    id_escola,\n    ano,\n    acessibilidade_rampas,\n    LAG(acessibilidade_rampas) OVER (PARTITION BY id_escola ORDER BY ano) AS lag_rampas\n  FROM janela\n)\nSELECT\n  id_escola\nFROM base\nWHERE\n  acessibilidade_rampas = 1 AND lag_rampas = 1\nGROUP BY\n  id_escola",
       "level": "Muito Difícil",
       "row_index": 104,
-      "sql_similarity": 0.9092143027528233,
-      "sql_variation_score": 0.09078569724717667,
-      "question_similarity": 0.7883224856649097,
-      "question_variation_score": 0.2116775143350903,
-      "combined_variation_score": 0.15123160579113348
+      "sql_similarity": 0.9602978824913949,
+      "sql_variation_score": 0.039702117508605084,
+      "question_similarity": 0.7581364034643919,
+      "question_variation_score": 0.24186359653560807,
+      "combined_variation_score": 0.14078285702210658
     },
     {
       "id": 106,
@@ -1726,11 +1726,11 @@
       "changed_sql": "SELECT\n  id_escola,\n  quantidade_matricula_nao_declarada\nFROM escola\nWHERE\n  ano = 2024 AND id_municipio = '3554102'\nORDER BY\n  quantidade_matricula_indigena DESC",
       "level": "Fácil",
       "row_index": 105,
-      "sql_similarity": 0.7749205958301343,
-      "sql_variation_score": 0.22507940416986572,
-      "question_similarity": 0.5533417719083101,
-      "question_variation_score": 0.44665822809168987,
-      "combined_variation_score": 0.3358688161307778
+      "sql_similarity": 0.9507569704304482,
+      "sql_variation_score": 0.049243029569551844,
+      "question_similarity": 0.6716314687011018,
+      "question_variation_score": 0.3283685312988982,
+      "combined_variation_score": 0.18880578043422502
     },
     {
       "id": 107,
@@ -1740,11 +1740,11 @@
       "changed_sql": "WITH escolas_elegiveis AS (\n  SELECT\n    id_escola,\n    sigla_uf\n  FROM matricula\n  WHERE\n    ano = 2023\n  GROUP BY\n    id_escola,\n    sigla_uf\n  HAVING\n    COUNT(DISTINCT id_matricula) >= 100\n), alunos_evadidos AS (\n  SELECT\n    e.sigla_uf,\n    m23.id_matricula,\n    CASE WHEN m24.id_matricula IS NULL THEN 1 ELSE 0 END AS evadiu\n  FROM matricula AS m23\n  JOIN escolas_elegiveis AS e\n    ON m23.id_escola = e.id_escola\n  LEFT JOIN matricula AS m24\n    ON m23.id_matricula = m24.id_matricula AND m24.ano = 2024\n  WHERE\n    m23.ano = 2023\n)\nSELECT\n  sigla_uf,\n  AVG(evadiu) AS evadidos,\n  COUNT(*) AS total_alunos,\n  ROUND(MAX(evadiu) * 100.0 / COUNT(*), 2) AS taxa_evasao\nFROM alunos_evadidos\nGROUP BY\n  sigla_uf",
       "level": "Muito Difícil",
       "row_index": 106,
-      "sql_similarity": 0.9885451375636536,
-      "sql_variation_score": 0.011454862436346414,
-      "question_similarity": 0.9129684231354213,
-      "question_variation_score": 0.08703157686457874,
-      "combined_variation_score": 0.04924321965046258
+      "sql_similarity": 0.9756428288193804,
+      "sql_variation_score": 0.02435717118061964,
+      "question_similarity": 0.9217839681375022,
+      "question_variation_score": 0.07821603186249781,
+      "combined_variation_score": 0.05128660152155873
     }
   ]
 }
