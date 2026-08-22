@@ -12,6 +12,7 @@ from mutations import (
     mutate_postgis,
     rewrite_between_as_comparisons,
     rewrite_distinct_as_group_by,
+    rewrite_join_as_in_subquery,
 )
 from llm import adapt_query, paraphrase_query
 
@@ -35,8 +36,11 @@ def _create_sql_variation(schema, sql):
         return node
 
     def rewrite_equivalent_expressions(node):
+        rewritten = rewrite_join_as_in_subquery(node)
+        if rewritten is not node:
+            return rewritten
+
         node = rewrite_distinct_as_group_by(node)
-        node = rewrite_between_as_comparisons(node)
         return node
 
     ast = sqlglot.parse_one(sql, read="postgres")
@@ -48,6 +52,7 @@ def _create_sql_variation(schema, sql):
     # Pass 2: all remaining operator mutations
     modified_ast = modified_ast.transform(mutate_operators)
     # Pass 3: structural rewrites preserve the semantics produced by the first passes
+    modified_ast = modified_ast.transform(rewrite_between_as_comparisons)
     modified_ast = modified_ast.transform(rewrite_equivalent_expressions)
 
     sql_modified = modified_ast.sql(dialect="postgres", pretty=True)

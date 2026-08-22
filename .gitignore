@@ -13,3 +13,7 @@ wheels/
 .env
 
 raw_data/
+
+# Fine-tuning artifacts and model caches
+benchmark/outputs/
+benchmark/.cache/

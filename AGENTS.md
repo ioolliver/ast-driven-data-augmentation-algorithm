@@ -16,9 +16,15 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 ├── augmentor.py                   # Orchestrator: SQL mutation and comparison strategies
 ├── llm.py                         # LLM layer: prompting, Bedrock call, format_changelog
 ├── local-llm.py                   # Optional local Hugging Face LLM runner for Colab/GPU
+├── benchmark/
+│   ├── execute-finetuning.py      # QLoRA training CLI with grouped holdout export
+│   ├── run-query.py               # Loads a completed adapter and generates SQL
+│   ├── configs/                   # Versioned Qwen3.5-9B training defaults
+│   └── schemas/                   # Explicit compact Geo and Censo schema snapshots
 ├── data/
 │   ├── analysis_dataset.py        # Shared analyzer row loader for flat and censo query-shaped augmented pairs
 │   ├── analysis_workbook.py       # Styled XLSX report writer shared by both analysis types
+│   ├── augmentation_methods.py    # Shared three-method catalog and augmented-pair XLSX writer
 │   ├── censo_escolar_dataset/
 │   │   ├── original_dataset.json  # CensoBench source rows in dataset_info + queries format
 │   │   ├── schema.py              # Schema dedicated to Censo Escolar mutations
@@ -31,6 +37,9 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 │       ├── geo_base_dataset.json   # 980 base_dataset rows processed by the batch
 │       ├── geodataset_schema.py   # Schema dedicated to the geospatial dataset batch
 │       ├── apply_augmentation_geo_dataset.py  # Bounded-concurrency batch writer
+│       ├── compare_augmentation_methods.py  # Three-method JSON/XLSX comparison runner
+│       ├── analyze_semantic_variation_methods.py  # Shared-model three-method semantic runner
+│       ├── analyze_component_matching_methods.py  # Three-method structural analysis runner
 │       ├── analyze_semantic_variation.py      # Embedding-based score/report generator
 │       └── analyze_component_matching.py      # SQL AST component matching report
 ├── schema_utils.py                # Schema helpers: get_col_info, get_table_name
@@ -45,6 +54,7 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
 │   ├── binary.py                  # mutate_binary — binary column value flip (0 ↔ 1)
 │   ├── text_pattern.py            # mutate_text_pattern — LIKE/ILIKE pattern-shape mutation
 │   ├── postgis.py                 # PostGIS function and distance-threshold mutations
+│   ├── join_in_subquery.py        # Conservative inner-JOIN-to-IN equivalent rewrite
 │   ├── distinct_group_by.py       # DISTINCT-to-GROUP-BY equivalent rewrite
 │   └── between_comparisons.py     # BETWEEN-to-comparisons equivalent rewrite
 ├── pyproject.toml
@@ -71,6 +81,7 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - `binary.py`: Flips a binary column value (0 → 1 or 1 → 0)
    - `text_pattern.py`: Mutates simple `LIKE`/`ILIKE` pattern shape among exact, starts-with, ends-with, and contains semantics without schema metadata
    - `postgis.py`: Mutates PostGIS functions such as `ST_Buffer`, `ST_DWithin`, direct `ST_Distance(...)` thresholds, `ST_Intersection`, and strict `ST_Intersects(ST_Buffer(...), ST_Buffer(...))` patterns
+   - `join_in_subquery.py`: Rewrites one simple inner join as an `IN` subquery when `SELECT DISTINCT` projects only qualified columns from the primary table
    - `distinct_group_by.py`: Rewrites simple `SELECT DISTINCT` column projections as an equivalent `GROUP BY`
    - `between_comparisons.py`: Rewrites a column `BETWEEN` literal bounds as inclusive `>=` and `<=` comparisons
    - Semantic mutations append changes to a changelog for LLM context; equivalent rewrites do not
@@ -95,7 +106,7 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - `_create_sql_variation`: Keeps the shared AST pipeline identical across both SQL-mutation strategies
    - Pass 1: column swaps (`mutate_equivalent_column`) so subsequent mutations see updated columns
    - Pass 2: all remaining mutations applied together
-   - Pass 3: forward-only equivalent rewrites applied to the semantics produced by the first two passes
+   - Pass 3: forward-only equivalent rewrites applied to the semantics produced by the first two passes; join-to-subquery runs before DISTINCT-to-GROUP-BY so a rewritten semijoin retains its required outer `DISTINCT`
    - Maintains a per-query `mutation_state` dictionary so repeated PostGIS radii/distances are changed consistently across a query
    - Returns the original natural-language query without an LLM call when no semantic mutation adds an entry to `semantic_changelog`, even if an equivalent rewrite changes the SQL structure
 
@@ -109,50 +120,67 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - Logs completed, succeeded, and failed request counts as each remote call finishes
    - Writes a mixed original+augmented dataset and an augmented-only change mapping
 
-7. **Censo Escolar Batch Script** (`data/censo_escolar_dataset/apply_augmentation_censo_escolar_dataset.py`)
+7. **Geo Three-Method Workflow** (`data/geo_dataset/*_methods.py`)
+   - Runs question paraphrasing only, AST algorithm only, and AST algorithm with question paraphrasing against the same ordered source rows
+   - Writes one augmented-pair JSON and one review-friendly XLSX per method under `augmentation_method_results/`
+   - Validates all three generated JSONs before either multi-method evaluation starts
+   - Reuses one embedding model across the three semantic analyses and writes separate JSON/XLSX semantic and component reports per method
+
+8. **Censo Escolar Batch Script** (`data/censo_escolar_dataset/apply_augmentation_censo_escolar_dataset.py`)
    - Loads the `queries` array from `data/censo_escolar_dataset/original_dataset.json`
    - Maps `pergunta_nl`, `sql`, and `complexidade.nivel` into the shared reduced output contracts
    - Applies `create_random_variation` once per query with bounded concurrency while preserving source order
    - Validates source fields before remote work and stops without writing partial outputs when a query fails
 
-8. **Censo Escolar Method Comparison Script** (`data/censo_escolar_dataset/compare_augmentation_methods.py`)
+9. **Censo Escolar Method Comparison Script** (`data/censo_escolar_dataset/compare_augmentation_methods.py`)
    - Runs question paraphrasing only, AST algorithm only, and AST algorithm with question paraphrasing sequentially
    - Reuses the Censo batch validation, bounded concurrency, source-order reconstruction, and failure context
    - Writes one augmented-pair JSON and one review-friendly XLSX per method under `augmentation_method_results/`
    - Includes the source query ID, difficulty, and original/changed question and SQL in every output; it does not build a consolidated comparison workbook
 
-9. **Censo Three-Method Semantic Analysis** (`data/censo_escolar_dataset/analyze_semantic_variation_methods.py`)
+10. **Censo Three-Method Semantic Analysis** (`data/censo_escolar_dataset/analyze_semantic_variation_methods.py`)
    - Validates all three augmented JSON inputs before loading the embedding model
    - Loads the configured Jina embedder once and reuses it sequentially across the three methods
    - Writes separate semantic score JSON and XLSX files beside each augmented input
 
-10. **Semantic Variation Analysis** (`data/geo_dataset/analyze_semantic_variation.py`)
+11. **Semantic Variation Analysis** (`data/geo_dataset/analyze_semantic_variation.py`)
    - Loads `data/geo_dataset/geo_dataset_augmented_only.json`
    - Uses `jinaai/jina-embeddings-v3` with the symmetric `text-matching` task on Colab/T4
    - Calculates clipped cosine variation scores independently for SQL and question text plus their equal-weight mean
    - Writes row-level scores as JSON and aggregate statistics as Markdown or XLSX based on the report output suffix
 
-11. **Component Matching Analysis** (`data/geo_dataset/analyze_component_matching.py`)
+12. **Component Matching Analysis** (`data/geo_dataset/analyze_component_matching.py`)
    - Loads `data/geo_dataset/geo_dataset_augmented_only.json`
    - Parses original and changed SQL with SQLGlot using the Postgres dialect
    - Extracts normalized AST component slots for projections, aggregations, tables, joins, predicates, literals, grouping, ordering, limits, and PostGIS function arguments
    - Computes `changed_component_count / component_total` and writes row-level changed components plus aggregate statistics as JSON and Markdown or XLSX
 
-12. **Shared Analysis Dataset Loader** (`data/analysis_dataset.py`)
+13. **Shared Analysis Dataset Loader** (`data/analysis_dataset.py`)
    - Validates the flat augmented-pair contract used by the geo batch: `original_question`, `original_sql`, `changed_question`, `changed_sql`, and `level`
    - Also normalizes Censo Escolar `{"queries": [...]}` rows once each query has `changed_question` and `changed_sql`, deriving `level` from `complexidade.nivel`
    - Fails loudly when the raw Censo Escolar source file is used before augmentation, because semantic/component variation metrics require original/changed pairs
 
-13. **Shared Analysis Workbook Writer** (`data/analysis_workbook.py`)
+14. **Shared Analysis Workbook Writer** (`data/analysis_workbook.py`)
    - Builds styled XLSX workbooks directly from analyzer metadata, statistics, and scored rows using OpenPyXL
    - Semantic reports contain `Resumo`, `Por Nível`, `Distribuição`, `Extremos`, and `Metadados`
    - Component reports add the `Componentes` sheet; both formats include typed numeric cells, tables, frozen panes, and charts
 
-14. **Censo Escolar Analysis Wrappers** (`data/censo_escolar_dataset/analyze_*.py`)
+15. **Shared Augmentation Method Support** (`data/augmentation_methods.py`)
+   - Defines the three stable method keys and labels used by both datasets
+   - Writes the common `Augmented Pairs` XLSX contract without coupling Geo to Censo infrastructure
+
+16. **Censo Escolar Analysis Wrappers** (`data/censo_escolar_dataset/analyze_*.py`)
    - Reuse the geo analyzer implementations and scoring logic with Censo-specific default paths and report titles
    - Default input is `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json`
    - Component matching defaults to SQLGlot `bigquery` because CensoBench declares Standard SQL and includes BigQuery functions such as `SAFE_DIVIDE`
    - Keep the detailed score artifacts as JSON and write the human-readable reports as XLSX by default under `data/censo_escolar_dataset/`
+
+17. **Text-to-SQL Fine-Tuning Benchmark** (`benchmark/`)
+   - Validates augmented-pair JSON and an explicit schema JSON before importing GPU dependencies
+   - Splits by source `id` before expanding original/augmented training examples, exporting only held-out originals for later evaluation
+   - Fine-tunes `Qwen/Qwen3.5-9B` with configurable single-GPU QLoRA defaults and saves a PEFT adapter instead of duplicating the base model
+   - Persists the effective config, schema, prepared examples, split IDs, hashes, runtime metadata, checkpoints, and final adapter per experiment
+   - Reuses the saved schema and resolved base-model revision for deterministic non-thinking SQL inference
 
 ### Data Flow
 
@@ -247,7 +275,8 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 - **Embedding scores are heuristic**: General-purpose semantic distances cannot prove whether a SQL mutation is behaviorally equivalent or different
 - **Jina license constraint**: The default semantic-analysis model is licensed `CC BY-NC 4.0` and is selected for non-commercial analysis
 - **Analysis requires augmented pairs**: `data/censo_escolar_dataset/original_dataset.json` is a source dataset only. The analysis wrappers require a censo augmented-pair file with `changed_question` and `changed_sql`.
-- **Equivalent rewrites are intentionally conservative**: `DISTINCT` rewriting supports only plain column projections, and `BETWEEN` rewriting supports only a column with literal bounds.
+- **Equivalent rewrites are intentionally conservative**: `DISTINCT` rewriting supports only plain column projections, `BETWEEN` rewriting supports only a column with literal bounds, and join-to-subquery rewriting supports one simple inner equijoin whose qualified projections and outer filters reference only the primary table.
+- **Fine-tuning requires CUDA**: The benchmark intentionally fails before training or inference when a compatible CUDA GPU is unavailable; evaluation metrics are deferred to a separate future workflow.
 
 ## Dependencies
 
@@ -257,7 +286,9 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 - **transformers / accelerate / torch / bitsandbytes**: Optional local LLM dependencies for `local-llm.py`, installed in the Colab runtime rather than required for default Bedrock mode
 - **numpy**: Vector math, clipping, percentiles, and aggregate statistics for geo dataset analysis scripts
 - **openpyxl**: Styled XLSX report generation for Censo Escolar semantic and component analyses
+- **PyYAML**: Loads and snapshots the fine-tuning benchmark configuration
 - **sentence-transformers / einops**: Optional embedding-model dependencies for `analyze_semantic_variation.py`, installed in the Colab runtime rather than required for augmentation
+- **TRL / PEFT / datasets / accelerate / bitsandbytes / PyYAML**: Isolated benchmark dependencies pinned in `benchmark/requirements.txt`; install a host-compatible PyTorch build separately
 - **random**: For random selection in mutations
 
 ## Key Design Decisions
@@ -282,11 +313,18 @@ Geometry metadata is recommended but not required. PostGIS mutations fall back t
 18. **Component matching is structural and interpretable**: The geo component analyzer compares normalized SQL AST slots and reports changed components. It complements the embedding report but does not prove SQL correctness, behavioral equivalence, or natural-language alignment.
 19. **Analyzer row loading is shared**: Geo and Censo analysis entry points share `data/analysis_dataset.py` so validation, censo query normalization, and raw-source failure behavior stay consistent across embedding and component reports.
 20. **Censo analysis wrappers reuse scoring logic**: Censo Escolar scripts import the existing geo analyzers instead of copying scoring code, keeping dataset-specific defaults separate from the algorithms.
-21. **Equivalent rewrites are isolated from LLM context**: `DISTINCT`-to-`GROUP BY` and `BETWEEN`-to-comparisons run only after semantic mutations and never add changelog entries.
+21. **Equivalent rewrites are isolated from LLM context**: join-to-`IN`, `DISTINCT`-to-`GROUP BY`, and `BETWEEN`-to-comparisons run only after semantic mutations and never add changelog entries.
 22. **Analysis report format follows the output suffix**: Shared analyzers preserve Markdown support for `.md` paths and write structured workbooks for `.xlsx` paths. Censo wrappers default to the example workbook filenames while retaining JSON score artifacts.
 23. **Comparison strategies share one mutation pipeline**: Algorithm-only and algorithm-plus-paraphrasing call the same private AST transformation function. Paraphrase-only bypasses SQL parsing and preserves the SQL string exactly.
 24. **Censo method outputs stay independent**: The comparison runner writes three separate JSON/XLSX pairs instead of a consolidated workbook. All workbooks use the same ordered columns and source query IDs so results can be aligned manually.
 25. **Three-method semantic analysis shares one embedder**: The Censo multi-method runner validates every input first, then reuses one embedding-model instance to avoid three expensive model loads while retaining separate score and workbook artifacts.
+26. **Join-to-subquery preserves duplicate semantics**: The conservative rewrite retains the outer `DISTINCT`; without schema uniqueness metadata, removing it could introduce duplicate projected rows. It skips unqualified projections, joined-table filters outside the join, compound join conditions, and advanced clauses.
+27. **Geo method artifacts are independently comparable**: The Geo comparison runner preserves source IDs and writes separate JSON/XLSX pairs for paraphrase-only, algorithm-only, and combined augmentation under one results directory.
+28. **Geo evaluates every method through both heuristics**: The multi-method semantic runner shares one embedder, while the component runner uses the Postgres dialect; both validate all inputs first and write separate JSON/XLSX outputs per method.
+29. **Geo comparison can resume after paraphrasing**: `--skip-paraphrase-only` excludes that method before augmenter validation and leaves its existing JSON/XLSX artifacts untouched while generating the two AST-based methods.
+30. **Fine-tuning holdout is grouped before expansion**: The benchmark reserves deterministic, level-stratified source IDs before creating original/augmented examples, so no variant of a held-out query can leak into training.
+31. **Adapters are the durable model artifact**: Completed experiments keep the PEFT adapter, tokenizer, exact resolved base revision, schema, config, hashes, and split; they do not store a merged 9B model or overwrite an earlier run.
+32. **Training and inference share one prompt contract**: Both paths use the same explicit compact schema and Portuguese Text-to-SQL messages; inference disables Qwen thinking and returns only the generated SQL.
 
 ## Extension Points for Future Mutations
 

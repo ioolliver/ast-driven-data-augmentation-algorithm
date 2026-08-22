@@ -6,17 +6,83 @@ from sqlglot import exp
 
 from mutations.between_comparisons import rewrite_between_as_comparisons
 from mutations.distinct_group_by import rewrite_distinct_as_group_by
+from mutations.join_in_subquery import rewrite_join_as_in_subquery
 
 
 def apply_equivalent_rewrites(sql):
     tree = sqlglot.parse_one(sql, read="postgres")
 
+    tree = tree.transform(rewrite_between_as_comparisons)
+
     def rewrite(node):
+        rewritten = rewrite_join_as_in_subquery(node)
+        if rewritten is not node:
+            return rewritten
+
         node = rewrite_distinct_as_group_by(node)
-        node = rewrite_between_as_comparisons(node)
         return node
 
     return tree.transform(rewrite)
+
+
+class JoinAsInSubqueryTest(unittest.TestCase):
+    def test_rewrites_inner_join_when_only_primary_table_columns_are_selected(self):
+        tree = apply_equivalent_rewrites(
+            """
+            SELECT DISTINCT a.nome, a.cidade AS municipio
+            FROM alunos a
+            JOIN matriculas m ON a.id_aluno = m.id_aluno
+            WHERE a.ativo = 1
+            """
+        )
+
+        self.assertTrue(tree.args.get("distinct"))
+        self.assertFalse(tree.args.get("joins"))
+        self.assertEqual(tree.expressions[1].alias, "municipio")
+        self.assertIn("a.ativo = 1", tree.args["where"].sql())
+        self.assertIn(
+            "a.id_aluno IN (SELECT m.id_aluno FROM matriculas AS m)",
+            tree.args["where"].sql(),
+        )
+
+    def test_skips_queries_without_the_conservative_join_shape(self):
+        queries = (
+            "SELECT a.nome FROM alunos a JOIN matriculas m ON a.id_aluno = m.id_aluno",
+            (
+                "SELECT DISTINCT nome FROM alunos a "
+                "JOIN matriculas m ON a.id_aluno = m.id_aluno"
+            ),
+            (
+                "SELECT DISTINCT m.id_aluno FROM alunos a "
+                "JOIN matriculas m ON a.id_aluno = m.id_aluno"
+            ),
+            (
+                "SELECT DISTINCT a.nome FROM alunos a "
+                "LEFT JOIN matriculas m ON a.id_aluno = m.id_aluno"
+            ),
+            (
+                "SELECT DISTINCT a.nome FROM alunos a "
+                "JOIN matriculas m ON "
+                "a.id_aluno = m.id_aluno AND m.ativo = 1"
+            ),
+            (
+                "SELECT DISTINCT a.nome FROM alunos a "
+                "JOIN matriculas m ON a.id_aluno = m.id_aluno "
+                "WHERE m.ativo = 1"
+            ),
+            (
+                "SELECT DISTINCT a.nome FROM alunos a "
+                "JOIN matriculas m ON a.id_aluno = m.id_aluno "
+                "JOIN turmas t ON m.id_turma = t.id_turma"
+            ),
+        )
+
+        for sql in queries:
+            with self.subTest(sql=sql):
+                original = sqlglot.parse_one(sql, read="postgres")
+                rewritten = rewrite_join_as_in_subquery(original)
+                self.assertIs(rewritten, original)
+                self.assertEqual(rewritten.sql(), original.sql())
 
 
 class DistinctAsGroupByTest(unittest.TestCase):
@@ -146,6 +212,34 @@ class EquivalentRewriteExecutionTest(unittest.TestCase):
     def test_between_and_comparisons_are_equivalent_for_bounds_and_nulls(self):
         self.assert_queries_return_same_rows(
             "SELECT row_id FROM records WHERE score BETWEEN 10 AND 20"
+        )
+
+    def test_join_and_in_subquery_are_equivalent_for_duplicates_and_nulls(self):
+        self.connection.execute(
+            "CREATE TABLE alunos (id_aluno INTEGER, nome TEXT, ativo INTEGER)"
+        )
+        self.connection.execute("CREATE TABLE matriculas (id_aluno INTEGER)")
+        self.connection.executemany(
+            "INSERT INTO alunos VALUES (?, ?, ?)",
+            (
+                (1, "Maria", 1),
+                (2, "Maria", 1),
+                (3, "Joao", 0),
+                (None, "Sem identificador", 1),
+            ),
+        )
+        self.connection.executemany(
+            "INSERT INTO matriculas VALUES (?)",
+            ((1,), (1,), (2,), (3,), (None,)),
+        )
+
+        self.assert_queries_return_same_rows(
+            """
+            SELECT DISTINCT a.nome
+            FROM alunos a
+            JOIN matriculas m ON a.id_aluno = m.id_aluno
+            WHERE a.ativo = 1
+            """
         )
 
 

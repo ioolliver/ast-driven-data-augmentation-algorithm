@@ -62,6 +62,7 @@ As dependências estão definidas em `pyproject.toml`:
 - **openai** - Cliente compatível com Chat Completions para acessar o Amazon Bedrock
 - **numpy** - Operações vetorizadas de similaridade, clipping, percentis e estatísticas dos analisadores
 - **openpyxl** - Geração dos relatórios XLSX estruturados dos analisadores do Censo Escolar
+- **PyYAML** - Leitura e persistência da configuração reproduzível do benchmark de fine-tuning
 - **transformers**, **accelerate**, **torch** e **bitsandbytes** - Dependências opcionais para executar o LLM local em Colab/GPU
 - **sentence-transformers** e **einops** - Dependências opcionais para analisar distância semântica dos pares aumentados com Jina Embeddings v3 em Colab/GPU
 
@@ -80,6 +81,31 @@ python main.py
 ```
 
 O script irá executar o exemplo incluído que demonstra como gerar uma variação aleatória de uma consulta SQL com sua descrição em linguagem natural.
+
+### Treinar o benchmark Text-to-SQL
+
+O diretório `benchmark/` contém um fluxo isolado para ajustar o
+`Qwen/Qwen3.5-9B` com QLoRA 4-bit e os datasets produzidos pelos três métodos. O
+schema é sempre explícito e 20% dos IDs são reservados por padrão antes que os pares
+originais/aumentados sejam expandidos:
+
+```bash
+python3 benchmark/execute-finetuning.py \
+  data/geo_dataset/augmentation_method_results/geo_dataset_algorithm_only_augmented.json \
+  --schema benchmark/schemas/geo.json
+```
+
+Ao final, o adapter, o tokenizer, a configuração, o schema, o manifesto e
+`held_out_queries.json` são persistidos. Para consultar o modelo sem repetir o
+treino:
+
+```bash
+python3 benchmark/run-query.py path/to/experiment "Sua pergunta em português"
+```
+
+Instalação, defaults, baseline original, retomada de checkpoints e o contrato dos
+artefatos estão documentados em [`benchmark/README.md`](benchmark/README.md). As
+dependências pesadas permanecem separadas em `benchmark/requirements.txt`.
 
 ### Gerar o dataset geoespacial aumentado
 
@@ -102,6 +128,53 @@ Durante a execução, o console mostra o total carregado, a quantidade concluíd
 ```
 
 Se uma chamada falhar, a execução registra `failed=1` e interrompe o batch sem gravar artefatos parciais.
+
+### Comparar os três métodos de aumento no Geo Dataset
+
+Para gerar os mesmos três conjuntos comparáveis usados no Censo Escolar, execute:
+
+```bash
+uv run python data/geo_dataset/compare_augmentation_methods.py --max-workers 5
+```
+
+O runner processa, em sequência, somente paráfrase da pergunta, somente o algoritmo AST e algoritmo AST + paráfrase. Cada método reutiliza a concorrência limitada, a preservação da ordem e os erros contextualizados por `id` do batch geoespacial. Para execução com `LOCAL_LLM=true`, use `--max-workers 1`.
+
+Se a paráfrase já tiver sido concluída, retome gerando somente os outros dois métodos sem sobrescrever seus artefatos:
+
+```bash
+uv run python data/geo_dataset/compare_augmentation_methods.py \
+  --max-workers 5 \
+  --skip-paraphrase-only
+```
+
+Os seis artefatos de geração ficam em `data/geo_dataset/augmentation_method_results/`:
+
+- `geo_dataset_paraphrase_only_augmented.json` e `.xlsx`
+- `geo_dataset_algorithm_only_augmented.json` e `.xlsx`
+- `geo_dataset_algorithm_with_paraphrasing_augmented.json` e `.xlsx`
+
+Todos mantêm `id`, `level`, pergunta e SQL originais e alterados, permitindo alinhar os resultados entre métodos. O método `paraphrase_only` preserva o SQL sem reformatação.
+
+Depois da geração, execute o component matching dos três métodos:
+
+```bash
+uv run python data/geo_dataset/analyze_component_matching_methods.py
+```
+
+Em seguida, execute a análise semântica. O modelo Jina é carregado uma vez e reutilizado para os três arquivos:
+
+```bash
+UV_CACHE_DIR=/tmp/uv-cache uv run \
+  --with "sentence-transformers==3.1.0" \
+  --with "transformers==4.57.6" \
+  --with einops \
+  --with "numpy<2" \
+  python data/geo_dataset/analyze_semantic_variation_methods.py \
+  --device cpu \
+  --batch-size 16
+```
+
+Use `--device cuda` em um ambiente com GPU compatível. Os dois runners validam os três JSONs de entrada antes de começar. Para cada método, o component matching grava `*_component_matching_scores.json` e `*_component_matching.xlsx`; a análise semântica grava `*_semantic_variation_scores.json` e `*_semantic_variation.xlsx`, sempre no mesmo diretório de resultados.
 
 ### Gerar o dataset do Censo Escolar aumentado
 
@@ -287,6 +360,7 @@ Essas três funções permitem comparar: somente paráfrase, somente o algoritmo
 ├── augmentor.py                   # Orquestrador das três estratégias de aumento
 ├── llm.py                         # Camada LLM: adaptação, paráfrase e chamada Bedrock
 ├── data/
+│   ├── augmentation_methods.py    # Catálogo dos três métodos e escritor XLSX dos pares
 │   ├── censo_escolar_dataset/
 │   │   ├── original_dataset.json  # Consultas fonte do CensoBench
 │   │   ├── schema.py              # Schema usado pelas mutações do Censo Escolar
@@ -299,6 +373,9 @@ Essas três funções permitem comparar: somente paráfrase, somente o algoritmo
 │       ├── geo_base_dataset.json   # 980 pares base processados pelo batch
 │       ├── geodataset_schema.py   # Schema usado pelo batch do dataset geoespacial
 │       ├── apply_augmentation_geo_dataset.py  # Executa o batch com concorrência limitada
+│       ├── compare_augmentation_methods.py     # Exporta JSON/XLSX para os três métodos
+│       ├── analyze_semantic_variation_methods.py  # Avalia semanticamente os três métodos
+│       ├── analyze_component_matching_methods.py  # Avalia componentes dos três métodos
 │       ├── analyze_semantic_variation.py      # Mede variação por embeddings
 │       └── analyze_component_matching.py      # Mede mudanças interpretáveis no SQL
 ├── schema_utils.py                # Utilitários de schema: get_col_info, get_table_name
@@ -313,6 +390,7 @@ Essas três funções permitem comparar: somente paráfrase, somente o algoritmo
 │   ├── binary.py                  # Inverte valor binário (0 ↔ 1)
 │   ├── text_pattern.py            # Muda a semântica de padrões LIKE/ILIKE
 │   ├── postgis.py                 # Muta funções PostGIS e limites de distância
+│   ├── join_in_subquery.py        # Reescreve JOIN simples como subconsulta IN equivalente
 │   ├── distinct_group_by.py       # Reescreve DISTINCT como GROUP BY equivalente
 │   └── between_comparisons.py     # Expande BETWEEN em comparações equivalentes
 ├── pyproject.toml                 # Configuração do projeto e dependências
@@ -498,7 +576,27 @@ ano BETWEEN 2020 AND 2025
 
 Os limites originais são preservados. Se uma mutação semântica de `BETWEEN` alterar os limites, ela acontece primeiro e a reescrita equivalente expande os novos valores.
 
-Essas duas reescritas são aplicadas depois das mutações semânticas, não são adicionadas ao changelog enviado ao LLM e mantêm a pergunta original quando nenhuma alteração semântica ocorre.
+### 12. JOIN para subconsulta IN (`mutations/join_in_subquery.py`)
+Reescreve um `INNER JOIN` usado apenas para filtrar registros da tabela principal como uma subconsulta `IN`:
+
+```sql
+SELECT DISTINCT a.nome
+FROM alunos a
+JOIN matriculas m ON a.id_aluno = m.id_aluno
+
+-- torna-se
+
+SELECT DISTINCT a.nome
+FROM alunos a
+WHERE a.id_aluno IN (
+    SELECT m.id_aluno
+    FROM matriculas m
+)
+```
+
+O `DISTINCT` externo é preservado porque removê-lo poderia introduzir resultados duplicados. A reescrita aceita somente uma junção interna entre tabelas simples, uma igualdade entre colunas qualificadas e projeções formadas exclusivamente por colunas qualificadas da tabela principal. Consultas com condições compostas de junção, referências à tabela removida fora da junção, múltiplas junções ou cláusulas como `GROUP BY`, `ORDER BY`, `LIMIT` e bloqueios não são alteradas.
+
+As três reescritas equivalentes são aplicadas depois das mutações semânticas, não são adicionadas ao changelog enviado ao LLM e mantêm a pergunta original quando nenhuma alteração semântica ocorre.
 
 ## Estendendo com Novas Mutações
 

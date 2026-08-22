@@ -8,11 +8,11 @@ from pathlib import Path
 LOGGER = logging.getLogger(__name__)
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parents[1]
-INPUT_DATASET_PATH = SCRIPT_DIR / "original_dataset.json"
+INPUT_DATASET_PATH = SCRIPT_DIR / "geo_base_dataset.json"
 DEFAULT_OUTPUT_DIR = SCRIPT_DIR / "augmentation_method_results"
 DEFAULT_MAX_WORKERS = 5
-BATCH_MODULE_PATH = SCRIPT_DIR / "apply_augmentation_censo_escolar_dataset.py"
-SCHEMA_MODULE_PATH = SCRIPT_DIR / "schema.py"
+BATCH_MODULE_PATH = SCRIPT_DIR / "apply_augmentation_geo_dataset.py"
+SCHEMA_MODULE_PATH = SCRIPT_DIR / "geodataset_schema.py"
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -21,7 +21,7 @@ from data.augmentation_methods import METHODS, write_augmented_workbook
 
 def load_batch_module():
     spec = importlib.util.spec_from_file_location(
-        "censo_escolar_augmentation_batch", BATCH_MODULE_PATH
+        "geo_dataset_augmentation_batch", BATCH_MODULE_PATH
     )
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -30,17 +30,14 @@ def load_batch_module():
 
 def load_schema():
     spec = importlib.util.spec_from_file_location(
-        "censo_escolar_comparison_schema", SCHEMA_MODULE_PATH
+        "geo_dataset_comparison_schema", SCHEMA_MODULE_PATH
     )
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    return module.censo_escolar_schema
+    return module.geo_dataset_schema
 
 
 def build_method_augmenters(schema):
-    if str(REPO_ROOT) not in sys.path:
-        sys.path.insert(0, str(REPO_ROOT))
-
     from augmentor import (
         create_paraphrase_only_variation,
         create_random_variation,
@@ -60,22 +57,22 @@ def build_method_augmenters(schema):
     }
 
 
-def add_query_ids(queries, changed_rows):
+def add_row_ids(dataset_rows, changed_rows):
     return [
         {
-            "id": query["id"],
+            "id": dataset_row["id"],
             "original_question": changed_row["original_question"],
             "original_sql": changed_row["original_sql"],
             "changed_question": changed_row["changed_question"],
             "changed_sql": changed_row["changed_sql"],
             "level": changed_row["level"],
         }
-        for query, changed_row in zip(queries, changed_rows, strict=True)
+        for dataset_row, changed_row in zip(dataset_rows, changed_rows, strict=True)
     ]
 
 
 def _output_paths(output_dir, method_key):
-    filename = f"censo_escolar_{method_key}_augmented"
+    filename = f"geo_dataset_{method_key}_augmented"
     return output_dir / f"{filename}.json", output_dir / f"{filename}.xlsx"
 
 
@@ -85,20 +82,26 @@ def run_comparison(
     schema=None,
     method_augmenters=None,
     max_workers=DEFAULT_MAX_WORKERS,
+    skip_paraphrase_only=False,
 ):
     if max_workers <= 0:
         raise ValueError("max_workers must be greater than zero")
 
     batch = load_batch_module()
-    queries = batch.load_queries(dataset_path)
+    dataset_rows = batch.load_dataset(dataset_path)
     if method_augmenters is None:
         active_schema = schema if schema is not None else load_schema()
         active_augmenters = build_method_augmenters(active_schema)
     else:
         active_augmenters = method_augmenters
 
+    active_methods = tuple(
+        method
+        for method in METHODS
+        if not (skip_paraphrase_only and method.key == "paraphrase_only")
+    )
     missing_methods = [
-        method.key for method in METHODS if method.key not in active_augmenters
+        method.key for method in active_methods if method.key not in active_augmenters
     ]
     if missing_methods:
         raise ValueError(
@@ -108,20 +111,21 @@ def run_comparison(
     output_dir.mkdir(parents=True, exist_ok=True)
     outputs = {}
 
-    for method in METHODS:
-        augment_pair = active_augmenters[method.key]
+    if skip_paraphrase_only:
+        LOGGER.info("Skipping method: key=paraphrase_only")
 
+    for method in active_methods:
         LOGGER.info(
-            "Starting method: key=%s label=%s queries=%d max_workers=%d",
+            "Starting method: key=%s label=%s rows=%d max_workers=%d",
             method.key,
             method.label,
-            len(queries),
+            len(dataset_rows),
             max_workers,
         )
         try:
             _, changed_rows = batch.build_augmented_outputs(
-                queries,
-                augment_pair,
+                dataset_rows,
+                active_augmenters[method.key],
                 max_workers=max_workers,
                 progress_callback=batch.log_progress,
             )
@@ -130,7 +134,7 @@ def run_comparison(
                 f"Augmentation method {method.key} failed: {exc}"
             ) from exc
 
-        augmented_rows = add_query_ids(queries, changed_rows)
+        augmented_rows = add_row_ids(dataset_rows, changed_rows)
         json_path, workbook_path = _output_paths(output_dir, method.key)
         batch.write_json(json_path, augmented_rows)
         write_augmented_workbook(workbook_path, augmented_rows)
@@ -154,7 +158,7 @@ def main():
     )
     parser = argparse.ArgumentParser(
         description=(
-            "Run the three Censo Escolar augmentation methods and write a separate "
+            "Run the three Geo Dataset augmentation methods and write a separate "
             "JSON and XLSX file for each method."
         )
     )
@@ -169,11 +173,21 @@ def main():
             f"(default: {DEFAULT_MAX_WORKERS})."
         ),
     )
+    parser.add_argument(
+        "--skip-paraphrase-only",
+        action="store_true",
+        help=(
+            "Skip the paraphrase-only method and generate only algorithm_only "
+            "and algorithm_with_paraphrasing. Existing paraphrase outputs are "
+            "left untouched."
+        ),
+    )
     args = parser.parse_args()
     run_comparison(
         dataset_path=args.input,
         output_dir=args.output_dir,
         max_workers=args.max_workers,
+        skip_paraphrase_only=args.skip_paraphrase_only,
     )
 
 

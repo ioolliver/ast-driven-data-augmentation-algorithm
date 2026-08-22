@@ -9,6 +9,7 @@ from mutations.text_pattern import mutate_text_pattern
 from mutations.postgis import mutate_distance_threshold, mutate_postgis
 from mutations.between_comparisons import rewrite_between_as_comparisons
 from mutations.distinct_group_by import rewrite_distinct_as_group_by
+from mutations.join_in_subquery import rewrite_join_as_in_subquery
 
 __all__ = [
     "mutate_between",
@@ -23,4 +24,5 @@ __all__ = [
     "mutate_postgis",
     "rewrite_between_as_comparisons",
     "rewrite_distinct_as_group_by",
+    "rewrite_join_as_in_subquery",
 ]

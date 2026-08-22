@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch
 
+import sqlglot
 from sqlglot import exp
 
 from augmentor import (
@@ -98,6 +99,35 @@ class CreateRandomVariationTest(unittest.TestCase):
         self.assertIn("GROUP BY", sql_modified)
         self.assertIn("t.score >= 10", sql_modified)
         self.assertIn("t.score <= 20", sql_modified)
+        adapt_query.assert_not_called()
+
+    def test_rewrites_join_as_in_subquery_without_calling_llm(self):
+        query = "Liste os nomes de alunos matriculados"
+
+        with patch("augmentor.adapt_query") as adapt_query:
+            query_modified, sql_modified = create_random_variation(
+                {"tables": []},
+                query,
+                (
+                    "SELECT DISTINCT a.nome FROM alunos a "
+                    "JOIN matriculas m ON a.id_aluno = m.id_aluno "
+                    "WHERE a.idade BETWEEN 18 AND 30"
+                ),
+            )
+
+        self.assertEqual(query_modified, query)
+        self.assertIn("SELECT DISTINCT", sql_modified)
+        self.assertNotIn("JOIN", sql_modified)
+        self.assertNotIn("GROUP BY", sql_modified)
+        self.assertNotIn("BETWEEN", sql_modified)
+        self.assertIn("a.idade >= 18", sql_modified)
+        self.assertIn("a.idade <= 30", sql_modified)
+        membership = sqlglot.parse_one(sql_modified, read="postgres").find(exp.In)
+        self.assertEqual(membership.this.sql(), "a.id_aluno")
+        self.assertEqual(
+            membership.args["query"].this.expressions[0].sql(),
+            "m.id_aluno",
+        )
         adapt_query.assert_not_called()
 
     def test_applies_equivalent_between_rewrite_after_semantic_mutation(self):
