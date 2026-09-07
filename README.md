@@ -1,629 +1,196 @@
-# Augmentação de Dados Orientada por AST
+# AST-Driven Data Augmentation for Text-to-SQL
 
-Ferramenta para gerar variações semânticas de consultas SQL e suas descrições em linguagem natural. Usa transformações de Árvore Sintática Abstrata (AST) combinadas com LLM para criar dados de treinamento para modelos de aprendizado de máquina.
+Generate new question–SQL pairs through controlled changes to SQL abstract syntax trees (ASTs), guided by domain metadata. An LLM adapts the original question using the transformed SQL and an explicit mutation changelog.
 
-**Objetivo principal:** Dada uma consulta SQL original + descrição em linguagem natural + schema, gera variações semânticas controladas com SQL diferente e descrições adaptadas. As mutações devem alterar a intenção da consulta de forma programática, e a camada LLM ajusta a pergunta em linguagem natural para refletir o novo SQL.
+[Paper](https://sol.sbc.org.br/index.php/sbbd_estendido/article/view/44122) · [Quick start](#quick-start) · [Results](#intrinsic-evaluation) · [Documentation](#documentation) · [Citation](#citation)
 
-## Pré-requisitos
+## Overview
 
-- Python 3.12 ou superior
-- [uv](https://docs.astral.sh/uv/) - gerenciador de projetos e pacotes
+Text-to-SQL datasets require aligned natural-language questions and SQL queries. Paraphrasing increases linguistic variety while keeping the original SQL and intent. This project explores semantic variation: changing what a query asks for, then adapting its question accordingly.
 
-### Instalando uv
+The method takes an existing question–SQL pair and a **custom schema** containing eligible columns, valid values, ranges, and semantic relationships. SQLGlot performs the AST transformations; the LLM expresses the resulting changes in natural language.
 
-Se você não tem `uv` instalado, siga as instruções em [https://docs.astral.sh/uv/](https://docs.astral.sh/uv/).
+This repository contains the augmentation method and intrinsic evaluation developed during an undergraduate research project at the University of São Paulo (USP). It may receive further research extensions. **Downstream fine-tuning and model evaluation are outside the current scope.**
 
-Nas plataformas mais comuns:
+The experiments use Brazilian Portuguese questions. The implementation targets PostgreSQL/PostGIS; support for other SQL dialects has not been established by this evaluation.
+
+## How it works
+
+1. **Parse the SQL** into an AST.
+2. **Apply compatible semantic mutations**, constrained by the custom schema, and record their changes.
+3. **Apply guarded equivalent rewrites** to add structural variety without changing the semantics produced by the mutations.
+4. **Generate the transformed SQL** and ask an LLM to adapt the question using the original pair, transformed query, and semantic changelog.
+
+Equivalent rewrites do not enter the semantic changelog. If no semantic mutation occurs, the original question is retained without an LLM call.
+
+### Augmentation strategies
+
+| Strategy | SQL | Question |
+|---|---|---|
+| Paraphrase only | Preserved exactly | Rephrased without changing its meaning |
+| AST augmentation | Transformed by the AST pipeline | Adapted to reflect the semantic changes |
+| AST + paraphrase | Transformed by the same AST pipeline | Adapted and explicitly rephrased |
+
+AST augmentation uses an LLM for question adaptation; “AST” does not mean that the entire pair is generated without an LLM.
+
+### Supported transformations
+
+Nine semantic mutation families are included:
+
+| Family | Transformation |
+|---|---|
+| Binary value | Flip a binary value in an equality predicate |
+| Enum equality | Replace a categorical value with another allowed value |
+| Aggregate function | Change an aggregation among `SUM`, `AVG`, `MIN`, and `MAX` |
+| Threshold shift | Change a supported comparison operator and numeric/date threshold |
+| BETWEEN range | Change interval bounds within configured limits |
+| Equivalent column | Replace a column with another in its semantic group |
+| Value group | Replace an `IN` value set with another configured group |
+| Text pattern | Change a supported `LIKE`/`ILIKE` pattern relation |
+| PostGIS | Transform supported spatial operations and distance/buffer parameters |
+
+“Equivalent column” refers to a configured semantic group, not to query equivalence: replacing the selected attribute can change the requested information.
+
+Three additional **equivalent rewrites** cover guarded forms of `DISTINCT → GROUP BY`, `BETWEEN → inclusive comparisons`, and `INNER JOIN → IN subquery`. They apply only when their implementation guards match, rather than to arbitrary queries.
+
+See [mutation details](docs/mutations.md) and the [custom schema guide](docs/custom-schema.md) for applicability conditions and examples.
+
+## Quick start
+
+Requires **Python 3.12+**, [uv](https://docs.astral.sh/uv/), and credentials for the configured remote LLM backend.
 
 ```bash
-# macOS/Linux
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Windows (PowerShell)
-powershell -ExecutionPolicy BypassUser -c "irm https://astral.sh/uv/install.ps1 | iex"
-```
-
-## Configuração Local
-
-### 1. Clone o repositório
-
-```bash
-git clone https://github.com/ioolliver/ast-driven-data-augmentation-algorithm
-cd ast-driven-data-augmentation
-```
-
-### 2. Configure o ambiente Python
-
-O `uv` usará automaticamente a versão de Python especificada em `.python-version` (3.12). Se você não tem Python 3.12 instalado, o `uv` pode instalá-lo para você:
-
-```bash
-# Instala dependências e cria ambiente virtual
+git clone https://github.com/ioolliver/ast-driven-data-augmentation-algorithm.git
+cd ast-driven-data-augmentation-algorithm
 uv sync
-```
-
-### 3. Ative o ambiente virtual
-
-```bash
-# Linux/macOS
-source .venv/bin/activate
-
-# Windows
-.venv\Scripts\activate
-```
-
-Após ativar, seu prompt deve mostrar `(.venv)` no início.
-
-## Dependências
-
-As dependências estão definidas em `pyproject.toml`:
-
-- **sqlglot** (>= 30.2.1) - Parsing e manipulação de AST para SQL
-- **python-dotenv** (>= 1.0.0) - Carregamento de variáveis de ambiente do arquivo `.env`
-- **openai** - Cliente compatível com Chat Completions para acessar o Amazon Bedrock
-- **numpy** - Operações vetorizadas de similaridade, clipping, percentis e estatísticas dos analisadores
-- **openpyxl** - Geração dos relatórios XLSX estruturados dos analisadores do Censo Escolar
-- **PyYAML** - Leitura e persistência da configuração reproduzível do benchmark de fine-tuning
-- **transformers**, **accelerate**, **torch** e **bitsandbytes** - Dependências opcionais para executar o LLM local em Colab/GPU
-- **sentence-transformers** e **einops** - Dependências opcionais para analisar distância semântica dos pares aumentados com Jina Embeddings v3 ou Qwen3-Embedding-4B em Colab/GPU
-
-Para instalar/atualizar dependências:
-
-```bash
-uv sync
-```
-
-## Executando o Projeto
-
-### Executar o script principal
-
-```bash
-python main.py
-```
-
-O script irá executar o exemplo incluído que demonstra como gerar uma variação aleatória de uma consulta SQL com sua descrição em linguagem natural.
-
-### Treinar o benchmark Text-to-SQL
-
-O diretório `benchmark/` contém um fluxo isolado para ajustar o
-`Qwen/Qwen3.5-9B` com QLoRA 4-bit e os datasets produzidos pelos três métodos. O
-schema é sempre explícito e 20% dos IDs são reservados por padrão antes que os pares
-originais/aumentados sejam expandidos:
-
-```bash
-python3 benchmark/execute-finetuning.py \
-  data/geo_dataset/augmentation_method_results/geo_dataset_algorithm_only_augmented.json \
-  --schema benchmark/schemas/geo.json
-```
-
-Ao final, o adapter, o tokenizer, a configuração, o schema, o manifesto e
-`held_out_queries.json` são persistidos. Para consultar o modelo sem repetir o
-treino:
-
-```bash
-python3 benchmark/run-query.py path/to/experiment "Sua pergunta em português"
-```
-
-Instalação, defaults, baseline original, retomada de checkpoints e o contrato dos
-artefatos estão documentados em [`benchmark/README.md`](benchmark/README.md). As
-dependências pesadas permanecem separadas em `benchmark/requirements.txt`.
-
-### Gerar o dataset geoespacial aumentado
-
-```bash
-uv run python data/geo_dataset/apply_augmentation_geo_dataset.py --max-workers 5
-```
-
-O script lê `data/geo_dataset/geo_base_dataset.json`, contendo somente os 980 pares com `source == "base_dataset"`, e aplica uma variação por par `question` + `sql_code`. As chamadas ao Bedrock são executadas com concorrência limitada; `--max-workers` define o máximo de requisições simultâneas e seu valor padrão é `5`.
-
-O script grava:
-
-- `data/geo_dataset/geo_dataset_augmented.json`: mistura cada item original com sua versão aumentada usando os campos `question`, `level`, `sql_code` e `augmented`
-- `data/geo_dataset/geo_dataset_augmented_only.json`: registra, para cada item, `original_question`, `original_sql`, `changed_question`, `changed_sql` e `level`
-
-Durante a execução, o console mostra o total carregado, a quantidade concluída, o percentual, sucessos e falhas:
-
-```text
-2026-05-25 21:00:00 INFO Starting augmentation batch: rows=980 max_workers=5 input=...
-2026-05-25 21:00:02 INFO Progress: completed=1/980 (0.1%) succeeded=1 failed=0
-```
-
-Se uma chamada falhar, a execução registra `failed=1` e interrompe o batch sem gravar artefatos parciais.
-
-### Comparar os três métodos de aumento no Geo Dataset
-
-Para gerar os mesmos três conjuntos comparáveis usados no Censo Escolar, execute:
-
-```bash
-uv run python data/geo_dataset/compare_augmentation_methods.py --max-workers 5
-```
-
-O runner processa, em sequência, somente paráfrase da pergunta, somente o algoritmo AST e algoritmo AST + paráfrase. Cada método reutiliza a concorrência limitada, a preservação da ordem e os erros contextualizados por `id` do batch geoespacial. Para execução com `LOCAL_LLM=true`, use `--max-workers 1`.
-
-Se a paráfrase já tiver sido concluída, retome gerando somente os outros dois métodos sem sobrescrever seus artefatos:
-
-```bash
-uv run python data/geo_dataset/compare_augmentation_methods.py \
-  --max-workers 5 \
-  --skip-paraphrase-only
-```
-
-Os seis artefatos de geração ficam em `data/geo_dataset/augmentation_method_results/`:
-
-- `geo_dataset_paraphrase_only_augmented.json` e `.xlsx`
-- `geo_dataset_algorithm_only_augmented.json` e `.xlsx`
-- `geo_dataset_algorithm_with_paraphrasing_augmented.json` e `.xlsx`
-
-Todos mantêm `id`, `level`, pergunta e SQL originais e alterados, permitindo alinhar os resultados entre métodos. O método `paraphrase_only` preserva o SQL sem reformatação.
-
-Depois da geração, execute o component matching dos três métodos:
-
-```bash
-uv run python data/geo_dataset/analyze_component_matching_methods.py
-```
-
-Em seguida, execute a análise semântica. O modelo escolhido é carregado uma vez e reutilizado para os três arquivos. Use `--model qwen` para Qwen3-Embedding-4B ou `--model jina` para Jina Embeddings v3:
-
-```bash
-UV_CACHE_DIR=/tmp/uv-cache uv run \
-  --with "sentence-transformers==3.1.0" \
-  --with "transformers==4.57.6" \
-  --with einops \
-  --with "numpy<2" \
-  python data/geo_dataset/analyze_semantic_variation_methods.py \
-  --model qwen \
-  --device cpu \
-  --batch-size 4
-```
-
-Use `--device cuda` em um ambiente com GPU compatível. Os dois runners validam os três JSONs de entrada antes de começar. Para cada método, o component matching grava `*_component_matching_scores.json` e `*_component_matching.xlsx`; a análise semântica grava `*_semantic_variation_scores.json` e `*_semantic_variation.xlsx`, sempre no mesmo diretório de resultados.
-
-### Gerar o dataset do Censo Escolar aumentado
-
-```bash
-uv run python data/censo_escolar_dataset/apply_augmentation_censo_escolar_dataset.py --max-workers 5
-```
-
-O script lê as 107 consultas de `data/censo_escolar_dataset/original_dataset.json`, aplica uma variação por par `pergunta_nl` + `sql` usando `data/censo_escolar_dataset/schema.py` e mantém a ordem original mesmo quando as chamadas ao Bedrock terminam fora de ordem.
-
-O script grava:
-
-- `data/censo_escolar_dataset/censo_escolar_dataset_augmented.json`: alterna cada consulta original com sua versão aumentada usando os campos `question`, `level`, `sql_code` e `augmented`
-- `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json`: registra, para cada consulta, `original_question`, `original_sql`, `changed_question`, `changed_sql` e `level`
-
-`--max-workers` limita as requisições simultâneas e tem valor padrão `5`. Se uma consulta falhar, o erro identifica seu `id`, o batch registra a falha e não grava artefatos parciais.
-
-### Comparar os três métodos de aumento no Censo Escolar
-
-```bash
-uv run python data/censo_escolar_dataset/compare_augmentation_methods.py --max-workers 5
-```
-
-O script valida o dataset uma vez e executa, em sequência, os três métodos: somente paráfrase da pergunta, somente o algoritmo AST atual e algoritmo AST + paráfrase. Dentro de cada método, `--max-workers` limita as chamadas simultâneas. Para execução com `LOCAL_LLM=true`, use `--max-workers 1`.
-
-Os seis arquivos são gravados em `data/censo_escolar_dataset/augmentation_method_results/`:
-
-- `censo_escolar_paraphrase_only_augmented.json` e `.xlsx`
-- `censo_escolar_algorithm_only_augmented.json` e `.xlsx`
-- `censo_escolar_algorithm_with_paraphrasing_augmented.json` e `.xlsx`
-
-Cada JSON contém `id`, `level`, `original_question`, `changed_question`, `original_sql` e `changed_sql`. Cada planilha contém os mesmos pares na aba `Augmented Pairs`, com uma planilha independente por método e sem uma comparação consolidada. Use `--input` e `--output-dir` para alterar os caminhos padrão.
-
-Para executar a análise de variação semântica nos três JSONs com um único carregamento do modelo de embeddings:
-
-```bash
-uv run \
-  --with "sentence-transformers==3.1.0" \
-  --with "transformers==4.57.6" \
-  --with einops \
-  --with "numpy<2" \
-  python data/censo_escolar_dataset/analyze_semantic_variation_methods.py \
-  --model qwen \
-  --device cpu \
-  --batch-size 4
-```
-
-Use `--device cuda` em um ambiente com GPU compatível. Antes de carregar o modelo, o script verifica a existência dos três datasets. Para cada método, ele grava um arquivo `*_semantic_variation_scores.json` e uma planilha `*_semantic_variation.xlsx` no mesmo diretório `augmentation_method_results/`.
-
-### Medir variação semântica do dataset aumentado
-
-Depois de gerar `data/geo_dataset/geo_dataset_augmented_only.json`, execute a análise de embeddings em um Google Colab com GPU T4:
-
-```bash
-pip install "sentence-transformers==3.1.0" "transformers==4.57.6" einops "numpy<2"
-python data/geo_dataset/analyze_semantic_variation.py \
-  --model qwen \
-  --device cuda \
-  --batch-size 4
-```
-
-`--model` aceita dois perfis:
-
-- `qwen`: usa `Qwen/Qwen3-Embedding-4B` para similaridade simétrica, sem prompt de retrieval. O modelo é distribuído sob licença `Apache-2.0` e requer `transformers>=4.51.0`.
-- `jina`: usa `jinaai/jina-embeddings-v3` com a tarefa simétrica `text-matching`. O alias `jirai` também é aceito como `jina` por compatibilidade.
-
-Ambos comparam, separadamente, SQL original versus SQL aumentado e pergunta original versus pergunta aumentada. O perfil padrão continua sendo `jina` para preservar o comportamento anterior. Como o Qwen tem 4 bilhões de parâmetros, comece com `--batch-size 4` e aumente apenas se houver memória de GPU disponível.
-
-Também é possível executar em CPU substituindo `--device cuda` por `--device cpu`. A métrica e os artefatos gerados são os mesmos; a inferência é mais lenta e pode haver diferenças numéricas insignificantes nos scores. Os pins de `sentence-transformers` e `transformers` evitam incompatibilidades entre o código customizado do Jina v3 e versões mais recentes da biblioteca.
-
-Se o notebook já importou uma versão diferente de `transformers`, reinicie o runtime após o `pip install` antes de executar a análise.
-
-Cada pontuação é calculada como:
-
-```text
-variation_score = clip(1 - cosine_similarity(original, changed), 0, 1)
-combined_variation_score = (sql_variation_score + question_variation_score) / 2
-```
-
-Assim, `0` indica ausência de variação detectada no espaço de embeddings e `1` indica a maior variação representada pela métrica limitada. A execução grava:
-
-- `data/geo_dataset/geo_dataset_semantic_variation_scores.json`: pontuações por par, estatísticas agregadas e metadados do modelo.
-- `data/geo_dataset/geo_dataset_semantic_variation_report.md`: média, mediana, mínimo, máximo, desvio padrão, percentis, agrupamento por nível, faixas de score e extremos observados.
-
-Esses scores são indicadores heurísticos. Uma alteração pequena na distância de embedding ainda pode representar uma diferença lógica crítica no SQL, como troca de operador, literal ou predicado espacial.
-
-`jinaai/jina-embeddings-v3` é distribuído sob licença `CC BY-NC 4.0`; esse perfil deve ser usado somente em contexto não comercial. `Qwen/Qwen3-Embedding-4B` é distribuído sob licença `Apache-2.0`. A licença efetiva é registrada nos metadados de cada execução.
-
-Para analisar o dataset do Censo Escolar, primeiro execute o batch de aumento descrito acima. O analisador espera `original_question`, `original_sql`, `changed_question`, `changed_sql` e `level`; também aceita o formato `{"queries": [...]}` quando cada item já tiver `changed_question` e `changed_sql`.
-
-O wrapper do Censo Escolar usa como entrada padrão `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json` e grava os artefatos na mesma pasta:
-
-```bash
-python data/censo_escolar_dataset/analyze_semantic_variation.py \
-  --model qwen \
-  --device cuda \
-  --batch-size 4
-```
-
-Artefatos gerados pelo wrapper:
-
-- `data/censo_escolar_dataset/censo_escolar_dataset_semantic_variation_scores.json`
-- `data/censo_escolar_dataset/censo_escolar_variacao_semantica_analise.xlsx`
-
-A planilha segue o modelo existente na pasta e contém as abas `Resumo`, `Por Nível`, `Distribuição`, `Extremos` e `Metadados`, com tabelas formatadas e gráfico de distribuição. O JSON continua sendo gravado para preservar os scores detalhados e permitir processamento automatizado.
-
-### Medir alterações interpretáveis por componentes SQL
-
-Para uma análise local, rápida e interpretável das mudanças estruturais no SQL, execute:
-
-```bash
-uv run python data/geo_dataset/analyze_component_matching.py
-```
-
-O script compara `original_sql` e `changed_sql` com SQLGlot usando o dialeto Postgres. Ele decompõe as consultas em slots atômicos como projeções, agregações, tabelas, joins, predicados, operadores, literais, limites de `BETWEEN`, padrões `LIKE`/`ILIKE`, componentes de `GROUP BY`, `ORDER BY`, `LIMIT` e argumentos de funções PostGIS.
-
-Cada pontuação é calculada como:
-
-```text
-component_matching_score = changed_component_count / component_total
-```
-
-Assim, `0` indica que nenhum componente SQL normalizado mudou; valores maiores indicam uma fração maior de componentes alterados. A execução grava:
-
-- `data/geo_dataset/geo_dataset_component_matching_scores.json`: score por par, componentes alterados e estatísticas agregadas.
-- `data/geo_dataset/geo_dataset_component_matching_report.md`: distribuição geral, agrupamento por nível, faixas de score, famílias de componentes mais alteradas e extremos observados.
-
-Esse score complementa o relatório de embeddings: ele é mais interpretável para entender o que mudou no SQL, mas continua sendo uma heurística estrutural, não uma prova de correção SQL ou alinhamento com a pergunta em linguagem natural.
-
-Para o dataset do Censo Escolar, use o wrapper equivalente:
-
-```bash
-uv run python data/censo_escolar_dataset/analyze_component_matching.py
-```
-
-Ele lê `data/censo_escolar_dataset/censo_escolar_dataset_augmented_only.json` por padrão, usa o dialeto SQLGlot `bigquery` para o Standard SQL do CensoBench e grava:
-
-- `data/censo_escolar_dataset/censo_escolar_dataset_component_matching_scores.json`
-- `data/censo_escolar_dataset/censo_escolar_component_matching_analise.xlsx`
-
-A planilha contém as abas `Resumo`, `Por Nível`, `Distribuição`, `Componentes`, `Extremos` e `Metadados`. Os analisadores compartilhados escolhem o formato pelo sufixo de `--report-output`: `.xlsx` gera a planilha e `.md` mantém disponível o relatório textual. Os wrappers do Censo usam `.xlsx` por padrão; os scripts do Geo continuam usando `.md` por padrão.
-
-### Usar como módulo
-
-Importe as estratégias de aumento em seu próprio código:
-
-```python
-from augmentor import (
-    create_paraphrase_only_variation,
-    create_random_variation,
-    create_random_variation_with_paraphrasing,
-)
-from mutations import mutate_between, mutate_enum, mutate_agg
-
-schema = {
-    "tables": [
-        {
-            "name": "sua_tabela",
-            "columns": [
-                {"name": "coluna_numero", "type": "number", "min": 0, "max": 100},
-                {"name": "coluna_enum", "type": "enum", "enums": [
-                    {"value": "A", "description": "Opção A"},
-                    {"value": "B", "description": "Opção B"}
-                ]}
-            ]
-        }
-    ]
-}
-
-sql_original = "SELECT * FROM sua_tabela WHERE coluna_numero BETWEEN 10 AND 50"
-descricao = "Buscar registros com coluna numérica entre 10 e 50"
-
-nova_descricao, novo_sql = create_random_variation(schema, descricao, sql_original)
-
-# Parafraseia apenas a pergunta e preserva o SQL exatamente como recebido.
-descricao_parafraseada, mesmo_sql = create_paraphrase_only_variation(
-    descricao,
-    sql_original,
-)
-
-# Aplica as mesmas mutações AST e também pede uma reformulação da pergunta.
-descricao_combinada, sql_combinado = create_random_variation_with_paraphrasing(
-    schema,
-    descricao,
-    sql_original,
-)
-```
-
-Essas três funções permitem comparar: somente paráfrase, somente o algoritmo atual e algoritmo + paráfrase. `create_paraphrase_only_variation` não analisa nem reformata o SQL. Quando nenhuma mutação semântica aplicável é encontrada, tanto `create_random_variation` quanto `create_random_variation_with_paraphrasing` preservam a descrição original e não chamam o LLM. O SQL ainda pode receber uma reescrita estrutural equivalente, que não exige adaptação da pergunta.
-
-## Estrutura do Projeto
-
-```
-.
-├── main.py                        # Ponto de entrada: schema, queries de teste e loop de execução
-├── augmentor.py                   # Orquestrador das três estratégias de aumento
-├── llm.py                         # Camada LLM: adaptação, paráfrase e chamada Bedrock
-├── data/
-│   ├── augmentation_methods.py    # Catálogo dos três métodos e escritor XLSX dos pares
-│   ├── censo_escolar_dataset/
-│   │   ├── original_dataset.json  # Consultas fonte do CensoBench
-│   │   ├── schema.py              # Schema usado pelas mutações do Censo Escolar
-│   │   ├── apply_augmentation_censo_escolar_dataset.py  # Executa o batch do Censo Escolar
-│   │   ├── compare_augmentation_methods.py  # Exporta JSON/XLSX para os três métodos
-│   │   ├── analyze_semantic_variation_methods.py  # Analisa os três métodos com um modelo
-│   │   ├── analyze_semantic_variation.py   # Wrapper da análise por embeddings
-│   │   └── analyze_component_matching.py   # Wrapper da análise estrutural do SQL
-│   └── geo_dataset/
-│       ├── geo_base_dataset.json   # 980 pares base processados pelo batch
-│       ├── geodataset_schema.py   # Schema usado pelo batch do dataset geoespacial
-│       ├── apply_augmentation_geo_dataset.py  # Executa o batch com concorrência limitada
-│       ├── compare_augmentation_methods.py     # Exporta JSON/XLSX para os três métodos
-│       ├── analyze_semantic_variation_methods.py  # Avalia semanticamente os três métodos
-│       ├── analyze_component_matching_methods.py  # Avalia componentes dos três métodos
-│       ├── analyze_semantic_variation.py      # Mede variação por embeddings
-│       └── analyze_component_matching.py      # Mede mudanças interpretáveis no SQL
-├── schema_utils.py                # Utilitários de schema: get_col_info, get_table_name
-├── mutations/
-│   ├── __init__.py                # Re-exporta todas as funções mutate_*
-│   ├── between.py                 # Randomiza limites de cláusulas BETWEEN
-│   ├── enum_eq.py                 # Troca valor em comparações de igualdade com enum
-│   ├── agg.py                     # Alterna funções de agregação (SUM/AVG/MIN/MAX)
-│   ├── threshold_shift.py         # Muda operador de inequação e valor numérico
-│   ├── equivalent_column.py       # Troca coluna por outra do mesmo grupo semântico
-│   ├── value_group.py             # Troca grupo de valores em cláusula IN (ex: Norte → Sudeste)
-│   ├── binary.py                  # Inverte valor binário (0 ↔ 1)
-│   ├── text_pattern.py            # Muda a semântica de padrões LIKE/ILIKE
-│   ├── postgis.py                 # Muta funções PostGIS e limites de distância
-│   ├── join_in_subquery.py        # Reescreve JOIN simples como subconsulta IN equivalente
-│   ├── distinct_group_by.py       # Reescreve DISTINCT como GROUP BY equivalente
-│   └── between_comparisons.py     # Expande BETWEEN em comparações equivalentes
-├── pyproject.toml                 # Configuração do projeto e dependências
-├── uv.lock                        # Lockfile de dependências
-├── .python-version                # Versão do Python (3.12)
-├── .env.example                   # Template para variáveis de ambiente
-├── .gitignore                     # Arquivos ignorados pelo git
-├── AGENTS.md                      # Guia arquitetural para agentes de código
-└── README.md                      # Este arquivo
-```
-
-## Configuração do Amazon Bedrock
-
-Por padrão, o projeto usa `gpt-oss-120b` pelo endpoint OpenAI-compatible do Amazon Bedrock para adaptar descrições de consultas. O identificador do modelo é `openai.gpt-oss-120b`.
-
-### Usando arquivo `.env` (Recomendado)
-
-1. Copie o arquivo de exemplo:
-
-```bash
 cp .env.example .env
 ```
 
-2. Crie uma chave de API do Amazon Bedrock e escolha uma região em que `gpt-oss-120b` esteja disponível.
+Configure `.env` for the research backend, **GPT-OSS-120B via Amazon Bedrock**:
 
-3. Edite o arquivo `.env` e adicione a chave e o endpoint Bedrock da região:
-
-```env
-OPENAI_API_KEY=sua-chave-bedrock-aqui
+```dotenv
+OPENAI_API_KEY=your-bedrock-api-key
 OPENAI_BASE_URL=https://bedrock-mantle.us-east-1.api.aws/v1
-# BEDROCK_MODEL=openai.gpt-oss-120b
+BEDROCK_MODEL=openai.gpt-oss-120b
 ```
 
-4. Pronto! O arquivo será carregado automaticamente quando você executar o projeto.
+Use the Bedrock region and model access available to your account. These `OPENAI_*` variables configure the OpenAI-compatible Bedrock client; the key is a Bedrock credential.
 
-**Nota:** O arquivo `.env` é automaticamente ignorado pelo git e nunca será commitado, mantendo sua chave segura.
-
-`OPENAI_API_KEY` contém uma chave do Bedrock porque o endpoint segue a interface OpenAI Chat Completions. Não use a URL da plataforma OpenAI nesta configuração.
-
-### Usando variáveis de ambiente do sistema
-
-Alternativamente, você pode definir as variáveis diretamente:
+Run the minimal example:
 
 ```bash
-# Linux/macOS
-export OPENAI_API_KEY="sua-chave-bedrock-aqui"
-export OPENAI_BASE_URL="https://bedrock-mantle.us-east-1.api.aws/v1"
-
-# Windows (PowerShell)
-$env:OPENAI_API_KEY="sua-chave-bedrock-aqui"
-$env:OPENAI_BASE_URL="https://bedrock-mantle.us-east-1.api.aws/v1"
+uv run python examples/basic_usage.py
 ```
 
-Substitua `us-east-1` pela região habilitada em sua conta, se necessário.
+The example provides a small custom schema and one question–SQL pair, then displays the transformed pair. Generation may incur provider charges and may vary between runs.
 
-## Usando LLM Local no Colab
+The research configuration above is the default setup documented here. Backend configuration and local inference are covered in the [usage guide](docs/usage.md). Changing a model or provider does not reproduce the research configuration.
 
-O arquivo `local-llm.py` expõe `send_to_local_llm(prompt)`, que recebe o prompt completo gerado por `llm.py` e retorna apenas o texto da resposta. Para ativar esse caminho em vez do Amazon Bedrock, defina:
+## Datasets
 
-```env
-LOCAL_LLM=true
-LOCAL_LLM_MODEL=Qwen/Qwen3.5-4B-Instruct
-LOCAL_LLM_4BIT=true
-LOCAL_LLM_THINKING=false
-```
+The final intrinsic evaluation used two Portuguese Text-to-SQL datasets related to the Brazilian School Census:
 
-Em um Google Colab com GPU T4, instale as dependências de inferência antes de executar o projeto:
+| Dataset | Focus | Original pairs | Documentation |
+|---|---|---:|---|
+| Temporal dataset (CensoBench) | Educational indicators and temporal queries | 107 | [Dataset guide](datasets/censobench/README.md) |
+| AtlasSQL-BR | Geospatial queries with PostGIS | 980 | [Dataset guide](datasets/atlas_sql_br/README.md) |
 
-```bash
-pip install -U transformers accelerate bitsandbytes torch
-```
+Both span four difficulty levels. AtlasSQL-BR contributes 245 original pairs per level. The temporal set contains 46 easy, 30 medium, 8 hard, and 23 very hard pairs.
 
-Parâmetros opcionais:
+The dataset guides describe provenance, source formats, schemas, preparation steps, and artifact roles. Please also acknowledge the original dataset authors when using their data.
 
-```env
-LOCAL_LLM_MAX_NEW_TOKENS=512
-LOCAL_LLM_TEMPERATURE=0.2
-LOCAL_LLM_TOP_P=0.9
-```
+## Intrinsic evaluation
 
-O modelo é carregado de forma lazy na primeira chamada e reutilizado nas chamadas seguintes. O modo 4-bit fica ativo por padrão para reduzir uso de VRAM na T4. Para modelos Qwen que suportam modo de raciocínio, `LOCAL_LLM_THINKING=false` pede ao template de chat para não gerar o bloco de pensamento; qualquer bloco `<think>...</think>` remanescente também é removido antes da resposta ser retornada.
+The final comparison evaluated paraphrase-only, AST, and AST-plus-paraphrase augmentation on both datasets.
 
-Ao executar qualquer batch com `LOCAL_LLM=true`, use `--max-workers 1`, pois o modelo local é carregado e reutilizado no mesmo processo. A concorrência limitada dos batches é destinada às chamadas remotas ao Bedrock.
+**Mean question embedding variation**, measured with `jina-embeddings-v3`:
 
-## Tipos de Mutações Suportadas
+| Dataset | Paraphrase only | AST | AST + paraphrase |
+|---|---:|---:|---:|
+| Temporal dataset | 1.9% | 26.9% | 27.3% |
+| AtlasSQL-BR | 2.0% | 15.6% | 16.8% |
 
-### 1. BETWEEN (`mutations/between.py`)
-Randomiza os limites de uma cláusula `BETWEEN` com valores dentro do min/max do schema.
+Question variation is the cosine distance between original and augmented question embeddings, clipped to `[0, 1]` and expressed as a percentage.
 
-### 2. Enum por igualdade (`mutations/enum_eq.py`)
-Troca o valor de uma comparação `coluna = 'valor'` por outro enum disponível no schema.
+**Mean SQL component variation** for AST augmentation was **29.8%** on the temporal dataset and **11.3%** on AtlasSQL-BR. Component matching measures the proportion of changed normalized AST components. SQL embedding distance is not used as the SQL result reported here.
 
-### 3. Função de agregação (`mutations/agg.py`)
-Alterna aleatoriamente entre `SUM`, `AVG`, `MIN` e `MAX`.
+These metrics quantify variation. **They do not establish execution correctness, question–SQL alignment, or an improvement in downstream Text-to-SQL accuracy.**
 
-### 4. Threshold shift (`mutations/threshold_shift.py`)
-Muda o operador de inequação (`>`, `<`, `>=`, `<=`) e o valor numérico comparado.
+GPT-OSS-120B through Amazon Bedrock generated the final experimental outputs for both datasets. Gemini was used in earlier tests on smaller sets of pairs. The WTAG paper reports an earlier, preliminary evaluation; the table above summarizes the expanded final evaluation and should not be read as a transcription of the paper's results.
 
-### 5. Coluna equivalente (`mutations/equivalent_column.py`)
-Substitui uma coluna por outra do mesmo `semantic_group` no schema (ex: `quantidade_computador` → `quantidade_tablet_aluno`).
+See the [results index](results/README.md) for detailed artifacts and the [reproduction guide](docs/reproduction.md) for experimental settings. Recomputing metrics from preserved pairs and generating new pairs with an LLM are separate workflows; new generation is not guaranteed to recover identical outputs.
 
-### 6. Grupo de valores IN (`mutations/value_group.py`)
-Troca o conjunto de valores em uma cláusula `IN` por outro grupo definido no schema (ex: estados do Norte → estados do Sul).
+## Documentation
 
-### 7. Binário (`mutations/binary.py`)
-Inverte o valor de uma coluna binária (`0` → `1` ou `1` → `0`).
+| Goal | Guide |
+|---|---|
+| Use the API, configure a backend, or run augmentation in batches | [Usage](docs/usage.md) |
+| Prepare metadata for a new database | [Custom schema](docs/custom-schema.md) |
+| Understand mutation and rewrite conditions | [Transformations](docs/mutations.md) |
+| Reproduce the intrinsic evaluation | [Reproduction](docs/reproduction.md) |
+| Find detailed evaluation outputs | [Results](results/README.md) |
+| Relate research stages to publications and artifacts | [Publications](docs/publications.md) |
+| Run tests or extend the implementation | [Development](docs/development.md) |
 
-### 8. Padrão textual (`mutations/text_pattern.py`)
-Altera a relação representada por padrões simples `LIKE` e `ILIKE`, mantendo o texto pesquisado:
+### Repository layout
 
-```sql
-m.nm_mun ILIKE 'São%'
--- passa a expressar, por exemplo:
-m.nm_mun ILIKE '%São%'
-```
+| Directory | Contents |
+|---|---|
+| `src/ast_augmentation/` | Core augmentation, LLM integration, utilities, and shared evaluation |
+| `src/ast_augmentation/mutations/` | Semantic mutation implementations |
+| `src/ast_augmentation/rewrites/` | Guarded equivalent rewrites |
+| `datasets/` | Dataset inputs, custom schemas, and provenance documentation |
+| `experiments/` | Intrinsic evaluation scripts and configurations |
+| `results/` | Preserved evaluation artifacts |
+| `examples/` | Minimal usage examples |
+| `docs/` | Detailed user and developer guides |
+| `infra/` | Container and GPU environment configuration |
+| `tests/` | Automated tests |
 
-Os formatos suportados representam igualdade, prefixo, sufixo e contenção. Padrões com curingas internos ou `_` não são alterados.
+## Limitations and future work
 
-### 9. PostGIS (`mutations/postgis.py`)
-Aplica mutações semânticas em funções PostGIS comuns:
+- Preparing the custom schema requires domain knowledge and manual effort.
+- Variation depends on the supported mutation families and the constructs in the input SQL; some queries may receive no semantic changes.
+- AST manipulation and schema constraints do not prove that every generated query executes correctly or produces an informative result.
+- LLM adaptation can omit changes or introduce inconsistencies. Generated pairs have not undergone exhaustive human validation.
+- Evaluation covers two Portuguese datasets and compares against a paraphrasing baseline; broader generalization remains untested.
+- Downstream training benefits have not been demonstrated.
 
-- `ST_Buffer`: altera raios em metros, mantendo valores repetidos coordenados na mesma consulta.
-- `ST_DWithin`: altera o limite de distância em metros.
-- `ST_Distance(...) <op> valor`: altera o limite numérico de comparações diretas de distância, preservando o operador.
-- `ST_Intersection`: troca a operação espacial por `ST_Union` ou `ST_Difference`.
-- `ST_Intersects` com dois buffers: reescreve o padrão estrito `ST_Intersects(ST_Buffer(...), ST_Buffer(...))` para `ST_DWithin(...)`.
+Future work includes execution and alignment validation, broader mutation coverage, assistance with custom schema construction, and downstream Text-to-SQL evaluation.
 
-Quando o schema não informa metadados geográficos, usa valores padrão:
+## Citation
 
-```python
-distance_min_m = 100
-distance_max_m = 5000
-buffer_min_m = 100
-buffer_max_m = 3000
-```
+If you use this code, method, or experimental artifacts in research, **please cite our WTAG/SBBD 2026 paper**:
 
-Metadados opcionais recomendados para colunas de geometria:
+**Isaque Oliveira do Nascimento and Kelly Rosa Braghetto.**  
+*SQL-Guided Semantic Variation for Data Augmentation in Text-to-SQL.*  
+Anais Estendidos do XLI Simpósio Brasileiro de Bancos de Dados, 2026.
 
-```python
-{
-    "name": "geometry",
-    "type": "geometry",
-    "description": "Geometria espacial da localização",
-    "geometry_type": "POINT",
-    "srid": 4674,
-    "metric_srid": 31983,
-    "spatial_role": "location",
-    "distance_min_m": 100,
-    "distance_max_m": 5000,
-    "buffer_min_m": 100,
-    "buffer_max_m": 3000
+[Read the paper](https://sol.sbc.org.br/index.php/sbbd_estendido/article/view/44122)
+
+```bibtex
+@inproceedings{nascimento2026sqlguided,
+  author    = {Isaque Oliveira do Nascimento and Kelly Rosa Braghetto},
+  title     = {{SQL-Guided Semantic Variation for Data Augmentation in Text-to-SQL}},
+  booktitle = {Anais Estendidos do XLI Simpósio Brasileiro de Bancos de Dados},
+  year      = {2026},
+  publisher = {Sociedade Brasileira de Computação},
+  url       = {https://sol.sbc.org.br/index.php/sbbd_estendido/article/view/44122}
 }
 ```
 
-O schema atual não precisa ser atualizado para usar as mutações PostGIS, mas esses campos permitem controlar melhor os intervalos de distância e buffer.
+Machine-readable citation information is available in [CITATION.cff](CITATION.cff).
 
-### 10. DISTINCT para GROUP BY (`mutations/distinct_group_by.py`)
-Reescreve consultas simples com `SELECT DISTINCT` para um `GROUP BY` equivalente:
+## Authors and acknowledgments
 
-```sql
-SELECT DISTINCT estado, cidade
-FROM escola
+Developed by **Isaque Oliveira do Nascimento**, under the supervision of **Prof. Kelly Rosa Braghetto**, at the University of São Paulo (USP), Instituto de Matemática, Estatística e Ciência da Computação.
 
--- torna-se
+Contact: [isaque.nascimento@usp.br](mailto:isaque.nascimento@usp.br). For questions about the implementation, please [open an issue](https://github.com/ioolliver/ast-driven-data-augmentation-algorithm/issues).
 
-SELECT estado, cidade
-FROM escola
-GROUP BY estado, cidade
-```
+This work was developed with a CNPq-PIBIC undergraduate research scholarship and was partially supported by FAPESP (grants **2023/00779-0** and **2023/18026-8**) and CNPq (grant **420623/2023-0**).
 
-A reescrita aceita apenas projeções formadas por colunas simples, com ou sem alias. Consultas com `DISTINCT ON`, `*`, expressões, agregações, janelas, `GROUP BY` ou `HAVING` não são alteradas.
+## License
 
-### 11. BETWEEN para comparações (`mutations/between_comparisons.py`)
-Expande um `BETWEEN` de coluna e limites literais em comparações inclusivas equivalentes:
+The original project code is released under the [MIT License](LICENSE). Third-party datasets, models, and dependencies remain subject to their respective licenses and terms; the MIT license does not relicense those materials.
 
-```sql
-ano BETWEEN 2020 AND 2025
-
--- torna-se
-
-(ano >= 2020 AND ano <= 2025)
-```
-
-Os limites originais são preservados. Se uma mutação semântica de `BETWEEN` alterar os limites, ela acontece primeiro e a reescrita equivalente expande os novos valores.
-
-### 12. JOIN para subconsulta IN (`mutations/join_in_subquery.py`)
-Reescreve um `INNER JOIN` usado apenas para filtrar registros da tabela principal como uma subconsulta `IN`:
-
-```sql
-SELECT DISTINCT a.nome
-FROM alunos a
-JOIN matriculas m ON a.id_aluno = m.id_aluno
-
--- torna-se
-
-SELECT DISTINCT a.nome
-FROM alunos a
-WHERE a.id_aluno IN (
-    SELECT m.id_aluno
-    FROM matriculas m
-)
-```
-
-O `DISTINCT` externo é preservado porque removê-lo poderia introduzir resultados duplicados. A reescrita aceita somente uma junção interna entre tabelas simples, uma igualdade entre colunas qualificadas e projeções formadas exclusivamente por colunas qualificadas da tabela principal. Consultas com condições compostas de junção, referências à tabela removida fora da junção, múltiplas junções ou cláusulas como `GROUP BY`, `ORDER BY`, `LIMIT` e bloqueios não são alteradas.
-
-As três reescritas equivalentes são aplicadas depois das mutações semânticas, não são adicionadas ao changelog enviado ao LLM e mantêm a pergunta original quando nenhuma alteração semântica ocorre.
-
-## Estendendo com Novas Mutações
-
-Para adicionar uma mutação semântica:
-
-1. Crie `mutations/<feature>.py` com a função `mutate_<feature>(node, changelog, schema)`
-2. Exporte em `mutations/__init__.py`
-3. Importe e chame dentro de `mutate_operators()` em `augmentor.py`
-4. Atualize o schema em `main.py` se precisar de novos metadados de coluna
-
-Para adicionar uma reescrita equivalente, use uma função pura `rewrite_<feature>(node)`, exporte-a em `mutations/__init__.py` e aplique-a no terceiro passe do orquestrador. Reescritas equivalentes não devem adicionar entradas ao changelog semântico.
-
-## Referências
-
-- [sqlglot Documentation](https://sqlglot.readthedocs.io/)
-- [Amazon Bedrock Chat Completions API](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-chat-completions-mantle.html)
-- [uv Documentation](https://docs.astral.sh/uv/)
+Academic citation is requested in the [Citation](#citation) section. This request does not add conditions to the MIT License.

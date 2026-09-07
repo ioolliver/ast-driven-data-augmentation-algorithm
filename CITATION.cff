@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this code, method, or experimental artifacts in research, please cite the paper below."
+type: software
+title: "AST-Driven Data Augmentation for Text-to-SQL"
+authors:
+  - family-names: "Nascimento"
+    given-names: "Isaque Oliveira do"
+    affiliation: "Universidade de São Paulo"
+    email: "isaque.nascimento@usp.br"
+repository-code: "https://github.com/ioolliver/ast-driven-data-augmentation-algorithm"
+license: MIT
+preferred-citation:
+  type: conference-paper
+  title: "SQL-Guided Semantic Variation for Data Augmentation in Text-to-SQL"
+  authors:
+    - family-names: "Nascimento"
+      given-names: "Isaque Oliveira do"
+    - family-names: "Braghetto"
+      given-names: "Kelly Rosa"
+  collection-title: "Anais Estendidos do XLI Simpósio Brasileiro de Bancos de Dados"
+  year: 2026
+  publisher:
+    name: "Sociedade Brasileira de Computação"
+  url: "https://sol.sbc.org.br/index.php/sbbd_estendido/article/view/44122"
