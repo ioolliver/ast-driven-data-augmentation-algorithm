@@ -1,7 +1,7 @@
 [project]
 name = "ast-driven-data-augmentation"
 version = "0.1.0"
-description = "Add your description here"
+description = "Schema-guided SQL AST augmentation with LLM-based question adaptation for Text-to-SQL"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

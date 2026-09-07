@@ -8,7 +8,7 @@ from openai import OpenAI
 
 load_dotenv()
 
-DEFAULT_BEDROCK_MODEL = "anthropic.claude-sonnet-4-6"
+DEFAULT_BEDROCK_MODEL = "openai.gpt-oss-120b"
 BEDROCK_MODEL = os.environ.get("BEDROCK_MODEL", DEFAULT_BEDROCK_MODEL)
 
 

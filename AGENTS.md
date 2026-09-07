@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 This file provides guidance to Codex when working with code in this repository.
 
@@ -110,9 +110,13 @@ This is an **AST-driven SQL data augmentation tool** that generates semantic var
    - Maintains a per-query `mutation_state` dictionary so repeated PostGIS radii/distances are changed consistently across a query
    - Returns the original natural-language query without an LLM call when no semantic mutation adds an entry to `semantic_changelog`, even if an equivalent rewrite changes the SQL structure
 
-5. **Entry Point** (`main.py`)
-   - Holds hardcoded schema definition and test queries
-   - Loops over query pairs, calls `create_random_variation`, prints results
+5. **Minimal Example** (`examples/basic_usage.py`)
+   - Runs one Portuguese question–SQL pair through the real augmentation pipeline
+   - Uses a two-value state enum so the semantic change is easy to inspect
+   - Resolves repository imports relative to the script until the package migration
+   - Prints original and augmented pairs; configuration failures exit with status 1
+   - Setup, available backend configuration, API, and batch usage live in `docs/usage.md`
+   - `main.py` is a legacy placeholder; the README entry point is the example
 
 6. **Geo Dataset Batch Script** (`data/geo_dataset/apply_augmentation_geo_dataset.py`)
    - Loads `data/geo_dataset/geo_base_dataset.json`, restricted to `source == "base_dataset"`
