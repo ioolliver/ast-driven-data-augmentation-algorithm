@@ -1,17 +1,14 @@
-import importlib.util
+import importlib
 import os
 import unittest
-from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
 
 def load_llm_module():
-    module_path = Path(__file__).resolve().parents[1] / "llm.py"
-    spec = importlib.util.spec_from_file_location("llm_script", module_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    from ast_augmentation import llm
+
+    return importlib.reload(llm)
 
 
 class RemoteLLMTest(unittest.TestCase):

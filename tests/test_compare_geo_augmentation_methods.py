@@ -10,9 +10,9 @@ from openpyxl import load_workbook
 def load_comparison_module():
     module_path = (
         Path(__file__).resolve().parents[1]
-        / "data"
-        / "geo_dataset"
-        / "compare_augmentation_methods.py"
+        / "experiments"
+        / "atlas_sql_br"
+        / "compare_methods.py"
     )
     spec = importlib.util.spec_from_file_location(
         "compare_geo_augmentation_methods", module_path

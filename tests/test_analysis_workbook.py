@@ -1,4 +1,3 @@
-import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
@@ -12,13 +11,9 @@ SPREADSHEET_NAMESPACE = "http://schemas.openxmlformats.org/spreadsheetml/2006/ma
 
 
 def load_workbook_module():
-    module_path = (
-        Path(__file__).resolve().parents[1] / "data" / "analysis_workbook.py"
-    )
-    spec = importlib.util.spec_from_file_location("analysis_workbook", module_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    from ast_augmentation.evaluation import workbook
+
+    return workbook
 
 
 def read_sheet_names(workbook_path):

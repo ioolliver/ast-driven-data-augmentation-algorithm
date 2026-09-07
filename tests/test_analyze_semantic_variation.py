@@ -8,23 +8,16 @@ from unittest.mock import patch
 
 
 def load_analysis_module():
-    module_path = (
-        Path(__file__).resolve().parents[1]
-        / "data"
-        / "geo_dataset"
-        / "analyze_semantic_variation.py"
-    )
-    spec = importlib.util.spec_from_file_location("semantic_variation_script", module_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    from ast_augmentation.evaluation import semantic_variation
+
+    return semantic_variation
 
 
 def load_censo_analysis_module():
     module_path = (
         Path(__file__).resolve().parents[1]
-        / "data"
-        / "censo_escolar_dataset"
+        / "experiments"
+        / "censobench"
         / "analyze_semantic_variation.py"
     )
     spec = importlib.util.spec_from_file_location(

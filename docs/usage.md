@@ -110,10 +110,8 @@ For local batches, use `--max-workers 1`.
 
 ## Python API
 
-Until the planned package migration, import from the repository root:
-
 ```python
-from augmentor import (
+from ast_augmentation import (
     create_random_variation,
     create_paraphrase_only_variation,
     create_random_variation_with_paraphrasing,
@@ -137,12 +135,11 @@ Portuguese questions. The core parser and serializer use the PostgreSQL dialect.
 
 ## Batch augmentation
 
-During repository reorganization, the batch scripts remain under `data/`.
-Run either command from the repository root:
+Run either batch experiment from the repository root:
 
 ```bash
-uv run python data/geo_dataset/compare_augmentation_methods.py --output-dir runs/atlas-sql-br-example --max-workers 5
-uv run python data/censo_escolar_dataset/compare_augmentation_methods.py --output-dir runs/censobench-example --max-workers 5
+uv run python experiments/atlas_sql_br/compare_methods.py --output-dir runs/atlas-sql-br-example --max-workers 5
+uv run python experiments/censobench/compare_methods.py --output-dir runs/censobench-example --max-workers 5
 ```
 
 Each command runs all three strategies and writes separate JSON/XLSX pairs for

@@ -10,9 +10,9 @@ from pathlib import Path
 def load_apply_censo_dataset_module():
     module_path = (
         Path(__file__).resolve().parents[1]
-        / "data"
-        / "censo_escolar_dataset"
-        / "apply_augmentation_censo_escolar_dataset.py"
+        / "experiments"
+        / "censobench"
+        / "augment.py"
     )
     spec = importlib.util.spec_from_file_location(
         "apply_censo_dataset_script", module_path

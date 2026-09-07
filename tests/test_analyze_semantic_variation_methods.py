@@ -7,8 +7,8 @@ from pathlib import Path
 def load_methods_analyzer_module():
     module_path = (
         Path(__file__).resolve().parents[1]
-        / "data"
-        / "censo_escolar_dataset"
+        / "experiments"
+        / "censobench"
         / "analyze_semantic_variation_methods.py"
     )
     spec = importlib.util.spec_from_file_location(

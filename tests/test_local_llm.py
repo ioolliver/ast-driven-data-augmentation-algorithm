@@ -1,14 +1,11 @@
-import importlib.util
+import importlib
 import unittest
-from pathlib import Path
 
 
 def load_local_llm_module():
-    module_path = Path(__file__).resolve().parents[1] / "local-llm.py"
-    spec = importlib.util.spec_from_file_location("local_llm_script", module_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    from ast_augmentation import local_llm
+
+    return importlib.reload(local_llm)
 
 
 class LocalLLMTest(unittest.TestCase):

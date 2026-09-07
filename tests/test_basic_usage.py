@@ -9,7 +9,7 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
-import llm
+from ast_augmentation import llm
 
 
 ROOT = Path(__file__).resolve().parents[1]

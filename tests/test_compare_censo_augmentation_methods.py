@@ -10,9 +10,9 @@ from openpyxl import load_workbook
 def load_comparison_module():
     module_path = (
         Path(__file__).resolve().parents[1]
-        / "data"
-        / "censo_escolar_dataset"
-        / "compare_augmentation_methods.py"
+        / "experiments"
+        / "censobench"
+        / "compare_methods.py"
     )
     spec = importlib.util.spec_from_file_location(
         "compare_censo_augmentation_methods", module_path

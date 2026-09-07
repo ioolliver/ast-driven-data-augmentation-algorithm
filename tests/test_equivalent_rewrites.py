@@ -4,9 +4,9 @@ import unittest
 import sqlglot
 from sqlglot import exp
 
-from mutations.between_comparisons import rewrite_between_as_comparisons
-from mutations.distinct_group_by import rewrite_distinct_as_group_by
-from mutations.join_in_subquery import rewrite_join_as_in_subquery
+from ast_augmentation.rewrites.between_comparisons import rewrite_between_as_comparisons
+from ast_augmentation.rewrites.distinct_group_by import rewrite_distinct_as_group_by
+from ast_augmentation.rewrites.join_in_subquery import rewrite_join_as_in_subquery
 
 
 def apply_equivalent_rewrites(sql):

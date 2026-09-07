@@ -10,9 +10,9 @@ from pathlib import Path
 def load_apply_geo_dataset_module():
     module_path = (
         Path(__file__).resolve().parents[1]
-        / "data"
-        / "geo_dataset"
-        / "apply_augmentation_geo_dataset.py"
+        / "experiments"
+        / "atlas_sql_br"
+        / "augment.py"
     )
     spec = importlib.util.spec_from_file_location("apply_geo_dataset_script", module_path)
     module = importlib.util.module_from_spec(spec)

@@ -7,8 +7,8 @@ from pathlib import Path
 def load_module(filename, module_name):
     module_path = (
         Path(__file__).resolve().parents[1]
-        / "data"
-        / "geo_dataset"
+        / "experiments"
+        / "atlas_sql_br"
         / filename
     )
     spec = importlib.util.spec_from_file_location(module_name, module_path)

@@ -6,23 +6,16 @@ from pathlib import Path
 
 
 def load_analysis_module():
-    module_path = (
-        Path(__file__).resolve().parents[1]
-        / "data"
-        / "geo_dataset"
-        / "analyze_component_matching.py"
-    )
-    spec = importlib.util.spec_from_file_location("component_matching_script", module_path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    from ast_augmentation.evaluation import component_matching
+
+    return component_matching
 
 
 def load_censo_component_module():
     module_path = (
         Path(__file__).resolve().parents[1]
-        / "data"
-        / "censo_escolar_dataset"
+        / "experiments"
+        / "censobench"
         / "analyze_component_matching.py"
     )
     spec = importlib.util.spec_from_file_location("censo_component_script", module_path)

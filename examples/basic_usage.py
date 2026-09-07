@@ -1,13 +1,8 @@
 """Generate one augmented pair using the configured LLM backend."""
 
 import sys
-from pathlib import Path
 
-# Allow direct execution before the planned src/ package migration.
-REPO_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO_ROOT))
-
-from augmentor import create_random_variation
+from ast_augmentation import create_random_variation
 
 
 SCHEMA = {

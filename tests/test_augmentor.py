@@ -4,7 +4,7 @@ from unittest.mock import patch
 import sqlglot
 from sqlglot import exp
 
-from augmentor import (
+from ast_augmentation import (
     create_paraphrase_only_variation,
     create_random_variation,
     create_random_variation_with_paraphrasing,
@@ -16,7 +16,7 @@ class CreateRandomVariationTest(unittest.TestCase):
         sql = "SELECT COUNT(*) FROM escola"
 
         with patch(
-            "augmentor.paraphrase_query", return_value="Quantas escolas existem?"
+            "ast_augmentation.augmentor.paraphrase_query", return_value="Quantas escolas existem?"
         ) as paraphrase_query:
             query_modified, sql_modified = create_paraphrase_only_variation(
                 "Qual e o total de escolas?",
@@ -28,7 +28,7 @@ class CreateRandomVariationTest(unittest.TestCase):
         paraphrase_query.assert_called_once_with("Qual e o total de escolas?")
 
     def test_combined_variation_requests_paraphrasing_after_semantic_mutation(self):
-        with patch("augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query:
+        with patch("ast_augmentation.augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query:
             query_modified, sql_modified = create_random_variation_with_paraphrasing(
                 {"tables": []},
                 "Calcule a soma",
@@ -43,7 +43,7 @@ class CreateRandomVariationTest(unittest.TestCase):
     def test_combined_variation_keeps_no_op_fast_path(self):
         query = "Mostre o valor constante"
 
-        with patch("augmentor.adapt_query") as adapt_query:
+        with patch("ast_augmentation.augmentor.adapt_query") as adapt_query:
             query_modified, sql_modified = create_random_variation_with_paraphrasing(
                 {"tables": []},
                 query,
@@ -57,7 +57,7 @@ class CreateRandomVariationTest(unittest.TestCase):
     def test_returns_original_query_without_calling_llm_when_no_mutation_applies(self):
         query = "Mostre o valor constante"
 
-        with patch("augmentor.adapt_query") as adapt_query:
+        with patch("ast_augmentation.augmentor.adapt_query") as adapt_query:
             query_modified, sql_modified = create_random_variation(
                 {"tables": []},
                 query,
@@ -69,7 +69,7 @@ class CreateRandomVariationTest(unittest.TestCase):
         adapt_query.assert_not_called()
 
     def test_calls_llm_when_a_mutation_is_recorded(self):
-        with patch("augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query:
+        with patch("ast_augmentation.augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query:
             query_modified, sql_modified = create_random_variation(
                 {"tables": []},
                 "Calcule a soma",
@@ -83,7 +83,7 @@ class CreateRandomVariationTest(unittest.TestCase):
     def test_applies_equivalent_rewrites_without_calling_llm(self):
         query = "Liste as categorias com pontuação entre 10 e 20"
 
-        with patch("augmentor.adapt_query") as adapt_query:
+        with patch("ast_augmentation.augmentor.adapt_query") as adapt_query:
             query_modified, sql_modified = create_random_variation(
                 {"tables": []},
                 query,
@@ -104,7 +104,7 @@ class CreateRandomVariationTest(unittest.TestCase):
     def test_rewrites_join_as_in_subquery_without_calling_llm(self):
         query = "Liste os nomes de alunos matriculados"
 
-        with patch("augmentor.adapt_query") as adapt_query:
+        with patch("ast_augmentation.augmentor.adapt_query") as adapt_query:
             query_modified, sql_modified = create_random_variation(
                 {"tables": []},
                 query,
@@ -143,9 +143,9 @@ class CreateRandomVariationTest(unittest.TestCase):
         }
 
         with (
-            patch("augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query,
+            patch("ast_augmentation.augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query,
             patch(
-                "mutations.between.random.randint",
+                "ast_augmentation.mutations.between.random.randint",
                 side_effect=(12, 18),
             ),
         ):
@@ -182,9 +182,9 @@ class CreateRandomVariationTest(unittest.TestCase):
         }
 
         with (
-            patch("augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query,
-            patch("mutations.threshold_shift.random.choice", return_value=exp.LTE),
-            patch("mutations.threshold_shift.random.randint", return_value=500),
+            patch("ast_augmentation.augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query,
+            patch("ast_augmentation.mutations.threshold_shift.random.choice", return_value=exp.LTE),
+            patch("ast_augmentation.mutations.threshold_shift.random.randint", return_value=500),
         ):
             query_modified, sql_modified = create_random_variation(
                 schema,
@@ -212,7 +212,7 @@ class CreateRandomVariationTest(unittest.TestCase):
             ]
         }
 
-        with patch("augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query:
+        with patch("ast_augmentation.augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query:
             _, sql_modified = create_random_variation(
                 schema,
                 "Mostre a coluna",
@@ -224,7 +224,7 @@ class CreateRandomVariationTest(unittest.TestCase):
         self.assertEqual(len(adapt_query.call_args.args[3]), 1)
 
     def test_mutates_text_pattern_without_schema_metadata(self):
-        with patch("augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query:
+        with patch("ast_augmentation.augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query:
             query_modified, sql_modified = create_random_variation(
                 {"tables": []},
                 "Municipios com nome iniciando por Sao",
@@ -237,8 +237,8 @@ class CreateRandomVariationTest(unittest.TestCase):
 
     def test_mutates_case_sensitive_like_pattern(self):
         with (
-            patch("augmentor.adapt_query", return_value="Pergunta adaptada"),
-            patch("mutations.text_pattern.random.choice", return_value="prefix"),
+            patch("ast_augmentation.augmentor.adapt_query", return_value="Pergunta adaptada"),
+            patch("ast_augmentation.mutations.text_pattern.random.choice", return_value="prefix"),
         ):
             _, sql_modified = create_random_variation(
                 {"tables": []},
@@ -266,8 +266,8 @@ class CreateRandomVariationTest(unittest.TestCase):
         }
 
         with (
-            patch("augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query,
-            patch("mutations.postgis.random.randint", return_value=12000),
+            patch("ast_augmentation.augmentor.adapt_query", return_value="Pergunta adaptada") as adapt_query,
+            patch("ast_augmentation.mutations.postgis.random.randint", return_value=12000),
         ):
             query_modified, sql_modified = create_random_variation(
                 schema,
