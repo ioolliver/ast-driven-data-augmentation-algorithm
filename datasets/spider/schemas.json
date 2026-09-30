@@ -1,0 +1,1288 @@
+{
+  "hr_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "departments",
+        "columns": [
+          {
+            "name": "DEPARTMENT_NAME",
+            "description": "department name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Accounting",
+                "description": "Accounting"
+              },
+              {
+                "value": "Administration",
+                "description": "Administration"
+              },
+              {
+                "value": "Benefits",
+                "description": "Benefits"
+              },
+              {
+                "value": "Construction",
+                "description": "Construction"
+              },
+              {
+                "value": "Contracting",
+                "description": "Contracting"
+              },
+              {
+                "value": "Control And Credit",
+                "description": "Control And Credit"
+              },
+              {
+                "value": "Corporate Tax",
+                "description": "Corporate Tax"
+              },
+              {
+                "value": "Executive",
+                "description": "Executive"
+              },
+              {
+                "value": "Finance",
+                "description": "Finance"
+              },
+              {
+                "value": "Government Sales",
+                "description": "Government Sales"
+              },
+              {
+                "value": "Human Resources",
+                "description": "Human Resources"
+              },
+              {
+                "value": "IT",
+                "description": "IT"
+              },
+              {
+                "value": "IT Helpdesk",
+                "description": "IT Helpdesk"
+              },
+              {
+                "value": "IT Support",
+                "description": "IT Support"
+              },
+              {
+                "value": "Manufacturing",
+                "description": "Manufacturing"
+              },
+              {
+                "value": "Marketing",
+                "description": "Marketing"
+              },
+              {
+                "value": "NOC",
+                "description": "NOC"
+              },
+              {
+                "value": "Operations",
+                "description": "Operations"
+              },
+              {
+                "value": "Payroll",
+                "description": "Payroll"
+              },
+              {
+                "value": "Public Relations",
+                "description": "Public Relations"
+              },
+              {
+                "value": "Purchasing",
+                "description": "Purchasing"
+              },
+              {
+                "value": "Recruiting",
+                "description": "Recruiting"
+              },
+              {
+                "value": "Retail Sales",
+                "description": "Retail Sales"
+              },
+              {
+                "value": "Sales",
+                "description": "Sales"
+              },
+              {
+                "value": "Shareholder Services",
+                "description": "Shareholder Services"
+              },
+              {
+                "value": "Shipping",
+                "description": "Shipping"
+              },
+              {
+                "value": "Treasury",
+                "description": "Treasury"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "jobs",
+        "columns": [
+          {
+            "name": "JOB_ID",
+            "description": "job id",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "AC_ACCOUNT",
+                "description": "Public Accountant"
+              },
+              {
+                "value": "AC_MGR",
+                "description": "Accounting Manager"
+              },
+              {
+                "value": "AD_ASST",
+                "description": "Administration Assistant"
+              },
+              {
+                "value": "AD_PRES",
+                "description": "President"
+              },
+              {
+                "value": "AD_VP",
+                "description": "Administration Vice President"
+              },
+              {
+                "value": "FI_ACCOUNT",
+                "description": "Accountant"
+              },
+              {
+                "value": "FI_MGR",
+                "description": "Finance Manager"
+              },
+              {
+                "value": "HR_REP",
+                "description": "Human Resources Representative"
+              },
+              {
+                "value": "IT_PROG",
+                "description": "Programmer"
+              },
+              {
+                "value": "MK_MAN",
+                "description": "Marketing Manager"
+              },
+              {
+                "value": "MK_REP",
+                "description": "Marketing Representative"
+              },
+              {
+                "value": "PR_REP",
+                "description": "Public Relations Representative"
+              },
+              {
+                "value": "PU_CLERK",
+                "description": "Purchasing Clerk"
+              },
+              {
+                "value": "PU_MAN",
+                "description": "Purchasing Manager"
+              },
+              {
+                "value": "SA_MAN",
+                "description": "Sales Manager"
+              },
+              {
+                "value": "SA_REP",
+                "description": "Sales Representative"
+              },
+              {
+                "value": "SH_CLERK",
+                "description": "Shipping Clerk"
+              },
+              {
+                "value": "ST_CLERK",
+                "description": "Stock Clerk"
+              },
+              {
+                "value": "ST_MAN",
+                "description": "Stock Manager"
+              }
+            ]
+          },
+          {
+            "name": "MIN_SALARY",
+            "description": "min salary",
+            "type": "number",
+            "min": 2100,
+            "max": 15000
+          },
+          {
+            "name": "MAX_SALARY",
+            "description": "max salary",
+            "type": "number",
+            "min": 5000,
+            "max": 40000
+          }
+        ]
+      },
+      {
+        "name": "employees",
+        "columns": [
+          {
+            "name": "SALARY",
+            "description": "salary",
+            "type": "number",
+            "min": 2100,
+            "max": 24000
+          },
+          {
+            "name": "HIRE_DATE",
+            "description": "hire date",
+            "type": "date",
+            "min": "1987-06-17",
+            "max": "1987-10-01"
+          }
+        ]
+      },
+      {
+        "name": "locations",
+        "columns": [
+          {
+            "name": "CITY",
+            "description": "city",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Beijing",
+                "description": "Beijing"
+              },
+              {
+                "value": "Bern",
+                "description": "Bern"
+              },
+              {
+                "value": "Bombay",
+                "description": "Bombay"
+              },
+              {
+                "value": "Geneva",
+                "description": "Geneva"
+              },
+              {
+                "value": "Hiroshima",
+                "description": "Hiroshima"
+              },
+              {
+                "value": "London",
+                "description": "London"
+              },
+              {
+                "value": "Mexico City",
+                "description": "Mexico City"
+              },
+              {
+                "value": "Munich",
+                "description": "Munich"
+              },
+              {
+                "value": "OX9 9ZB",
+                "description": "OX9 9ZB"
+              },
+              {
+                "value": "Roma",
+                "description": "Roma"
+              },
+              {
+                "value": "Sao Paulo",
+                "description": "Sao Paulo"
+              },
+              {
+                "value": "Seattle",
+                "description": "Seattle"
+              },
+              {
+                "value": "Singapore",
+                "description": "Singapore"
+              },
+              {
+                "value": "South Brunswick",
+                "description": "South Brunswick"
+              },
+              {
+                "value": "South San Francisco",
+                "description": "South San Francisco"
+              },
+              {
+                "value": "Southlake",
+                "description": "Southlake"
+              },
+              {
+                "value": "Stretford",
+                "description": "Stretford"
+              },
+              {
+                "value": "Sydney",
+                "description": "Sydney"
+              },
+              {
+                "value": "Tokyo",
+                "description": "Tokyo"
+              },
+              {
+                "value": "Toronto",
+                "description": "Toronto"
+              },
+              {
+                "value": "Utrecht",
+                "description": "Utrecht"
+              },
+              {
+                "value": "Venice",
+                "description": "Venice"
+              },
+              {
+                "value": "Whitehorse",
+                "description": "Whitehorse"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true
+  },
+  "bike_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "station",
+        "columns": [
+          {
+            "name": "city",
+            "description": "city",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Mountain View",
+                "description": "Mountain View"
+              },
+              {
+                "value": "Palo Alto",
+                "description": "Palo Alto"
+              },
+              {
+                "value": "Redwood City",
+                "description": "Redwood City"
+              },
+              {
+                "value": "San Francisco",
+                "description": "San Francisco"
+              },
+              {
+                "value": "San Jose",
+                "description": "San Jose"
+              }
+            ]
+          },
+          {
+            "name": "dock_count",
+            "description": "dock count",
+            "type": "number",
+            "min": 11,
+            "max": 27
+          }
+        ]
+      },
+      {
+        "name": "trip",
+        "columns": [
+          {
+            "name": "subscription_type",
+            "description": "subscription type",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Customer",
+                "description": "Customer"
+              },
+              {
+                "value": "Subscriber",
+                "description": "Subscriber"
+              }
+            ]
+          },
+          {
+            "name": "duration",
+            "description": "duration",
+            "type": "number",
+            "min": 61,
+            "max": 3600
+          }
+        ]
+      },
+      {
+        "name": "status",
+        "columns": [
+          {
+            "name": "bikes_available",
+            "description": "bikes available",
+            "type": "number",
+            "min": 0,
+            "max": 30
+          }
+        ]
+      },
+      {
+        "name": "weather",
+        "columns": [
+          {
+            "name": "max_temperature_f",
+            "description": "max temperature f",
+            "type": "number",
+            "min": 44,
+            "max": 100
+          },
+          {
+            "name": "mean_humidity",
+            "description": "mean humidity",
+            "type": "number",
+            "min": 0,
+            "max": 100
+          },
+          {
+            "name": "max_wind_Speed_mph",
+            "description": "max wind speed mph",
+            "type": "number",
+            "min": 0,
+            "max": 50
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true
+  },
+  "movie_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "Movie",
+        "columns": [
+          {
+            "name": "director",
+            "description": "director",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "George Lucas",
+                "description": "George Lucas"
+              },
+              {
+                "value": "James Cameron",
+                "description": "James Cameron"
+              },
+              {
+                "value": "Robert Wise",
+                "description": "Robert Wise"
+              },
+              {
+                "value": "Steven Spielberg",
+                "description": "Steven Spielberg"
+              },
+              {
+                "value": "Victor Fleming",
+                "description": "Victor Fleming"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "description": "title",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Avatar",
+                "description": "Avatar"
+              },
+              {
+                "value": "E.T.",
+                "description": "E.T."
+              },
+              {
+                "value": "Gone with the Wind",
+                "description": "Gone with the Wind"
+              },
+              {
+                "value": "Raiders of the Lost Ark",
+                "description": "Raiders of the Lost Ark"
+              },
+              {
+                "value": "Snow White",
+                "description": "Snow White"
+              },
+              {
+                "value": "Star Wars",
+                "description": "Star Wars"
+              },
+              {
+                "value": "The Sound of Music",
+                "description": "The Sound of Music"
+              },
+              {
+                "value": "Titanic",
+                "description": "Titanic"
+              }
+            ]
+          },
+          {
+            "name": "year",
+            "description": "year",
+            "type": "number",
+            "min": 1937,
+            "max": 2009
+          }
+        ]
+      },
+      {
+        "name": "Rating",
+        "columns": [
+          {
+            "name": "stars",
+            "description": "stars",
+            "type": "number",
+            "min": 2,
+            "max": 5
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true
+  },
+  "soccer_2": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "College",
+        "columns": [
+          {
+            "name": "state",
+            "description": "state",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "AZ",
+                "description": "Arizona"
+              },
+              {
+                "value": "FL",
+                "description": "Florida"
+              },
+              {
+                "value": "LA",
+                "description": "Louisiana"
+              },
+              {
+                "value": "OK",
+                "description": "Oklahoma"
+              }
+            ]
+          },
+          {
+            "name": "enr",
+            "description": "enr",
+            "type": "number",
+            "min": 12000,
+            "max": 22000
+          }
+        ]
+      },
+      {
+        "name": "Player",
+        "columns": [
+          {
+            "name": "yCard",
+            "description": "ycard",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "no",
+                "description": "no"
+              },
+              {
+                "value": "yes",
+                "description": "yes"
+              }
+            ]
+          },
+          {
+            "name": "HS",
+            "description": "hs",
+            "type": "number",
+            "min": 300,
+            "max": 1600
+          }
+        ]
+      },
+      {
+        "name": "Tryout",
+        "columns": [
+          {
+            "name": "pPos",
+            "description": "ppos",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "goalie",
+                "description": "goalkeeper"
+              },
+              {
+                "value": "mid",
+                "description": "midfielder"
+              },
+              {
+                "value": "striker",
+                "description": "striker"
+              }
+            ]
+          },
+          {
+            "name": "decision",
+            "description": "decision",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "no",
+                "description": "no"
+              },
+              {
+                "value": "yes",
+                "description": "yes"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true
+  },
+  "college_2": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "classroom",
+        "columns": [
+          {
+            "name": "building",
+            "description": "building",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Alumni",
+                "description": "Alumni"
+              },
+              {
+                "value": "Bronfman",
+                "description": "Bronfman"
+              },
+              {
+                "value": "Chandler",
+                "description": "Chandler"
+              },
+              {
+                "value": "Drown",
+                "description": "Drown"
+              },
+              {
+                "value": "Fairchild",
+                "description": "Fairchild"
+              },
+              {
+                "value": "Garfield",
+                "description": "Garfield"
+              },
+              {
+                "value": "Gates",
+                "description": "Gates"
+              },
+              {
+                "value": "Grace",
+                "description": "Grace"
+              },
+              {
+                "value": "Lambeau",
+                "description": "Lambeau"
+              },
+              {
+                "value": "Lamberton",
+                "description": "Lamberton"
+              },
+              {
+                "value": "Main",
+                "description": "Main"
+              },
+              {
+                "value": "Nassau",
+                "description": "Nassau"
+              },
+              {
+                "value": "Painter",
+                "description": "Painter"
+              },
+              {
+                "value": "Polya",
+                "description": "Polya"
+              },
+              {
+                "value": "Power",
+                "description": "Power"
+              },
+              {
+                "value": "Rathbone",
+                "description": "Rathbone"
+              },
+              {
+                "value": "Saucon",
+                "description": "Saucon"
+              },
+              {
+                "value": "Stabler",
+                "description": "Stabler"
+              },
+              {
+                "value": "Taylor",
+                "description": "Taylor"
+              },
+              {
+                "value": "Whitman",
+                "description": "Whitman"
+              }
+            ]
+          },
+          {
+            "name": "capacity",
+            "description": "capacity",
+            "type": "number",
+            "min": 10,
+            "max": 120
+          }
+        ]
+      },
+      {
+        "name": "department",
+        "columns": [
+          {
+            "name": "dept_name",
+            "description": "dept name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Accounting",
+                "description": "Accounting"
+              },
+              {
+                "value": "Astronomy",
+                "description": "Astronomy"
+              },
+              {
+                "value": "Athletics",
+                "description": "Athletics"
+              },
+              {
+                "value": "Biology",
+                "description": "Biology"
+              },
+              {
+                "value": "Civil Eng.",
+                "description": "Civil Eng."
+              },
+              {
+                "value": "Comp. Sci.",
+                "description": "Comp. Sci."
+              },
+              {
+                "value": "Cybernetics",
+                "description": "Cybernetics"
+              },
+              {
+                "value": "Elec. Eng.",
+                "description": "Elec. Eng."
+              },
+              {
+                "value": "English",
+                "description": "English"
+              },
+              {
+                "value": "Finance",
+                "description": "Finance"
+              },
+              {
+                "value": "Geology",
+                "description": "Geology"
+              },
+              {
+                "value": "History",
+                "description": "History"
+              },
+              {
+                "value": "Languages",
+                "description": "Languages"
+              },
+              {
+                "value": "Marketing",
+                "description": "Marketing"
+              },
+              {
+                "value": "Math",
+                "description": "Math"
+              },
+              {
+                "value": "Mech. Eng.",
+                "description": "Mech. Eng."
+              },
+              {
+                "value": "Physics",
+                "description": "Physics"
+              },
+              {
+                "value": "Pol. Sci.",
+                "description": "Pol. Sci."
+              },
+              {
+                "value": "Psychology",
+                "description": "Psychology"
+              },
+              {
+                "value": "Statistics",
+                "description": "Statistics"
+              }
+            ]
+          },
+          {
+            "name": "budget",
+            "description": "budget",
+            "type": "number",
+            "min": 106379,
+            "max": 942162
+          }
+        ]
+      },
+      {
+        "name": "section",
+        "columns": [
+          {
+            "name": "semester",
+            "description": "semester",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Fall",
+                "description": "Fall"
+              },
+              {
+                "value": "Spring",
+                "description": "Spring"
+              }
+            ]
+          },
+          {
+            "name": "year",
+            "description": "year",
+            "type": "number",
+            "min": 2001,
+            "max": 2010
+          }
+        ]
+      },
+      {
+        "name": "instructor",
+        "columns": [
+          {
+            "name": "salary",
+            "description": "salary",
+            "type": "number",
+            "min": 32242,
+            "max": 124651
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true
+  },
+  "wine_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "wine",
+        "columns": [
+          {
+            "name": "Year",
+            "description": "year",
+            "type": "number",
+            "min": 2004,
+            "max": 2009
+          },
+          {
+            "name": "Price",
+            "description": "price",
+            "type": "number",
+            "min": 9,
+            "max": 225
+          },
+          {
+            "name": "Score",
+            "description": "score",
+            "type": "number",
+            "min": 78,
+            "max": 98
+          }
+        ]
+      },
+      {
+        "name": "grapes",
+        "columns": [
+          {
+            "name": "Color",
+            "description": "color",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Red",
+                "description": "Red"
+              },
+              {
+                "value": "White",
+                "description": "White"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "appellations",
+        "columns": [
+          {
+            "name": "County",
+            "description": "county",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Alameda",
+                "description": "Alameda"
+              },
+              {
+                "value": "Amador",
+                "description": "Amador"
+              },
+              {
+                "value": "Calaveras",
+                "description": "Calaveras"
+              },
+              {
+                "value": "Contra Costa",
+                "description": "Contra Costa"
+              },
+              {
+                "value": "Lake",
+                "description": "Lake"
+              },
+              {
+                "value": "Mendocino",
+                "description": "Mendocino"
+              },
+              {
+                "value": "Monterey",
+                "description": "Monterey"
+              },
+              {
+                "value": "Napa",
+                "description": "Napa"
+              },
+              {
+                "value": "San Benito",
+                "description": "San Benito"
+              },
+              {
+                "value": "San Joaquin",
+                "description": "San Joaquin"
+              },
+              {
+                "value": "San Luis Obispo",
+                "description": "San Luis Obispo"
+              },
+              {
+                "value": "Santa Barbara",
+                "description": "Santa Barbara"
+              },
+              {
+                "value": "Solano",
+                "description": "Solano"
+              },
+              {
+                "value": "Sonoma",
+                "description": "Sonoma"
+              },
+              {
+                "value": "Yolo",
+                "description": "Yolo"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true
+  },
+  "manufactory_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "Manufacturers",
+        "columns": [
+          {
+            "name": "Name",
+            "description": "name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Creative Labs",
+                "description": "Creative Labs"
+              },
+              {
+                "value": "Fujitsu",
+                "description": "Fujitsu"
+              },
+              {
+                "value": "Hewlett-Packard",
+                "description": "Hewlett-Packard"
+              },
+              {
+                "value": "Iomega",
+                "description": "Iomega"
+              },
+              {
+                "value": "Sony",
+                "description": "Sony"
+              },
+              {
+                "value": "Winchester",
+                "description": "Winchester"
+              }
+            ]
+          },
+          {
+            "name": "Headquarter",
+            "description": "headquarter",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Austin",
+                "description": "Austin"
+              },
+              {
+                "value": "Beijing",
+                "description": "Beijing"
+              },
+              {
+                "value": "Los Angeles",
+                "description": "Los Angeles"
+              },
+              {
+                "value": "Paris",
+                "description": "Paris"
+              },
+              {
+                "value": "Taiwan",
+                "description": "Taiwan"
+              },
+              {
+                "value": "Tokyo",
+                "description": "Tokyo"
+              }
+            ]
+          },
+          {
+            "name": "Founder",
+            "description": "founder",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Andy",
+                "description": "Andy"
+              },
+              {
+                "value": "James",
+                "description": "James"
+              },
+              {
+                "value": "John",
+                "description": "John"
+              },
+              {
+                "value": "Mary",
+                "description": "Mary"
+              },
+              {
+                "value": "Owen",
+                "description": "Owen"
+              },
+              {
+                "value": "Robert",
+                "description": "Robert"
+              }
+            ]
+          },
+          {
+            "name": "Revenue",
+            "description": "revenue",
+            "type": "number",
+            "min": 30,
+            "max": 200
+          }
+        ]
+      },
+      {
+        "name": "Products",
+        "columns": [
+          {
+            "name": "Price",
+            "description": "price",
+            "type": "number",
+            "min": 5,
+            "max": 270
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true
+  },
+  "dorm_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "Student",
+        "columns": [
+          {
+            "name": "Sex",
+            "description": "sex",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "F",
+                "description": "female"
+              },
+              {
+                "value": "M",
+                "description": "male"
+              }
+            ]
+          },
+          {
+            "name": "Age",
+            "description": "age",
+            "type": "number",
+            "min": 16,
+            "max": 27
+          }
+        ]
+      },
+      {
+        "name": "Dorm",
+        "columns": [
+          {
+            "name": "gender",
+            "description": "gender",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "F",
+                "description": "female-only"
+              },
+              {
+                "value": "M",
+                "description": "male-only"
+              },
+              {
+                "value": "X",
+                "description": "gender X (as labeled in Spider)"
+              }
+            ]
+          },
+          {
+            "name": "student_capacity",
+            "description": "student capacity",
+            "type": "number",
+            "min": 40,
+            "max": 400
+          }
+        ]
+      },
+      {
+        "name": "Dorm_amenity",
+        "columns": [
+          {
+            "name": "amenity_name",
+            "description": "amenity name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "4 Walls",
+                "description": "4 Walls"
+              },
+              {
+                "value": "Air Conditioning",
+                "description": "Air Conditioning"
+              },
+              {
+                "value": "Allows Pets",
+                "description": "Allows Pets"
+              },
+              {
+                "value": "Carpeted Rooms",
+                "description": "Carpeted Rooms"
+              },
+              {
+                "value": "Ethernet Ports",
+                "description": "Ethernet Ports"
+              },
+              {
+                "value": "Heat",
+                "description": "Heat"
+              },
+              {
+                "value": "Kitchen in Every Room",
+                "description": "Kitchen in Every Room"
+              },
+              {
+                "value": "Pub in Basement",
+                "description": "Pub in Basement"
+              },
+              {
+                "value": "Roof",
+                "description": "Roof"
+              },
+              {
+                "value": "Study Room",
+                "description": "Study Room"
+              },
+              {
+                "value": "TV Lounge",
+                "description": "TV Lounge"
+              },
+              {
+                "value": "Working Fireplaces",
+                "description": "Working Fireplaces"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true
+  }
+}

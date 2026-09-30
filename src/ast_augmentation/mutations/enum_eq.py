@@ -26,6 +26,8 @@ def mutate_enum(node, changelog, schema):
         return node
 
     current_value = val_node.this
+    if current_value not in {option["value"] for option in col_info["enums"]}:
+        return node
     old_description = current_value
     available_enums = []
 
