@@ -1,10 +1,12 @@
-# Spider 1.0 augmentation pilot
+# Spider 1.0 augmentation subset
 
-This pilot selects eight **training databases** from the official Spider 1.0
+This subset selects 20 **training databases** from the official Spider 1.0
 archive: `hr_1`, `bike_1`, `movie_1`, `soccer_2`, `college_2`, `wine_1`,
-`manufactory_1`, and `dorm_1`. Together they have 864 original question–SQL
-rows (about 429 distinct SQL strings). The selection covers eight database
-settings, not a claim of eight independently labeled semantic domains.
+`manufactory_1`, `dorm_1`, `store_1`, `music_1`, `hospital_1`, `flight_1`,
+`network_2`, `game_1`, `allergy_1`, `loan_1`, `driving_school`,
+`department_store`, `customers_and_addresses`, and `apartment_rentals`.
+Together they have 1,971 original question–SQL rows (983 distinct SQL strings).
+These are 20 database settings, not independently labeled semantic domains.
 
 The downloaded archive is third-party material and is not checked into this
 repository. Get `spider_data.zip` from the [official Spider site](https://yale-lily.github.io/spider/),
@@ -22,11 +24,16 @@ main training, development and test sets account for the 200, while the six
 `train_others` databases are additional. A database ID is not a published
 domain-category annotation.
 
-`schemas.json` contains 47 curated columns across the eight databases. Values
-for enum alternatives came from the corresponding SQLite files. Numeric
-bounds were reviewed against the data, with the anomalous wine year 2066
-excluded from the configured range. We intentionally omitted identifiers,
-foreign keys and uncertain cross-column substitutions. This metadata is for
+`schemas.json` contains 185 curated columns across the 20 databases. Enum
+alternatives came from the corresponding SQLite files. Numeric bounds were
+reviewed against the data; implausible outliers were excluded where noted in
+the curation. Identifiers and foreign keys were omitted. Selected compatible
+columns share a `semantic_group` within their table, such as the three
+`bike_1.weather` measures. The column mutation skips predicates with literal
+equality, membership, text patterns, and arithmetic to avoid retaining a value
+from the wrong column's domain. Spider's double-quoted categorical values are
+accepted only when they match a configured enum, and SUM/AVG are restricted to
+known numeric columns. This metadata is for
 *semantic augmentation* and is not a replacement for the full table schema
 that a downstream Text-to-SQL model will receive.
 
@@ -38,9 +45,9 @@ From the repository root after `uv sync`:
 uv run python experiments/spider/audit.py raw_data/spider_data
 ```
 
-With seed 42, 468/864 examples had a semantic change, and all 468 generated
+With seed 42, 1,030/1,971 examples had a semantic change, and all 1,030 generated
 SQL strings passed SQLite `EXPLAIN QUERY PLAN` using their own databases.
-The other 396 are ineligible under this conservative configuration and must
+The other 941 are ineligible under this conservative configuration and must
 not be counted as new AST examples. Planning a SQL statement proves neither
 that it returns useful rows nor that the adapted question is aligned with it.
 Review a sample of final LLM outputs before fine-tuning.

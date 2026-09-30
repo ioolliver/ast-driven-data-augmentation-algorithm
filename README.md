@@ -97,7 +97,7 @@ The final intrinsic evaluation used two Portuguese Text-to-SQL datasets related 
 
 Both span four difficulty levels. AtlasSQL-BR contributes 245 original pairs per level. The temporal set contains 46 easy, 30 medium, 8 hard, and 23 very hard pairs.
 
-An exploratory [Spider 1.0 training subset](datasets/spider/README.md) includes eight databases and an offline audit. Download Spider data separately from its original source; no downstream model results are reported here.
+An exploratory [Spider 1.0 training subset](datasets/spider/README.md) includes 20 databases and an offline audit. Download Spider data separately from its original source; no downstream model results are reported here.
 
 The dataset guides describe provenance, source formats, schemas, preparation steps, and artifact roles. Please also acknowledge the original dataset authors when using their data.
 

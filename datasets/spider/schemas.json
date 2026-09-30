@@ -349,7 +349,9 @@
         ]
       }
     ],
-    "case_insensitive_identifiers": true
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
   },
   "bike_1": {
     "dialect": "sqlite",
@@ -441,26 +443,31 @@
             "description": "max temperature f",
             "type": "number",
             "min": 44,
-            "max": 100
+            "max": 100,
+            "semantic_group": "weather_measure"
           },
           {
             "name": "mean_humidity",
             "description": "mean humidity",
             "type": "number",
             "min": 0,
-            "max": 100
+            "max": 100,
+            "semantic_group": "weather_measure"
           },
           {
             "name": "max_wind_Speed_mph",
             "description": "max wind speed mph",
             "type": "number",
             "min": 0,
-            "max": 50
+            "max": 50,
+            "semantic_group": "weather_measure"
           }
         ]
       }
     ],
-    "case_insensitive_identifiers": true
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
   },
   "movie_1": {
     "dialect": "sqlite",
@@ -557,7 +564,9 @@
         ]
       }
     ],
-    "case_insensitive_identifiers": true
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
   },
   "soccer_2": {
     "dialect": "sqlite",
@@ -665,7 +674,9 @@
         ]
       }
     ],
-    "case_insensitive_identifiers": true
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
   },
   "college_2": {
     "dialect": "sqlite",
@@ -909,7 +920,9 @@
         ]
       }
     ],
-    "case_insensitive_identifiers": true
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
   },
   "wine_1": {
     "dialect": "sqlite",
@@ -1034,7 +1047,9 @@
         ]
       }
     ],
-    "case_insensitive_identifiers": true
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
   },
   "manufactory_1": {
     "dialect": "sqlite",
@@ -1158,7 +1173,9 @@
         ]
       }
     ],
-    "case_insensitive_identifiers": true
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
   },
   "dorm_1": {
     "dialect": "sqlite",
@@ -1283,6 +1300,3942 @@
         ]
       }
     ],
-    "case_insensitive_identifiers": true
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
+  },
+  "store_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "employees",
+        "columns": [
+          {
+            "name": "title",
+            "description": "employee job title",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "General Manager",
+                "description": "General Manager"
+              },
+              {
+                "value": "IT Manager",
+                "description": "IT Manager"
+              },
+              {
+                "value": "IT Staff",
+                "description": "IT Staff"
+              },
+              {
+                "value": "Sales Manager",
+                "description": "Sales Manager"
+              },
+              {
+                "value": "Sales Support Agent",
+                "description": "Sales Support Agent"
+              }
+            ]
+          },
+          {
+            "name": "city",
+            "description": "employee city",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Calgary",
+                "description": "Calgary"
+              },
+              {
+                "value": "Edmonton",
+                "description": "Edmonton"
+              },
+              {
+                "value": "Lethbridge",
+                "description": "Lethbridge"
+              }
+            ]
+          },
+          {
+            "name": "birth_date",
+            "description": "employee birth date",
+            "type": "date",
+            "min": "1947-09-19",
+            "max": "1973-08-29"
+          },
+          {
+            "name": "hire_date",
+            "description": "employee hire date",
+            "type": "date",
+            "min": "2002-04-01",
+            "max": "2004-03-04"
+          }
+        ]
+      },
+      {
+        "name": "customers",
+        "columns": [
+          {
+            "name": "country",
+            "description": "customer country",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Argentina",
+                "description": "Argentina"
+              },
+              {
+                "value": "Australia",
+                "description": "Australia"
+              },
+              {
+                "value": "Austria",
+                "description": "Austria"
+              },
+              {
+                "value": "Belgium",
+                "description": "Belgium"
+              },
+              {
+                "value": "Brazil",
+                "description": "Brazil"
+              },
+              {
+                "value": "Canada",
+                "description": "Canada"
+              },
+              {
+                "value": "Chile",
+                "description": "Chile"
+              },
+              {
+                "value": "Czech Republic",
+                "description": "Czech Republic"
+              },
+              {
+                "value": "Denmark",
+                "description": "Denmark"
+              },
+              {
+                "value": "Finland",
+                "description": "Finland"
+              },
+              {
+                "value": "France",
+                "description": "France"
+              },
+              {
+                "value": "Germany",
+                "description": "Germany"
+              },
+              {
+                "value": "Hungary",
+                "description": "Hungary"
+              },
+              {
+                "value": "India",
+                "description": "India"
+              },
+              {
+                "value": "Ireland",
+                "description": "Ireland"
+              },
+              {
+                "value": "Italy",
+                "description": "Italy"
+              },
+              {
+                "value": "Netherlands",
+                "description": "Netherlands"
+              },
+              {
+                "value": "Norway",
+                "description": "Norway"
+              },
+              {
+                "value": "Poland",
+                "description": "Poland"
+              },
+              {
+                "value": "Portugal",
+                "description": "Portugal"
+              },
+              {
+                "value": "Spain",
+                "description": "Spain"
+              },
+              {
+                "value": "Sweden",
+                "description": "Sweden"
+              },
+              {
+                "value": "USA",
+                "description": "USA"
+              },
+              {
+                "value": "United Kingdom",
+                "description": "United Kingdom"
+              }
+            ]
+          },
+          {
+            "name": "state",
+            "description": "customer state or province",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "AB",
+                "description": "AB"
+              },
+              {
+                "value": "AZ",
+                "description": "AZ"
+              },
+              {
+                "value": "BC",
+                "description": "BC"
+              },
+              {
+                "value": "CA",
+                "description": "CA"
+              },
+              {
+                "value": "DF",
+                "description": "DF"
+              },
+              {
+                "value": "Dublin",
+                "description": "Dublin"
+              },
+              {
+                "value": "FL",
+                "description": "FL"
+              },
+              {
+                "value": "IL",
+                "description": "IL"
+              },
+              {
+                "value": "MA",
+                "description": "MA"
+              },
+              {
+                "value": "MB",
+                "description": "MB"
+              },
+              {
+                "value": "NS",
+                "description": "NS"
+              },
+              {
+                "value": "NSW",
+                "description": "NSW"
+              },
+              {
+                "value": "NT",
+                "description": "NT"
+              },
+              {
+                "value": "NV",
+                "description": "NV"
+              },
+              {
+                "value": "NY",
+                "description": "NY"
+              },
+              {
+                "value": "ON",
+                "description": "ON"
+              },
+              {
+                "value": "QC",
+                "description": "QC"
+              },
+              {
+                "value": "RJ",
+                "description": "RJ"
+              },
+              {
+                "value": "RM",
+                "description": "RM"
+              },
+              {
+                "value": "SP",
+                "description": "SP"
+              },
+              {
+                "value": "TX",
+                "description": "TX"
+              },
+              {
+                "value": "UT",
+                "description": "UT"
+              },
+              {
+                "value": "VV",
+                "description": "VV"
+              },
+              {
+                "value": "WA",
+                "description": "WA"
+              },
+              {
+                "value": "WI",
+                "description": "WI"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "invoices",
+        "columns": [
+          {
+            "name": "billing_country",
+            "description": "invoice billing country",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Argentina",
+                "description": "Argentina"
+              },
+              {
+                "value": "Australia",
+                "description": "Australia"
+              },
+              {
+                "value": "Austria",
+                "description": "Austria"
+              },
+              {
+                "value": "Belgium",
+                "description": "Belgium"
+              },
+              {
+                "value": "Brazil",
+                "description": "Brazil"
+              },
+              {
+                "value": "Canada",
+                "description": "Canada"
+              },
+              {
+                "value": "Chile",
+                "description": "Chile"
+              },
+              {
+                "value": "Czech Republic",
+                "description": "Czech Republic"
+              },
+              {
+                "value": "Denmark",
+                "description": "Denmark"
+              },
+              {
+                "value": "Finland",
+                "description": "Finland"
+              },
+              {
+                "value": "France",
+                "description": "France"
+              },
+              {
+                "value": "Germany",
+                "description": "Germany"
+              },
+              {
+                "value": "Hungary",
+                "description": "Hungary"
+              },
+              {
+                "value": "India",
+                "description": "India"
+              },
+              {
+                "value": "Ireland",
+                "description": "Ireland"
+              },
+              {
+                "value": "Italy",
+                "description": "Italy"
+              },
+              {
+                "value": "Netherlands",
+                "description": "Netherlands"
+              },
+              {
+                "value": "Norway",
+                "description": "Norway"
+              },
+              {
+                "value": "Poland",
+                "description": "Poland"
+              },
+              {
+                "value": "Portugal",
+                "description": "Portugal"
+              },
+              {
+                "value": "Spain",
+                "description": "Spain"
+              },
+              {
+                "value": "Sweden",
+                "description": "Sweden"
+              },
+              {
+                "value": "USA",
+                "description": "USA"
+              },
+              {
+                "value": "United Kingdom",
+                "description": "United Kingdom"
+              }
+            ]
+          },
+          {
+            "name": "billing_state",
+            "description": "invoice billing state or province",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "AB",
+                "description": "AB"
+              },
+              {
+                "value": "AZ",
+                "description": "AZ"
+              },
+              {
+                "value": "BC",
+                "description": "BC"
+              },
+              {
+                "value": "CA",
+                "description": "CA"
+              },
+              {
+                "value": "DF",
+                "description": "DF"
+              },
+              {
+                "value": "Dublin",
+                "description": "Dublin"
+              },
+              {
+                "value": "FL",
+                "description": "FL"
+              },
+              {
+                "value": "IL",
+                "description": "IL"
+              },
+              {
+                "value": "MA",
+                "description": "MA"
+              },
+              {
+                "value": "MB",
+                "description": "MB"
+              },
+              {
+                "value": "NS",
+                "description": "NS"
+              },
+              {
+                "value": "NSW",
+                "description": "NSW"
+              },
+              {
+                "value": "NT",
+                "description": "NT"
+              },
+              {
+                "value": "NV",
+                "description": "NV"
+              },
+              {
+                "value": "NY",
+                "description": "NY"
+              },
+              {
+                "value": "ON",
+                "description": "ON"
+              },
+              {
+                "value": "QC",
+                "description": "QC"
+              },
+              {
+                "value": "RJ",
+                "description": "RJ"
+              },
+              {
+                "value": "RM",
+                "description": "RM"
+              },
+              {
+                "value": "SP",
+                "description": "SP"
+              },
+              {
+                "value": "TX",
+                "description": "TX"
+              },
+              {
+                "value": "UT",
+                "description": "UT"
+              },
+              {
+                "value": "VV",
+                "description": "VV"
+              },
+              {
+                "value": "WA",
+                "description": "WA"
+              },
+              {
+                "value": "WI",
+                "description": "WI"
+              }
+            ]
+          },
+          {
+            "name": "total",
+            "description": "invoice total amount",
+            "type": "number",
+            "min": 1,
+            "max": 26
+          },
+          {
+            "name": "invoice_date",
+            "description": "invoice date",
+            "type": "date",
+            "min": "2007-01-01",
+            "max": "2011-12-22"
+          }
+        ]
+      },
+      {
+        "name": "tracks",
+        "columns": [
+          {
+            "name": "milliseconds",
+            "description": "track duration in milliseconds",
+            "type": "number",
+            "min": 1000,
+            "max": 5300000,
+            "semantic_group": "track_measure"
+          },
+          {
+            "name": "bytes",
+            "description": "track file size in bytes",
+            "type": "number",
+            "min": 38747,
+            "max": 1060000000,
+            "semantic_group": "track_measure"
+          },
+          {
+            "name": "unit_price",
+            "description": "track unit price",
+            "type": "number",
+            "min": 1,
+            "max": 2
+          }
+        ]
+      },
+      {
+        "name": "invoice_lines",
+        "columns": [
+          {
+            "name": "unit_price",
+            "description": "invoice line unit price",
+            "type": "number",
+            "min": 1,
+            "max": 2
+          }
+        ]
+      },
+      {
+        "name": "genres",
+        "columns": [
+          {
+            "name": "name",
+            "description": "music genre",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Alternative",
+                "description": "Alternative"
+              },
+              {
+                "value": "Alternative & Punk",
+                "description": "Alternative & Punk"
+              },
+              {
+                "value": "Blues",
+                "description": "Blues"
+              },
+              {
+                "value": "Bossa Nova",
+                "description": "Bossa Nova"
+              },
+              {
+                "value": "Classical",
+                "description": "Classical"
+              },
+              {
+                "value": "Comedy",
+                "description": "Comedy"
+              },
+              {
+                "value": "Drama",
+                "description": "Drama"
+              },
+              {
+                "value": "Easy Listening",
+                "description": "Easy Listening"
+              },
+              {
+                "value": "Electronica/Dance",
+                "description": "Electronica/Dance"
+              },
+              {
+                "value": "Heavy Metal",
+                "description": "Heavy Metal"
+              },
+              {
+                "value": "Hip Hop/Rap",
+                "description": "Hip Hop/Rap"
+              },
+              {
+                "value": "Jazz",
+                "description": "Jazz"
+              },
+              {
+                "value": "Latin",
+                "description": "Latin"
+              },
+              {
+                "value": "Metal",
+                "description": "Metal"
+              },
+              {
+                "value": "Opera",
+                "description": "Opera"
+              },
+              {
+                "value": "Pop",
+                "description": "Pop"
+              },
+              {
+                "value": "R&B/Soul",
+                "description": "R&B/Soul"
+              },
+              {
+                "value": "Reggae",
+                "description": "Reggae"
+              },
+              {
+                "value": "Rock",
+                "description": "Rock"
+              },
+              {
+                "value": "Rock And Roll",
+                "description": "Rock And Roll"
+              },
+              {
+                "value": "Sci Fi & Fantasy",
+                "description": "Sci Fi & Fantasy"
+              },
+              {
+                "value": "Science Fiction",
+                "description": "Science Fiction"
+              },
+              {
+                "value": "Soundtrack",
+                "description": "Soundtrack"
+              },
+              {
+                "value": "TV Shows",
+                "description": "TV Shows"
+              },
+              {
+                "value": "World",
+                "description": "World"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "media_types",
+        "columns": [
+          {
+            "name": "name",
+            "description": "media format",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "AAC audio file",
+                "description": "AAC audio file"
+              },
+              {
+                "value": "MPEG audio file",
+                "description": "MPEG audio file"
+              },
+              {
+                "value": "Protected AAC audio file",
+                "description": "Protected AAC audio file"
+              },
+              {
+                "value": "Protected MPEG-4 video file",
+                "description": "Protected MPEG-4 video file"
+              },
+              {
+                "value": "Purchased AAC audio file",
+                "description": "Purchased AAC audio file"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "playlists",
+        "columns": [
+          {
+            "name": "name",
+            "description": "playlist name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "90’s Music",
+                "description": "90’s Music"
+              },
+              {
+                "value": "Audiobooks",
+                "description": "Audiobooks"
+              },
+              {
+                "value": "Brazilian Music",
+                "description": "Brazilian Music"
+              },
+              {
+                "value": "Classical",
+                "description": "Classical"
+              },
+              {
+                "value": "Classical 101 - Deep Cuts",
+                "description": "Classical 101 - Deep Cuts"
+              },
+              {
+                "value": "Classical 101 - Next Steps",
+                "description": "Classical 101 - Next Steps"
+              },
+              {
+                "value": "Classical 101 - The Basics",
+                "description": "Classical 101 - The Basics"
+              },
+              {
+                "value": "Grunge",
+                "description": "Grunge"
+              },
+              {
+                "value": "Heavy Metal Classic",
+                "description": "Heavy Metal Classic"
+              },
+              {
+                "value": "Movies",
+                "description": "Movies"
+              },
+              {
+                "value": "Music",
+                "description": "Music"
+              },
+              {
+                "value": "Music Videos",
+                "description": "Music Videos"
+              },
+              {
+                "value": "On-The-Go 1",
+                "description": "On-The-Go 1"
+              },
+              {
+                "value": "TV Shows",
+                "description": "TV Shows"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
+  },
+  "music_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "genre",
+        "columns": [
+          {
+            "name": "g_name",
+            "description": "music genre",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "blues",
+                "description": "blues"
+              },
+              {
+                "value": "folk",
+                "description": "folk"
+              },
+              {
+                "value": "modern",
+                "description": "modern"
+              },
+              {
+                "value": "nazrul",
+                "description": "nazrul"
+              },
+              {
+                "value": "pop",
+                "description": "pop"
+              },
+              {
+                "value": "tagore",
+                "description": "tagore"
+              }
+            ]
+          },
+          {
+            "name": "most_popular_in",
+            "description": "region of greatest popularity",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "America",
+                "description": "America"
+              },
+              {
+                "value": "Bangladesh",
+                "description": "Bangladesh"
+              },
+              {
+                "value": "Canada",
+                "description": "Canada"
+              },
+              {
+                "value": "Sylhet,Chittagong,Kustia",
+                "description": "Sylhet,Chittagong,Kustia"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "artist",
+        "columns": [
+          {
+            "name": "country",
+            "description": "artist country",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Bangladesh",
+                "description": "Bangladesh"
+              },
+              {
+                "value": "India",
+                "description": "India"
+              },
+              {
+                "value": "UK",
+                "description": "UK"
+              },
+              {
+                "value": "USA",
+                "description": "USA"
+              }
+            ]
+          },
+          {
+            "name": "gender",
+            "description": "artist gender",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Female",
+                "description": "Female"
+              },
+              {
+                "value": "Male",
+                "description": "Male"
+              }
+            ]
+          },
+          {
+            "name": "preferred_genre",
+            "description": "artist preferred genre",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "blues",
+                "description": "blues"
+              },
+              {
+                "value": "folk",
+                "description": "folk"
+              },
+              {
+                "value": "modern",
+                "description": "modern"
+              },
+              {
+                "value": "nazrul",
+                "description": "nazrul"
+              },
+              {
+                "value": "pop",
+                "description": "pop"
+              },
+              {
+                "value": "tagore",
+                "description": "tagore"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "files",
+        "columns": [
+          {
+            "name": "formats",
+            "description": "media file format",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "mp3",
+                "description": "mp3"
+              },
+              {
+                "value": "mp4",
+                "description": "mp4"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "song",
+        "columns": [
+          {
+            "name": "country",
+            "description": "song country",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Bangladesh",
+                "description": "Bangladesh"
+              },
+              {
+                "value": "India",
+                "description": "India"
+              },
+              {
+                "value": "UK",
+                "description": "UK"
+              },
+              {
+                "value": "USA",
+                "description": "USA"
+              }
+            ]
+          },
+          {
+            "name": "genre_is",
+            "description": "song genre",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "blues",
+                "description": "blues"
+              },
+              {
+                "value": "folk",
+                "description": "folk"
+              },
+              {
+                "value": "modern",
+                "description": "modern"
+              },
+              {
+                "value": "nazrul",
+                "description": "nazrul"
+              },
+              {
+                "value": "pop",
+                "description": "pop"
+              },
+              {
+                "value": "tagore",
+                "description": "tagore"
+              }
+            ]
+          },
+          {
+            "name": "languages",
+            "description": "song language",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "bangla",
+                "description": "bangla"
+              },
+              {
+                "value": "english",
+                "description": "english"
+              }
+            ]
+          },
+          {
+            "name": "rating",
+            "description": "song rating",
+            "type": "number",
+            "min": 5,
+            "max": 10,
+            "semantic_group": "song_score"
+          },
+          {
+            "name": "resolution",
+            "description": "song resolution",
+            "type": "number",
+            "min": 320,
+            "max": 1080,
+            "semantic_group": "song_score"
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
+  },
+  "hospital_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "physician",
+        "columns": [
+          {
+            "name": "position",
+            "description": "physician job title",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Attending Physician",
+                "description": "Attending Physician"
+              },
+              {
+                "value": "Attending Psychiatrist",
+                "description": "Attending Psychiatrist"
+              },
+              {
+                "value": "Head Chief of Medicine",
+                "description": "Head Chief of Medicine"
+              },
+              {
+                "value": "MD Resident",
+                "description": "MD Resident"
+              },
+              {
+                "value": "Senior Attending Physician",
+                "description": "Senior Attending Physician"
+              },
+              {
+                "value": "Staff Internist",
+                "description": "Staff Internist"
+              },
+              {
+                "value": "Surgical Attending Physician",
+                "description": "Surgical Attending Physician"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "department",
+        "columns": [
+          {
+            "name": "name",
+            "description": "department name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "General Medicine",
+                "description": "General Medicine"
+              },
+              {
+                "value": "Psychiatry",
+                "description": "Psychiatry"
+              },
+              {
+                "value": "Surgery",
+                "description": "Surgery"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "procedures",
+        "columns": [
+          {
+            "name": "name",
+            "description": "procedure name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Complete Walletectomy",
+                "description": "Complete Walletectomy"
+              },
+              {
+                "value": "Folded Demiophtalmectomy",
+                "description": "Folded Demiophtalmectomy"
+              },
+              {
+                "value": "Follicular Demiectomy",
+                "description": "Follicular Demiectomy"
+              },
+              {
+                "value": "Obfuscated Dermogastrotomy",
+                "description": "Obfuscated Dermogastrotomy"
+              },
+              {
+                "value": "Obtuse Pyloric Recombobulation",
+                "description": "Obtuse Pyloric Recombobulation"
+              },
+              {
+                "value": "Reverse Rhinopodoplasty",
+                "description": "Reverse Rhinopodoplasty"
+              },
+              {
+                "value": "Reversible Pancreomyoplasty",
+                "description": "Reversible Pancreomyoplasty"
+              }
+            ]
+          },
+          {
+            "name": "cost",
+            "description": "procedure cost",
+            "type": "number",
+            "min": 25,
+            "max": 10000
+          }
+        ]
+      },
+      {
+        "name": "nurse",
+        "columns": [
+          {
+            "name": "position",
+            "description": "nurse job title",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Head Nurse",
+                "description": "Head Nurse"
+              },
+              {
+                "value": "Nurse",
+                "description": "Nurse"
+              }
+            ]
+          },
+          {
+            "name": "registered",
+            "description": "nurse registration indicator (0 or 1)",
+            "type": "number",
+            "min": 0,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "name": "appointment",
+        "columns": [
+          {
+            "name": "examinationroom",
+            "description": "examination room label",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "A",
+                "description": "A"
+              },
+              {
+                "value": "B",
+                "description": "B"
+              },
+              {
+                "value": "C",
+                "description": "C"
+              }
+            ]
+          },
+          {
+            "name": "start",
+            "description": "appointment start date",
+            "type": "date",
+            "min": "2008-04-24",
+            "max": "2008-04-27",
+            "semantic_group": "appointment_times"
+          },
+          {
+            "name": "end",
+            "description": "appointment end date",
+            "type": "date",
+            "min": "2008-04-21",
+            "max": "2008-04-27",
+            "semantic_group": "appointment_times"
+          }
+        ]
+      },
+      {
+        "name": "medication",
+        "columns": [
+          {
+            "name": "name",
+            "description": "medication name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Awakin",
+                "description": "Awakin"
+              },
+              {
+                "value": "Crescavitin",
+                "description": "Crescavitin"
+              },
+              {
+                "value": "Melioraurin",
+                "description": "Melioraurin"
+              },
+              {
+                "value": "Procrastin-X",
+                "description": "Procrastin-X"
+              },
+              {
+                "value": "Thesisin",
+                "description": "Thesisin"
+              }
+            ]
+          },
+          {
+            "name": "brand",
+            "description": "medication brand",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Bar Laboratories",
+                "description": "Bar Laboratories"
+              },
+              {
+                "value": "Baz Industries",
+                "description": "Baz Industries"
+              },
+              {
+                "value": "Foo Labs",
+                "description": "Foo Labs"
+              },
+              {
+                "value": "Snafu Pharmaceuticals",
+                "description": "Snafu Pharmaceuticals"
+              },
+              {
+                "value": "X",
+                "description": "X"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "prescribes",
+        "columns": [
+          {
+            "name": "dose",
+            "description": "medication dose",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "10",
+                "description": "10"
+              },
+              {
+                "value": "5",
+                "description": "5"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "room",
+        "columns": [
+          {
+            "name": "unavailable",
+            "description": "room unavailable indicator (0 or 1)",
+            "type": "number",
+            "min": 0,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "name": "affiliated_with",
+        "columns": [
+          {
+            "name": "primaryaffiliation",
+            "description": "primary affiliation indicator (0 or 1)",
+            "type": "number",
+            "min": 0,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "name": "trained_in",
+        "columns": [
+          {
+            "name": "certificationdate",
+            "description": "training certification date",
+            "type": "date",
+            "min": "2007-01-01",
+            "max": "2008-01-01",
+            "semantic_group": "certification_dates"
+          },
+          {
+            "name": "certificationexpires",
+            "description": "training certification expiry date",
+            "type": "date",
+            "min": "2007-12-31",
+            "max": "2008-12-31",
+            "semantic_group": "certification_dates"
+          }
+        ]
+      },
+      {
+        "name": "stay",
+        "columns": [
+          {
+            "name": "staystart",
+            "description": "stay start date",
+            "type": "date",
+            "min": "2008-05-01",
+            "max": "2008-05-03",
+            "semantic_group": "stay_dates"
+          },
+          {
+            "name": "stayend",
+            "description": "stay end date",
+            "type": "date",
+            "min": "2008-05-03",
+            "max": "2008-05-14",
+            "semantic_group": "stay_dates"
+          }
+        ]
+      },
+      {
+        "name": "on_call",
+        "columns": [
+          {
+            "name": "oncallstart",
+            "description": "nurse on-call start date",
+            "type": "date",
+            "min": "2008-11-04",
+            "max": "2008-11-04",
+            "semantic_group": "oncall_times"
+          },
+          {
+            "name": "oncallend",
+            "description": "nurse on-call end date",
+            "type": "date",
+            "min": "2008-11-04",
+            "max": "2008-11-05",
+            "semantic_group": "oncall_times"
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
+  },
+  "flight_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "case_insensitive_identifiers": true,
+    "tables": [
+      {
+        "name": "flight",
+        "columns": [
+          {
+            "name": "origin",
+            "description": "origin",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Chicago",
+                "description": "Chicago"
+              },
+              {
+                "value": "Los Angeles",
+                "description": "Los Angeles"
+              }
+            ]
+          },
+          {
+            "name": "destination",
+            "description": "destination",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Boston",
+                "description": "Boston"
+              },
+              {
+                "value": "Chicago",
+                "description": "Chicago"
+              },
+              {
+                "value": "Dallas",
+                "description": "Dallas"
+              },
+              {
+                "value": "Honolulu",
+                "description": "Honolulu"
+              },
+              {
+                "value": "Los Angeles",
+                "description": "Los Angeles"
+              },
+              {
+                "value": "New York",
+                "description": "New York"
+              },
+              {
+                "value": "Sydney",
+                "description": "Sydney"
+              },
+              {
+                "value": "Tokyo",
+                "description": "Tokyo"
+              },
+              {
+                "value": "Washington D.C.",
+                "description": "Washington D.C."
+              }
+            ]
+          },
+          {
+            "name": "distance",
+            "description": "flight distance in miles",
+            "type": "number",
+            "min": 802,
+            "max": 7487
+          },
+          {
+            "name": "price",
+            "description": "ticket price",
+            "type": "number",
+            "min": 182,
+            "max": 781
+          },
+          {
+            "name": "departure_date",
+            "description": "scheduled departure date and time in MM/DD/YYYY HH:MM format",
+            "type": "text",
+            "semantic_group": "flight_schedule_time"
+          },
+          {
+            "name": "arrival_date",
+            "description": "scheduled arrival date and time in MM/DD/YYYY HH:MM format",
+            "type": "text",
+            "semantic_group": "flight_schedule_time"
+          }
+        ]
+      },
+      {
+        "name": "aircraft",
+        "columns": [
+          {
+            "name": "name",
+            "description": "name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Airbus A319",
+                "description": "Airbus A319"
+              },
+              {
+                "value": "Airbus A320",
+                "description": "Airbus A320"
+              },
+              {
+                "value": "Airbus A340-300",
+                "description": "Airbus A340-300"
+              },
+              {
+                "value": "Boeing 727",
+                "description": "Boeing 727"
+              },
+              {
+                "value": "Boeing 737-800",
+                "description": "Boeing 737-800"
+              },
+              {
+                "value": "Boeing 747-400",
+                "description": "Boeing 747-400"
+              },
+              {
+                "value": "Boeing 757-300",
+                "description": "Boeing 757-300"
+              },
+              {
+                "value": "Boeing 767-400ER",
+                "description": "Boeing 767-400ER"
+              },
+              {
+                "value": "Boeing 777-300",
+                "description": "Boeing 777-300"
+              },
+              {
+                "value": "British Aerospace Jetstream 41",
+                "description": "British Aerospace Jetstream 41"
+              },
+              {
+                "value": "Embraer ERJ-145",
+                "description": "Embraer ERJ-145"
+              },
+              {
+                "value": "Lockheed L1011",
+                "description": "Lockheed L1011"
+              },
+              {
+                "value": "Piper Archer III",
+                "description": "Piper Archer III"
+              },
+              {
+                "value": "SAAB 340",
+                "description": "SAAB 340"
+              },
+              {
+                "value": "Schwitzer 2-33",
+                "description": "Schwitzer 2-33"
+              },
+              {
+                "value": "Tupolev 154",
+                "description": "Tupolev 154"
+              }
+            ]
+          },
+          {
+            "name": "distance",
+            "description": "maximum aircraft flying distance in miles",
+            "type": "number",
+            "min": 30,
+            "max": 8430
+          }
+        ]
+      },
+      {
+        "name": "employee",
+        "columns": [
+          {
+            "name": "name",
+            "description": "name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Angela Martinez",
+                "description": "Angela Martinez"
+              },
+              {
+                "value": "Barbara Wilson",
+                "description": "Barbara Wilson"
+              },
+              {
+                "value": "Betty Adams",
+                "description": "Betty Adams"
+              },
+              {
+                "value": "Chad Stewart",
+                "description": "Chad Stewart"
+              },
+              {
+                "value": "David Anderson",
+                "description": "David Anderson"
+              },
+              {
+                "value": "Donald King",
+                "description": "Donald King"
+              },
+              {
+                "value": "Dorthy Lewis",
+                "description": "Dorthy Lewis"
+              },
+              {
+                "value": "Elizabeth Taylor",
+                "description": "Elizabeth Taylor"
+              },
+              {
+                "value": "Eric Cooper",
+                "description": "Eric Cooper"
+              },
+              {
+                "value": "George Wright",
+                "description": "George Wright"
+              },
+              {
+                "value": "Haywood Kelly",
+                "description": "Haywood Kelly"
+              },
+              {
+                "value": "James Smith",
+                "description": "James Smith"
+              },
+              {
+                "value": "Jennifer Thomas",
+                "description": "Jennifer Thomas"
+              },
+              {
+                "value": "John Williams",
+                "description": "John Williams"
+              },
+              {
+                "value": "Joseph Thompson",
+                "description": "Joseph Thompson"
+              },
+              {
+                "value": "Karen Scott",
+                "description": "Karen Scott"
+              },
+              {
+                "value": "Larry West",
+                "description": "Larry West"
+              },
+              {
+                "value": "Lawrence Sperry",
+                "description": "Lawrence Sperry"
+              },
+              {
+                "value": "Linda Davis",
+                "description": "Linda Davis"
+              },
+              {
+                "value": "Lisa Walker",
+                "description": "Lisa Walker"
+              },
+              {
+                "value": "Mark Young",
+                "description": "Mark Young"
+              },
+              {
+                "value": "Mary Johnson",
+                "description": "Mary Johnson"
+              },
+              {
+                "value": "Michael Miller",
+                "description": "Michael Miller"
+              },
+              {
+                "value": "Milo Brooks",
+                "description": "Milo Brooks"
+              },
+              {
+                "value": "Patricia Jones",
+                "description": "Patricia Jones"
+              },
+              {
+                "value": "Richard Jackson",
+                "description": "Richard Jackson"
+              },
+              {
+                "value": "Robert Brown",
+                "description": "Robert Brown"
+              },
+              {
+                "value": "William Jones",
+                "description": "William Jones"
+              },
+              {
+                "value": "William Moore",
+                "description": "William Moore"
+              },
+              {
+                "value": "William Ward",
+                "description": "William Ward"
+              }
+            ]
+          },
+          {
+            "name": "salary",
+            "description": "employee salary",
+            "type": "number",
+            "min": 18050,
+            "max": 289950
+          }
+        ]
+      }
+    ],
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
+  },
+  "network_2": {
+    "dialect": "sqlite",
+    "language": "English",
+    "case_insensitive_identifiers": true,
+    "tables": [
+      {
+        "name": "Person",
+        "columns": [
+          {
+            "name": "age",
+            "description": "age",
+            "type": "number",
+            "min": 25,
+            "max": 45
+          },
+          {
+            "name": "city",
+            "description": "city",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "austin",
+                "description": "austin"
+              },
+              {
+                "value": "chicago",
+                "description": "chicago"
+              },
+              {
+                "value": "new york city",
+                "description": "new york city"
+              },
+              {
+                "value": "salt lake city",
+                "description": "salt lake city"
+              }
+            ]
+          },
+          {
+            "name": "gender",
+            "description": "gender",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "female",
+                "description": "female"
+              },
+              {
+                "value": "male",
+                "description": "male"
+              }
+            ]
+          },
+          {
+            "name": "job",
+            "description": "job",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "doctor",
+                "description": "doctor"
+              },
+              {
+                "value": "engineer",
+                "description": "engineer"
+              },
+              {
+                "value": "student",
+                "description": "student"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "PersonFriend",
+        "columns": [
+          {
+            "name": "year",
+            "description": "length of the friendship in years",
+            "type": "number",
+            "min": 5,
+            "max": 12
+          }
+        ]
+      }
+    ],
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
+  },
+  "game_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "case_insensitive_identifiers": true,
+    "tables": [
+      {
+        "name": "Student",
+        "columns": [
+          {
+            "name": "LName",
+            "description": "lname",
+            "type": "text"
+          },
+          {
+            "name": "Fname",
+            "description": "fname",
+            "type": "text"
+          },
+          {
+            "name": "Age",
+            "description": "age",
+            "type": "number",
+            "min": 16,
+            "max": 27
+          },
+          {
+            "name": "Sex",
+            "description": "sex",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "F",
+                "description": "F"
+              },
+              {
+                "value": "M",
+                "description": "M"
+              }
+            ]
+          },
+          {
+            "name": "city_code",
+            "description": "student city code",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "ATL",
+                "description": "ATL"
+              },
+              {
+                "value": "BAL",
+                "description": "BAL"
+              },
+              {
+                "value": "BOS",
+                "description": "BOS"
+              },
+              {
+                "value": "CHI",
+                "description": "CHI"
+              },
+              {
+                "value": "DAL",
+                "description": "DAL"
+              },
+              {
+                "value": "DET",
+                "description": "DET"
+              },
+              {
+                "value": "HKG",
+                "description": "HKG"
+              },
+              {
+                "value": "HOU",
+                "description": "HOU"
+              },
+              {
+                "value": "LON",
+                "description": "LON"
+              },
+              {
+                "value": "LOS",
+                "description": "LOS"
+              },
+              {
+                "value": "NAR",
+                "description": "NAR"
+              },
+              {
+                "value": "NYC",
+                "description": "NYC"
+              },
+              {
+                "value": "PEK",
+                "description": "PEK"
+              },
+              {
+                "value": "PHL",
+                "description": "PHL"
+              },
+              {
+                "value": "PIT",
+                "description": "PIT"
+              },
+              {
+                "value": "ROC",
+                "description": "ROC"
+              },
+              {
+                "value": "SFO",
+                "description": "SFO"
+              },
+              {
+                "value": "WAS",
+                "description": "WAS"
+              },
+              {
+                "value": "YYZ",
+                "description": "YYZ"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Video_Games",
+        "columns": [
+          {
+            "name": "GName",
+            "description": "gname",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Call of Destiny",
+                "description": "Call of Destiny"
+              },
+              {
+                "value": "Europe is the Universe",
+                "description": "Europe is the Universe"
+              },
+              {
+                "value": "Grand Term Assignment",
+                "description": "Grand Term Assignment"
+              },
+              {
+                "value": "RNG Stone",
+                "description": "RNG Stone"
+              },
+              {
+                "value": "The Vanishing of Eric Calder",
+                "description": "The Vanishing of Eric Calder"
+              },
+              {
+                "value": "Works of Widenius",
+                "description": "Works of Widenius"
+              }
+            ]
+          },
+          {
+            "name": "GType",
+            "description": "gtype",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Collectible card game",
+                "description": "Collectible card game"
+              },
+              {
+                "value": "Frist-person shooter",
+                "description": "Frist-person shooter"
+              },
+              {
+                "value": "Grand strategy",
+                "description": "Grand strategy"
+              },
+              {
+                "value": "Massively multiplayer online game",
+                "description": "Massively multiplayer online game"
+              },
+              {
+                "value": "Role-playing game",
+                "description": "Role-playing game"
+              },
+              {
+                "value": "Walking Simulator",
+                "description": "Walking Simulator"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Plays_Games",
+        "columns": [
+          {
+            "name": "Hours_Played",
+            "description": "hours played",
+            "type": "number",
+            "min": 1,
+            "max": 1337
+          }
+        ]
+      },
+      {
+        "name": "SportsInfo",
+        "columns": [
+          {
+            "name": "SportName",
+            "description": "sportname",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Athletics",
+                "description": "Athletics"
+              },
+              {
+                "value": "Baseball",
+                "description": "Baseball"
+              },
+              {
+                "value": "Basketball",
+                "description": "Basketball"
+              },
+              {
+                "value": "Cricket",
+                "description": "Cricket"
+              },
+              {
+                "value": "Curling",
+                "description": "Curling"
+              },
+              {
+                "value": "Football",
+                "description": "Football"
+              },
+              {
+                "value": "Lacrosse",
+                "description": "Lacrosse"
+              },
+              {
+                "value": "Soccer",
+                "description": "Soccer"
+              },
+              {
+                "value": "Swimming",
+                "description": "Swimming"
+              },
+              {
+                "value": "Tennis",
+                "description": "Tennis"
+              }
+            ]
+          },
+          {
+            "name": "HoursPerWeek",
+            "description": "hours spent on the sport each week",
+            "type": "number",
+            "min": 1,
+            "max": 50,
+            "semantic_group": "sports_activity_count"
+          },
+          {
+            "name": "GamesPlayed",
+            "description": "number of games played",
+            "type": "number",
+            "min": 5,
+            "max": 94,
+            "semantic_group": "sports_activity_count"
+          },
+          {
+            "name": "OnScholarship",
+            "description": "onscholarship",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "N",
+                "description": "N"
+              },
+              {
+                "value": "Y",
+                "description": "Y"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
+  },
+  "allergy_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "case_insensitive_identifiers": true,
+    "tables": [
+      {
+        "name": "Allergy_Type",
+        "columns": [
+          {
+            "name": "Allergy",
+            "description": "allergy",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Anchovies",
+                "description": "Anchovies"
+              },
+              {
+                "value": "Bee Stings",
+                "description": "Bee Stings"
+              },
+              {
+                "value": "Cat",
+                "description": "Cat"
+              },
+              {
+                "value": "Dog",
+                "description": "Dog"
+              },
+              {
+                "value": "Eggs",
+                "description": "Eggs"
+              },
+              {
+                "value": "Grass Pollen",
+                "description": "Grass Pollen"
+              },
+              {
+                "value": "Milk",
+                "description": "Milk"
+              },
+              {
+                "value": "Nuts",
+                "description": "Nuts"
+              },
+              {
+                "value": "Ragweed",
+                "description": "Ragweed"
+              },
+              {
+                "value": "Rodent",
+                "description": "Rodent"
+              },
+              {
+                "value": "Shellfish",
+                "description": "Shellfish"
+              },
+              {
+                "value": "Soy",
+                "description": "Soy"
+              },
+              {
+                "value": "Tree Pollen",
+                "description": "Tree Pollen"
+              },
+              {
+                "value": "Wheat",
+                "description": "Wheat"
+              }
+            ]
+          },
+          {
+            "name": "AllergyType",
+            "description": "allergytype",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "animal",
+                "description": "animal"
+              },
+              {
+                "value": "environmental",
+                "description": "environmental"
+              },
+              {
+                "value": "food",
+                "description": "food"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Has_Allergy",
+        "columns": [
+          {
+            "name": "Allergy",
+            "description": "allergy",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Anchovies",
+                "description": "Anchovies"
+              },
+              {
+                "value": "Cat",
+                "description": "Cat"
+              },
+              {
+                "value": "Dog",
+                "description": "Dog"
+              },
+              {
+                "value": "Eggs",
+                "description": "Eggs"
+              },
+              {
+                "value": "Grass Pollen",
+                "description": "Grass Pollen"
+              },
+              {
+                "value": "Milk",
+                "description": "Milk"
+              },
+              {
+                "value": "Nuts",
+                "description": "Nuts"
+              },
+              {
+                "value": "Ragweed",
+                "description": "Ragweed"
+              },
+              {
+                "value": "Rodent",
+                "description": "Rodent"
+              },
+              {
+                "value": "Shellfish",
+                "description": "Shellfish"
+              },
+              {
+                "value": "Soy",
+                "description": "Soy"
+              },
+              {
+                "value": "Tree Pollen",
+                "description": "Tree Pollen"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Student",
+        "columns": [
+          {
+            "name": "Age",
+            "description": "age",
+            "type": "number",
+            "min": 16,
+            "max": 27
+          },
+          {
+            "name": "Sex",
+            "description": "sex",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "F",
+                "description": "F"
+              },
+              {
+                "value": "M",
+                "description": "M"
+              }
+            ]
+          },
+          {
+            "name": "city_code",
+            "description": "city code",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "ATL",
+                "description": "ATL"
+              },
+              {
+                "value": "BAL",
+                "description": "BAL"
+              },
+              {
+                "value": "BOS",
+                "description": "BOS"
+              },
+              {
+                "value": "CHI",
+                "description": "CHI"
+              },
+              {
+                "value": "DAL",
+                "description": "DAL"
+              },
+              {
+                "value": "DET",
+                "description": "DET"
+              },
+              {
+                "value": "HKG",
+                "description": "HKG"
+              },
+              {
+                "value": "HOU",
+                "description": "HOU"
+              },
+              {
+                "value": "LON",
+                "description": "LON"
+              },
+              {
+                "value": "LOS",
+                "description": "LOS"
+              },
+              {
+                "value": "NAR",
+                "description": "NAR"
+              },
+              {
+                "value": "NYC",
+                "description": "NYC"
+              },
+              {
+                "value": "PEK",
+                "description": "PEK"
+              },
+              {
+                "value": "PHL",
+                "description": "PHL"
+              },
+              {
+                "value": "PIT",
+                "description": "PIT"
+              },
+              {
+                "value": "ROC",
+                "description": "ROC"
+              },
+              {
+                "value": "SFO",
+                "description": "SFO"
+              },
+              {
+                "value": "WAS",
+                "description": "WAS"
+              },
+              {
+                "value": "YYZ",
+                "description": "YYZ"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
+  },
+  "loan_1": {
+    "dialect": "sqlite",
+    "language": "English",
+    "case_insensitive_identifiers": true,
+    "tables": [
+      {
+        "name": "bank",
+        "columns": [
+          {
+            "name": "bname",
+            "description": "bname",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "broadway",
+                "description": "broadway"
+              },
+              {
+                "value": "downtown",
+                "description": "downtown"
+              },
+              {
+                "value": "high",
+                "description": "high"
+              },
+              {
+                "value": "morningside",
+                "description": "morningside"
+              }
+            ]
+          },
+          {
+            "name": "no_of_customers",
+            "description": "no of customers",
+            "type": "number",
+            "min": 123,
+            "max": 453
+          },
+          {
+            "name": "city",
+            "description": "city",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Austin",
+                "description": "Austin"
+              },
+              {
+                "value": "New York City",
+                "description": "New York City"
+              },
+              {
+                "value": "Salt Lake City",
+                "description": "Salt Lake City"
+              }
+            ]
+          },
+          {
+            "name": "state",
+            "description": "state",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "New York",
+                "description": "New York"
+              },
+              {
+                "value": "Texas",
+                "description": "Texas"
+              },
+              {
+                "value": "Utah",
+                "description": "Utah"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "customer",
+        "columns": [
+          {
+            "name": "acc_type",
+            "description": "acc type",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "checking",
+                "description": "checking"
+              },
+              {
+                "value": "saving",
+                "description": "saving"
+              }
+            ]
+          },
+          {
+            "name": "acc_bal",
+            "description": "acc bal",
+            "type": "number",
+            "min": 1000,
+            "max": 800000
+          },
+          {
+            "name": "no_of_loans",
+            "description": "no of loans",
+            "type": "number",
+            "min": 0,
+            "max": 2
+          },
+          {
+            "name": "credit_score",
+            "description": "credit score",
+            "type": "number",
+            "min": 20,
+            "max": 210
+          },
+          {
+            "name": "state",
+            "description": "state",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "New York",
+                "description": "New York"
+              },
+              {
+                "value": "Texas",
+                "description": "Texas"
+              },
+              {
+                "value": "Utah",
+                "description": "Utah"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "loan",
+        "columns": [
+          {
+            "name": "loan_type",
+            "description": "loan type",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Auto",
+                "description": "Auto"
+              },
+              {
+                "value": "Business",
+                "description": "Business"
+              },
+              {
+                "value": "Mortgages",
+                "description": "Mortgages"
+              }
+            ]
+          },
+          {
+            "name": "amount",
+            "description": "amount",
+            "type": "number",
+            "min": 2050,
+            "max": 5000
+          }
+        ]
+      }
+    ],
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
+  },
+  "driving_school": {
+    "dialect": "sqlite",
+    "language": "English",
+    "case_insensitive_identifiers": true,
+    "tables": [
+      {
+        "name": "Addresses",
+        "columns": [
+          {
+            "name": "city",
+            "description": "city",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Buckridgehaven",
+                "description": "Buckridgehaven"
+              },
+              {
+                "value": "Damianfort",
+                "description": "Damianfort"
+              },
+              {
+                "value": "Elviebury",
+                "description": "Elviebury"
+              },
+              {
+                "value": "Ericamouth",
+                "description": "Ericamouth"
+              },
+              {
+                "value": "Hagenesfurt",
+                "description": "Hagenesfurt"
+              },
+              {
+                "value": "Lake Elaina",
+                "description": "Lake Elaina"
+              },
+              {
+                "value": "Lake Rafaela",
+                "description": "Lake Rafaela"
+              },
+              {
+                "value": "Lockmanfurt",
+                "description": "Lockmanfurt"
+              },
+              {
+                "value": "New Bernieceburgh",
+                "description": "New Bernieceburgh"
+              },
+              {
+                "value": "Port Jackelinemouth",
+                "description": "Port Jackelinemouth"
+              },
+              {
+                "value": "Port Melyssa",
+                "description": "Port Melyssa"
+              },
+              {
+                "value": "Powlowskichester",
+                "description": "Powlowskichester"
+              },
+              {
+                "value": "South Eugene",
+                "description": "South Eugene"
+              },
+              {
+                "value": "South Richieport",
+                "description": "South Richieport"
+              },
+              {
+                "value": "West Edmondview",
+                "description": "West Edmondview"
+              }
+            ]
+          },
+          {
+            "name": "state_province_county",
+            "description": "state province county",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Alabama",
+                "description": "Alabama"
+              },
+              {
+                "value": "Connecticut",
+                "description": "Connecticut"
+              },
+              {
+                "value": "Georgia",
+                "description": "Georgia"
+              },
+              {
+                "value": "Idaho",
+                "description": "Idaho"
+              },
+              {
+                "value": "Kentucky",
+                "description": "Kentucky"
+              },
+              {
+                "value": "Louisiana",
+                "description": "Louisiana"
+              },
+              {
+                "value": "Maine",
+                "description": "Maine"
+              },
+              {
+                "value": "Ohio",
+                "description": "Ohio"
+              },
+              {
+                "value": "Oregon",
+                "description": "Oregon"
+              },
+              {
+                "value": "Washington",
+                "description": "Washington"
+              },
+              {
+                "value": "WestVirginia",
+                "description": "WestVirginia"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Staff",
+        "columns": [
+          {
+            "name": "first_name",
+            "description": "first name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Camylle",
+                "description": "Camylle"
+              },
+              {
+                "value": "Ernestina",
+                "description": "Ernestina"
+              },
+              {
+                "value": "Eulalia",
+                "description": "Eulalia"
+              },
+              {
+                "value": "Jaleel",
+                "description": "Jaleel"
+              },
+              {
+                "value": "Janessa",
+                "description": "Janessa"
+              },
+              {
+                "value": "Jedidiah",
+                "description": "Jedidiah"
+              },
+              {
+                "value": "Kaitlin",
+                "description": "Kaitlin"
+              },
+              {
+                "value": "Lincoln",
+                "description": "Lincoln"
+              },
+              {
+                "value": "Ludie",
+                "description": "Ludie"
+              },
+              {
+                "value": "Margie",
+                "description": "Margie"
+              },
+              {
+                "value": "Queenie",
+                "description": "Queenie"
+              },
+              {
+                "value": "Rebekah",
+                "description": "Rebekah"
+              },
+              {
+                "value": "Simeon",
+                "description": "Simeon"
+              },
+              {
+                "value": "Titus",
+                "description": "Titus"
+              },
+              {
+                "value": "Winnifred",
+                "description": "Winnifred"
+              }
+            ]
+          },
+          {
+            "name": "last_name",
+            "description": "last name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Carroll",
+                "description": "Carroll"
+              },
+              {
+                "value": "Doyle",
+                "description": "Doyle"
+              },
+              {
+                "value": "Durgan",
+                "description": "Durgan"
+              },
+              {
+                "value": "Hermann",
+                "description": "Hermann"
+              },
+              {
+                "value": "Herzog",
+                "description": "Herzog"
+              },
+              {
+                "value": "Jast",
+                "description": "Jast"
+              },
+              {
+                "value": "Kuphal",
+                "description": "Kuphal"
+              },
+              {
+                "value": "Macejkovic",
+                "description": "Macejkovic"
+              },
+              {
+                "value": "Maggio",
+                "description": "Maggio"
+              },
+              {
+                "value": "Mertz",
+                "description": "Mertz"
+              },
+              {
+                "value": "Mraz",
+                "description": "Mraz"
+              },
+              {
+                "value": "Rogahn",
+                "description": "Rogahn"
+              },
+              {
+                "value": "Sawayn",
+                "description": "Sawayn"
+              },
+              {
+                "value": "Turner",
+                "description": "Turner"
+              },
+              {
+                "value": "Weissnat",
+                "description": "Weissnat"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Vehicles",
+        "columns": [
+          {
+            "name": "vehicle_details",
+            "description": "vehicle details",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Car",
+                "description": "Car"
+              },
+              {
+                "value": "Truck",
+                "description": "Truck"
+              },
+              {
+                "value": "Van",
+                "description": "Van"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Customers",
+        "columns": [
+          {
+            "name": "customer_status_code",
+            "description": "customer status code",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Bad Customer",
+                "description": "Bad Customer"
+              },
+              {
+                "value": "Good Customer",
+                "description": "Good Customer"
+              }
+            ]
+          },
+          {
+            "name": "first_name",
+            "description": "first name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Amya",
+                "description": "Amya"
+              },
+              {
+                "value": "Carole",
+                "description": "Carole"
+              },
+              {
+                "value": "Clara",
+                "description": "Clara"
+              },
+              {
+                "value": "Dameon",
+                "description": "Dameon"
+              },
+              {
+                "value": "Dianna",
+                "description": "Dianna"
+              },
+              {
+                "value": "Estelle",
+                "description": "Estelle"
+              },
+              {
+                "value": "Genevieve",
+                "description": "Genevieve"
+              },
+              {
+                "value": "Jordy",
+                "description": "Jordy"
+              },
+              {
+                "value": "Leif",
+                "description": "Leif"
+              },
+              {
+                "value": "Marina",
+                "description": "Marina"
+              },
+              {
+                "value": "Millie",
+                "description": "Millie"
+              },
+              {
+                "value": "Omer",
+                "description": "Omer"
+              },
+              {
+                "value": "Ray",
+                "description": "Ray"
+              },
+              {
+                "value": "Rylan",
+                "description": "Rylan"
+              },
+              {
+                "value": "Sigrid",
+                "description": "Sigrid"
+              }
+            ]
+          },
+          {
+            "name": "last_name",
+            "description": "last name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Bernhard",
+                "description": "Bernhard"
+              },
+              {
+                "value": "Bruen",
+                "description": "Bruen"
+              },
+              {
+                "value": "Goodwin",
+                "description": "Goodwin"
+              },
+              {
+                "value": "Grant",
+                "description": "Grant"
+              },
+              {
+                "value": "Koelpin",
+                "description": "Koelpin"
+              },
+              {
+                "value": "Kohler",
+                "description": "Kohler"
+              },
+              {
+                "value": "Leuschke",
+                "description": "Leuschke"
+              },
+              {
+                "value": "Mertz",
+                "description": "Mertz"
+              },
+              {
+                "value": "Ortiz",
+                "description": "Ortiz"
+              },
+              {
+                "value": "Sanford",
+                "description": "Sanford"
+              },
+              {
+                "value": "Schmeler",
+                "description": "Schmeler"
+              },
+              {
+                "value": "Spinka",
+                "description": "Spinka"
+              },
+              {
+                "value": "Terry",
+                "description": "Terry"
+              },
+              {
+                "value": "Trantow",
+                "description": "Trantow"
+              },
+              {
+                "value": "Tromp",
+                "description": "Tromp"
+              }
+            ]
+          },
+          {
+            "name": "amount_outstanding",
+            "description": "amount outstanding",
+            "type": "number",
+            "min": 255,
+            "max": 9500
+          }
+        ]
+      },
+      {
+        "name": "Customer_Payments",
+        "columns": [
+          {
+            "name": "payment_method_code",
+            "description": "payment method code",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Credit Card",
+                "description": "Credit Card"
+              },
+              {
+                "value": "Direct Debit",
+                "description": "Direct Debit"
+              }
+            ]
+          },
+          {
+            "name": "amount_payment",
+            "description": "amount payment",
+            "type": "number",
+            "min": 787,
+            "max": 9887
+          }
+        ]
+      },
+      {
+        "name": "Lessons",
+        "columns": [
+          {
+            "name": "lesson_status_code",
+            "description": "lesson status code",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Cancelled",
+                "description": "Cancelled"
+              },
+              {
+                "value": "Completed",
+                "description": "Completed"
+              }
+            ]
+          },
+          {
+            "name": "price",
+            "description": "price",
+            "type": "number",
+            "min": 167,
+            "max": 495
+          }
+        ]
+      }
+    ],
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
+  },
+  "department_store": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "Staff",
+        "columns": [
+          {
+            "name": "staff_gender",
+            "description": "gender of staff member",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "0",
+                "description": "0"
+              },
+              {
+                "value": "1",
+                "description": "1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Suppliers",
+        "columns": [
+          {
+            "name": "supplier_name",
+            "description": "supplier name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "AB Store",
+                "description": "AB Store"
+              },
+              {
+                "value": "Audi",
+                "description": "Audi"
+              },
+              {
+                "value": "Lidl",
+                "description": "Lidl"
+              },
+              {
+                "value": "Tesco",
+                "description": "Tesco"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Department_Store_Chain",
+        "columns": [
+          {
+            "name": "dept_store_chain_name",
+            "description": "store chain name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "East",
+                "description": "East"
+              },
+              {
+                "value": "North",
+                "description": "North"
+              },
+              {
+                "value": "South",
+                "description": "South"
+              },
+              {
+                "value": "West",
+                "description": "West"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Customers",
+        "columns": [
+          {
+            "name": "payment_method_code",
+            "description": "customer payment method",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Credit Card",
+                "description": "Credit Card"
+              },
+              {
+                "value": "Direct Debit",
+                "description": "Direct Debit"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Products",
+        "columns": [
+          {
+            "name": "product_type_code",
+            "description": "product type",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Clothes",
+                "description": "Clothes"
+              },
+              {
+                "value": "Hardware",
+                "description": "Hardware"
+              }
+            ]
+          },
+          {
+            "name": "product_name",
+            "description": "product name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "black jeans",
+                "description": "black jeans"
+              },
+              {
+                "value": "black topping",
+                "description": "black topping"
+              },
+              {
+                "value": "blue jeans",
+                "description": "blue jeans"
+              },
+              {
+                "value": "blue topping",
+                "description": "blue topping"
+              },
+              {
+                "value": "drive",
+                "description": "drive"
+              },
+              {
+                "value": "keyboard",
+                "description": "keyboard"
+              },
+              {
+                "value": "mic",
+                "description": "mic"
+              },
+              {
+                "value": "monitor",
+                "description": "monitor"
+              },
+              {
+                "value": "mouse",
+                "description": "mouse"
+              },
+              {
+                "value": "red jeans",
+                "description": "red jeans"
+              },
+              {
+                "value": "red topping",
+                "description": "red topping"
+              },
+              {
+                "value": "speaker",
+                "description": "speaker"
+              },
+              {
+                "value": "yellow jeans",
+                "description": "yellow jeans"
+              },
+              {
+                "value": "yellow topping",
+                "description": "yellow topping"
+              }
+            ]
+          },
+          {
+            "name": "product_price",
+            "description": "product price",
+            "type": "number",
+            "min": 408,
+            "max": 972
+          }
+        ]
+      },
+      {
+        "name": "Customer_Orders",
+        "columns": [
+          {
+            "name": "order_status_code",
+            "description": "order status",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Cancelled",
+                "description": "Cancelled"
+              },
+              {
+                "value": "Completed",
+                "description": "Completed"
+              },
+              {
+                "value": "New",
+                "description": "New"
+              },
+              {
+                "value": "PartFilled",
+                "description": "PartFilled"
+              },
+              {
+                "value": "Pending",
+                "description": "Pending"
+              }
+            ]
+          },
+          {
+            "name": "order_date",
+            "description": "order placement date",
+            "type": "date",
+            "min": "2018-01-31",
+            "max": "2018-03-22"
+          }
+        ]
+      },
+      {
+        "name": "Departments",
+        "columns": [
+          {
+            "name": "department_name",
+            "description": "department name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "advertising",
+                "description": "advertising"
+              },
+              {
+                "value": "human resource",
+                "description": "human resource"
+              },
+              {
+                "value": "managing",
+                "description": "managing"
+              },
+              {
+                "value": "marketing",
+                "description": "marketing"
+              },
+              {
+                "value": "purchasing",
+                "description": "purchasing"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Product_Suppliers",
+        "columns": [
+          {
+            "name": "total_value_purchased",
+            "description": "total purchase value",
+            "type": "number",
+            "min": 7273,
+            "max": 99050
+          }
+        ]
+      },
+      {
+        "name": "Staff_Department_Assignments",
+        "columns": [
+          {
+            "name": "job_title_code",
+            "description": "staff job title",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Administration",
+                "description": "Administration"
+              },
+              {
+                "value": "Clerical Staff",
+                "description": "Clerical Staff"
+              },
+              {
+                "value": "Department Manager",
+                "description": "Department Manager"
+              },
+              {
+                "value": "Sales Person",
+                "description": "Sales Person"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
+  },
+  "customers_and_addresses": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "Addresses",
+        "columns": [
+          {
+            "name": "city",
+            "description": "city",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "East Julianaside",
+                "description": "East Julianaside"
+              },
+              {
+                "value": "East Pascale",
+                "description": "East Pascale"
+              },
+              {
+                "value": "Felicityfort",
+                "description": "Felicityfort"
+              },
+              {
+                "value": "Gleasonmouth",
+                "description": "Gleasonmouth"
+              },
+              {
+                "value": "Lake Geovannyton",
+                "description": "Lake Geovannyton"
+              },
+              {
+                "value": "Lake Ryann",
+                "description": "Lake Ryann"
+              },
+              {
+                "value": "Lake Walterton",
+                "description": "Lake Walterton"
+              },
+              {
+                "value": "Lucasville",
+                "description": "Lucasville"
+              },
+              {
+                "value": "New Sabryna",
+                "description": "New Sabryna"
+              },
+              {
+                "value": "New Terrillport",
+                "description": "New Terrillport"
+              },
+              {
+                "value": "Port Lilyan",
+                "description": "Port Lilyan"
+              },
+              {
+                "value": "Reingertown",
+                "description": "Reingertown"
+              },
+              {
+                "value": "South Bellaland",
+                "description": "South Bellaland"
+              },
+              {
+                "value": "South Meghanview",
+                "description": "South Meghanview"
+              },
+              {
+                "value": "Stantonville",
+                "description": "Stantonville"
+              }
+            ]
+          },
+          {
+            "name": "state_province_county",
+            "description": "state or province",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Arizona",
+                "description": "Arizona"
+              },
+              {
+                "value": "Arkansas",
+                "description": "Arkansas"
+              },
+              {
+                "value": "Colorado",
+                "description": "Colorado"
+              },
+              {
+                "value": "Florida",
+                "description": "Florida"
+              },
+              {
+                "value": "Kentucky",
+                "description": "Kentucky"
+              },
+              {
+                "value": "Mississippi",
+                "description": "Mississippi"
+              },
+              {
+                "value": "NewJersey",
+                "description": "NewJersey"
+              },
+              {
+                "value": "NewMexico",
+                "description": "NewMexico"
+              },
+              {
+                "value": "RhodeIsland",
+                "description": "RhodeIsland"
+              },
+              {
+                "value": "SouthCarolina",
+                "description": "SouthCarolina"
+              },
+              {
+                "value": "Texas",
+                "description": "Texas"
+              },
+              {
+                "value": "Virginia",
+                "description": "Virginia"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Products",
+        "columns": [
+          {
+            "name": "product_details",
+            "description": "product name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Americano",
+                "description": "Americano"
+              },
+              {
+                "value": "Dove Chocolate",
+                "description": "Dove Chocolate"
+              },
+              {
+                "value": "Latte",
+                "description": "Latte"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Customers",
+        "columns": [
+          {
+            "name": "payment_method",
+            "description": "payment method",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Cash",
+                "description": "Cash"
+              },
+              {
+                "value": "Cheque",
+                "description": "Cheque"
+              },
+              {
+                "value": "Credit Card",
+                "description": "Credit Card"
+              }
+            ]
+          },
+          {
+            "name": "date_became_customer",
+            "description": "customer registration date",
+            "type": "date",
+            "min": "2018-02-24",
+            "max": "2018-03-22"
+          }
+        ]
+      },
+      {
+        "name": "Customer_Addresses",
+        "columns": [
+          {
+            "name": "address_type",
+            "description": "address type",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Billing",
+                "description": "Billing"
+              },
+              {
+                "value": "Residential",
+                "description": "Residential"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Customer_Contact_Channels",
+        "columns": [
+          {
+            "name": "channel_code",
+            "description": "contact channel",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Cell",
+                "description": "Cell"
+              },
+              {
+                "value": "Email",
+                "description": "Email"
+              },
+              {
+                "value": "Fax",
+                "description": "Fax"
+              },
+              {
+                "value": "Handheld",
+                "description": "Handheld"
+              },
+              {
+                "value": "Mobile",
+                "description": "Mobile"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Customer_Orders",
+        "columns": [
+          {
+            "name": "order_status",
+            "description": "order status",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Cancelled",
+                "description": "Cancelled"
+              },
+              {
+                "value": "Delivered",
+                "description": "Delivered"
+              }
+            ]
+          },
+          {
+            "name": "order_date",
+            "description": "order date",
+            "type": "date",
+            "min": "2018-02-24",
+            "max": "2018-03-23"
+          }
+        ]
+      },
+      {
+        "name": "Order_Items",
+        "columns": [
+          {
+            "name": "order_quantity",
+            "description": "quantity ordered (stored as text)",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "1",
+                "description": "1 units ordered"
+              },
+              {
+                "value": "2",
+                "description": "2 units ordered"
+              },
+              {
+                "value": "5",
+                "description": "5 units ordered"
+              },
+              {
+                "value": "6",
+                "description": "6 units ordered"
+              },
+              {
+                "value": "7",
+                "description": "7 units ordered"
+              },
+              {
+                "value": "8",
+                "description": "8 units ordered"
+              },
+              {
+                "value": "9",
+                "description": "9 units ordered"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
+  },
+  "apartment_rentals": {
+    "dialect": "sqlite",
+    "language": "English",
+    "tables": [
+      {
+        "name": "Apartment_Buildings",
+        "columns": [
+          {
+            "name": "building_short_name",
+            "description": "building short name",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Avalon Park",
+                "description": "Avalon Park"
+              },
+              {
+                "value": "Barclay Tower",
+                "description": "Barclay Tower"
+              },
+              {
+                "value": "Biltmore Plaza",
+                "description": "Biltmore Plaza"
+              },
+              {
+                "value": "Columbus Square",
+                "description": "Columbus Square"
+              },
+              {
+                "value": "Mercedes House",
+                "description": "Mercedes House"
+              },
+              {
+                "value": "Normandie Court",
+                "description": "Normandie Court"
+              },
+              {
+                "value": "Peter Cooper Village",
+                "description": "Peter Cooper Village"
+              },
+              {
+                "value": "Petersfield",
+                "description": "Petersfield"
+              },
+              {
+                "value": "Silver Towers",
+                "description": "Silver Towers"
+              },
+              {
+                "value": "Stuyvesant Town",
+                "description": "Stuyvesant Town"
+              },
+              {
+                "value": "The Anthem",
+                "description": "The Anthem"
+              },
+              {
+                "value": "The Clinton",
+                "description": "The Clinton"
+              },
+              {
+                "value": "The Eugene",
+                "description": "The Eugene"
+              },
+              {
+                "value": "VIA 57 WEST",
+                "description": "VIA 57 WEST"
+              },
+              {
+                "value": "Windsor Court",
+                "description": "Windsor Court"
+              }
+            ]
+          },
+          {
+            "name": "building_manager",
+            "description": "building manager",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Albert",
+                "description": "Albert"
+              },
+              {
+                "value": "Brenden",
+                "description": "Brenden"
+              },
+              {
+                "value": "Claude",
+                "description": "Claude"
+              },
+              {
+                "value": "Darlene",
+                "description": "Darlene"
+              },
+              {
+                "value": "Emma",
+                "description": "Emma"
+              },
+              {
+                "value": "Ewald",
+                "description": "Ewald"
+              },
+              {
+                "value": "Holly",
+                "description": "Holly"
+              },
+              {
+                "value": "Juvenal",
+                "description": "Juvenal"
+              },
+              {
+                "value": "Kathlyn",
+                "description": "Kathlyn"
+              },
+              {
+                "value": "Kyle",
+                "description": "Kyle"
+              },
+              {
+                "value": "Marie",
+                "description": "Marie"
+              },
+              {
+                "value": "Melyssa",
+                "description": "Melyssa"
+              },
+              {
+                "value": "Olaf",
+                "description": "Olaf"
+              },
+              {
+                "value": "Rogers",
+                "description": "Rogers"
+              },
+              {
+                "value": "Sydni",
+                "description": "Sydni"
+              }
+            ]
+          },
+          {
+            "name": "building_description",
+            "description": "building description",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Duplex",
+                "description": "Duplex"
+              },
+              {
+                "value": "Flat",
+                "description": "Flat"
+              },
+              {
+                "value": "Studio",
+                "description": "Studio"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Apartments",
+        "columns": [
+          {
+            "name": "apt_type_code",
+            "description": "apartment type",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Duplex",
+                "description": "Duplex"
+              },
+              {
+                "value": "Flat",
+                "description": "Flat"
+              },
+              {
+                "value": "Studio",
+                "description": "Studio"
+              }
+            ]
+          },
+          {
+            "name": "bathroom_count",
+            "description": "number of bathrooms",
+            "type": "number",
+            "min": 1,
+            "max": 3,
+            "semantic_group": "apartment_room_counts"
+          },
+          {
+            "name": "bedroom_count",
+            "description": "number of bedrooms",
+            "type": "number",
+            "min": 3,
+            "max": 6,
+            "semantic_group": "apartment_room_counts"
+          }
+        ]
+      },
+      {
+        "name": "Apartment_Facilities",
+        "columns": [
+          {
+            "name": "facility_code",
+            "description": "facility type",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Boardband",
+                "description": "Boardband"
+              },
+              {
+                "value": "Cable TV",
+                "description": "Cable TV"
+              },
+              {
+                "value": "Gym",
+                "description": "Gym"
+              },
+              {
+                "value": "Swimming Pool",
+                "description": "Swimming Pool"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Guests",
+        "columns": [
+          {
+            "name": "gender_code",
+            "description": "guest gender",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Female",
+                "description": "Female"
+              },
+              {
+                "value": "Male",
+                "description": "Male"
+              },
+              {
+                "value": "Unknown",
+                "description": "Unknown"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Apartment_Bookings",
+        "columns": [
+          {
+            "name": "booking_status_code",
+            "description": "booking status",
+            "type": "enum",
+            "enums": [
+              {
+                "value": "Confirmed",
+                "description": "Confirmed"
+              },
+              {
+                "value": "Provisional",
+                "description": "Provisional"
+              }
+            ]
+          },
+          {
+            "name": "booking_start_date",
+            "description": "booking start date",
+            "type": "date",
+            "min": "2016-04-01",
+            "max": "2017-07-03"
+          },
+          {
+            "name": "booking_end_date",
+            "description": "booking end date",
+            "type": "date",
+            "min": "2017-09-28",
+            "max": "2018-03-20"
+          }
+        ]
+      }
+    ],
+    "case_insensitive_identifiers": true,
+    "sqlite_double_quoted_literals": true,
+    "restrict_aggregates": true
   }
 }

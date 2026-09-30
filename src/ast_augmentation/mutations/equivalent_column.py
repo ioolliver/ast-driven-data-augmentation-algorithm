@@ -10,6 +10,14 @@ def mutate_equivalent_column(node, changelog, schema):
     parent = node.parent
     if isinstance(parent, exp.EQ) and isinstance(parent.left, exp.Column) and isinstance(parent.right, exp.Column):
         return node
+    # A replacement column would retain a literal from the old value domain.
+    # This can produce syntactically valid but nonsensical Spider examples.
+    if isinstance(parent, (exp.EQ, exp.NEQ)) and (
+        isinstance(parent.left, exp.Literal) or isinstance(parent.right, exp.Literal)
+    ):
+        return node
+    if isinstance(parent, (exp.In, exp.Like, exp.ILike, exp.Add, exp.Sub, exp.Mul, exp.Div)):
+        return node
 
     col_name = node.name
     table_name = get_table_name(node)
@@ -19,12 +27,14 @@ def mutate_equivalent_column(node, changelog, schema):
         return node
 
     semantic_group = col_info["semantic_group"]
+    case_insensitive = schema.get("case_insensitive_identifiers", False)
+    same = (lambda a, b: a.casefold() == b.casefold()) if case_insensitive else (lambda a, b: a == b)
     peer_columns = [
         c
         for table in schema.get("tables", [])
-        if table["name"] == table_name
+        if table_name and same(table["name"], table_name)
         for c in table.get("columns", [])
-        if c.get("semantic_group") == semantic_group and c["name"] != col_name
+        if c.get("semantic_group") == semantic_group and not same(c["name"], col_name)
     ]
 
     if not peer_columns:
