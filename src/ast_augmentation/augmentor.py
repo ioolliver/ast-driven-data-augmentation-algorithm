@@ -45,7 +45,8 @@ def _create_sql_variation(schema, sql):
         node = rewrite_distinct_as_group_by(node)
         return node
 
-    ast = sqlglot.parse_one(sql, read="postgres")
+    dialect = schema.get("dialect", "postgres")
+    ast = sqlglot.parse_one(sql, read=dialect)
 
     # Pass 1: column swaps first so operator mutations see the updated columns
     modified_ast = ast.transform(
@@ -57,12 +58,14 @@ def _create_sql_variation(schema, sql):
     modified_ast = modified_ast.transform(rewrite_between_as_comparisons)
     modified_ast = modified_ast.transform(rewrite_equivalent_expressions)
 
-    sql_modified = modified_ast.sql(dialect="postgres", pretty=True)
+    sql_modified = modified_ast.sql(dialect=dialect, pretty=True)
     return sql_modified, semantic_changelog
 
 
-def create_paraphrase_only_variation(query, sql):
-    return paraphrase_query(query), sql
+def create_paraphrase_only_variation(query, sql, *, language="Portuguese"):
+    if language == "Portuguese":
+        return paraphrase_query(query), sql
+    return paraphrase_query(query, language=language), sql
 
 
 def create_random_variation(schema, query, sql):
@@ -70,7 +73,12 @@ def create_random_variation(schema, query, sql):
     if not semantic_changelog:
         return (query, sql_modified)
 
-    query_modified = adapt_query(query, sql, sql_modified, semantic_changelog)
+    if schema.get("language", "Portuguese") == "Portuguese":
+        query_modified = adapt_query(query, sql, sql_modified, semantic_changelog)
+    else:
+        query_modified = adapt_query(
+            query, sql, sql_modified, semantic_changelog, language=schema["language"]
+        )
 
     return (query_modified, sql_modified)
 
@@ -80,12 +88,11 @@ def create_random_variation_with_paraphrasing(schema, query, sql):
     if not semantic_changelog:
         return (query, sql_modified)
 
+    kwargs = {"paraphrase": True}
+    if schema.get("language", "Portuguese") != "Portuguese":
+        kwargs["language"] = schema["language"]
     query_modified = adapt_query(
-        query,
-        sql,
-        sql_modified,
-        semantic_changelog,
-        paraphrase=True,
+        query, sql, sql_modified, semantic_changelog, **kwargs
     )
 
     return (query_modified, sql_modified)

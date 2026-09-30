@@ -1,5 +1,4 @@
 import random
-import sqlglot
 from sqlglot import exp
 from ..schema_utils import get_col_info, get_table_name
 
@@ -15,9 +14,6 @@ def mutate_enum(node, changelog, schema):
     else:
         return node
 
-    if not isinstance(val_node, exp.Literal):
-        return node
-
     col_name = col_node.name
     table_name = get_table_name(col_node)
     col_info = get_col_info(schema, table_name, col_name)
@@ -25,7 +21,21 @@ def mutate_enum(node, changelog, schema):
     if not col_info or col_info.get("type") != "enum":
         return node
 
-    current_value = val_node.this
+    if isinstance(val_node, exp.Literal) and val_node.is_string:
+        current_value = val_node.this
+    elif (
+        schema.get("sqlite_double_quoted_literals")
+        and isinstance(val_node, exp.Column)
+        and not val_node.table
+        and val_node.this.args.get("quoted")
+    ):
+        # Spider uses SQLite's legacy double-quoted string syntax. sqlglot
+        # parses these as identifiers; accept only known values for this enum.
+        current_value = val_node.name
+    else:
+        return node
+    if current_value not in {option["value"] for option in col_info["enums"]}:
+        return node
     old_description = current_value
     available_enums = []
 
@@ -48,4 +58,4 @@ def mutate_enum(node, changelog, schema):
         "new_line": f"{col_sql} = '{new_value}' -- ({new_description})",
     })
 
-    return sqlglot.parse_one(f"{col_sql} = '{new_value}'", read="postgres")
+    return exp.EQ(this=col_node.copy(), expression=exp.Literal.string(str(new_value)))

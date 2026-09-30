@@ -10,9 +10,9 @@ Text-to-SQL datasets require aligned natural-language questions and SQL queries.
 
 The method takes an existing question–SQL pair and a **custom schema** containing eligible columns, valid values, ranges, and semantic relationships. SQLGlot performs the AST transformations; the LLM expresses the resulting changes in natural language.
 
-This repository contains the augmentation method and intrinsic evaluation developed during an undergraduate research project at the University of São Paulo (USP). It may receive further research extensions. **Downstream fine-tuning and model evaluation are outside the current scope.**
+This repository contains the augmentation method and intrinsic evaluation developed during an undergraduate research project at the University of São Paulo (USP). It also includes a Spider 1.0 augmentation pilot. **Downstream fine-tuning and model evaluation have not yet been implemented.**
 
-The experiments use Brazilian Portuguese questions. The implementation targets PostgreSQL/PostGIS; support for other SQL dialects has not been established by this evaluation.
+The original experiments use Brazilian Portuguese questions and PostgreSQL/PostGIS. The Spider pilot configures English prompts and SQLite serialization; its offline SQL-planning audit does not establish question–SQL alignment or downstream gains.
 
 ## How it works
 
@@ -96,6 +96,8 @@ The final intrinsic evaluation used two Portuguese Text-to-SQL datasets related 
 | AtlasSQL-BR | Geospatial queries with PostGIS | 980 | [Dataset guide](datasets/atlas_sql_br/README.md) |
 
 Both span four difficulty levels. AtlasSQL-BR contributes 245 original pairs per level. The temporal set contains 46 easy, 30 medium, 8 hard, and 23 very hard pairs.
+
+An exploratory [Spider 1.0 training subset](datasets/spider/README.md) includes 20 databases and an offline audit. Download Spider data separately from its original source; no downstream model results are reported here.
 
 The dataset guides describe provenance, source formats, schemas, preparation steps, and artifact roles. Please also acknowledge the original dataset authors when using their data.
 
