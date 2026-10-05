@@ -56,7 +56,7 @@ Review a sample of final LLM outputs before fine-tuning.
 
 Configure the LLM as described in [the usage guide](../../docs/usage.md).
 The generation command makes remote LLM calls and can incur charges. For a
-small pilot, use a fresh output directory:
+small pilot:
 
 ```bash
 uv run python experiments/spider/generate.py raw_data/spider_data \
@@ -68,10 +68,24 @@ JSONL files for `paraphrase`, `ast`, and `ast_paraphrase`. Each line has the
 source index and database ID, original pair, method, and generated pair.
 The AST and AST-plus-paraphrase arms share the **same mutated SQL** for each
 source example. SQL that fails SQLite planning is skipped before an LLM call.
-Use `--methods` to select arms, `--seed` to choose a mutation seed, and a new
-output directory for every run. Files are written first with a `.tmp` suffix
-and renamed when an arm finishes; a provider error leaves the current arm
-incomplete for inspection. No model fine-tuning is performed by this command.
+Use `--methods` to select arms and `--seed` to choose a mutation seed. For a
+concurrent Bedrock run that reuses the same output directory, including an
+existing completed `paraphrase.jsonl`:
+
+```bash
+uv run python experiments/spider/generate.py raw_data/spider_data \
+  --output-dir raw_data/spider_pilot --max-workers 4 --progress-every 10
+```
+
+`--max-workers` defaults to 1. Start with a small value and adjust it to your
+Bedrock account's request and token limits; local inference should use 1.
+The script logs preparation and progress per method. It checks existing JSONL
+rows against the selected source data and AST seed, skips completed methods,
+and appends missing results to `.jsonl.tmp` checkpoints after interrupted
+runs. Final files are ordered by `source_index`; a completed `paraphrase.jsonl`
+is not modified when resuming the AST arms. If a provider call fails, rerun
+the same command and output directory to resume. Keep the same seed and input
+dataset for a resumed run. No model fine-tuning is performed by this command.
 
 For a downstream comparison, use the same original training rows in all
 arms; add only the generated rows of each respective method. Report both
