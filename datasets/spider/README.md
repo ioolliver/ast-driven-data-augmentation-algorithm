@@ -92,3 +92,29 @@ arms; add only the generated rows of each respective method. Report both
 actual augmentation yield and a size-matched comparison, because there are
 more paraphrase-eligible examples than AST-eligible examples. Keep evaluation
 on the untouched official development set and reserve test for the final run.
+
+## Downstream fine-tuning data
+
+The four arms and a held-out development input are prepared by
+[`experiments/spider/prepare_finetuning.py`](../../experiments/spider/prepare_finetuning.py).
+Each arm starts with all 7,000 rows of `train_spider.json`, in their original
+order. Only the respective augmentation file contributes additional rows, all
+from the 20 databases above. The selected custom schemas determine eligibility;
+the model prompts use the complete Spider `tables.json` schemas, including
+foreign-key links. The script validates source indices, original labels,
+database membership, and consistency between the two AST arms, then writes a
+manifest with counts and SHA-256 digests. It does not repair generated labels.
+
+The training counts are 7,000 (original), 8,971 (+paraphrase), 8,030 (+AST),
+and 8,030 (+AST and paraphrase). The untouched `dev.json` contains 1,034
+examples from separate databases. Do not use it for training, checkpoint
+selection, or repeated hyperparameter tuning. SQL planning during augmentation
+did not validate useful answers or alignment between a generated question and
+its SQL. An exploratory execution check on the 1,030 AST rows found 146 mutated
+queries returning zero rows, versus 36 source queries returning zero rows on
+the same databases; this is a *row-count diagnostic*, not a correctness score.
+We retained these labels without manual curation. A paper should disclose this
+check, the actual yield per arm, and the label-quality limitation.
+
+See [the cluster runbook](../../experiments/spider/FINETUNING.md) for the
+reproduction commands and training configuration.

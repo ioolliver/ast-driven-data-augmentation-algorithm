@@ -10,7 +10,7 @@ Text-to-SQL datasets require aligned natural-language questions and SQL queries.
 
 The method takes an existing question–SQL pair and a **custom schema** containing eligible columns, valid values, ranges, and semantic relationships. SQLGlot performs the AST transformations; the LLM expresses the resulting changes in natural language.
 
-This repository contains the augmentation method and intrinsic evaluation developed during an undergraduate research project at the University of São Paulo (USP). It also includes a Spider 1.0 augmentation pilot. **Downstream fine-tuning and model evaluation have not yet been implemented.**
+This repository contains the augmentation method and intrinsic evaluation developed during an undergraduate research project at the University of São Paulo (USP). It also includes a Spider 1.0 augmentation pilot and scripts to prepare four downstream fine-tuning arms and train Qwen adapters. **The downstream models have not yet been trained or evaluated.**
 
 The original experiments use Brazilian Portuguese questions and PostgreSQL/PostGIS. The Spider pilot configures English prompts and SQLite serialization; its offline SQL-planning audit does not establish question–SQL alignment or downstream gains.
 
