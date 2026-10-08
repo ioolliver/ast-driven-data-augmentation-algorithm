@@ -130,8 +130,11 @@ Each function returns `(question, sql)`:
 | `create_random_variation_with_paraphrasing` | schema, question, sql | Apply AST transformations, adapt and rephrase the question |
 
 AST methods skip the LLM when no semantic mutation is recorded. Equivalent SQL
-rewrites may still change formatting or structure. The prompt currently requests
-Portuguese questions. The core parser and serializer use the PostgreSQL dialect.
+rewrites may still change formatting or structure. The prompt requests
+Portuguese questions by default. A schema can set `"language": "English"` and
+`"dialect": "sqlite"` for the Spider pilot. The paraphrase-only function accepts
+`language="English"` as a keyword argument. Other dialects have not been
+systematically evaluated.
 
 ## Batch augmentation
 
