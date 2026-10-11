@@ -117,7 +117,10 @@ def prepare(spider_dir, augmentation_dir, output_dir):
         raise ValueError("Paraphrase must cover every original row from the selected databases")
     if set(generated["ast"]) != set(generated["ast_paraphrase"]):
         raise ValueError("AST arms have different source indices")
-    for index in generated["ast"]:
+    matched_indices = sorted(generated["ast"])
+    if not matched_indices or not set(matched_indices) <= set(generated["paraphrase"]):
+        raise ValueError("Every AST source index must have a corresponding paraphrase")
+    for index in matched_indices:
         if generated["ast"][index]["completion"] != generated["ast_paraphrase"][index]["completion"]:
             raise ValueError(f"AST SQL differs at source_index {index}")
 
@@ -125,9 +128,10 @@ def prepare(spider_dir, augmentation_dir, output_dir):
     counts = {}
     for arm in ARMS:
         extras = generated.get(arm, {})
-        rows = original + [extras[index] for index in sorted(extras)]
+        # Compare the same source examples at the same augmentation budget.
+        rows = original + [extras[index] for index in matched_indices] if arm != "original" else original
         write_jsonl(output_dir / f"train_{arm}.jsonl", rows)
-        counts[arm] = {"original": len(original), "augmented": len(extras), "total": len(rows)}
+        counts[arm] = {"original": len(original), "augmented": len(rows) - len(original), "total": len(rows)}
     write_jsonl(output_dir / "dev.jsonl", [
         {"db_id": row["db_id"], "question": row["question"], "query": row["query"],
          "prompt": example(row["db_id"], row["question"], row["query"], tables)["prompt"]}
@@ -139,8 +143,11 @@ def prepare(spider_dir, augmentation_dir, output_dir):
         "train_database_count": len({row["db_id"] for row in train}),
         "dev_database_count": len({row["db_id"] for row in dev}),
         "dev_examples": len(dev),
+        "matched_source_indices": matched_indices,
+        "available_augmented_input_counts": {method: len(generated[method]) for method in METHODS},
+        "excluded_unpaired_paraphrases": len(generated["paraphrase"]) - len(matched_indices),
         "counts": counts,
-        "augmented_by_database": {method: dict(sorted(Counter(train[i]["db_id"] for i in generated[method]).items())) for method in METHODS},
+        "augmented_by_database": {method: dict(sorted(Counter(train[i]["db_id"] for i in matched_indices).items())) for method in METHODS},
         "input_sha256": {str(path.name): digest(path) for path in (train_path, dev_path, tables_path, selected_path, *(augmentation_dir / f"{m}.jsonl" for m in METHODS))},
         "output_sha256": {path.name: digest(path) for path in sorted(output_dir.glob("*.jsonl"))},
         "note": "Generated labels were retained without manual curation; SQL executability does not establish question/SQL alignment or nonempty answers.",

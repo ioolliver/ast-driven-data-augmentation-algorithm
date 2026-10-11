@@ -7,13 +7,17 @@ The added rows are restricted to the 20 databases in `datasets/spider/schemas.js
 | Arm | Original | Added | Total |
 | --- | ---: | ---: | ---: |
 | `original` | 7,000 | 0 | 7,000 |
-| `paraphrase` | 7,000 | 1,971 | 8,971 |
+| `paraphrase` | 7,000 | 1,030 | 8,030 |
 | `ast` | 7,000 | 1,030 | 8,030 |
 | `ast_paraphrase` | 7,000 | 1,030 | 8,030 |
 
-These are four *separate* arms. `ast_paraphrase` contains paraphrases of the
-AST-mutated questions and their mutated SQL, not the union of the other two
-augmentation files. The AST arms share their SQL and source indices. Each pair
+These are four *separate* arms. The paraphrase input has 1,971 rows, but only
+the 1,030 whose `source_index` occurs in both AST arms are included. The other
+941 paraphrases remain in the source file and are not used for training.
+This matches both augmentation count and source-example selection without
+random sampling. `ast_paraphrase` contains paraphrases of the AST-mutated
+questions and their mutated SQL, not the union of the other two augmentation
+files. All three augmented arms share the same source indices. Each pair
 is represented as a conversational prompt/completion: a fixed system instruction,
 full database schema from `tables.json`, a question, and its SQL answer.
 Training computes loss only on the SQL completion. Inference must reproduce
@@ -22,11 +26,11 @@ the same prompt and use the model chat template with `add_generation_prompt=True
 ## Prepare data (CPU, no model download)
 
 From the repository root, with the official archive extracted and the three
-augmentation files in `raw_data/spider_generated/`:
+augmentation files in `raw_data/spider_aumento_final/`:
 
 ```bash
 python experiments/spider/prepare_finetuning.py \
-  raw_data/spider_data raw_data/spider_generated raw_data/spider_sft
+  raw_data/spider_data raw_data/spider_aumento_final raw_data/spider_sft
 ```
 
 The output contains `train_original.jsonl`, `train_paraphrase.jsonl`,
@@ -34,6 +38,10 @@ The output contains `train_original.jsonl`, `train_paraphrase.jsonl`,
 `dev.jsonl` is an evaluation input with the gold SQL and `db_id` as metadata;
 it is **never** passed to `SFTTrainer`. The manifest records source and output
 hashes and counts for reproducibility. Re-run after changing any input.
+It also records the 1,030 matched source indices and the 941 excluded
+paraphrases. If `raw_data/spider_sft/` was generated before this change,
+rerun this command to overwrite the old `train_paraphrase.jsonl` and manifest
+before submitting any jobs; verify the counts printed by the command.
 Keep these third-party data and generated pairs outside Git (`raw_data/` is
 ignored). Transfer the prepared directory to the cluster alongside the code.
 
@@ -96,9 +104,10 @@ nonempty; source Spider labels also contain some empty-answer cases. An
 exploratory execution check on the 1,030 AST pairs returned zero rows for 146
 mutated SQL queries and 36 source queries; this does not assess question/SQL
 alignment or count aggregate rows containing NULL as empty. Record this
-limitation in a paper and describe any later audit separately. The arms differ
-in size, so a performance difference cannot by itself isolate augmentation
-*method* from added example count. Report the natural-yield comparison and
-consider a prespecified size-matched follow-up using exactly 1,030 generated
-rows per nonbaseline arm. Keep `dev.json` untouched for final evaluation across
+limitation in a paper and describe any later audit separately. Matching
+augmentation counts and source indices removes those two particular
+confounders, but does not guarantee that the three methods produce examples
+of equal quality or token length. Report the natural yields (1,971 versus
+1,030) as well as the matched-budget training comparison. Keep `dev.json`
+untouched for final evaluation across
 held-out databases; do not train on `train_others.json` or development data.

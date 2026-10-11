@@ -88,9 +88,10 @@ the same command and output directory to resume. Keep the same seed and input
 dataset for a resumed run. No model fine-tuning is performed by this command.
 
 For a downstream comparison, use the same original training rows in all
-arms; add only the generated rows of each respective method. Report both
-actual augmentation yield and a size-matched comparison, because there are
-more paraphrase-eligible examples than AST-eligible examples. Keep evaluation
+arms and add only the 1,030 generated rows whose source indices are shared by
+the AST arms. The paraphrase file contains all 1,971 selected examples, but
+the other 941 are excluded from matched-budget training. Report the full
+generation yield as well as the matched-budget comparison. Keep evaluation
 on the untouched official development set and reserve test for the final run.
 
 ## Downstream fine-tuning data
@@ -105,8 +106,8 @@ foreign-key links. The script validates source indices, original labels,
 database membership, and consistency between the two AST arms, then writes a
 manifest with counts and SHA-256 digests. It does not repair generated labels.
 
-The training counts are 7,000 (original), 8,971 (+paraphrase), 8,030 (+AST),
-and 8,030 (+AST and paraphrase). The untouched `dev.json` contains 1,034
+The training counts are 7,000 (original) and 8,030 in each of the three
+augmented arms. The untouched `dev.json` contains 1,034
 examples from separate databases. Do not use it for training, checkpoint
 selection, or repeated hyperparameter tuning. SQL planning during augmentation
 did not validate useful answers or alignment between a generated question and
