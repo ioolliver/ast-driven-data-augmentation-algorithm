@@ -22,16 +22,12 @@ def main():
     parser.add_argument("--gradient-accumulation", type=int, default=16)
     parser.add_argument("--learning-rate", type=float, default=2e-4)
     parser.add_argument("--resume", action="store_true", help="Resume latest checkpoint of this arm")
+    parser.add_argument("--check-only", action="store_true", help="Check token lengths without loading model weights or training")
     args = parser.parse_args()
 
-    import torch
     from datasets import load_dataset
-    from peft import LoraConfig, prepare_model_for_kbit_training
-    from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
-    from trl import SFTConfig, SFTTrainer
+    from transformers import AutoTokenizer
 
-    if not torch.cuda.is_available() or not torch.cuda.is_bf16_supported():
-        raise RuntimeError("This configuration requires a CUDA GPU with bfloat16 support")
     manifest = json.loads((args.data_dir / "manifest.json").read_text(encoding="utf-8"))
     data_path = args.data_dir / f"train_{args.arm}.jsonl"
     if not data_path.is_file():
@@ -46,9 +42,21 @@ def main():
     lengths = [len(tokenizer.apply_chat_template(row["prompt"] + row["completion"], tokenize=True))
                for row in dataset]
     longest = max(lengths)
+    print(f"{args.arm}: {len(dataset)} examples; maximum {longest} tokens; "
+          f"{sum(n > args.max_length for n in lengths)} exceed {args.max_length}", flush=True)
     if longest > args.max_length:
         raise ValueError(f"{sum(n > args.max_length for n in lengths)} examples exceed "
                          f"--max-length {args.max_length} (maximum {longest}); raise the limit")
+    if args.check_only:
+        return
+
+    import torch
+    from peft import LoraConfig, prepare_model_for_kbit_training
+    from transformers import AutoModelForCausalLM, BitsAndBytesConfig
+    from trl import SFTConfig, SFTTrainer
+
+    if not torch.cuda.is_available() or not torch.cuda.is_bf16_supported():
+        raise RuntimeError("This configuration requires a CUDA GPU with bfloat16 support")
     args.output_dir.mkdir(parents=True, exist_ok=True)
     (args.output_dir / "run_config.json").write_text(json.dumps({
         "arm": args.arm, "model": args.model, "model_revision": args.model_revision, "seed": args.seed,

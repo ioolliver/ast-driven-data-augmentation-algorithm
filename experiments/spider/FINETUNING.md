@@ -79,6 +79,25 @@ export SPIDER_MAX_LENGTH=3072
 sbatch infra/spider_finetune.sbatch
 ```
 
+Before submitting a GPU job, check all four arms on a login or CPU node
+using the same image and tokenizer (no model weights are loaded):
+
+```bash
+for arm in original paraphrase ast ast_paraphrase; do
+  apptainer exec \
+    --bind "$SPIDER_REPO:$SPIDER_REPO,$SPIDER_DATA:$SPIDER_DATA,$HF_HOME:$HF_HOME" \
+    --env "HF_HOME=$HF_HOME" "$SPIDER_IMAGE" \
+    python "$SPIDER_REPO/experiments/spider/finetune.py" \
+      --data-dir "$SPIDER_DATA" --arm "$arm" \
+      --output-dir "$SPIDER_OUTPUT/$arm" \
+      --max-length "$SPIDER_MAX_LENGTH" --check-only
+done
+```
+
+Each arm prints its maximum length and count exceeding the limit. If any
+arm reports an excess, set `SPIDER_MAX_LENGTH` higher and rerun this check
+on all arms. Use the same passing limit for all four training jobs.
+
 The array uses one GPU at a time (`--array=0-3%1`), 16 CPU cores, and 64 GB RAM.
 For reproducibility, set `SPIDER_MODEL_REVISION` to the downloaded model's
 commit SHA before submission; the script records this value per arm.
