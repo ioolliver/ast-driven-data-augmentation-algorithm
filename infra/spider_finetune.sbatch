@@ -29,4 +29,5 @@ apptainer exec --nv \
     "$SPIDER_IMAGE" \
     python "$SPIDER_REPO/experiments/spider/finetune.py" \
         --data-dir "$SPIDER_DATA" --arm "$arm" \
-        --output-dir "$SPIDER_OUTPUT/$arm" "${extra_args[@]}"
+        --output-dir "$SPIDER_OUTPUT/$arm" \
+        --max-length "${SPIDER_MAX_LENGTH:-3072}" "${extra_args[@]}"

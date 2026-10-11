@@ -15,7 +15,7 @@ def main():
     parser.add_argument("--arm", choices=ARMS, required=True)
     parser.add_argument("--model", default=DEFAULT_MODEL, help="Model ID or local snapshot directory")
     parser.add_argument("--model-revision", default=None, help="Pinned Hugging Face commit SHA for reproducibility")
-    parser.add_argument("--max-length", type=int, default=2048)
+    parser.add_argument("--max-length", type=int, default=3072)
     parser.add_argument("--epochs", type=float, default=2)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--batch-size", type=int, default=1)

@@ -75,6 +75,7 @@ export SPIDER_IMAGE="/absolute/path/spider_finetune.sif"
 export SPIDER_DATA="/absolute/path/spider_sft"
 export SPIDER_OUTPUT="/absolute/path/spider_runs"
 export HF_HOME="/absolute/path/hf_cache"
+export SPIDER_MAX_LENGTH=3072
 sbatch infra/spider_finetune.sbatch
 ```
 
@@ -89,9 +90,12 @@ pass `--resume`. Inspect the emitted `run_config.json` and logs for each arm.
 
 The default configuration uses 4-bit NF4 QLoRA, bfloat16 compute, LoRA rank 16,
 effective batch size 16 (batch 1 × accumulation 16), 2 epochs, learning rate
-2e-4, maximum sequence length 2,048, and seed 42. The script checks all examples
+2e-4, maximum sequence length 3,072, and seed 42. In the first 7,000-row
+original run, 82 examples exceeded 2,048 tokens and the longest had 2,694;
+therefore 2,048 cannot be used without discarding or truncating answers. The
+same `SPIDER_MAX_LENGTH` should be used for all four runs. The script checks all examples
 before training and fails if a prompt plus answer exceeds the token limit,
-because truncation could remove the SQL target. Raise `--max-length` if needed;
+because truncation could remove the SQL target. Raise `SPIDER_MAX_LENGTH` if needed;
 longer sequences use more VRAM. The 48 GB L40S is the target resource, but
 runtime and peak memory must be confirmed with a short GPU pilot. Keep the base
 model, training parameters, prompt, and seed identical across the four arms.
