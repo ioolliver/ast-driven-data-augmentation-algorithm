@@ -134,3 +134,80 @@ of equal quality or token length. Report the natural yields (1,971 versus
 1,030) as well as the matched-budget training comparison. Keep `dev.json`
 untouched for final evaluation across
 held-out databases; do not train on `train_others.json` or development data.
+
+## Evaluate on held-out Spider development databases
+
+First confirm all four training runs have `adapter/adapter_model.safetensors`,
+`adapter/adapter_config.json`, and `trainer_state.json` with epoch 2.0. The
+train loss and token accuracy in those files are **not** development metrics.
+
+With the same Apptainer image and base-model cache used for training, generate
+one SQL prediction for each of the 1,034 development examples. These prompts
+come from `dev.jsonl` and contain the schema and question, **not the gold SQL**.
+Generation is deterministic (`do_sample=False`), uses up to 512 new tokens,
+and saves each batch to a separate per-arm `predictions.jsonl`. Repeating a job
+resumes completed rows after checking the input hash, order, and settings.
+
+```bash
+cd ~/ast-driven-data-augmentation-algorithm
+export SPIDER_REPO="$PWD"
+export SPIDER_IMAGE="$SPIDER_REPO/spider_finetune.sif"  # adjust to your actual .sif path
+export SPIDER_DATA="$SPIDER_REPO/raw_data/spider_sft"
+export SPIDER_OUTPUT="$SPIDER_REPO/raw_data/spider_runs_matched"
+export SPIDER_EVAL_OUTPUT="$SPIDER_REPO/raw_data/spider_eval_matched"
+export HF_HOME="$HOME/.cache/huggingface"  # use the cache from training
+mkdir -p "$SPIDER_EVAL_OUTPUT/logs"
+EVAL_JOB=$(sbatch --parsable --export=ALL --array=0-3%1 \
+  --output="$SPIDER_EVAL_OUTPUT/logs/spider-eval-%A_%a.out" infra/spider_evaluate.sbatch)
+echo "$EVAL_JOB" | tee -a "$SPIDER_EVAL_OUTPUT/logs/job_ids.txt"
+```
+
+Check `squeue -j "$EVAL_JOB"`, `sacct -j "$EVAL_JOB" --format=JobID,State,ExitCode,Elapsed`,
+and the logs. If GPU memory is insufficient, rerun with
+`export SPIDER_EVAL_BATCH_SIZE=1` and submit failed array indices; the saved
+predictions can be continued with another batch size. A small pilot can use
+`predict.py --limit 10` with a **different** output directory before the full
+array. Do not score a pilot as the complete development set.
+
+Export evaluator input files and a diagnostic literal SQL comparison:
+
+```bash
+for arm in original paraphrase ast ast_paraphrase; do
+  python experiments/spider/evaluate_predictions.py \
+    --data-dir "$SPIDER_DATA" \
+    --prediction-dir "$SPIDER_EVAL_OUTPUT/$arm" \
+    --output-dir "$SPIDER_EVAL_OUTPUT/scores/$arm"
+done
+```
+
+The printed `literal_sql_match_rate` compares single-line SQL strings exactly.
+It is more restrictive than Spider's **exact set match**, which parses and
+compares SQL structure. For the official Spider scores, obtain the upstream
+[test-suite-sql-eval](https://github.com/taoyds/test-suite-sql-eval) evaluator
+in a separate directory, install its `sqlparse` and `nltk` dependencies, and
+download its **Spider test suite databases** from the link in its README. Keep
+the evaluator and test suites outside this repository. With `EVALUATOR` set to
+the downloaded evaluator directory and `SUITE_DB` set to the test suite
+`database/` directory containing the Spider database folders, run:
+
+```bash
+for arm in original paraphrase ast ast_paraphrase; do
+  python "$EVALUATOR/evaluation.py" \
+    --gold "$SPIDER_EVAL_OUTPUT/scores/$arm/gold.txt" \
+    --pred "$SPIDER_EVAL_OUTPUT/scores/$arm/pred.txt" \
+    --etype all --db "$SUITE_DB" \
+    --table "$SPIDER_REPO/raw_data/spider_data/tables.json" \
+    > "$SPIDER_EVAL_OUTPUT/scores/$arm/official.txt" 2>&1
+done
+```
+
+The official report contains Spider exact set match and test-suite execution
+accuracy. This model predicts condition values; **do not** use `--plug_value`,
+which would supply gold values during scoring. Keep the default `DISTINCT`
+handling for comparability with the original exact set match. If the test suite
+is not installed yet, the older
+[Spider evaluator](https://github.com/taoyds/spider) can score exact set match
+and execution on the original Spider SQLite databases (`--etype all`, with
+`--db "$SPIDER_REPO/raw_data/spider_data/database"`). Label that latter
+execution metric **single-database execution**, rather than test-suite accuracy.
+Keep all four evaluations on the same 1,034 examples and evaluator settings.
