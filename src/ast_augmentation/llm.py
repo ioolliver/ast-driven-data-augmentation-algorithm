@@ -19,7 +19,7 @@ def format_changelog(changelog):
     )
 
 
-def get_llm_prompt(query, sql, sql_modified, changelog, paraphrase=False):
+def get_llm_prompt(query, sql, sql_modified, changelog, paraphrase=False, *, language="Portuguese"):
     paraphrase_instruction = ""
     if paraphrase:
         paraphrase_instruction = (
@@ -52,14 +52,14 @@ use the changelog below to help you know exactly what changed in the query.
 
 # TASK
 
-{paraphrase_instruction}Return only the new query text. Make sure that the adapted text makes sense in the target language (PORTUGUESE). It must be a natural language question.
+{paraphrase_instruction}Return only the new query text. Make sure that the adapted text makes sense in the target language ({language.upper()}). It must be a natural language question.
 
 """
 
 
-def get_paraphrase_prompt(query):
+def get_paraphrase_prompt(query, *, language="Portuguese"):
     return f"""
-Paraphrase the question below in Portuguese while preserving its exact meaning.
+Paraphrase the question below in {language} while preserving its exact meaning.
 Do not add or remove filters, values, entities, or any other information.
 
 # ORIGINAL QUESTION
@@ -68,7 +68,7 @@ Do not add or remove filters, values, entities, or any other information.
 
 # TASK
 
-Return only the paraphrased question in Portuguese, without explanations or answers.
+Return only the paraphrased question in {language}, without explanations or answers.
 """
 
 
@@ -122,16 +122,17 @@ def send_to_llm(prompt):
     return _send_to_bedrock(prompt)
 
 
-def paraphrase_query(query):
-    return send_to_llm(get_paraphrase_prompt(query))
+def paraphrase_query(query, *, language="Portuguese"):
+    return send_to_llm(get_paraphrase_prompt(query, language=language))
 
 
-def adapt_query(query, sql, sql_modified, changelog, *, paraphrase=False):
+def adapt_query(query, sql, sql_modified, changelog, *, paraphrase=False, language="Portuguese"):
     prompt = get_llm_prompt(
         query,
         sql,
         sql_modified,
         changelog,
         paraphrase=paraphrase,
+        language=language,
     )
     return send_to_llm(prompt)
