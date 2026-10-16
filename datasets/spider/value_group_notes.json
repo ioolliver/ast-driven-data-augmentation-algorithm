@@ -1,0 +1,71 @@
+{
+  "address_1": {
+    "City": {
+      "country": "Conventional geographic continents; SAFRICA is the observed encoding for South Africa. Exact source capitalization preserved."
+    }
+  },
+  "aircraft": {
+    "match": {
+      "Country": "Unambiguous continent assignment for the seven observed countries; no transcontinental cases."
+    }
+  },
+  "flight_company": {
+    "airport": {
+      "Country": "Conventional continent partition of the observed airport countries."
+    }
+  },
+  "station_weather": {
+    "weekly_weather": {
+      "day_of_week": "Explicit Monday\u2013Friday versus Saturday\u2013Sunday calendar partition; does not imply local legal working-day rules."
+    }
+  },
+  "coffee_shop": {
+    "happy_hour": {
+      "Month": "Uses established meteorological seasons with hemisphere explicitly stated; only observed months are annotated."
+    }
+  },
+  "college_1": {
+    "PROFESSOR": {
+      "PROF_HIGH_DEGREE": "MA/MBA are master-level credentials; DBA/Ph.D. are doctorates. Preserves punctuation in observed degree codes."
+    },
+    "STUDENT": {
+      "STU_CLASS": "Conventional US undergraduate lower/upper division classification applied to explicit year codes, not arbitrary numeric buckets."
+    },
+    "CLASS": {
+      "CLASS_TIME": "Explicit a.m./p.m. meeting times fall unambiguously into morning, afternoon or evening; original timetable strings remain exact."
+    }
+  },
+  "student_transcripts_tracking": {
+    "Degree_Programs": {
+      "degree_summary_name": "Bachelor versus Master/PhD is the standard undergraduate/postgraduate degree-level distinction."
+    }
+  },
+  "video_game": {
+    "player": {
+      "Position": "American football positions divide into offense and defense; retain both observed capitalizations of running back."
+    }
+  },
+  "sports_competition": {
+    "player": {
+      "Position": "Standard rugby forwards/backs position classification; Stand Off is a back (fly-half)."
+    }
+  },
+  "baseball_1": {
+    "fielding": {
+      "pos": "Standard baseball position families; pitcher and catcher kept separately so infield wording is explicit. Designated hitter is a batting-only role retained as its own category."
+    },
+    "fielding_postseason": {
+      "pos": "Standard baseball position families; pitcher and catcher kept separately so infield wording is explicit. Designated hitter is a batting-only role retained as its own category."
+    }
+  },
+  "school_player": {
+    "player": {
+      "Position": "Standard baseball roles; both First Baseman capitalizations retained. Handed pitchers are grouped by shared pitching role."
+    }
+  },
+  "department_store": {
+    "Customer_Orders": {
+      "order_status_code": "Completed and cancelled orders are terminal outcomes; new, partially filled and pending orders still await completion. Labels describe the observed statuses without inventing a workflow."
+    }
+  }
+}

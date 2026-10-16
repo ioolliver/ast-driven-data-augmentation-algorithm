@@ -1,0 +1,386 @@
+{
+  "address_1": {
+    "City": {
+      "country": {
+        "value_group_labels": {
+          "north_america": "countries in North America",
+          "asia": "countries in Asia",
+          "europe": "countries in Europe",
+          "africa": "countries in Africa"
+        },
+        "groups": {
+          "north_america": [
+            "CANADA",
+            "USA"
+          ],
+          "asia": [
+            "CHINA",
+            "INDIA",
+            "JAPAN",
+            "THAILAND"
+          ],
+          "europe": [
+            "FRANCE",
+            "UK"
+          ],
+          "africa": [
+            "SAFRICA"
+          ]
+        }
+      }
+    }
+  },
+  "aircraft": {
+    "match": {
+      "Country": {
+        "value_group_labels": {
+          "oceania": "countries in Oceania",
+          "south_america": "countries in South America",
+          "north_america": "countries in North America",
+          "europe": "countries in Europe",
+          "asia": "countries in Asia"
+        },
+        "groups": {
+          "oceania": [
+            "Australia"
+          ],
+          "south_america": [
+            "Brazil"
+          ],
+          "north_america": [
+            "Canada",
+            "United States"
+          ],
+          "europe": [
+            "Germany",
+            "Hungary"
+          ],
+          "asia": [
+            "United Arab Emirates"
+          ]
+        }
+      }
+    }
+  },
+  "flight_company": {
+    "airport": {
+      "Country": {
+        "value_group_labels": {
+          "europe": "countries in Europe",
+          "north_america": "countries in North America"
+        },
+        "groups": {
+          "europe": [
+            "Belgium",
+            "Denmark",
+            "Iceland",
+            "Netherlands",
+            "Norway",
+            "Spain"
+          ],
+          "north_america": [
+            "United States"
+          ]
+        }
+      }
+    }
+  },
+  "station_weather": {
+    "weekly_weather": {
+      "day_of_week": {
+        "value_group_labels": {
+          "weekdays": "weekdays from Monday through Friday",
+          "weekend": "weekend days Saturday and Sunday"
+        },
+        "groups": {
+          "weekdays": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "weekend": [
+            "Saturday",
+            "Sunday"
+          ]
+        }
+      }
+    }
+  },
+  "coffee_shop": {
+    "happy_hour": {
+      "Month": {
+        "value_group_labels": {
+          "spring": "Northern Hemisphere meteorological spring months",
+          "summer": "Northern Hemisphere meteorological summer months"
+        },
+        "groups": {
+          "spring": [
+            "April",
+            "May"
+          ],
+          "summer": [
+            "June",
+            "July"
+          ]
+        }
+      }
+    }
+  },
+  "college_1": {
+    "PROFESSOR": {
+      "PROF_HIGH_DEGREE": {
+        "value_group_labels": {
+          "masters": "master's degrees",
+          "doctorate": "doctoral degrees"
+        },
+        "groups": {
+          "masters": [
+            "MA",
+            "MBA"
+          ],
+          "doctorate": [
+            "DBA",
+            "Ph.D."
+          ]
+        }
+      }
+    },
+    "STUDENT": {
+      "STU_CLASS": {
+        "value_group_labels": {
+          "lower_division": "first- and second-year students (freshmen and sophomores)",
+          "upper_division": "third- and fourth-year students (juniors and seniors)"
+        },
+        "groups": {
+          "lower_division": [
+            "Fr",
+            "So"
+          ],
+          "upper_division": [
+            "Jr",
+            "Sr"
+          ]
+        }
+      }
+    },
+    "CLASS": {
+      "CLASS_TIME": {
+        "value_group_labels": {
+          "morning": "classes scheduled in the morning",
+          "afternoon": "classes scheduled in the afternoon",
+          "evening": "classes scheduled in the evening"
+        },
+        "groups": {
+          "morning": [
+            "MWF 10:00-10:50 a.m.",
+            "MWF 11:00-11:50 a.m.",
+            "MWF 8:00-8:50 a.m.",
+            "MWF 9:00-9:50 a.m."
+          ],
+          "afternoon": [
+            "TTh 1:00-2:15 p.m.",
+            "TTh 2:30-3:45 p.m."
+          ],
+          "evening": [
+            "Th 6:00-8:40 p.m.",
+            "W 6:00-8:40 p.m."
+          ]
+        }
+      }
+    }
+  },
+  "student_transcripts_tracking": {
+    "Degree_Programs": {
+      "degree_summary_name": {
+        "value_group_labels": {
+          "undergraduate": "undergraduate degree programs",
+          "postgraduate": "postgraduate degree programs"
+        },
+        "groups": {
+          "undergraduate": [
+            "Bachelor"
+          ],
+          "postgraduate": [
+            "Master",
+            "PHD"
+          ]
+        }
+      }
+    }
+  },
+  "video_game": {
+    "player": {
+      "Position": {
+        "value_group_labels": {
+          "offense": "offensive American football positions",
+          "defense": "defensive American football positions"
+        },
+        "groups": {
+          "offense": [
+            "Guard",
+            "Offensive tackle",
+            "Quarterback",
+            "Running Back",
+            "Running back",
+            "Wide receiver"
+          ],
+          "defense": [
+            "Defensive end",
+            "Defensive tackle",
+            "Linebacker"
+          ]
+        }
+      }
+    }
+  },
+  "sports_competition": {
+    "player": {
+      "Position": {
+        "value_group_labels": {
+          "forwards": "rugby forward positions",
+          "backs": "rugby back positions"
+        },
+        "groups": {
+          "forwards": [
+            "Hooker",
+            "Loose Forward",
+            "Prop",
+            "Second Row"
+          ],
+          "backs": [
+            "Full Back",
+            "Left Wing",
+            "Right Centre",
+            "Right Wing",
+            "Scrum Half",
+            "Stand Off"
+          ]
+        }
+      }
+    }
+  },
+  "baseball_1": {
+    "fielding": {
+      "pos": {
+        "value_group_labels": {
+          "infield": "baseball infield positions excluding pitcher and catcher",
+          "outfield": "baseball outfield positions",
+          "pitcher": "the pitching position",
+          "catcher": "the catching position",
+          "designated_hitter": "the designated hitter role"
+        },
+        "groups": {
+          "infield": [
+            "1B",
+            "2B",
+            "3B",
+            "SS"
+          ],
+          "outfield": [
+            "CF",
+            "LF",
+            "OF",
+            "RF"
+          ],
+          "pitcher": [
+            "P"
+          ],
+          "catcher": [
+            "C"
+          ],
+          "designated_hitter": [
+            "DH"
+          ]
+        }
+      }
+    },
+    "fielding_postseason": {
+      "pos": {
+        "value_group_labels": {
+          "infield": "baseball infield positions excluding pitcher and catcher",
+          "outfield": "baseball outfield positions",
+          "pitcher": "the pitching position",
+          "catcher": "the catching position",
+          "designated_hitter": "the designated hitter role"
+        },
+        "groups": {
+          "infield": [
+            "1B",
+            "2B",
+            "3B",
+            "SS"
+          ],
+          "outfield": [
+            "CF",
+            "LF",
+            "OF",
+            "RF"
+          ],
+          "pitcher": [
+            "P"
+          ],
+          "catcher": [
+            "C"
+          ],
+          "designated_hitter": [
+            "DH"
+          ]
+        }
+      }
+    }
+  },
+  "school_player": {
+    "player": {
+      "Position": {
+        "value_group_labels": {
+          "infield": "baseball infield positions excluding pitcher and catcher",
+          "outfield": "baseball outfield positions",
+          "pitcher": "baseball pitchers of either throwing handedness",
+          "catcher": "the catching position"
+        },
+        "groups": {
+          "infield": [
+            "First Baseman",
+            "First baseman",
+            "Second baseman",
+            "Shortstop",
+            "Third baseman"
+          ],
+          "outfield": [
+            "Outfielder"
+          ],
+          "pitcher": [
+            "Left-handed pitcher",
+            "Right-handed pitcher"
+          ],
+          "catcher": [
+            "Catcher"
+          ]
+        }
+      }
+    }
+  },
+  "department_store": {
+    "Customer_Orders": {
+      "order_status_code": {
+        "value_group_labels": {
+          "terminal": "orders completed or cancelled",
+          "active": "orders awaiting completion"
+        },
+        "groups": {
+          "terminal": [
+            "Cancelled",
+            "Completed"
+          ],
+          "active": [
+            "New",
+            "PartFilled",
+            "Pending"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-"""Reviewed Spider 1.0 metadata for the selected training databases."""
+"""Spider 1.0 metadata for all 206 databases; seed selection remains train-only."""
 
 import json
 from pathlib import Path

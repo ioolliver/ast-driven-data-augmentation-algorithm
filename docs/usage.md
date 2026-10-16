@@ -132,7 +132,7 @@ Each function returns `(question, sql)`:
 AST methods skip the LLM when no semantic mutation is recorded. Equivalent SQL
 rewrites may still change formatting or structure. The prompt requests
 Portuguese questions by default. A schema can set `"language": "English"` and
-`"dialect": "sqlite"` for the Spider pilot. The paraphrase-only function accepts
+`"dialect": "sqlite"` for Spider. See the [full catalog and training-only workflow](../datasets/spider/README.md). The paraphrase-only function accepts
 `language="English"` as a keyword argument. Other dialects have not been
 systematically evaluated.
 
