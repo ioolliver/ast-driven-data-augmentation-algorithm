@@ -2,7 +2,14 @@
 
 This prepares four independent Qwen2.5-7B-Instruct QLoRA adapters. Each training
 file begins with the same 7,000 original Spider 1.0 `train_spider.json` pairs.
-The added rows are restricted to the 20 databases in `datasets/spider/schemas.json`:
+The custom-schema catalog now covers all 206 released databases; generation
+uses only the 140 databases in `train_spider.json`. The preparation script infers
+the database scope from a complete paraphrase run and checks all AST source
+indices against it. It accepts both the historical subset and a new full-training
+run. Always use a fresh augmentation output directory after changing schemas.
+
+The following counts describe the **historical 20-database pilot**, not the
+expanded catalog. New counts come from the preparation manifest:
 
 | Arm | Original | Added | Total |
 | --- | ---: | ---: | ---: |
@@ -38,8 +45,8 @@ The output contains `train_original.jsonl`, `train_paraphrase.jsonl`,
 `dev.jsonl` is an evaluation input with the gold SQL and `db_id` as metadata;
 it is **never** passed to `SFTTrainer`. The manifest records source and output
 hashes and counts for reproducibility. Re-run after changing any input.
-It also records the 1,030 matched source indices and the 941 excluded
-paraphrases. If `raw_data/spider_sft/` was generated before this change,
+It also records the matched source indices and excluded paraphrases
+(1,030 and 941 respectively in the historical pilot). If `raw_data/spider_sft/` was generated before this change,
 rerun this command to overwrite the old `train_paraphrase.jsonl` and manifest
 before submitting any jobs; verify the counts printed by the command.
 Keep these third-party data and generated pairs outside Git (`raw_data/` is

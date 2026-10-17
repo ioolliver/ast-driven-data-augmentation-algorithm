@@ -38,7 +38,8 @@ schema = {
 
 Every table needs `name` and `columns`. Every column needs `name`, `description`,
 and `type`. The currently used types are `string`, `number`, `date`, `enum`,
-`boolean`, and `geometry`.
+`boolean`, and `geometry`. The legacy `binary` type is also accepted for
+0/1 boolean columns.
 
 ## Optional metadata
 
@@ -68,3 +69,31 @@ equivalence. Keep enum values in the representation used by the SQL literals.
 The research schemas are available in
 [`datasets/censobench/schema.py`](../datasets/censobench/schema.py) and
 [`datasets/atlas_sql_br/schema.py`](../datasets/atlas_sql_br/schema.py).
+
+## Full Spider catalog
+
+The [Spider catalog](../datasets/spider/README.md) covers all 206 released
+databases. Reviewed column peers live in `semantic_groups.json`; categorical
+partitions live in `value_groups.json`. The builder validates these against
+original metadata and observed SQLite values, retaining per-column provenance.
+Do not group columns merely because they share a SQL type or invent an enum
+value/range to make a mutation eligible. A DB without compatible columns can
+still use enum, threshold, aggregate and text-pattern mutations.
+
+Spider's column substitutions skip predicate/arithmetic contexts and grouping
+keys to avoid retaining a literal from the old domain or detaching a projected
+column from its group. SUM/AVG swaps require numeric peers. Numeric/date
+columns without profiled bounds skip BETWEEN mutation. These guards supplement
+metadata review; SQL planning does not validate question alignment.
+
+For Spider, `case_insensitive_identifiers=True` resolves aliases and unique
+unqualified columns using all visible FROM/JOIN sources. Ambiguous references,
+output aliases and unresolved CTE/derived-table lineage are skipped. Without
+this flag, the original case-sensitive lookup remains unchanged.
+
+`sqlite_double_quoted_literals=True` permits SQLite's legacy double-quoted
+strings in enum, LIKE and enum-group predicates. Known visible columns/aliases
+retain identifier meaning; unknown source lineage is not guessed. Use normal
+single-quoted SQL strings when constructing new queries. Boolean equality
+mutations accept `boolean` or `binary`, require 0/1 or TRUE/FALSE literals and
+preserve the original predicate orientation and literal representation.

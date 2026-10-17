@@ -280,8 +280,10 @@ def _random_int_excluding(min_value, max_value, excluded_value):
 
 def _range_for_node(node, schema, min_key, max_key, default_min, default_max):
     for column in node.find_all(exp.Column):
-        table_name = get_table_name(column)
-        col_info = get_col_info(schema, table_name, column.name) or get_col_info(schema, None, column.name)
+        table_name = get_table_name(column, schema)
+        col_info = get_col_info(schema, table_name, column.name)
+        if not col_info and not schema.get("case_insensitive_identifiers"):
+            col_info = get_col_info(schema, None, column.name)
         if col_info and col_info.get(min_key) is not None and col_info.get(max_key) is not None:
             return int(col_info[min_key]), int(col_info[max_key])
 

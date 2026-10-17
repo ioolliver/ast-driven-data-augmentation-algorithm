@@ -1,6 +1,6 @@
 import random
 from sqlglot import exp
-from ..schema_utils import get_col_info, get_table_name
+from ..schema_utils import get_col_info, get_table_name, string_literal_value
 
 
 def mutate_value_group(node, changelog, schema):
@@ -12,7 +12,7 @@ def mutate_value_group(node, changelog, schema):
         return node
 
     col_name = col_node.name
-    table_name = get_table_name(col_node)
+    table_name = get_table_name(col_node, schema)
     col_info = get_col_info(schema, table_name, col_name)
 
     if not col_info or col_info.get("type") != "enum":
@@ -28,7 +28,11 @@ def mutate_value_group(node, changelog, schema):
         return node
 
     expressions = node.args.get("expressions", [])
-    current_values = {e.this.upper() for e in expressions if isinstance(e, exp.Literal)}
+    values = [string_literal_value(e, schema) for e in expressions]
+    # Never match only a literal subset of a mixed identifier/subquery list.
+    if not values or any(value is None for value in values):
+        return node
+    current_values = {value.upper() for value in values}
 
     if not current_values:
         return node

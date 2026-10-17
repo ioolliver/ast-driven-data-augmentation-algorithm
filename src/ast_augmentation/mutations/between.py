@@ -14,10 +14,11 @@ def mutate_between(node, changelog, schema):
         return node
 
     col_name = col_node.name
-    table_name = get_table_name(col_node)
+    table_name = get_table_name(col_node, schema)
     col_info = get_col_info(schema, table_name, col_name)
 
-    if not col_info or col_info["type"] not in ("number", "date"):
+    if (not col_info or col_info["type"] not in ("number", "date")
+            or "min" not in col_info or "max" not in col_info):
         return node
 
     old_lower = node.args.get("low").sql()
