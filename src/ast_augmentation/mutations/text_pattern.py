@@ -1,6 +1,7 @@
 import random
 
 from sqlglot import exp
+from ..schema_utils import string_literal_value
 
 
 PATTERN_CLASSES = (exp.Like, exp.ILike)
@@ -18,10 +19,9 @@ def mutate_text_pattern(node, changelog, schema):
         return node
 
     pattern_node = node.expression
-    if not isinstance(pattern_node, exp.Literal) or not pattern_node.is_string:
+    pattern = string_literal_value(pattern_node, schema)
+    if pattern is None:
         return node
-
-    pattern = pattern_node.this
     parsed_pattern = _parse_simple_pattern(pattern)
     if not parsed_pattern:
         return node

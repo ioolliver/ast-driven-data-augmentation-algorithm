@@ -63,10 +63,10 @@
     ],
     "total": {
       "total": 7000,
-      "changed": 3333,
-      "sqlite_valid": 3332,
-      "unchanged": 3667,
-      "column_swap_rows": 975,
+      "changed": 3449,
+      "sqlite_valid": 3448,
+      "unchanged": 3551,
+      "column_swap_rows": 981,
       "sqlite_invalid": 1,
       "source_invalid": 1
     },
@@ -101,9 +101,9 @@
       },
       "architecture": {
         "total": 17,
-        "changed": 10,
-        "sqlite_valid": 10,
-        "unchanged": 7
+        "changed": 11,
+        "sqlite_valid": 11,
+        "unchanged": 6
       },
       "assets_maintenance": {
         "total": 31,
@@ -130,9 +130,9 @@
       },
       "bike_1": {
         "total": 104,
-        "unchanged": 50,
-        "changed": 54,
-        "sqlite_valid": 54,
+        "unchanged": 48,
+        "changed": 56,
+        "sqlite_valid": 56,
         "column_swap_rows": 14
       },
       "body_builder": {
@@ -150,29 +150,29 @@
       },
       "browser_web": {
         "total": 18,
-        "changed": 8,
-        "sqlite_valid": 8,
-        "unchanged": 10
+        "changed": 9,
+        "sqlite_valid": 9,
+        "unchanged": 9
       },
       "candidate_poll": {
         "total": 40,
         "unchanged": 12,
         "changed": 28,
-        "column_swap_rows": 14,
+        "column_swap_rows": 16,
         "sqlite_valid": 28
       },
       "chinook_1": {
         "total": 84,
-        "unchanged": 32,
-        "changed": 52,
-        "sqlite_valid": 52,
+        "unchanged": 28,
+        "changed": 56,
+        "sqlite_valid": 56,
         "column_swap_rows": 24
       },
       "cinema": {
         "total": 30,
-        "changed": 12,
-        "sqlite_valid": 12,
-        "unchanged": 18
+        "changed": 14,
+        "sqlite_valid": 14,
+        "unchanged": 16
       },
       "city_record": {
         "total": 40,
@@ -197,16 +197,16 @@
       },
       "coffee_shop": {
         "total": 18,
-        "changed": 8,
-        "sqlite_valid": 8,
-        "unchanged": 10
+        "changed": 9,
+        "sqlite_valid": 9,
+        "unchanged": 9
       },
       "college_1": {
         "total": 164,
-        "unchanged": 56,
-        "changed": 108,
-        "column_swap_rows": 62,
-        "sqlite_valid": 108
+        "changed": 110,
+        "sqlite_valid": 110,
+        "unchanged": 54,
+        "column_swap_rows": 62
       },
       "college_2": {
         "total": 170,
@@ -276,15 +276,15 @@
       },
       "cre_Theme_park": {
         "total": 84,
-        "unchanged": 44,
-        "changed": 40,
-        "sqlite_valid": 40
+        "unchanged": 42,
+        "changed": 42,
+        "sqlite_valid": 42
       },
       "csu_1": {
         "total": 70,
-        "changed": 50,
-        "sqlite_valid": 50,
-        "unchanged": 20,
+        "changed": 60,
+        "sqlite_valid": 60,
+        "unchanged": 10,
         "column_swap_rows": 4
       },
       "culture_company": {
@@ -309,9 +309,9 @@
       },
       "customers_and_addresses": {
         "total": 88,
-        "unchanged": 50,
-        "changed": 38,
-        "sqlite_valid": 38,
+        "unchanged": 44,
+        "changed": 44,
+        "sqlite_valid": 44,
         "column_swap_rows": 12
       },
       "customers_and_invoices": {
@@ -330,9 +330,9 @@
       },
       "customers_campaigns_ecommerce": {
         "total": 15,
-        "unchanged": 11,
-        "changed": 4,
-        "sqlite_valid": 4
+        "unchanged": 10,
+        "changed": 5,
+        "sqlite_valid": 5
       },
       "customers_card_transactions": {
         "total": 80,
@@ -361,9 +361,9 @@
       },
       "department_store": {
         "total": 88,
-        "unchanged": 42,
-        "changed": 46,
-        "sqlite_valid": 46,
+        "unchanged": 36,
+        "changed": 52,
+        "sqlite_valid": 52,
         "column_swap_rows": 4
       },
       "device": {
@@ -374,9 +374,9 @@
       },
       "document_management": {
         "total": 44,
-        "unchanged": 30,
-        "changed": 14,
-        "sqlite_valid": 14
+        "unchanged": 28,
+        "changed": 16,
+        "sqlite_valid": 16
       },
       "dorm_1": {
         "total": 100,
@@ -387,23 +387,23 @@
       },
       "driving_school": {
         "total": 93,
-        "unchanged": 27,
-        "changed": 66,
+        "unchanged": 25,
+        "changed": 68,
         "column_swap_rows": 38,
-        "sqlite_valid": 66
+        "sqlite_valid": 68
       },
       "e_government": {
         "total": 40,
-        "changed": 12,
+        "changed": 16,
         "column_swap_rows": 8,
-        "sqlite_valid": 12,
-        "unchanged": 28
+        "sqlite_valid": 16,
+        "unchanged": 24
       },
       "e_learning": {
         "total": 82,
-        "unchanged": 34,
-        "changed": 48,
-        "sqlite_valid": 48,
+        "unchanged": 32,
+        "changed": 50,
+        "sqlite_valid": 50,
         "column_swap_rows": 30
       },
       "election": {
@@ -433,9 +433,9 @@
       },
       "epinions_1": {
         "total": 30,
-        "changed": 11,
-        "sqlite_valid": 11,
-        "unchanged": 19
+        "changed": 13,
+        "sqlite_valid": 13,
+        "unchanged": 17
       },
       "farm": {
         "total": 40,
@@ -446,10 +446,10 @@
       },
       "film_rank": {
         "total": 48,
-        "unchanged": 30,
-        "changed": 18,
-        "sqlite_valid": 18,
-        "column_swap_rows": 2
+        "unchanged": 24,
+        "changed": 24,
+        "sqlite_valid": 24,
+        "column_swap_rows": 4
       },
       "flight_1": {
         "total": 96,
@@ -467,9 +467,9 @@
       },
       "flight_company": {
         "total": 19,
-        "changed": 8,
-        "sqlite_valid": 8,
-        "unchanged": 11,
+        "changed": 9,
+        "sqlite_valid": 9,
+        "unchanged": 10,
         "column_swap_rows": 1
       },
       "formula_1": {
@@ -488,10 +488,10 @@
       },
       "game_injury": {
         "total": 19,
-        "changed": 10,
-        "sqlite_valid": 10,
+        "changed": 11,
+        "sqlite_valid": 11,
         "column_swap_rows": 4,
-        "unchanged": 9
+        "unchanged": 8
       },
       "gas_company": {
         "total": 46,
@@ -509,10 +509,10 @@
       },
       "hospital_1": {
         "total": 100,
-        "unchanged": 64,
-        "changed": 36,
+        "unchanged": 56,
+        "changed": 44,
         "column_swap_rows": 6,
-        "sqlite_valid": 36
+        "sqlite_valid": 44
       },
       "hr_1": {
         "total": 124,
@@ -523,9 +523,9 @@
       },
       "icfp_1": {
         "total": 66,
-        "unchanged": 18,
-        "changed": 48,
-        "sqlite_valid": 48,
+        "unchanged": 14,
+        "changed": 52,
+        "sqlite_valid": 52,
         "column_swap_rows": 22
       },
       "inn_1": {
@@ -537,16 +537,16 @@
       },
       "insurance_and_eClaims": {
         "total": 40,
-        "unchanged": 22,
-        "changed": 18,
-        "sqlite_valid": 18,
+        "unchanged": 20,
+        "changed": 20,
+        "sqlite_valid": 20,
         "column_swap_rows": 10
       },
       "insurance_fnol": {
         "total": 42,
-        "unchanged": 24,
-        "changed": 18,
-        "sqlite_valid": 18,
+        "unchanged": 22,
+        "changed": 20,
+        "sqlite_valid": 20,
         "column_swap_rows": 2
       },
       "insurance_policies": {
@@ -564,9 +564,9 @@
       },
       "loan_1": {
         "total": 80,
-        "unchanged": 26,
-        "changed": 54,
-        "sqlite_valid": 54,
+        "unchanged": 20,
+        "changed": 60,
+        "sqlite_valid": 60,
         "column_swap_rows": 8
       },
       "local_govt_and_lot": {
@@ -577,9 +577,9 @@
       },
       "local_govt_in_alabama": {
         "total": 15,
-        "changed": 4,
-        "sqlite_valid": 4,
-        "unchanged": 11
+        "changed": 5,
+        "sqlite_valid": 5,
+        "unchanged": 10
       },
       "local_govt_mdm": {
         "total": 14,
@@ -608,35 +608,35 @@
       },
       "match_season": {
         "total": 58,
-        "unchanged": 34,
-        "changed": 24,
-        "sqlite_valid": 24
+        "unchanged": 32,
+        "changed": 26,
+        "sqlite_valid": 26
       },
       "medicine_enzyme_interaction": {
         "total": 44,
-        "unchanged": 18,
-        "changed": 26,
-        "sqlite_valid": 26,
+        "unchanged": 16,
+        "changed": 28,
+        "sqlite_valid": 28,
         "column_swap_rows": 12
       },
       "mountain_photos": {
         "total": 17,
-        "changed": 9,
-        "sqlite_valid": 9,
-        "unchanged": 8,
+        "changed": 10,
+        "sqlite_valid": 10,
+        "unchanged": 7,
         "column_swap_rows": 4
       },
       "movie_1": {
         "total": 98,
-        "changed": 58,
-        "sqlite_valid": 58,
-        "unchanged": 40
+        "changed": 60,
+        "sqlite_valid": 60,
+        "unchanged": 38
       },
       "music_1": {
         "total": 100,
-        "unchanged": 34,
-        "changed": 66,
-        "sqlite_valid": 66
+        "unchanged": 28,
+        "changed": 72,
+        "sqlite_valid": 72
       },
       "music_2": {
         "total": 100,
@@ -699,10 +699,10 @@
       },
       "phone_1": {
         "total": 29,
-        "changed": 18,
-        "sqlite_valid": 18,
+        "changed": 19,
+        "sqlite_valid": 19,
         "column_swap_rows": 5,
-        "unchanged": 11
+        "unchanged": 10
       },
       "phone_market": {
         "total": 15,
@@ -718,9 +718,9 @@
       },
       "product_catalog": {
         "total": 42,
-        "unchanged": 32,
-        "changed": 10,
-        "sqlite_valid": 10,
+        "unchanged": 28,
+        "changed": 14,
+        "sqlite_valid": 14,
         "column_swap_rows": 4
       },
       "products_for_hire": {
@@ -785,10 +785,10 @@
       },
       "sakila_1": {
         "total": 82,
-        "changed": 36,
+        "changed": 38,
         "column_swap_rows": 28,
-        "sqlite_valid": 36,
-        "unchanged": 46
+        "sqlite_valid": 38,
+        "unchanged": 44
       },
       "school_bus": {
         "total": 18,
@@ -830,9 +830,9 @@
       },
       "shop_membership": {
         "total": 44,
-        "unchanged": 40,
-        "changed": 4,
-        "sqlite_valid": 4
+        "unchanged": 38,
+        "changed": 6,
+        "sqlite_valid": 6
       },
       "small_bank_1": {
         "total": 50,
@@ -842,10 +842,10 @@
       },
       "soccer_1": {
         "total": 14,
-        "unchanged": 3,
-        "changed": 11,
-        "sqlite_valid": 11,
-        "column_swap_rows": 3
+        "unchanged": 1,
+        "changed": 13,
+        "sqlite_valid": 13,
+        "column_swap_rows": 5
       },
       "soccer_2": {
         "total": 106,
@@ -868,9 +868,9 @@
       },
       "station_weather": {
         "total": 16,
-        "unchanged": 8,
-        "changed": 8,
-        "sqlite_valid": 8,
+        "unchanged": 7,
+        "changed": 9,
+        "sqlite_valid": 9,
         "column_swap_rows": 4
       },
       "store_1": {
@@ -882,9 +882,9 @@
       },
       "store_product": {
         "total": 44,
-        "unchanged": 22,
-        "changed": 22,
-        "sqlite_valid": 22
+        "unchanged": 20,
+        "changed": 24,
+        "sqlite_valid": 24
       },
       "storm_record": {
         "total": 44,
@@ -905,9 +905,9 @@
       },
       "swimming": {
         "total": 30,
-        "unchanged": 22,
-        "changed": 8,
-        "sqlite_valid": 8,
+        "unchanged": 19,
+        "changed": 11,
+        "sqlite_valid": 11,
         "column_swap_rows": 1
       },
       "theme_gallery": {
@@ -944,10 +944,10 @@
       },
       "train_station": {
         "total": 23,
-        "unchanged": 14,
-        "changed": 9,
+        "unchanged": 13,
+        "changed": 10,
         "column_swap_rows": 5,
-        "sqlite_valid": 9
+        "sqlite_valid": 10
       },
       "twitter_1": {
         "total": 27,
@@ -957,9 +957,9 @@
       },
       "university_basketball": {
         "total": 46,
-        "unchanged": 22,
-        "changed": 24,
-        "sqlite_valid": 24,
+        "unchanged": 20,
+        "changed": 26,
+        "sqlite_valid": 26,
         "column_swap_rows": 6
       },
       "voter_2": {
@@ -977,10 +977,10 @@
       },
       "wine_1": {
         "total": 82,
-        "unchanged": 22,
-        "changed": 60,
+        "unchanged": 20,
+        "changed": 62,
         "column_swap_rows": 6,
-        "sqlite_valid": 60
+        "sqlite_valid": 62
       },
       "workshop_paper": {
         "total": 30,
@@ -1005,9 +1005,9 @@
     "failures": [],
     "total": {
       "total": 7000,
-      "changed": 2781,
-      "sqlite_valid": 2781,
-      "unchanged": 4219
+      "changed": 2918,
+      "sqlite_valid": 2918,
+      "unchanged": 4082
     },
     "by_database": {
       "activity_1": {
@@ -1030,15 +1030,15 @@
       },
       "apartment_rentals": {
         "total": 80,
-        "unchanged": 36,
-        "changed": 44,
-        "sqlite_valid": 44
+        "unchanged": 34,
+        "changed": 46,
+        "sqlite_valid": 46
       },
       "architecture": {
         "total": 17,
-        "changed": 10,
-        "sqlite_valid": 10,
-        "unchanged": 7
+        "changed": 11,
+        "sqlite_valid": 11,
+        "unchanged": 6
       },
       "assets_maintenance": {
         "total": 31,
@@ -1052,21 +1052,21 @@
       },
       "behavior_monitoring": {
         "total": 40,
-        "unchanged": 25,
-        "changed": 15,
-        "sqlite_valid": 15
+        "unchanged": 24,
+        "changed": 16,
+        "sqlite_valid": 16
       },
       "bike_1": {
         "total": 104,
-        "unchanged": 54,
-        "changed": 50,
-        "sqlite_valid": 50
+        "unchanged": 52,
+        "changed": 52,
+        "sqlite_valid": 52
       },
       "body_builder": {
         "total": 24,
-        "unchanged": 18,
-        "changed": 6,
-        "sqlite_valid": 6
+        "unchanged": 17,
+        "changed": 7,
+        "sqlite_valid": 7
       },
       "book_2": {
         "total": 21,
@@ -1076,9 +1076,9 @@
       },
       "browser_web": {
         "total": 18,
-        "changed": 8,
-        "sqlite_valid": 8,
-        "unchanged": 10
+        "changed": 9,
+        "sqlite_valid": 9,
+        "unchanged": 9
       },
       "candidate_poll": {
         "total": 40,
@@ -1088,15 +1088,15 @@
       },
       "chinook_1": {
         "total": 84,
-        "unchanged": 42,
-        "changed": 42,
-        "sqlite_valid": 42
+        "unchanged": 38,
+        "changed": 46,
+        "sqlite_valid": 46
       },
       "cinema": {
         "total": 30,
-        "changed": 12,
-        "sqlite_valid": 12,
-        "unchanged": 18
+        "changed": 14,
+        "sqlite_valid": 14,
+        "unchanged": 16
       },
       "city_record": {
         "total": 40,
@@ -1118,15 +1118,15 @@
       },
       "coffee_shop": {
         "total": 18,
-        "changed": 8,
-        "sqlite_valid": 8,
-        "unchanged": 10
+        "changed": 9,
+        "sqlite_valid": 9,
+        "unchanged": 9
       },
       "college_1": {
         "total": 164,
-        "unchanged": 86,
-        "changed": 78,
-        "sqlite_valid": 78
+        "changed": 84,
+        "sqlite_valid": 84,
+        "unchanged": 80
       },
       "college_2": {
         "total": 170,
@@ -1190,15 +1190,15 @@
       },
       "cre_Theme_park": {
         "total": 84,
-        "unchanged": 44,
-        "changed": 40,
-        "sqlite_valid": 40
+        "unchanged": 42,
+        "changed": 42,
+        "sqlite_valid": 42
       },
       "csu_1": {
         "total": 70,
-        "changed": 50,
-        "sqlite_valid": 50,
-        "unchanged": 20
+        "changed": 60,
+        "sqlite_valid": 60,
+        "unchanged": 10
       },
       "culture_company": {
         "total": 38,
@@ -1208,9 +1208,9 @@
       },
       "customer_complaints": {
         "total": 46,
-        "unchanged": 36,
-        "changed": 10,
-        "sqlite_valid": 10
+        "unchanged": 34,
+        "changed": 12,
+        "sqlite_valid": 12
       },
       "customer_deliveries": {
         "total": 16,
@@ -1220,9 +1220,9 @@
       },
       "customers_and_addresses": {
         "total": 88,
-        "unchanged": 58,
-        "changed": 30,
-        "sqlite_valid": 30
+        "unchanged": 50,
+        "changed": 38,
+        "sqlite_valid": 38
       },
       "customers_and_invoices": {
         "total": 82,
@@ -1238,9 +1238,9 @@
       },
       "customers_campaigns_ecommerce": {
         "total": 15,
-        "unchanged": 11,
-        "changed": 4,
-        "sqlite_valid": 4
+        "unchanged": 10,
+        "changed": 5,
+        "sqlite_valid": 5
       },
       "customers_card_transactions": {
         "total": 80,
@@ -1268,9 +1268,9 @@
       },
       "department_store": {
         "total": 88,
-        "unchanged": 44,
-        "changed": 44,
-        "sqlite_valid": 44
+        "unchanged": 38,
+        "changed": 50,
+        "sqlite_valid": 50
       },
       "device": {
         "total": 40,
@@ -1280,9 +1280,9 @@
       },
       "document_management": {
         "total": 44,
-        "unchanged": 30,
-        "changed": 14,
-        "sqlite_valid": 14
+        "unchanged": 28,
+        "changed": 16,
+        "sqlite_valid": 16
       },
       "dorm_1": {
         "total": 100,
@@ -1292,21 +1292,21 @@
       },
       "driving_school": {
         "total": 93,
-        "unchanged": 37,
-        "changed": 56,
-        "sqlite_valid": 56
+        "unchanged": 35,
+        "changed": 58,
+        "sqlite_valid": 58
       },
       "e_government": {
         "total": 40,
-        "unchanged": 32,
-        "changed": 8,
-        "sqlite_valid": 8
+        "unchanged": 28,
+        "changed": 12,
+        "sqlite_valid": 12
       },
       "e_learning": {
         "total": 82,
-        "unchanged": 52,
-        "changed": 30,
-        "sqlite_valid": 30
+        "unchanged": 50,
+        "changed": 32,
+        "sqlite_valid": 32
       },
       "election": {
         "total": 68,
@@ -1334,9 +1334,9 @@
       },
       "epinions_1": {
         "total": 30,
-        "changed": 11,
-        "sqlite_valid": 11,
-        "unchanged": 19
+        "changed": 13,
+        "sqlite_valid": 13,
+        "unchanged": 17
       },
       "farm": {
         "total": 40,
@@ -1346,9 +1346,9 @@
       },
       "film_rank": {
         "total": 48,
-        "unchanged": 32,
-        "changed": 16,
-        "sqlite_valid": 16
+        "unchanged": 28,
+        "changed": 20,
+        "sqlite_valid": 20
       },
       "flight_1": {
         "total": 96,
@@ -1364,9 +1364,9 @@
       },
       "flight_company": {
         "total": 19,
-        "changed": 7,
-        "sqlite_valid": 7,
-        "unchanged": 12
+        "changed": 8,
+        "sqlite_valid": 8,
+        "unchanged": 11
       },
       "formula_1": {
         "total": 80,
@@ -1382,9 +1382,9 @@
       },
       "game_injury": {
         "total": 19,
-        "changed": 7,
-        "sqlite_valid": 7,
-        "unchanged": 12
+        "changed": 8,
+        "sqlite_valid": 8,
+        "unchanged": 11
       },
       "gas_company": {
         "total": 46,
@@ -1400,9 +1400,9 @@
       },
       "hospital_1": {
         "total": 100,
-        "unchanged": 70,
-        "changed": 30,
-        "sqlite_valid": 30
+        "unchanged": 62,
+        "changed": 38,
+        "sqlite_valid": 38
       },
       "hr_1": {
         "total": 124,
@@ -1412,9 +1412,9 @@
       },
       "icfp_1": {
         "total": 66,
-        "unchanged": 30,
-        "changed": 36,
-        "sqlite_valid": 36
+        "unchanged": 22,
+        "changed": 44,
+        "sqlite_valid": 44
       },
       "inn_1": {
         "total": 74,
@@ -1424,15 +1424,15 @@
       },
       "insurance_and_eClaims": {
         "total": 40,
-        "unchanged": 22,
-        "changed": 18,
-        "sqlite_valid": 18
+        "unchanged": 20,
+        "changed": 20,
+        "sqlite_valid": 20
       },
       "insurance_fnol": {
         "total": 42,
-        "unchanged": 26,
-        "changed": 16,
-        "sqlite_valid": 16
+        "unchanged": 22,
+        "changed": 20,
+        "sqlite_valid": 20
       },
       "insurance_policies": {
         "total": 48,
@@ -1448,9 +1448,9 @@
       },
       "loan_1": {
         "total": 80,
-        "unchanged": 30,
-        "changed": 50,
-        "sqlite_valid": 50
+        "unchanged": 24,
+        "changed": 56,
+        "sqlite_valid": 56
       },
       "local_govt_and_lot": {
         "total": 17,
@@ -1460,9 +1460,9 @@
       },
       "local_govt_in_alabama": {
         "total": 15,
-        "changed": 4,
-        "sqlite_valid": 4,
-        "unchanged": 11
+        "changed": 5,
+        "sqlite_valid": 5,
+        "unchanged": 10
       },
       "local_govt_mdm": {
         "total": 14,
@@ -1490,33 +1490,33 @@
       },
       "match_season": {
         "total": 58,
-        "unchanged": 34,
-        "changed": 24,
-        "sqlite_valid": 24
+        "unchanged": 32,
+        "changed": 26,
+        "sqlite_valid": 26
       },
       "medicine_enzyme_interaction": {
         "total": 44,
-        "unchanged": 26,
-        "changed": 18,
-        "sqlite_valid": 18
+        "unchanged": 22,
+        "changed": 22,
+        "sqlite_valid": 22
       },
       "mountain_photos": {
         "total": 17,
-        "changed": 8,
-        "sqlite_valid": 8,
-        "unchanged": 9
+        "changed": 9,
+        "sqlite_valid": 9,
+        "unchanged": 8
       },
       "movie_1": {
         "total": 98,
-        "changed": 58,
-        "sqlite_valid": 58,
-        "unchanged": 40
+        "changed": 60,
+        "sqlite_valid": 60,
+        "unchanged": 38
       },
       "music_1": {
         "total": 100,
-        "unchanged": 34,
-        "changed": 66,
-        "sqlite_valid": 66
+        "unchanged": 28,
+        "changed": 72,
+        "sqlite_valid": 72
       },
       "music_2": {
         "total": 100,
@@ -1574,9 +1574,9 @@
       },
       "phone_1": {
         "total": 29,
-        "changed": 16,
-        "sqlite_valid": 16,
-        "unchanged": 13
+        "changed": 17,
+        "sqlite_valid": 17,
+        "unchanged": 12
       },
       "phone_market": {
         "total": 15,
@@ -1592,9 +1592,9 @@
       },
       "product_catalog": {
         "total": 42,
-        "unchanged": 36,
-        "changed": 6,
-        "sqlite_valid": 6
+        "unchanged": 32,
+        "changed": 10,
+        "sqlite_valid": 10
       },
       "products_for_hire": {
         "total": 18,
@@ -1652,9 +1652,9 @@
       },
       "sakila_1": {
         "total": 82,
-        "unchanged": 72,
-        "changed": 10,
-        "sqlite_valid": 10
+        "unchanged": 68,
+        "changed": 14,
+        "sqlite_valid": 14
       },
       "school_bus": {
         "total": 18,
@@ -1664,9 +1664,9 @@
       },
       "school_finance": {
         "total": 26,
-        "unchanged": 10,
-        "changed": 16,
-        "sqlite_valid": 16
+        "unchanged": 9,
+        "changed": 17,
+        "sqlite_valid": 17
       },
       "school_player": {
         "total": 40,
@@ -1694,9 +1694,9 @@
       },
       "shop_membership": {
         "total": 44,
-        "unchanged": 40,
-        "changed": 4,
-        "sqlite_valid": 4
+        "unchanged": 38,
+        "changed": 6,
+        "sqlite_valid": 6
       },
       "small_bank_1": {
         "total": 50,
@@ -1730,9 +1730,9 @@
       },
       "station_weather": {
         "total": 16,
-        "unchanged": 8,
-        "changed": 8,
-        "sqlite_valid": 8
+        "unchanged": 7,
+        "changed": 9,
+        "sqlite_valid": 9
       },
       "store_1": {
         "total": 112,
@@ -1742,9 +1742,9 @@
       },
       "store_product": {
         "total": 44,
-        "unchanged": 22,
-        "changed": 22,
-        "sqlite_valid": 22
+        "unchanged": 20,
+        "changed": 24,
+        "sqlite_valid": 24
       },
       "storm_record": {
         "total": 44,
@@ -1764,9 +1764,9 @@
       },
       "swimming": {
         "total": 30,
-        "unchanged": 22,
-        "changed": 8,
-        "sqlite_valid": 8
+        "unchanged": 19,
+        "changed": 11,
+        "sqlite_valid": 11
       },
       "theme_gallery": {
         "total": 40,
@@ -1800,9 +1800,9 @@
       },
       "train_station": {
         "total": 23,
-        "unchanged": 17,
-        "changed": 6,
-        "sqlite_valid": 6
+        "unchanged": 16,
+        "changed": 7,
+        "sqlite_valid": 7
       },
       "twitter_1": {
         "total": 27,
@@ -1812,9 +1812,9 @@
       },
       "university_basketball": {
         "total": 46,
-        "unchanged": 28,
-        "changed": 18,
-        "sqlite_valid": 18
+        "unchanged": 24,
+        "changed": 22,
+        "sqlite_valid": 22
       },
       "voter_2": {
         "total": 72,
@@ -1830,9 +1830,9 @@
       },
       "wine_1": {
         "total": 82,
-        "unchanged": 26,
-        "changed": 56,
-        "sqlite_valid": 56
+        "unchanged": 24,
+        "changed": 58,
+        "sqlite_valid": 58
       },
       "workshop_paper": {
         "total": 30,
@@ -1849,7 +1849,7 @@
     }
   },
   "validation": {
-    "unit_tests_passed": 120,
+    "unit_tests_passed": 142,
     "llm_calls": 0
   },
   "limitations": [
@@ -1857,5 +1857,22 @@
     "Independent random streams differ after disabling semantic groups; coverage comparison is not a controlled downstream effect.",
     "Held-out database contents inform only held-out metadata; held-out questions/gold queries were not used.",
     "Observed numeric ranges can include sparse gaps or implausible source values; reviewed historical bounds were retained where available."
-  ]
+  ],
+  "compatibility_fix_comparison": {
+    "baseline_commit": "1a461f7ec0979321ada2e304f5214ff8283c86f3",
+    "previous_total": {
+      "total": 7000,
+      "changed": 3333,
+      "sqlite_valid": 3332,
+      "unchanged": 3667,
+      "column_swap_rows": 975,
+      "sqlite_invalid": 1,
+      "source_invalid": 1
+    },
+    "fixes": [
+      "Schema-aware table/alias resolution with ambiguity guards",
+      "SQLite double-quoted strings in LIKE, enums and value groups",
+      "boolean and binary type compatibility with safe literal parsing"
+    ]
+  }
 }

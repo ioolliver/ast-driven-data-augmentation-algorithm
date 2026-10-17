@@ -17,7 +17,7 @@ def mutate_agg(node, changelog, schema):
     if schema.get("restrict_aggregates"):
         argument = node.this
         if isinstance(argument, exp.Column):
-            info = get_col_info(schema, get_table_name(argument), argument.name)
+            info = get_col_info(schema, get_table_name(argument, schema), argument.name)
             if not info or info.get("type") != "number":
                 choices = (exp.Min, exp.Max)
         elif not (isinstance(argument, exp.Literal) and argument.is_number):

@@ -134,7 +134,10 @@ rewrites may still change formatting or structure. The prompt requests
 Portuguese questions by default. A schema can set `"language": "English"` and
 `"dialect": "sqlite"` for Spider. See the [full catalog and training-only workflow](../datasets/spider/README.md). The paraphrase-only function accepts
 `language="English"` as a keyword argument. Other dialects have not been
-systematically evaluated.
+systematically evaluated. Spider schemas also enable case-insensitive table/alias
+resolution and guarded SQLite double-quoted strings for enum, LIKE and value-group
+mutations. Boolean toggles accept both `boolean` and legacy `binary` metadata.
+See [custom-schema options](custom-schema.md) for the resolution/ambiguity rules.
 
 ## Batch augmentation
 

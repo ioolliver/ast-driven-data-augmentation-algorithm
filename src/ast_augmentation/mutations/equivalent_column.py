@@ -53,7 +53,7 @@ def mutate_equivalent_column(node, changelog, schema):
         return node
 
     col_name = node.name
-    table_name = get_table_name(node)
+    table_name = get_table_name(node, schema)
     col_info = get_col_info(schema, table_name, col_name)
 
     if not col_info or "semantic_group" not in col_info:

@@ -50,6 +50,13 @@ representations remain strings. Primary/foreign keys and identifier-like
 columns have no enum or range mutation metadata. Per-column `provenance`
 records the source type, key status, profiling and reviewed bounds.
 
+SQLite schemas opt into case-insensitive identifier resolution across visible
+FROM/JOIN sources. Ambiguous columns and unresolved derived-table/CTE lineage
+are skipped instead of using the first table. Double-quoted string fallback is
+supported in enum, LIKE and value-group mutations only when the token does not
+match a known visible column/alias. Both `boolean` and legacy `binary` metadata
+activate 0/1 or TRUE/FALSE toggles; unrelated values are ignored.
+
 The schema is augmentation metadata, not a replacement for the complete DDL
 in a model prompt. Observed ranges are not domain constraints: sparse numeric
 intervals can still yield empty answers, and enumerated text need not be a
@@ -89,13 +96,17 @@ uv run python experiments/spider/audit.py raw_data/spider_data \
   --output raw_data/spider_audit_without_groups.json
 ```
 
-With seed 42, the full catalog changes 3,333/7,000 rows; 975 rows include a
-column substitution. SQLite planning succeeds for 3,332. The sole failure is
+With seed 42, the full catalog changes 3,449/7,000 rows; 981 rows include a
+column substitution. SQLite planning succeeds for 3,448. The sole failure is
 `assets_maintenance`, source index 3153: the **source query also fails** because
 `Ref_Company_Types` does not exist. The generator rejects this row before an
 LLM call. No mutation-only planning failure was observed in this run.
 
-Disabling semantic groups gives 2,781 changed/plannable rows. Both commands
+Table/alias resolution, SQLite string handling and boolean compatibility fixes
+increased the changed count from 3,333 to 3,449 under the same seed and input.
+The comparison and previous totals are preserved in `coverage.json`.
+
+Disabling semantic groups gives 2,918 changed/plannable rows. Both commands
 consume a shared random stream differently, so this is a descriptive coverage
 comparison, not a controlled downstream-effect estimate. Planning proves
 neither useful result rows nor question–SQL alignment. No new LLM generation,
