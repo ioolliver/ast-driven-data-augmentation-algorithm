@@ -35,7 +35,7 @@ AST augmentation uses an LLM for question adaptation; “AST” does not mean th
 
 ### Supported transformations
 
-Nine semantic mutation families are included:
+Nine primary semantic mutation families are included:
 
 | Family | Transformation |
 |---|---|
@@ -50,6 +50,15 @@ Nine semantic mutation families are included:
 | PostGIS | Transform supported spatial operations and distance/buffer parameters |
 
 “Equivalent column” refers to a configured semantic group, not to query equivalence: replacing the selected attribute can change the requested information.
+
+Spider schemas also opt into four **fallback mutations**, applied only when the
+primary passes record no semantic change: reverse the first result `ORDER BY`
+direction, increment a count threshold, replace a bounded numeric `=`/`!=`
+literal, or replace an enum value in `!=`. With seed 42, the training audit
+records changes for **5,067/7,000 pairs (72.39%)**. Empty-schema SQLite planning
+accepts 5,064; three failures already occur in the source queries. This checks
+SQL planning against metadata, not original database contents, answer utility,
+or question alignment. See [the audit and its limitations](datasets/spider/README.md).
 
 Three additional **equivalent rewrites** cover guarded forms of `DISTINCT → GROUP BY`, `BETWEEN → inclusive comparisons`, and `INNER JOIN → IN subquery`. They apply only when their implementation guards match, rather than to arbitrary queries.
 

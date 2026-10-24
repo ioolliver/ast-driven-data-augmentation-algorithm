@@ -19,7 +19,7 @@
     "test_tables.json": "7760883d07453737f70aa5ff4c21fb4e14d2a77c06a063a3c023f4905b7faee0",
     "train_spider.json": "c43d0d72e59e1a9e1a60837da9bf70d5a6277226bdb7f634d544f380646f527a"
   },
-  "catalog_sha256": "c0b9c846a1f40bb08c860c519b0a3e03bc7b82d5f21627c78c7445f1f6c294a1",
+  "catalog_sha256": "5cf8e8165031e3fa0b33dce2f05717c34444f39a81e8efd3870db856dd92a19f",
   "annotations_sha256": {
     "semantic_groups.json": "508b762086db1e52db6c7d833d00d8badf118ee128ff19b8ad79c2bef80967f3",
     "curation_notes.json": "b6a2fe08086a193238fb30a2403ae8c56bff272bf13e13ff240f99177ad23b12",
@@ -1850,7 +1850,9 @@
   },
   "validation": {
     "unit_tests_passed": 142,
-    "llm_calls": 0
+    "llm_calls": 0,
+    "coverage_fallback_tests_passed": 158,
+    "coverage_fallback_planning": "empty_schema_planning"
   },
   "limitations": [
     "SQLite EXPLAIN validates planning, not meaningful answers or question-SQL alignment.",
@@ -1874,5 +1876,27 @@
       "SQLite double-quoted strings in LIKE, enums and value groups",
       "boolean and binary type compatibility with safe literal parsing"
     ]
+  },
+  "pre_fallback_catalog_sha256": "c0b9c846a1f40bb08c860c519b0a3e03bc7b82d5f21627c78c7445f1f6c294a1",
+  "coverage_fallback_audit": {
+    "report": "results/spider/coverage_fallbacks.json",
+    "seed": 42,
+    "validation_mode": "empty_schema_planning",
+    "total": {
+      "total": 7000,
+      "changed": 5067,
+      "schema_plannable": 5064,
+      "unchanged": 1933,
+      "column_swap_rows": 981,
+      "schema_unplannable": 3,
+      "source_invalid": 3
+    },
+    "fallback_families": {
+      "order_direction": 1162,
+      "enum_inequality": 63,
+      "count_threshold": 286,
+      "numeric_equality": 107
+    },
+    "llm_calls": 0
   }
 }

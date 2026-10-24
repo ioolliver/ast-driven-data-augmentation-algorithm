@@ -96,7 +96,7 @@ uv run python experiments/spider/audit.py raw_data/spider_data \
   --output raw_data/spider_audit_without_groups.json
 ```
 
-With seed 42, the full catalog changes 3,449/7,000 rows; 981 rows include a
+Before coverage fallbacks, with seed 42, the full catalog changes 3,449/7,000 rows; 981 rows include a
 column substitution. SQLite planning succeeds for 3,448. The sole failure is
 `assets_maintenance`, source index 3153: the **source query also fails** because
 `Ref_Company_Types` does not exist. The generator rejects this row before an
@@ -111,6 +111,46 @@ consume a shared random stream differently, so this is a descriptive coverage
 comparison, not a controlled downstream-effect estimate. Planning proves
 neither useful result rows nor question–SQL alignment. No new LLM generation,
 fine-tuning or downstream evaluation was performed for this catalog expansion.
+
+## Coverage fallbacks (current catalog)
+
+All catalog entries enable `coverage_fallbacks=True`. When the primary mutations
+produce no changelog, the pipeline tries one result-ordering change, COUNT
+threshold, bounded numeric EQ/NEQ literal, or enum NEQ value, in that order.
+Primary mutation guards remain intact. Identical BETWEEN draws use another
+allowed interval or return unchanged if no alternative exists.
+
+The seed-42 training run records **5,067 changed / 1,933 unchanged pairs**
+(**72.39% changed**), including 1,618 fallback changes: 1,162 order directions,
+286 count thresholds, 107 numeric literals and 63 enum inequalities.
+The remaining 3,449 changes come from primary passes, with no identical
+BETWEEN changelog. Shared RNG consumption differs from the historical run;
+this is not a controlled downstream-effect comparison.
+
+For an audit without downloaded SQLite databases:
+
+```bash
+uv run python experiments/spider/audit.py raw_data/spider_data \
+  --seed 42 --schema-only --output raw_data/spider_fallback_audit.json
+```
+
+This mode constructs **empty tables from the catalog**. It validates SQL names
+and planning, not the original DDL, values, result cardinalities or question–SQL
+alignment. It reports `schema_plannable`, never `sqlite_valid`. The run accepts
+5,064 changed queries and finds zero mutation-only planning failures. Three
+queries already fail in the source: index 3153 references absent
+`Ref_Company_Types`; indices 4513 and 4514 contain ORDER BY before INTERSECT.
+The generator's source-validation check rejects such queries before LLM calls.
+Run the original audit command without `--schema-only` to validate against the
+actual SQLite release. This current run did not download or execute the
+original databases and made no LLM calls.
+
+Aggregated results are preserved in
+[`results/spider/coverage_fallbacks.json`](../../results/spider/coverage_fallbacks.json).
+They do not guarantee changed denotations, useful answers or valid new labels.
+In particular, numeric min/max do not guarantee an observed equality value;
+COUNT thresholds may remove every group. Generate into a fresh output directory
+and review a pilot before full LLM generation.
 
 ## Generate new training arms
 

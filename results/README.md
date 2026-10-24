@@ -6,6 +6,7 @@ artifacts from the first research iteration.
 | Directory | Contents |
 |---|---|
 | `censobench/` | Temporal-dataset augmented pairs, scores, and reports |
+| `spider/coverage_fallbacks.json` | Offline training mutation counts and empty-schema planning; no generated labels |
 | `atlas_sql_br/` | Geospatial-dataset augmented pairs, scores, and reports |
 | `*/augmentation_methods/` | Side-by-side outputs for the three augmentation strategies |
 

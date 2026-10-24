@@ -1,7 +1,7 @@
 # Transformations
 
 The pipeline first applies semantic mutations, records each semantic change, and
-then applies guarded equivalent rewrites. A transformation is probabilistic and
+then applies guarded equivalent rewrites. Alternative values are sampled when needed; a transformation
 only runs when its AST shape and schema requirements match.
 
 ## Semantic mutation families
@@ -37,3 +37,23 @@ include execution checks for their supported shapes, including duplicate and
 Mutation order is defined in `src/ast_augmentation/augmentor.py`: semantic column
 replacement runs first, other semantic operators run second, and equivalent
 rewrites run last.
+
+
+## Opt-in coverage fallbacks
+
+`mutations/coverage_fallbacks.py` runs when `coverage_fallbacks=True` and the primary
+passes have recorded no change. It stops after the first successful mutation:
+
+| Family | Guard and behavior |
+|---|---|
+| Result ordering | Reverse the first ORDER BY direction; preserve other keys, null placement and LIMIT; exclude window orders |
+| COUNT threshold | Direct COUNT versus nonnegative integer literal in WHERE/HAVING; increment the threshold while preserving operator and operand orientation |
+| Numeric equality | Direct column versus numeric literal in EQ/NEQ, in WHERE/HAVING; require resolved number metadata with integer bounds; sample a different bounded value |
+| Enum inequality | NEQ in WHERE/HAVING; source value must be an observed enum option and have an alternative; preserve negation and escape SQL strings |
+
+New entries identify their `mutation` family in addition to old/new fragments.
+These rules do not relax column-substitution, grouping, join or ambiguity guards.
+An identical BETWEEN draw cannot produce a no-op semantic changelog: use another
+allowed interval or skip if none exists. The coverage audit does not establish
+nonempty answers or label alignment; ordering can change the requested sequence
+without changing the set of returned rows.

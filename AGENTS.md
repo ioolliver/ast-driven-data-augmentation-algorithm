@@ -12,7 +12,7 @@ Downstream fine-tuning and model benchmarking are outside this iteration.
 ## Layout
 
 - `src/ast_augmentation/`: installable Python package and public API.
-- `src/ast_augmentation/mutations/`: nine semantic mutation families.
+- `src/ast_augmentation/mutations/`: nine primary semantic mutation families and four opt-in coverage fallbacks.
 - `src/ast_augmentation/rewrites/`: three guarded equivalent rewrites.
 - `src/ast_augmentation/evaluation/`: reusable scoring and reporting utilities.
 - `datasets/`: source/prepared inputs, schema metadata, and provenance notes.

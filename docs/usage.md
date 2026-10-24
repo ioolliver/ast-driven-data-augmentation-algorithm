@@ -137,6 +137,11 @@ Portuguese questions by default. A schema can set `"language": "English"` and
 systematically evaluated. Spider schemas also enable case-insensitive table/alias
 resolution and guarded SQLite double-quoted strings for enum, LIKE and value-group
 mutations. Boolean toggles accept both `boolean` and legacy `binary` metadata.
+Spider enables `coverage_fallbacks=True`: after an otherwise unchanged semantic
+pass, try result ordering, count thresholds, bounded numeric equality and enum
+inequality, stopping after one mutation. Existing semantic changes take priority.
+Other schemas retain their behavior unless they opt in. Use a fresh generation
+output directory when changing this option; do not reuse old checkpoints.
 See [custom-schema options](custom-schema.md) for the resolution/ambiguity rules.
 
 ## Batch augmentation

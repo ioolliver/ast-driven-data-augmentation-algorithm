@@ -97,3 +97,19 @@ retain identifier meaning; unknown source lineage is not guessed. Use normal
 single-quoted SQL strings when constructing new queries. Boolean equality
 mutations accept `boolean` or `binary`, require 0/1 or TRUE/FALSE literals and
 preserve the original predicate orientation and literal representation.
+
+
+`coverage_fallbacks=True` enables four additional families only when the primary
+semantic passes produce no changelog. They reverse the first result sort key
+(excluding window orders), increase a direct nonnegative integer COUNT threshold
+by one, replace a numeric EQ/NEQ literal within integer min/max bounds, or replace
+an enum NEQ literal with a different observed option. The last three apply only
+in WHERE/HAVING predicates. Numeric keys without bounds, ambiguous columns,
+calculated/subquery operands, unknown enum values and fixed numeric domains
+are skipped. The first applicable family makes one change, before equivalent
+rewrites. Numeric interval sampling can select unobserved values; COUNT thresholds
+can exclude every group. Review answers and labels before training.
+
+An identical BETWEEN draw is replaced with an allowed endpoint singleton where
+possible; if the domain permits no change, it returns the original without a
+semantic changelog.

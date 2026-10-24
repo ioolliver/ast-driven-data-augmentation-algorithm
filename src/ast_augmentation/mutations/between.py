@@ -1,3 +1,4 @@
+from decimal import Decimal, InvalidOperation
 import random
 import sqlglot
 from sqlglot import exp
@@ -35,9 +36,39 @@ def mutate_between(node, changelog, schema):
         new_lower, new_upper = dates[0].isoformat(), dates[1].isoformat()
         new_sql = f"{col_sql} BETWEEN '{new_lower}' AND '{new_upper}'"
 
+    candidate = sqlglot.parse_one(new_sql, read=schema.get("dialect", "postgres"))
+    def bound_value(bound):
+        if isinstance(bound, exp.Neg) and isinstance(bound.this, exp.Literal) and bound.this.is_number:
+            return -Decimal(bound.this.this)
+        if isinstance(bound, exp.Literal):
+            if bound.is_string:
+                return bound.this
+            try:
+                return Decimal(bound.this)
+            except InvalidOperation:
+                pass
+        return bound.sql()
+
+    if all(bound_value(candidate.args[key]) == bound_value(node.args[key])
+           for key in ("low", "high")):
+        # Avoid a no-op without an unbounded rejection loop. An endpoint
+        # singleton is still within the configured interval. If that is also
+        # identical, try the other endpoint; a fixed domain may have no change.
+        for endpoint in (col_info["min"], col_info["max"]):
+            value = (exp.Literal.number(str(endpoint)) if col_info["type"] == "number"
+                     else exp.Literal.string(str(endpoint)))
+            alternative = exp.Between(this=col_node.copy(), low=value.copy(), high=value.copy())
+            if any(bound_value(alternative.args[key]) != bound_value(node.args[key])
+                   for key in ("low", "high")):
+                candidate = alternative
+                new_sql = candidate.sql(dialect=schema.get("dialect", "postgres"))
+                break
+        else:
+            return node
+
     changelog.append({
         "old_line": f"{col_sql} BETWEEN {old_lower} AND {old_upper}",
         "new_line": new_sql,
     })
 
-    return sqlglot.parse_one(new_sql, read="postgres")
+    return candidate

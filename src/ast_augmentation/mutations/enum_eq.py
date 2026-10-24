@@ -3,8 +3,8 @@ from sqlglot import exp
 from ..schema_utils import get_col_info, get_table_name, string_literal_value
 
 
-def mutate_enum(node, changelog, schema):
-    if not isinstance(node, exp.EQ):
+def mutate_enum(node, changelog, schema, *, allow_neq=False):
+    if not isinstance(node, (exp.EQ, exp.NEQ) if allow_neq else exp.EQ):
         return node
 
     for col_node, val_node in ((node.left, node.right), (node.right, node.left)):
@@ -34,11 +34,11 @@ def mutate_enum(node, changelog, schema):
     new_enum = random.choice(available_enums)
     new_value = new_enum["value"]
     new_description = new_enum.get("description", new_value)
-    col_sql = col_node.sql()
-
+    replacement = type(node)(this=col_node.copy(), expression=exp.Literal.string(str(new_value)))
+    dialect = schema.get("dialect", "postgres")
     changelog.append({
-        "old_line": f"{col_sql} = '{current_value}' -- ({old_description})",
-        "new_line": f"{col_sql} = '{new_value}' -- ({new_description})",
+        "old_line": f"{node.sql(dialect=dialect)} -- ({old_description})",
+        "new_line": f"{replacement.sql(dialect=dialect)} -- ({new_description})",
     })
 
-    return exp.EQ(this=col_node.copy(), expression=exp.Literal.string(str(new_value)))
+    return replacement

@@ -225,7 +225,7 @@ def build_catalog(table_paths, data_root, existing=None, groups=None, *, value_g
     for db_id, source in sorted(sources.items()):
         old = existing.get(db_id, {})
         schema = {k: deepcopy(v) for k, v in old.items() if k != "tables"}
-        schema.update(dialect="sqlite", language="English", case_insensitive_identifiers=True, sqlite_double_quoted_literals=True, restrict_aggregates=True)
+        schema.update(dialect="sqlite", language="English", case_insensitive_identifiers=True, sqlite_double_quoted_literals=True, restrict_aggregates=True, coverage_fallbacks=True)
         schema["provenance"] = {"metadata": "Spider tables.json", "profile": "SQLite observed non-null values"}
         schema["tables"] = []
         old_tables = {t["name"].casefold(): t for t in old.get("tables", [])}

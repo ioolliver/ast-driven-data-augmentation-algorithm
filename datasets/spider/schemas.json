@@ -5,6 +5,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -246,6 +247,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -897,6 +899,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -2184,6 +2187,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -2952,6 +2956,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -3658,6 +3663,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -4452,6 +4458,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -4976,6 +4983,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -6034,6 +6042,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -6531,6 +6540,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -7020,6 +7030,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -8657,6 +8668,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -9301,6 +9313,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -15665,6 +15678,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -16190,6 +16204,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -16701,6 +16716,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -18621,6 +18637,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -19400,6 +19417,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -19712,6 +19730,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -19935,6 +19954,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -20199,6 +20219,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -20714,6 +20735,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -20986,6 +21008,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -21441,6 +21464,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -21713,6 +21737,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -22115,6 +22140,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -22446,6 +22472,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -23075,6 +23102,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -23869,6 +23897,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -24367,6 +24396,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -28547,6 +28577,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -28991,6 +29022,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -29680,6 +29712,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -30032,6 +30065,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -30645,6 +30679,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -30999,6 +31034,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -31499,6 +31535,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -32977,6 +33014,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -34013,6 +34051,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -35924,6 +35963,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -36710,6 +36750,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -37171,6 +37212,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -37730,6 +37772,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -38295,6 +38338,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -38727,6 +38771,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -39018,6 +39063,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -39440,6 +39486,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -39778,6 +39825,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -40642,6 +40690,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -41089,6 +41138,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -41768,6 +41818,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -42382,6 +42433,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -42838,6 +42890,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -43395,6 +43448,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -46330,6 +46384,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -47579,6 +47634,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -48952,6 +49008,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -49605,6 +49662,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -50168,6 +50226,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -51033,6 +51092,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -52747,6 +52807,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -53705,6 +53766,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -55333,6 +55395,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -56159,6 +56222,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -57508,6 +57572,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -58783,6 +58848,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -59700,6 +59766,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -60062,6 +60129,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -60396,6 +60464,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -60802,6 +60871,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -62536,6 +62606,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -62995,6 +63066,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -63398,6 +63470,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -64402,6 +64475,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -66470,6 +66544,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -67183,6 +67258,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -68636,6 +68712,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -70021,6 +70098,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -71715,6 +71793,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -73092,6 +73171,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -73610,6 +73690,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -73917,6 +73998,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -74462,6 +74544,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -74765,6 +74848,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -75042,6 +75126,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -75308,6 +75393,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -75810,6 +75896,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -76243,6 +76330,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -76740,6 +76828,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -77053,6 +77142,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -77419,6 +77509,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -78156,6 +78247,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -80348,6 +80440,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -81068,6 +81161,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -81756,6 +81850,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -82298,6 +82393,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -82738,6 +82834,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -83274,6 +83371,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -83552,6 +83650,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -83980,6 +84079,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -85260,6 +85360,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -86289,6 +86390,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -86677,6 +86779,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -87648,6 +87751,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -87975,6 +88079,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -88354,6 +88459,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -89032,6 +89138,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -89550,6 +89657,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -90062,6 +90170,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -90413,6 +90522,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -90793,6 +90903,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -91870,6 +91981,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -92137,6 +92249,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -92483,6 +92596,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -92970,6 +93084,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -93238,6 +93353,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -93505,6 +93621,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -94331,6 +94448,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -94887,6 +95005,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -95426,6 +95545,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -95686,6 +95806,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -95867,6 +95988,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -96155,6 +96277,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -96621,6 +96744,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -96964,6 +97088,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -97484,6 +97609,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -97886,6 +98012,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -98069,6 +98196,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -98246,6 +98374,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -98626,6 +98755,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -99794,6 +99924,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -100523,6 +100654,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -100936,6 +101068,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -101527,6 +101660,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -101872,6 +102006,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -102230,6 +102365,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -102782,6 +102918,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -103289,6 +103426,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -103565,6 +103703,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -103676,6 +103815,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -104162,6 +104302,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -104687,6 +104828,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -104942,6 +105084,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -105726,6 +105869,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -106738,6 +106882,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -107370,6 +107515,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -107809,6 +107955,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -108490,6 +108637,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -108797,6 +108945,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -109590,6 +109739,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -110492,6 +110642,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -112853,6 +113004,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -113193,6 +113345,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -113878,6 +114031,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -114216,6 +114370,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -114405,6 +114560,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -115126,6 +115282,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -115479,6 +115636,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -116927,6 +117085,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -117327,6 +117486,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -117734,6 +117894,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -118277,6 +118438,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -119311,6 +119473,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -119544,6 +119707,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -119878,6 +120042,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -120200,6 +120365,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -120757,6 +120923,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -121304,6 +121471,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -121561,6 +121729,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -121706,6 +121875,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -123493,6 +123663,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -123751,6 +123922,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -124168,6 +124340,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -125004,6 +125177,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -125689,6 +125863,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -126283,6 +126458,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -130537,6 +130713,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -131109,6 +131286,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -131500,6 +131678,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -131913,6 +132092,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -133164,6 +133344,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -135233,6 +135414,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -136085,6 +136267,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -136424,6 +136607,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -137394,6 +137578,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -138090,6 +138275,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -138598,6 +138784,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -139551,6 +139738,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -139965,6 +140153,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -140849,6 +141038,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -141722,6 +141912,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -141996,6 +142187,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -142538,6 +142730,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -143120,6 +143313,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -143466,6 +143660,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -143921,6 +144116,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -144575,6 +144771,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -144772,6 +144969,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -145369,6 +145567,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -145523,6 +145722,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -145909,6 +146109,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -146365,6 +146566,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -146706,6 +146908,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -147398,6 +147601,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -147793,6 +147997,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
@@ -149285,6 +149490,7 @@
     "case_insensitive_identifiers": true,
     "sqlite_double_quoted_literals": true,
     "restrict_aggregates": true,
+    "coverage_fallbacks": true,
     "provenance": {
       "metadata": "Spider tables.json",
       "profile": "SQLite observed non-null values"
