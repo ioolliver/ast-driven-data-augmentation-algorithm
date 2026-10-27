@@ -15,7 +15,7 @@ Python 3.12 or newer and uv are required. On PowerShell, use
 `Copy-Item .env.example .env` for the last command. Commands below run from the
 repository root. With `uv run`, manual virtual-environment activation is unnecessary.
 
-Edit `.env` with your Bedrock credentials, then run:
+Edit `.env` with your selected provider credentials, then run:
 
 ```bash
 uv run python examples/basic_usage.py
@@ -42,7 +42,9 @@ pairs by executing their SQL. A remote run can incur provider charges.
 
 Configuration is read from environment variables and the repository's `.env`.
 Existing environment variables take precedence. Restart the Python process after
-changing backend selection or the Bedrock model.
+changing configuration. Set `LLM_PROVIDER` to `bedrock`, `openrouter`, or `local`.
+If unset, legacy behavior is preserved: `LOCAL_LLM=true` selects local inference;
+otherwise Bedrock is used. Explicit `LLM_PROVIDER` takes precedence over `LOCAL_LLM`.
 
 ### Amazon Bedrock (default)
 
@@ -50,6 +52,7 @@ The default model is `openai.gpt-oss-120b`, used for the final research
 experiments on both datasets.
 
 ```dotenv
+LLM_PROVIDER=bedrock
 OPENAI_API_KEY=your-bedrock-api-key
 OPENAI_BASE_URL=https://bedrock-mantle.us-east-1.api.aws/v1
 BEDROCK_MODEL=openai.gpt-oss-120b
@@ -61,7 +64,7 @@ model. The `OPENAI_*` names refer to the OpenAI-compatible client interface;
 they do not mean that an OpenAI platform key should be used.
 
 `BEDROCK_MODEL` can select another model supported by your Bedrock endpoint.
-The remote backend currently validates that the endpoint is a
+The Bedrock backend validates that the endpoint is a
 `bedrock-mantle.<region>.api.aws/v1` URL. Arbitrary OpenAI-compatible providers
 are not supported by changing the URL alone.
 
@@ -69,12 +72,31 @@ Missing credentials or endpoint produce a configuration error. Invalid credentia
 model access, network failures, and service limits can also prevent generation.
 Keep credentials in your local environment; do not include them in issues or examples.
 
+### OpenRouter
+
+```dotenv
+LLM_PROVIDER=openrouter
+OPENROUTER_API_KEY=your-openrouter-api-key
+OPENROUTER_MODEL=openai/gpt-oss-120b
+```
+
+Use a model ID available through your OpenRouter account. The model is required
+explicitly; it is independent of `BEDROCK_MODEL`. Requests use the existing OpenAI
+SDK with `https://openrouter.ai/api/v1` and Chat Completions, as described in the
+[OpenRouter quickstart](https://openrouter.ai/docs/quickstart).
+Bedrock credentials and `OPENAI_BASE_URL` are ignored in this mode. Missing keys,
+missing models and empty responses raise errors. Both AST adaptation and the
+subsequent paraphrase call use the selected provider.
+
+For a new experiment, use a fresh output directory: existing generation outputs
+can be resumed, so reusing them across providers could mix results.
+
 ### Local Hugging Face inference
 
 The existing local backend can be selected with:
 
 ```dotenv
-LOCAL_LLM=true
+LLM_PROVIDER=local
 LOCAL_LLM_MODEL=Qwen/Qwen3.5-4B-Instruct
 LOCAL_LLM_4BIT=true
 LOCAL_LLM_THINKING=false
@@ -190,5 +212,5 @@ uv run python -m unittest discover -s tests -p 'test_basic_usage.py'
 uv run python -m unittest discover -s tests -p 'test_llm.py'
 ```
 
-They do not call Bedrock or download a local model. A passing mocked test does not
+They do not call Bedrock/OpenRouter or download a local model. A passing mocked test does not
 verify live provider access or the quality of real LLM responses.

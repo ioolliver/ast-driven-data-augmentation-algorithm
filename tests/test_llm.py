@@ -151,5 +151,88 @@ class RemoteLLMTest(unittest.TestCase):
                 llm.send_to_llm("Prompt SQL")
 
 
+class ProviderSelectionTest(unittest.TestCase):
+    def setUp(self):
+        self.llm = load_llm_module()
+        self.env = patch.dict(os.environ, {}, clear=True)
+        self.env.start()
+        self.addCleanup(self.env.stop)
+        self.llm.LOCAL_LLM = False
+
+    def test_explicit_provider_overrides_legacy_local_mode(self):
+        self.llm.LOCAL_LLM = True
+        for provider in ("bedrock", "openrouter", "local"):
+            with self.subTest(provider=provider), patch.dict(
+                os.environ, {"LLM_PROVIDER": " " + provider.upper() + " "}
+            ), patch.object(self.llm, "_send_to_" + ("local_llm" if provider == "local" else provider), return_value="answer") as send:
+                self.assertEqual(self.llm.send_to_llm("prompt"), "answer")
+                send.assert_called_once_with("prompt")
+
+    def test_legacy_local_flag_still_works(self):
+        self.llm.LOCAL_LLM = True
+        with patch.object(self.llm, "_send_to_local_llm", return_value="local") as send:
+            self.assertEqual(self.llm.send_to_llm("prompt"), "local")
+            send.assert_called_once_with("prompt")
+
+    def test_unknown_provider_fails_before_request(self):
+        with patch.dict(os.environ, {"LLM_PROVIDER": "typo"}), patch.object(self.llm, "OpenAI") as client:
+            with self.assertRaisesRegex(RuntimeError, "LLM_PROVIDER"):
+                self.llm.send_to_llm("prompt")
+            client.assert_not_called()
+
+    def test_openrouter_sequential_calls_use_configured_model_and_own_credentials(self):
+        with patch.dict(os.environ, {
+            "LLM_PROVIDER": "openrouter",
+            "OPENROUTER_API_KEY": "router-token",
+            "OPENROUTER_MODEL": "example/model",
+            "OPENAI_API_KEY": "bedrock-token",
+            "OPENAI_BASE_URL": "https://bedrock-mantle.us-east-1.api.aws/v1",
+        }), patch.object(self.llm, "OpenAI") as client:
+            completion = client.return_value.chat.completions.create
+            completion.side_effect = [
+                SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=value))])
+                for value in ("Adapted question", "Paraphrased question")
+            ]
+            result = self.llm.adapt_query("Original", "SELECT 1", "SELECT 2", [], paraphrase=True)
+            self.assertEqual(result, "Paraphrased question")
+            self.assertEqual(client.call_args_list, [
+                call(api_key="router-token", base_url="https://openrouter.ai/api/v1")
+            ] * 2)
+            self.assertEqual(completion.call_count, 2)
+            for request in completion.call_args_list:
+                self.assertEqual(request.kwargs["model"], "example/model")
+            self.assertEqual(completion.call_args_list[1].kwargs["messages"], [
+                {"role": "user", "content": self.llm.get_paraphrase_prompt("Adapted question")}
+            ])
+
+    def test_openrouter_requires_own_key_and_model(self):
+        for settings in ({}, {"OPENROUTER_API_KEY": "token"}, {"OPENROUTER_MODEL": "model"}):
+            with self.subTest(settings=settings), patch.dict(os.environ, {
+                "LLM_PROVIDER": "openrouter", "OPENAI_API_KEY": "legacy-token", **settings
+            }), patch.object(self.llm, "OpenAI") as client:
+                with self.assertRaisesRegex(RuntimeError, "OPENROUTER_API_KEY and OPENROUTER_MODEL"):
+                    self.llm.send_to_llm("prompt")
+                client.assert_not_called()
+
+    def test_openrouter_rejects_empty_responses(self):
+        for value in (None, "", "  "):
+            with self.subTest(value=value), patch.dict(os.environ, {
+                "LLM_PROVIDER": "openrouter", "OPENROUTER_API_KEY": "token", "OPENROUTER_MODEL": "model"
+            }), patch.object(self.llm, "OpenAI") as client:
+                client.return_value.chat.completions.create.return_value = SimpleNamespace(
+                    choices=[SimpleNamespace(message=SimpleNamespace(content=value))]
+                )
+                with self.assertRaisesRegex(RuntimeError, "OpenRouter returned an empty"):
+                    self.llm.send_to_llm("prompt")
+
+    def test_openrouter_api_errors_propagate(self):
+        with patch.dict(os.environ, {
+            "LLM_PROVIDER": "openrouter", "OPENROUTER_API_KEY": "token", "OPENROUTER_MODEL": "model"
+        }), patch.object(self.llm, "OpenAI") as client:
+            client.return_value.chat.completions.create.side_effect = RuntimeError("provider failure")
+            with self.assertRaisesRegex(RuntimeError, "provider failure"):
+                self.llm.send_to_llm("prompt")
+
+
 if __name__ == "__main__":
     unittest.main()

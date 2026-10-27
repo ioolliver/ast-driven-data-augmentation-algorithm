@@ -78,12 +78,17 @@ cp .env.example .env
 Configure `.env` for the research backend, **GPT-OSS-120B via Amazon Bedrock**:
 
 ```dotenv
+LLM_PROVIDER=bedrock
 OPENAI_API_KEY=your-bedrock-api-key
 OPENAI_BASE_URL=https://bedrock-mantle.us-east-1.api.aws/v1
 BEDROCK_MODEL=openai.gpt-oss-120b
 ```
 
 Use the Bedrock region and model access available to your account. These `OPENAI_*` variables configure the OpenAI-compatible Bedrock client; the key is a Bedrock credential.
+
+For OpenRouter, set `LLM_PROVIDER=openrouter`, `OPENROUTER_API_KEY`, and
+`OPENROUTER_MODEL` (for example `openai/gpt-oss-120b`). The endpoint is configured
+automatically. See [backend configuration](docs/usage.md#configure-the-backend).
 
 Run the minimal example:
 

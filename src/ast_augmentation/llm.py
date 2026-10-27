@@ -109,10 +109,34 @@ def _send_to_bedrock(prompt):
     return content
 
 
+def _send_to_openrouter(prompt):
+    api_key = os.environ.get("OPENROUTER_API_KEY", "").strip()
+    model = os.environ.get("OPENROUTER_MODEL", "").strip()
+    if not api_key or not model:
+        raise RuntimeError("Set OPENROUTER_API_KEY and OPENROUTER_MODEL for OpenRouter.")
+    client = OpenAI(api_key=api_key, base_url="https://openrouter.ai/api/v1")
+    response = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    content = response.choices[0].message.content
+    if not content or not content.strip():
+        raise RuntimeError("OpenRouter returned an empty model response.")
+    return content
+
+
 def send_to_llm(prompt):
-    if LOCAL_LLM:
+    # Explicit selection wins over the legacy local-mode flag.
+    provider = os.environ.get("LLM_PROVIDER", "").strip().lower()
+    if not provider:
+        provider = "local" if LOCAL_LLM else "bedrock"
+    if provider == "local":
         return _send_to_local_llm(prompt)
-    return _send_to_bedrock(prompt)
+    if provider == "bedrock":
+        return _send_to_bedrock(prompt)
+    if provider == "openrouter":
+        return _send_to_openrouter(prompt)
+    raise RuntimeError("LLM_PROVIDER must be bedrock, openrouter, or local.")
 
 
 def paraphrase_query(query, *, language="Portuguese"):
