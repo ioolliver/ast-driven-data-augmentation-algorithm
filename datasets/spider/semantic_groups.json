@@ -1,0 +1,2461 @@
+{
+  "aan_1": {},
+  "academic": {
+    "publication": {
+      "bibliographic_reference_counts": [
+        "citation_num",
+        "reference_num"
+      ]
+    }
+  },
+  "activity_1": {
+    "Student": {
+      "personal_name_components": [
+        "LName",
+        "Fname"
+      ]
+    },
+    "Faculty": {
+      "personal_name_components": [
+        "Lname",
+        "Fname"
+      ]
+    }
+  },
+  "address_1": {
+    "Student": {
+      "student_name_components": [
+        "LName",
+        "Fname"
+      ]
+    },
+    "City": {
+      "geographic_levels": [
+        "city_name",
+        "state",
+        "country"
+      ],
+      "geographic_coordinate_degrees": [
+        "latitude",
+        "longitude"
+      ]
+    }
+  },
+  "advertising_agencies": {
+    "Meetings": {
+      "meeting_dates": [
+        "start_date_time",
+        "end_date_time"
+      ]
+    }
+  },
+  "aircraft": {
+    "airport": {
+      "passenger_counts": [
+        "Total_Passengers",
+        "International_Passengers",
+        "Domestic_Passengers",
+        "Transit_Passengers"
+      ]
+    }
+  },
+  "allergy_1": {
+    "Student": {
+      "student_person_name_parts": [
+        "LName",
+        "Fname"
+      ]
+    }
+  },
+  "apartment_rentals": {
+    "Apartment_Buildings": {
+      "building_name_forms": [
+        "building_short_name",
+        "building_full_name"
+      ]
+    },
+    "Apartments": {
+      "room_counts": [
+        "bathroom_count",
+        "bedroom_count"
+      ]
+    },
+    "Guests": {
+      "guest_name_components": [
+        "guest_first_name",
+        "guest_last_name"
+      ]
+    },
+    "Apartment_Bookings": {
+      "booking_dates": [
+        "booking_start_date",
+        "booking_end_date"
+      ]
+    }
+  },
+  "architecture": {},
+  "art_1": {
+    "Artists": {
+      "artist_name_components": [
+        "lname",
+        "fname"
+      ],
+      "artist_lifespan_years": [
+        "birthYear",
+        "deathYear"
+      ]
+    },
+    "Paintings": {
+      "painting_dimensions_mm": [
+        "height_mm",
+        "width_mm"
+      ]
+    }
+  },
+  "assets_maintenance": {
+    "Maintenance_Contracts": {
+      "contract_dates": [
+        "contract_start_date",
+        "contract_end_date"
+      ]
+    },
+    "Assets": {
+      "asset_lifecycle_dates": [
+        "asset_acquired_date",
+        "asset_disposed_date"
+      ]
+    },
+    "Maintenance_Engineers": {
+      "engineer_name_parts": [
+        "first_name",
+        "last_name"
+      ]
+    },
+    "Engineer_Visits": {
+      "visit_times": [
+        "visit_start_datetime",
+        "visit_end_datetime"
+      ]
+    }
+  },
+  "bakery_1": {
+    "customers": {
+      "customer_name_components": [
+        "LastName",
+        "FirstName"
+      ]
+    }
+  },
+  "baseball_1": {
+    "appearances": {
+      "appearance_game_counts": [
+        "g_all",
+        "gs",
+        "g_batting",
+        "g_defense",
+        "g_p",
+        "g_c",
+        "g_1b",
+        "g_2b",
+        "g_3b",
+        "g_ss",
+        "g_lf",
+        "g_cf",
+        "g_rf",
+        "g_of",
+        "g_dh",
+        "g_ph",
+        "g_pr"
+      ]
+    },
+    "manager_award_vote": {
+      "award_voting_points": [
+        "points_won",
+        "points_max"
+      ]
+    },
+    "player_award_vote": {
+      "award_voting_points": [
+        "points_won",
+        "points_max"
+      ]
+    },
+    "batting": {
+      "batting_hit_counts": [
+        "h",
+        "double",
+        "triple",
+        "hr"
+      ],
+      "batting_run_counts": [
+        "r",
+        "rbi"
+      ],
+      "batting_walk_counts": [
+        "bb",
+        "ibb"
+      ],
+      "baserunning_attempt_outcomes": [
+        "sb",
+        "cs"
+      ],
+      "batting_sacrifice_counts": [
+        "sh",
+        "sf"
+      ]
+    },
+    "batting_postseason": {
+      "batting_hit_counts": [
+        "h",
+        "double",
+        "triple",
+        "hr"
+      ],
+      "batting_run_counts": [
+        "r",
+        "rbi"
+      ],
+      "batting_walk_counts": [
+        "bb",
+        "ibb"
+      ],
+      "baserunning_attempt_outcomes": [
+        "sb",
+        "cs"
+      ],
+      "batting_sacrifice_counts": [
+        "sh",
+        "sf"
+      ]
+    },
+    "fielding": {
+      "fielding_game_counts": [
+        "g",
+        "gs"
+      ],
+      "fielding_play_counts": [
+        "po",
+        "a",
+        "e",
+        "dp"
+      ],
+      "fielding_baserunning_outcomes": [
+        "sb",
+        "cs"
+      ],
+      "pitch_handling_error_counts": [
+        "pb",
+        "wp"
+      ]
+    },
+    "fielding_postseason": {
+      "fielding_game_counts": [
+        "g",
+        "gs"
+      ],
+      "fielding_play_counts": [
+        "po",
+        "a",
+        "e",
+        "dp",
+        "tp"
+      ],
+      "fielding_baserunning_outcomes": [
+        "sb",
+        "cs"
+      ]
+    },
+    "fielding_outfield": {
+      "outfield_position_game_counts": [
+        "glf",
+        "gcf",
+        "grf"
+      ]
+    },
+    "hall_of_fame": {
+      "hall_of_fame_vote_counts": [
+        "ballots",
+        "needed",
+        "votes"
+      ]
+    },
+    "home_game": {
+      "home_game_date_boundaries": [
+        "span_first",
+        "span_last"
+      ]
+    },
+    "manager": {
+      "team_game_result_counts": [
+        "g",
+        "w",
+        "l"
+      ]
+    },
+    "manager_half": {
+      "team_game_result_counts": [
+        "g",
+        "w",
+        "l"
+      ]
+    },
+    "team_half": {
+      "team_game_result_counts": [
+        "g",
+        "w",
+        "l"
+      ]
+    },
+    "player": {
+      "life_year_roles": [
+        "birth_year",
+        "death_year"
+      ],
+      "life_month_roles": [
+        "birth_month",
+        "death_month"
+      ],
+      "life_day_roles": [
+        "birth_day",
+        "death_day"
+      ],
+      "life_country_roles": [
+        "birth_country",
+        "death_country"
+      ],
+      "life_state_roles": [
+        "birth_state",
+        "death_state"
+      ],
+      "life_city_roles": [
+        "birth_city",
+        "death_city"
+      ],
+      "player_person_name_parts": [
+        "name_first",
+        "name_last",
+        "name_given"
+      ],
+      "career_boundary_dates": [
+        "debut",
+        "final_game"
+      ],
+      "player_handedness": [
+        "bats",
+        "throws"
+      ]
+    },
+    "park": {
+      "ballpark_names": [
+        "park_name",
+        "park_alias"
+      ]
+    },
+    "pitching": {
+      "pitching_game_counts": [
+        "w",
+        "l",
+        "g",
+        "gs",
+        "cg",
+        "sho",
+        "sv",
+        "gf"
+      ],
+      "pitching_hit_counts": [
+        "h",
+        "hr"
+      ],
+      "pitching_run_counts": [
+        "r",
+        "er"
+      ],
+      "pitching_walk_counts": [
+        "bb",
+        "ibb"
+      ],
+      "pitching_sacrifice_counts": [
+        "sh",
+        "sf"
+      ]
+    },
+    "pitching_postseason": {
+      "pitching_game_counts": [
+        "w",
+        "l",
+        "g",
+        "gs",
+        "cg",
+        "sho",
+        "sv",
+        "gf"
+      ],
+      "pitching_hit_counts": [
+        "h",
+        "hr"
+      ],
+      "pitching_run_counts": [
+        "r",
+        "er"
+      ],
+      "pitching_walk_counts": [
+        "bb",
+        "ibb"
+      ],
+      "pitching_sacrifice_counts": [
+        "sh",
+        "sf"
+      ]
+    },
+    "postseason": {
+      "series_game_result_counts": [
+        "wins",
+        "losses",
+        "ties"
+      ]
+    },
+    "team": {
+      "team_game_counts": [
+        "g",
+        "ghome",
+        "w",
+        "l",
+        "cg",
+        "sho",
+        "sv"
+      ],
+      "team_hit_counts": [
+        "h",
+        "double",
+        "triple",
+        "hr",
+        "ha",
+        "hra"
+      ],
+      "team_run_counts": [
+        "r",
+        "ra",
+        "er"
+      ],
+      "team_walk_counts": [
+        "bb",
+        "bba"
+      ],
+      "team_strikeout_counts": [
+        "so",
+        "soa"
+      ],
+      "team_baserunning_outcomes": [
+        "sb",
+        "cs"
+      ],
+      "park_factor_indices": [
+        "bpf",
+        "ppf"
+      ],
+      "team_championship_flags": [
+        "div_win",
+        "wc_win",
+        "lg_win",
+        "ws_win"
+      ]
+    }
+  },
+  "battle_death": {
+    "battle": {
+      "opposing_commanders": [
+        "bulgarian_commander",
+        "latin_commander"
+      ]
+    },
+    "death": {
+      "casualty_counts": [
+        "killed",
+        "injured"
+      ]
+    }
+  },
+  "bbc_channels": {
+    "channel": {
+      "terrestrial_broadcast_channels": [
+        "Analogue_terrestrial_channel",
+        "Digital_terrestrial_channel"
+      ]
+    }
+  },
+  "behavior_monitoring": {
+    "Addresses": {
+      "address_lines": [
+        "line_1",
+        "line_2",
+        "line_3"
+      ],
+      "administrative_places": [
+        "city",
+        "state_province_county",
+        "country"
+      ]
+    },
+    "Students": {
+      "personal_name_components": [
+        "first_name",
+        "middle_name",
+        "last_name"
+      ],
+      "student_lifecycle_dates": [
+        "date_first_rental",
+        "date_left_university"
+      ]
+    },
+    "Teachers": {
+      "personal_name_components": [
+        "first_name",
+        "middle_name",
+        "last_name"
+      ]
+    },
+    "Behavior_Incident": {
+      "incident_interval_dates": [
+        "date_incident_start",
+        "date_incident_end"
+      ]
+    },
+    "Detention": {
+      "detention_interval_datetimes": [
+        "datetime_detention_start",
+        "datetime_detention_end"
+      ]
+    },
+    "Student_Addresses": {
+      "address_interval_dates": [
+        "date_address_from",
+        "date_address_to"
+      ]
+    }
+  },
+  "bike_1": {
+    "status": {
+      "availability_counts": [
+        "bikes_available",
+        "docks_available"
+      ]
+    },
+    "trip": {
+      "trip_endpoint_dates": [
+        "start_date",
+        "end_date"
+      ],
+      "station_names": [
+        "start_station_name",
+        "end_station_name"
+      ]
+    },
+    "weather": {
+      "temperature_fahrenheit": [
+        "max_temperature_f",
+        "mean_temperature_f",
+        "min_temperature_f"
+      ],
+      "dew_point_fahrenheit": [
+        "max_dew_point_f",
+        "mean_dew_point_f",
+        "min_dew_point_f"
+      ],
+      "relative_humidity": [
+        "max_humidity",
+        "mean_humidity",
+        "min_humidity"
+      ],
+      "sea_level_pressure_inches": [
+        "max_sea_level_pressure_inches",
+        "mean_sea_level_pressure_inches",
+        "min_sea_level_pressure_inches"
+      ],
+      "visibility_miles": [
+        "max_visibility_miles",
+        "mean_visibility_miles",
+        "min_visibility_miles"
+      ],
+      "wind_speed_mph": [
+        "max_wind_Speed_mph",
+        "mean_wind_speed_mph",
+        "max_gust_speed_mph"
+      ]
+    }
+  },
+  "bike_racing": {},
+  "boat_1": {},
+  "body_builder": {
+    "body_builder": {
+      "weightlifting_results_same_unit": [
+        "Snatch",
+        "Clean_Jerk",
+        "Total"
+      ]
+    }
+  },
+  "book_1": {
+    "Orders": {
+      "order_dates": [
+        "DateOrder",
+        "DateExped"
+      ]
+    },
+    "Book": {
+      "book_prices": [
+        "PurchasePrice",
+        "SalePrice"
+      ]
+    }
+  },
+  "book_2": {},
+  "book_press": {
+    "press": {
+      "profit_periods_billions": [
+        "Month_Profits_billion",
+        "Year_Profits_billion"
+      ]
+    }
+  },
+  "book_review": {},
+  "browser_web": {},
+  "candidate_poll": {
+    "candidate": {
+      "poll_response_rates": [
+        "Support_rate",
+        "Consider_rate",
+        "Oppose_rate",
+        "Unsure_rate"
+      ]
+    }
+  },
+  "car_1": {
+    "car_makers": {
+      "manufacturer_name_forms": [
+        "Maker",
+        "FullName"
+      ]
+    }
+  },
+  "car_racing": {
+    "country": {
+      "geographic_levels": [
+        "Country",
+        "Capital",
+        "Regoin"
+      ]
+    },
+    "team": {
+      "team_leadership_roles": [
+        "Manager",
+        "Car_Owner"
+      ]
+    }
+  },
+  "car_road_race": {
+    "race": {
+      "race_achievement_drivers": [
+        "Pole_Position",
+        "Fastest_Lap",
+        "Winning_driver"
+      ]
+    }
+  },
+  "chinook_1": {
+    "Customer": {
+      "person_name_components": [
+        "FirstName",
+        "LastName"
+      ],
+      "geographic_levels": [
+        "City",
+        "State",
+        "Country"
+      ],
+      "telephone_contacts": [
+        "Phone",
+        "Fax"
+      ]
+    },
+    "Employee": {
+      "person_name_components": [
+        "FirstName",
+        "LastName"
+      ],
+      "geographic_levels": [
+        "City",
+        "State",
+        "Country"
+      ],
+      "telephone_contacts": [
+        "Phone",
+        "Fax"
+      ],
+      "employment_life_dates": [
+        "BirthDate",
+        "HireDate"
+      ]
+    },
+    "Invoice": {
+      "billing_geographic_levels": [
+        "BillingCity",
+        "BillingState",
+        "BillingCountry"
+      ]
+    }
+  },
+  "cinema": {},
+  "city_record": {
+    "city": {
+      "city_name_representations": [
+        "City",
+        "Hanzi",
+        "Hanyu_Pinyin"
+      ]
+    },
+    "temperature": {
+      "monthly_temperature": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ]
+    }
+  },
+  "climbing": {
+    "mountain": {
+      "mountain_vertical_distances": [
+        "Height",
+        "Prominence"
+      ]
+    }
+  },
+  "club_1": {
+    "Student": {
+      "student_name_components": [
+        "LName",
+        "Fname"
+      ]
+    }
+  },
+  "club_leader": {},
+  "coffee_shop": {},
+  "college_1": {
+    "EMPLOYEE": {
+      "employee_name_parts": [
+        "EMP_LNAME",
+        "EMP_FNAME"
+      ],
+      "employee_lifecycle_dates": [
+        "EMP_HIREDATE",
+        "EMP_DOB"
+      ]
+    },
+    "STUDENT": {
+      "student_name_parts": [
+        "STU_LNAME",
+        "STU_FNAME"
+      ]
+    }
+  },
+  "college_2": {
+    "time_slot": {
+      "time_slot_hour_roles": [
+        "start_hr",
+        "end_hr"
+      ],
+      "time_slot_minute_roles": [
+        "start_min",
+        "end_min"
+      ]
+    }
+  },
+  "college_3": {
+    "Student": {
+      "student_name_components": [
+        "LName",
+        "Fname"
+      ]
+    },
+    "Faculty": {
+      "faculty_name_components": [
+        "Lname",
+        "Fname"
+      ],
+      "campus_location_components": [
+        "Room",
+        "Building"
+      ]
+    },
+    "Department": {
+      "campus_location_components": [
+        "Room",
+        "Building"
+      ]
+    }
+  },
+  "company_1": {
+    "employee": {
+      "personal_name_components": [
+        "Fname",
+        "Lname"
+      ]
+    }
+  },
+  "company_employee": {
+    "company": {
+      "financial_amounts_billions": [
+        "Sales_in_Billion",
+        "Profits_in_Billion",
+        "Assets_in_Billion",
+        "Market_Value_in_Billion"
+      ]
+    }
+  },
+  "company_office": {
+    "Companies": {
+      "company_finances_billions": [
+        "Sales_billion",
+        "Profits_billion",
+        "Assets_billion"
+      ]
+    }
+  },
+  "concert_singer": {
+    "stadium": {
+      "attendance_counts": [
+        "Capacity",
+        "Highest",
+        "Lowest",
+        "Average"
+      ]
+    }
+  },
+  "conference": {},
+  "country_language": {
+    "countries": {
+      "country_score_dimensions": [
+        "overall_score",
+        "justice_score",
+        "health_score",
+        "education_score",
+        "economics_score",
+        "politics_score"
+      ]
+    }
+  },
+  "county_public_safety": {
+    "city": {
+      "demographic_population_groups": [
+        "White",
+        "Black",
+        "Amerindian",
+        "Asian",
+        "Multiracial",
+        "Hispanic"
+      ]
+    }
+  },
+  "course_teach": {},
+  "cre_Doc_Control_Systems": {},
+  "cre_Doc_Template_Mgt": {
+    "Templates": {
+      "template_validity_dates": [
+        "Date_Effective_From",
+        "Date_Effective_To"
+      ]
+    }
+  },
+  "cre_Doc_Tracking_DB": {},
+  "cre_Doc_Workflow": {
+    "Staff_in_Processes": {
+      "staff_assignment_dates": [
+        "date_from",
+        "date_to"
+      ]
+    }
+  },
+  "cre_Doc_and_collections": {},
+  "cre_Docs_and_Epenses": {},
+  "cre_Drama_Workshop_Groups": {
+    "Addresses": {
+      "address_line_roles": [
+        "Line_1",
+        "Line_2"
+      ]
+    },
+    "Bookings": {
+      "order_lifecycle_dates": [
+        "Order_Date",
+        "Planned_Delivery_Date",
+        "Actual_Delivery_Date"
+      ]
+    },
+    "Customer_Orders": {
+      "order_lifecycle_dates": [
+        "Order_Date",
+        "Planned_Delivery_Date",
+        "Actual_Delivery_Date"
+      ]
+    }
+  },
+  "cre_Students_Information_Systems": {
+    "Students_Addresses": {
+      "address_validity_dates": [
+        "date_from",
+        "date_to"
+      ]
+    },
+    "Detention": {
+      "detention_dates": [
+        "datetime_detention_start",
+        "datetime_detention_end"
+      ]
+    }
+  },
+  "cre_Theme_park": {},
+  "csu_1": {
+    "Campuses": {
+      "administrative_places": [
+        "Location",
+        "County"
+      ]
+    },
+    "discipline_enrollments": {
+      "student_level_counts": [
+        "Undergraduate",
+        "Graduate"
+      ]
+    }
+  },
+  "culture_company": {},
+  "customer_complaints": {
+    "Staff": {
+      "staff_person_name_parts": [
+        "first_name",
+        "last_name"
+      ]
+    },
+    "Customers": {
+      "customer_address_line_roles": [
+        "address_line_1",
+        "address_line_2"
+      ]
+    },
+    "Products": {
+      "product_availability_dates": [
+        "date_product_first_available",
+        "date_product_discontinued"
+      ]
+    },
+    "Complaints": {
+      "complaint_lifecycle_dates": [
+        "date_complaint_raised",
+        "date_complaint_closed"
+      ]
+    }
+  },
+  "customer_deliveries": {
+    "Addresses": {
+      "geographic_levels": [
+        "city",
+        "state_province_county",
+        "country"
+      ]
+    },
+    "Customer_Addresses": {
+      "address_validity_dates": [
+        "date_from",
+        "date_to"
+      ]
+    }
+  },
+  "customers_and_addresses": {
+    "Addresses": {
+      "administrative_places": [
+        "city",
+        "state_province_county",
+        "country"
+      ]
+    },
+    "Customer_Addresses": {
+      "address_interval_dates": [
+        "date_address_from",
+        "date_address_to"
+      ]
+    },
+    "Customer_Contact_Channels": {
+      "channel_interval_dates": [
+        "active_from_date",
+        "active_to_date"
+      ]
+    }
+  },
+  "customers_and_invoices": {
+    "Customers": {
+      "customer_name_parts": [
+        "customer_first_name",
+        "customer_last_name"
+      ],
+      "customer_geography": [
+        "town_city",
+        "state_county_province",
+        "country"
+      ]
+    },
+    "Invoice_Line_Items": {
+      "invoice_monetary_amounts": [
+        "product_price",
+        "derived_product_cost",
+        "derived_vat_payable",
+        "derived_total_cost"
+      ]
+    }
+  },
+  "customers_and_orders": {},
+  "customers_and_products_contacts": {
+    "Contacts": {
+      "contact_person_name_parts": [
+        "first_name",
+        "last_name"
+      ]
+    },
+    "Customer_Address_History": {
+      "address_validity_dates": [
+        "date_from",
+        "date_to"
+      ]
+    }
+  },
+  "customers_campaigns_ecommerce": {
+    "Mailshot_Campaigns": {
+      "campaign_dates": [
+        "mailshot_start_date",
+        "mailshot_end_date"
+      ]
+    },
+    "Customer_Addresses": {
+      "address_validity_dates": [
+        "date_address_from",
+        "date_address_to"
+      ]
+    },
+    "Customer_Orders": {
+      "order_lifecycle_dates": [
+        "order_placed_datetime",
+        "order_delivered_datetime"
+      ]
+    }
+  },
+  "customers_card_transactions": {
+    "Customers": {
+      "personal_name_components": [
+        "customer_first_name",
+        "customer_last_name"
+      ]
+    },
+    "Customers_Cards": {
+      "card_validity_dates": [
+        "date_valid_from",
+        "date_valid_to"
+      ]
+    }
+  },
+  "debate": {},
+  "decoration_competition": {},
+  "department_management": {},
+  "department_store": {
+    "Supplier_Addresses": {
+      "relationship_interval_dates": [
+        "date_from",
+        "date_to"
+      ]
+    },
+    "Customer_Addresses": {
+      "relationship_interval_dates": [
+        "date_from",
+        "date_to"
+      ]
+    },
+    "Product_Suppliers": {
+      "relationship_interval_dates": [
+        "date_supplied_from",
+        "date_supplied_to"
+      ]
+    },
+    "Staff_Department_Assignments": {
+      "relationship_interval_dates": [
+        "date_assigned_from",
+        "date_assigned_to"
+      ]
+    }
+  },
+  "device": {},
+  "district_spokesman": {},
+  "document_management": {},
+  "dog_kennels": {
+    "Owners": {
+      "person_name_components": [
+        "first_name",
+        "last_name"
+      ],
+      "geographic_levels": [
+        "city",
+        "state"
+      ],
+      "telephone_contacts": [
+        "home_phone",
+        "cell_number"
+      ]
+    },
+    "Professionals": {
+      "person_name_components": [
+        "first_name",
+        "last_name"
+      ],
+      "geographic_levels": [
+        "city",
+        "state"
+      ],
+      "telephone_contacts": [
+        "home_phone",
+        "cell_number"
+      ]
+    },
+    "Dogs": {
+      "dog_lifecycle_dates": [
+        "date_of_birth",
+        "date_arrived",
+        "date_adopted",
+        "date_departed"
+      ]
+    }
+  },
+  "dorm_1": {
+    "Student": {
+      "personal_name_components": [
+        "LName",
+        "Fname"
+      ]
+    }
+  },
+  "driving_school": {
+    "Addresses": {
+      "address_geography": [
+        "city",
+        "state_province_county",
+        "country"
+      ]
+    },
+    "Staff": {
+      "staff_name_parts": [
+        "first_name",
+        "middle_name",
+        "last_name"
+      ],
+      "staff_lifecycle_dates": [
+        "date_of_birth",
+        "date_joined_staff",
+        "date_left_staff"
+      ]
+    },
+    "Customers": {
+      "customer_name_parts": [
+        "first_name",
+        "last_name"
+      ],
+      "customer_lifecycle_dates": [
+        "date_became_customer",
+        "date_of_birth"
+      ],
+      "phone_contacts": [
+        "phone_number",
+        "cell_mobile_phone_number"
+      ]
+    }
+  },
+  "e_commerce": {
+    "Customers": {
+      "customer_name_parts": [
+        "customer_first_name",
+        "customer_last_name"
+      ],
+      "customer_geography": [
+        "town_city",
+        "county",
+        "country"
+      ]
+    }
+  },
+  "e_government": {
+    "Individuals": {
+      "individual_person_name_parts": [
+        "individual_first_name",
+        "individual_middle_name",
+        "individual_last_name"
+      ]
+    },
+    "Organization_Contact_Individuals": {
+      "organization_contact_dates": [
+        "date_contact_from",
+        "date_contact_to"
+      ]
+    },
+    "Party_Addresses": {
+      "party_address_validity_dates": [
+        "date_address_from",
+        "date_address_to"
+      ]
+    },
+    "Party_Forms": {
+      "form_completion_dates": [
+        "date_completion_started",
+        "date_fully_completed"
+      ]
+    },
+    "Party_Services": {
+      "service_booking_dates": [
+        "service_datetime",
+        "booking_made_date"
+      ]
+    }
+  },
+  "e_learning": {
+    "Course_Authors_and_Tutors": {
+      "person_name_components": [
+        "personal_name",
+        "middle_name",
+        "family_name"
+      ]
+    },
+    "Students": {
+      "person_name_components": [
+        "personal_name",
+        "middle_name",
+        "family_name"
+      ],
+      "student_activity_dates": [
+        "date_of_registration",
+        "date_of_latest_logon"
+      ]
+    },
+    "Student_Course_Enrolment": {
+      "enrolment_dates": [
+        "date_of_enrolment",
+        "date_of_completion"
+      ]
+    }
+  },
+  "election": {
+    "party": {
+      "office_holder_names": [
+        "Governor",
+        "Lieutenant_Governor",
+        "Comptroller",
+        "Attorney_General",
+        "US_Senate"
+      ]
+    }
+  },
+  "election_representative": {},
+  "employee_hire_evaluation": {},
+  "entertainment_awards": {},
+  "entrepreneur": {},
+  "epinions_1": {},
+  "farm": {
+    "farm": {
+      "farm_livestock_counts": [
+        "Total_Horses",
+        "Working_Horses",
+        "Total_Cattle",
+        "Oxen",
+        "Bulls",
+        "Cows",
+        "Pigs",
+        "Sheep_and_Goats"
+      ]
+    }
+  },
+  "film_rank": {
+    "film_market_estimation": {
+      "box_office_estimates": [
+        "Low_Estimate",
+        "High_Estimate"
+      ]
+    }
+  },
+  "flight_1": {
+    "flight": {
+      "flight_endpoint_places": [
+        "origin",
+        "destination"
+      ],
+      "flight_event_dates": [
+        "departure_date",
+        "arrival_date"
+      ]
+    }
+  },
+  "flight_2": {},
+  "flight_4": {
+    "routes": {
+      "route_airport_roles": [
+        "dst_ap",
+        "src_ap"
+      ]
+    },
+    "airlines": {
+      "airline_name_forms": [
+        "name",
+        "callsign"
+      ]
+    }
+  },
+  "flight_company": {
+    "airport": {
+      "geographic_levels": [
+        "City",
+        "Country"
+      ]
+    }
+  },
+  "formula_1": {
+    "circuits": {
+      "administrative_places": [
+        "location",
+        "country"
+      ],
+      "geographic_coordinates_degrees": [
+        "lat",
+        "lng"
+      ]
+    },
+    "drivers": {
+      "personal_name_components": [
+        "forename",
+        "surname"
+      ]
+    },
+    "results": {
+      "race_grid_and_finish_positions": [
+        "grid",
+        "position",
+        "positionOrder"
+      ]
+    },
+    "qualifying": {
+      "qualifying_session_times": [
+        "q1",
+        "q2",
+        "q3"
+      ]
+    }
+  },
+  "game_1": {
+    "Student": {
+      "student_name_parts": [
+        "LName",
+        "Fname"
+      ]
+    }
+  },
+  "game_injury": {
+    "stadium": {
+      "attendance_counts": [
+        "Average_Attendance",
+        "Total_Attendance"
+      ]
+    },
+    "game": {
+      "game_team_roles": [
+        "Home_team",
+        "Away_team"
+      ]
+    }
+  },
+  "gas_company": {
+    "company": {
+      "financial_billions": [
+        "Sales_billion",
+        "Profits_billion",
+        "Assets_billion"
+      ]
+    },
+    "gas_station": {
+      "station_management_roles": [
+        "Manager_Name",
+        "Vice_Manager_Name",
+        "Representative_Name"
+      ]
+    }
+  },
+  "geo": {
+    "highlow": {
+      "extreme_elevations": [
+        "highest_elevation",
+        "lowest_elevation"
+      ],
+      "extreme_landform_names": [
+        "highest_point",
+        "lowest_point"
+      ]
+    },
+    "state": {
+      "administrative_places": [
+        "country_name",
+        "capital"
+      ]
+    },
+    "lake": {
+      "administrative_places": [
+        "country_name",
+        "state_name"
+      ]
+    }
+  },
+  "government_shift": {},
+  "gymnast": {
+    "gymnast": {
+      "gymnastics_points": [
+        "Floor_Exercise_Points",
+        "Pommel_Horse_Points",
+        "Rings_Points",
+        "Vault_Points",
+        "Parallel_Bars_Points",
+        "Horizontal_Bar_Points",
+        "Total_Points"
+      ]
+    }
+  },
+  "headphone_store": {},
+  "hospital_1": {
+    "Trained_In": {
+      "certification_lifecycle_dates": [
+        "CertificationDate",
+        "CertificationExpires"
+      ]
+    },
+    "Appointment": {
+      "appointment_time_boundaries": [
+        "Start",
+        "End"
+      ]
+    },
+    "On_Call": {
+      "on_call_time_boundaries": [
+        "OnCallStart",
+        "OnCallEnd"
+      ]
+    },
+    "Stay": {
+      "hospital_stay_time_boundaries": [
+        "StayStart",
+        "StayEnd"
+      ]
+    }
+  },
+  "hr_1": {
+    "jobs": {
+      "salary_bounds": [
+        "MIN_SALARY",
+        "MAX_SALARY"
+      ]
+    },
+    "employees": {
+      "employee_name_components": [
+        "FIRST_NAME",
+        "LAST_NAME"
+      ]
+    },
+    "job_history": {
+      "employment_period_dates": [
+        "START_DATE",
+        "END_DATE"
+      ]
+    },
+    "locations": {
+      "geographic_levels": [
+        "CITY",
+        "STATE_PROVINCE"
+      ]
+    }
+  },
+  "icfp_1": {
+    "Authors": {
+      "personal_name_components": [
+        "lname",
+        "fname"
+      ]
+    }
+  },
+  "imdb": {
+    "movie": {
+      "title_variants": [
+        "title",
+        "title_aka"
+      ]
+    },
+    "tv_series": {
+      "title_variants": [
+        "title",
+        "title_aka"
+      ]
+    }
+  },
+  "inn_1": {
+    "Reservations": {
+      "reservation_date_boundaries": [
+        "CheckIn",
+        "CheckOut"
+      ],
+      "guest_person_name_parts": [
+        "LastName",
+        "FirstName"
+      ],
+      "guest_age_category_counts": [
+        "Adults",
+        "Kids"
+      ]
+    }
+  },
+  "institution_sports": {
+    "institution": {
+      "institution_geography": [
+        "City",
+        "Province"
+      ]
+    }
+  },
+  "insurance_and_eClaims": {
+    "Policies": {
+      "policy_dates": [
+        "Start_Date",
+        "End_Date"
+      ]
+    },
+    "Claim_Headers": {
+      "claim_lifecycle_dates": [
+        "Date_of_Claim",
+        "Date_of_Settlement"
+      ],
+      "claim_monetary_amounts": [
+        "Amount_Claimed",
+        "Amount_Piad"
+      ]
+    }
+  },
+  "insurance_fnol": {
+    "Customers_Policies": {
+      "policy_interval_dates": [
+        "Date_Opened",
+        "Date_Closed"
+      ]
+    }
+  },
+  "insurance_policies": {
+    "Customer_Policies": {
+      "policy_dates": [
+        "Start_Date",
+        "End_Date"
+      ]
+    },
+    "Claims": {
+      "claim_dates": [
+        "Date_Claim_Made",
+        "Date_Claim_Settled"
+      ],
+      "claim_amounts": [
+        "Amount_Claimed",
+        "Amount_Settled"
+      ]
+    },
+    "Settlements": {
+      "settlement_dates": [
+        "Date_Claim_Made",
+        "Date_Claim_Settled"
+      ],
+      "settlement_amounts": [
+        "Amount_Claimed",
+        "Amount_Settled"
+      ]
+    }
+  },
+  "journal_committee": {},
+  "loan_1": {
+    "bank": {
+      "branch_geographic_levels": [
+        "city",
+        "state"
+      ]
+    }
+  },
+  "local_govt_and_lot": {
+    "Residents_Services": {
+      "service_fulfillment_dates": [
+        "date_requested",
+        "date_provided"
+      ]
+    }
+  },
+  "local_govt_in_alabama": {},
+  "local_govt_mdm": {},
+  "machine_repair": {},
+  "manufactory_1": {},
+  "manufacturer": {
+    "manufacturer": {
+      "facility_counts": [
+        "Num_of_Factories",
+        "Num_of_Shops"
+      ]
+    }
+  },
+  "match_season": {
+    "player": {
+      "tennis_win_loss_records": [
+        "Total_WL",
+        "Singles_WL",
+        "Doubles_WL"
+      ]
+    }
+  },
+  "medicine_enzyme_interaction": {
+    "medicine": {
+      "medicine_name_forms": [
+        "name",
+        "Trade_Name"
+      ]
+    }
+  },
+  "mountain_photos": {
+    "mountain": {
+      "mountain_vertical_measures": [
+        "Height",
+        "Prominence"
+      ]
+    }
+  },
+  "movie_1": {},
+  "movie_2": {},
+  "museum_visit": {},
+  "music_1": {},
+  "music_2": {
+    "Band": {
+      "personal_name_components": [
+        "Firstname",
+        "Lastname"
+      ]
+    }
+  },
+  "music_4": {},
+  "musical": {
+    "actor": {
+      "performer_character_name_roles": [
+        "Name",
+        "Character"
+      ]
+    }
+  },
+  "network_1": {},
+  "network_2": {},
+  "news_report": {},
+  "online_exams": {
+    "Students": {
+      "student_name_parts": [
+        "First_Name",
+        "Middle_Name",
+        "Last_Name"
+      ],
+      "telephone_contacts": [
+        "Cell_Mobile_Phone",
+        "Home_Phone"
+      ]
+    }
+  },
+  "orchestra": {},
+  "party_host": {
+    "party": {
+      "party_year_endpoints": [
+        "First_year",
+        "Last_year"
+      ]
+    }
+  },
+  "party_people": {
+    "party": {
+      "office_interval_dates": [
+        "Took_office",
+        "Left_office"
+      ]
+    }
+  },
+  "performance_attendance": {},
+  "perpetrator": {
+    "perpetrator": {
+      "victim_outcome_person_counts": [
+        "Killed",
+        "Injured"
+      ]
+    }
+  },
+  "pets_1": {
+    "Student": {
+      "student_name_components": [
+        "LName",
+        "Fname"
+      ]
+    }
+  },
+  "phone_1": {
+    "chip_model": {
+      "memory_capacity_mib": [
+        "RAM_MiB",
+        "ROM_MiB"
+      ]
+    }
+  },
+  "phone_market": {},
+  "pilot_1": {},
+  "pilot_record": {},
+  "planet_1": {},
+  "poker_player": {
+    "poker_player": {
+      "competition_rankings": [
+        "Best_Finish",
+        "Money_Rank"
+      ]
+    }
+  },
+  "product_catalog": {
+    "Catalogs": {
+      "catalog_publication_revision_dates": [
+        "date_of_publication",
+        "date_of_latest_revision"
+      ]
+    },
+    "Catalog_Contents": {
+      "product_linear_dimensions": [
+        "length",
+        "height",
+        "width"
+      ]
+    }
+  },
+  "products_for_hire": {
+    "Customers": {
+      "customer_name_parts": [
+        "first_name",
+        "last_name"
+      ],
+      "customer_lifecycle_dates": [
+        "date_became_customer",
+        "date_last_hire"
+      ]
+    },
+    "Bookings": {
+      "booking_dates": [
+        "booking_start_date",
+        "booking_end_date"
+      ],
+      "booking_monetary_amounts": [
+        "amount_payable",
+        "amount_of_discount",
+        "amount_outstanding",
+        "amount_of_refund"
+      ]
+    },
+    "Payments": {
+      "payment_amounts": [
+        "amount_due",
+        "amount_paid"
+      ]
+    },
+    "Products_Booked": {
+      "return_flags": [
+        "returned_yn",
+        "returned_late_yn"
+      ]
+    }
+  },
+  "products_gen_characteristics": {
+    "Products": {
+      "product_price_roles": [
+        "typical_buying_price",
+        "typical_selling_price"
+      ]
+    }
+  },
+  "program_share": {
+    "channel": {
+      "audience_percentages": [
+        "Share_in_percent",
+        "Rating_in_percent"
+      ]
+    }
+  },
+  "protein_institute": {},
+  "race_track": {},
+  "railway": {},
+  "real_estate_properties": {
+    "Properties": {
+      "property_transaction_dates": [
+        "date_on_market",
+        "date_sold"
+      ],
+      "property_transaction_prices": [
+        "vendor_requested_price",
+        "buyer_offered_price",
+        "agreed_selling_price"
+      ],
+      "apartment_features": [
+        "apt_feature_1",
+        "apt_feature_2",
+        "apt_feature_3"
+      ],
+      "field_features": [
+        "fld_feature_1",
+        "fld_feature_2",
+        "fld_feature_3"
+      ],
+      "house_features": [
+        "hse_feature_1",
+        "hse_feature_2",
+        "hse_feature_3"
+      ],
+      "other_property_features": [
+        "oth_feature_1",
+        "oth_feature_2",
+        "oth_feature_3"
+      ],
+      "shop_features": [
+        "shp_feature_1",
+        "shp_feature_2",
+        "shp_feature_3"
+      ]
+    }
+  },
+  "real_estate_rentals": {
+    "Addresses": {
+      "address_lines": [
+        "line_1_number_building",
+        "line_2_number_street",
+        "line_3_area_locality"
+      ],
+      "address_geography": [
+        "town_city",
+        "county_state_province",
+        "country"
+      ]
+    },
+    "Users": {
+      "user_name_parts": [
+        "first_name",
+        "middle_name",
+        "last_name"
+      ],
+      "market_participant_flags": [
+        "is_buyer",
+        "is_seller"
+      ]
+    },
+    "Properties": {
+      "market_dates": [
+        "date_on_market",
+        "date_off_market"
+      ],
+      "property_prices": [
+        "vendor_requested_price",
+        "price_min",
+        "price_max"
+      ]
+    }
+  },
+  "region_building": {},
+  "restaurant_1": {
+    "Student": {
+      "personal_name_components": [
+        "LName",
+        "Fname"
+      ]
+    }
+  },
+  "restaurant_bills": {},
+  "restaurants": {
+    "GEOGRAPHIC": {
+      "geographic_areas": [
+        "COUNTY",
+        "REGION"
+      ]
+    }
+  },
+  "riding_club": {
+    "match_result": {
+      "competition_medal_counts": [
+        "Gold",
+        "Big_Silver",
+        "Small_Silver",
+        "Bronze"
+      ]
+    }
+  },
+  "roller_coaster": {
+    "roller_coaster": {
+      "ride_lengths": [
+        "Length",
+        "Height"
+      ]
+    }
+  },
+  "sakila_1": {
+    "actor": {
+      "personal_name_components": [
+        "first_name",
+        "last_name"
+      ]
+    },
+    "customer": {
+      "personal_name_components": [
+        "first_name",
+        "last_name"
+      ],
+      "customer_record_dates": [
+        "create_date",
+        "last_update"
+      ]
+    },
+    "staff": {
+      "personal_name_components": [
+        "first_name",
+        "last_name"
+      ]
+    },
+    "address": {
+      "address_lines": [
+        "address",
+        "address2"
+      ]
+    },
+    "film": {
+      "film_money_amounts": [
+        "rental_rate",
+        "replacement_cost"
+      ]
+    },
+    "payment": {
+      "payment_record_dates": [
+        "payment_date",
+        "last_update"
+      ]
+    },
+    "rental": {
+      "rental_event_dates": [
+        "rental_date",
+        "return_date",
+        "last_update"
+      ]
+    }
+  },
+  "scholar": {
+    "paper": {
+      "citation_counts": [
+        "numCiting",
+        "numCitedBy"
+      ]
+    }
+  },
+  "school_bus": {},
+  "school_finance": {
+    "School": {
+      "athletic_classifications": [
+        "IHSAA_Class",
+        "IHSAA_Football_Class"
+      ],
+      "school_geographic_levels": [
+        "Location",
+        "County"
+      ]
+    },
+    "budget": {
+      "budget_amounts": [
+        "Budgeted",
+        "Invested"
+      ],
+      "budget_percentages": [
+        "total_budget_percent_budgeted",
+        "total_budget_percent_invested"
+      ]
+    }
+  },
+  "school_player": {
+    "school": {
+      "school_event_years": [
+        "Founded",
+        "Year_Entered_Competition"
+      ]
+    },
+    "school_performance": {
+      "competition_class_performance": [
+        "Class_A",
+        "Class_AA"
+      ]
+    }
+  },
+  "scientist_1": {},
+  "ship_1": {},
+  "ship_mission": {},
+  "shop_membership": {},
+  "sing_contest": {
+    "songs": {
+      "song_title_variants": [
+        "name",
+        "english_translation"
+      ]
+    },
+    "performance_score": {
+      "performance_scores": [
+        "voice_sound_quality",
+        "rhythm_tempo",
+        "stage_presence"
+      ]
+    }
+  },
+  "singer": {},
+  "small_bank_1": {},
+  "soccer_1": {
+    "Player_Attributes": {
+      "player_skill_ratings": [
+        "overall_rating",
+        "potential",
+        "crossing",
+        "finishing",
+        "heading_accuracy",
+        "short_passing",
+        "volleys",
+        "dribbling",
+        "curve",
+        "free_kick_accuracy",
+        "long_passing",
+        "ball_control",
+        "acceleration",
+        "sprint_speed",
+        "agility",
+        "reactions",
+        "balance",
+        "shot_power",
+        "jumping",
+        "stamina",
+        "strength",
+        "long_shots",
+        "aggression",
+        "interceptions",
+        "positioning",
+        "vision",
+        "penalties",
+        "marking",
+        "standing_tackle",
+        "sliding_tackle",
+        "gk_diving",
+        "gk_handling",
+        "gk_kicking",
+        "gk_positioning",
+        "gk_reflexes"
+      ],
+      "player_work_rates": [
+        "attacking_work_rate",
+        "defensive_work_rate"
+      ]
+    },
+    "Team": {
+      "team_name_forms": [
+        "team_long_name",
+        "team_short_name"
+      ]
+    },
+    "Team_Attributes": {
+      "tactical_ratings": [
+        "buildUpPlaySpeed",
+        "buildUpPlayDribbling",
+        "buildUpPlayPassing",
+        "chanceCreationPassing",
+        "chanceCreationCrossing",
+        "chanceCreationShooting",
+        "defencePressure",
+        "defenceAggression",
+        "defenceTeamWidth"
+      ],
+      "passing_classes": [
+        "buildUpPlayPassingClass",
+        "chanceCreationPassingClass"
+      ],
+      "chance_creation_classes": [
+        "chanceCreationCrossingClass",
+        "chanceCreationShootingClass"
+      ],
+      "positioning_classes": [
+        "buildUpPlayPositioningClass",
+        "chanceCreationPositioningClass"
+      ]
+    }
+  },
+  "soccer_2": {},
+  "soccer_3": {
+    "club": {
+      "club_leadership_names": [
+        "Manager",
+        "Captain"
+      ],
+      "commercial_partners": [
+        "Manufacturer",
+        "Sponsor"
+      ]
+    }
+  },
+  "solvency_ii": {},
+  "sports_competition": {
+    "club_rank": {
+      "club_medal_counts": [
+        "Gold",
+        "Silver",
+        "Bronze",
+        "Total"
+      ]
+    }
+  },
+  "station_weather": {
+    "train": {
+      "route_endpoints": [
+        "origin",
+        "destination"
+      ]
+    },
+    "weekly_weather": {
+      "temperature_extremes": [
+        "high_temperature",
+        "low_temperature"
+      ]
+    }
+  },
+  "store_1": {
+    "employees": {
+      "personal_name_components": [
+        "first_name",
+        "last_name"
+      ],
+      "administrative_places": [
+        "city",
+        "state",
+        "country"
+      ],
+      "telephone_channels": [
+        "phone",
+        "fax"
+      ],
+      "employee_lifecycle_dates": [
+        "birth_date",
+        "hire_date"
+      ]
+    },
+    "customers": {
+      "personal_name_components": [
+        "first_name",
+        "last_name"
+      ],
+      "administrative_places": [
+        "city",
+        "state",
+        "country"
+      ],
+      "telephone_channels": [
+        "phone",
+        "fax"
+      ]
+    },
+    "invoices": {
+      "billing_administrative_places": [
+        "billing_city",
+        "billing_state",
+        "billing_country"
+      ]
+    }
+  },
+  "store_product": {},
+  "storm_record": {},
+  "student_1": {},
+  "student_assessment": {
+    "Addresses": {
+      "address_lines": [
+        "line_1",
+        "line_2"
+      ],
+      "administrative_places": [
+        "city",
+        "state_province_county",
+        "country"
+      ]
+    },
+    "People": {
+      "personal_name_components": [
+        "first_name",
+        "middle_name",
+        "last_name"
+      ]
+    },
+    "People_Addresses": {
+      "address_interval_dates": [
+        "date_from",
+        "date_to"
+      ]
+    }
+  },
+  "student_transcripts_tracking": {
+    "Addresses": {
+      "address_lines": [
+        "line_1",
+        "line_2",
+        "line_3"
+      ],
+      "address_geography": [
+        "city",
+        "state_province_county",
+        "country"
+      ]
+    },
+    "Students": {
+      "student_name_parts": [
+        "first_name",
+        "middle_name",
+        "last_name"
+      ],
+      "student_lifecycle_dates": [
+        "date_first_registered",
+        "date_left"
+      ]
+    }
+  },
+  "swimming": {
+    "swimmer": {
+      "swimming_cumulative_split_times": [
+        "meter_200",
+        "meter_300",
+        "meter_400",
+        "meter_500",
+        "meter_600",
+        "meter_700",
+        "Time"
+      ]
+    }
+  },
+  "theme_gallery": {},
+  "tracking_grants_for_research": {
+    "Documents": {
+      "document_exchange_dates": [
+        "sent_date",
+        "response_received_date"
+      ]
+    },
+    "Grants": {
+      "grant_interval_dates": [
+        "grant_start_date",
+        "grant_end_date"
+      ]
+    },
+    "Project_Staff": {
+      "assignment_interval_dates": [
+        "date_from",
+        "date_to"
+      ]
+    }
+  },
+  "tracking_orders": {},
+  "tracking_share_transactions": {},
+  "tracking_software_problems": {
+    "Staff": {
+      "staff_name_components": [
+        "staff_first_name",
+        "staff_last_name"
+      ]
+    },
+    "Problems": {
+      "problem_lifecycle_dates": [
+        "date_problem_reported",
+        "date_problem_closed"
+      ]
+    }
+  },
+  "train_station": {
+    "station": {
+      "annual_passenger_counts": [
+        "Annual_entry_exit",
+        "Annual_interchanges",
+        "Total_Passengers"
+      ]
+    }
+  },
+  "tv_shows": {
+    "radio": {
+      "broadcast_frequency_mhz": [
+        "Radio_MHz",
+        "2FM_MHz",
+        "RnaG_MHz",
+        "Lyric_FM_MHz"
+      ]
+    },
+    "tv_show": {
+      "show_titles": [
+        "tv_show_name",
+        "Next_show_name"
+      ]
+    }
+  },
+  "tvshow": {
+    "Cartoon": {
+      "creative_contributors": [
+        "Directed_by",
+        "Written_by"
+      ]
+    }
+  },
+  "twitter_1": {},
+  "university_basketball": {
+    "basketball_match": {
+      "win_loss_records": [
+        "ACC_Regular_Season",
+        "ACC_Home",
+        "ACC_Road",
+        "All_Games",
+        "All_Home",
+        "All_Road",
+        "All_Neutral"
+      ]
+    }
+  },
+  "university_rank": {
+    "university": {
+      "university_geography": [
+        "City",
+        "State"
+      ]
+    },
+    "overall_ranking": {
+      "ranking_points": [
+        "Reputation_point",
+        "Research_point",
+        "Citation_point",
+        "Total"
+      ]
+    }
+  },
+  "vehicle_driver": {},
+  "vehicle_rent": {
+    "Vehicles": {
+      "fuel_economy_rates": [
+        "Combined_fuel_economy_rate",
+        "City_fuel_economy_rate",
+        "Highway_fuel_economy_rate"
+      ]
+    }
+  },
+  "video_game": {},
+  "voter_1": {},
+  "voter_2": {
+    "Student": {
+      "student_name_parts": [
+        "LName",
+        "Fname"
+      ]
+    }
+  },
+  "warehouse_1": {},
+  "wedding": {},
+  "wine_1": {
+    "appellations": {
+      "geographic_levels": [
+        "County",
+        "State",
+        "Area"
+      ]
+    }
+  },
+  "workshop_paper": {},
+  "world_1": {
+    "country": {
+      "national_accounts": [
+        "GNP",
+        "GNPOld"
+      ],
+      "country_name_variants": [
+        "Name",
+        "LocalName"
+      ],
+      "geographic_regions": [
+        "Continent",
+        "Region"
+      ]
+    }
+  },
+  "wrestler": {},
+  "wta_1": {
+    "players": {
+      "player_name_components": [
+        "first_name",
+        "last_name"
+      ]
+    },
+    "matches": {
+      "opponent_age": [
+        "loser_age",
+        "winner_age"
+      ],
+      "opponent_entry": [
+        "loser_entry",
+        "winner_entry"
+      ],
+      "opponent_hand": [
+        "loser_hand",
+        "winner_hand"
+      ],
+      "opponent_ht": [
+        "loser_ht",
+        "winner_ht"
+      ],
+      "opponent_ioc": [
+        "loser_ioc",
+        "winner_ioc"
+      ],
+      "opponent_name": [
+        "loser_name",
+        "winner_name"
+      ],
+      "opponent_rank": [
+        "loser_rank",
+        "winner_rank"
+      ],
+      "opponent_rank_points": [
+        "loser_rank_points",
+        "winner_rank_points"
+      ],
+      "opponent_seed": [
+        "loser_seed",
+        "winner_seed"
+      ]
+    }
+  },
+  "yelp": {
+    "business": {
+      "administrative_places": [
+        "city",
+        "state"
+      ],
+      "geographic_coordinates_degrees": [
+        "latitude",
+        "longitude"
+      ]
+    }
+  }
+}

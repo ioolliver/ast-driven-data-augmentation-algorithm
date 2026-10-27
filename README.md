@@ -29,13 +29,13 @@ Equivalent rewrites do not enter the semantic changelog. If no semantic mutation
 |---|---|---|
 | Paraphrase only | Preserved exactly | Rephrased without changing its meaning |
 | AST augmentation | Transformed by the AST pipeline | Adapted to reflect the semantic changes |
-| AST + paraphrase | Transformed by the same AST pipeline | Adapted and explicitly rephrased |
+| AST + paraphrase | Transformed by the same AST pipeline | Adapted in one LLM call, then rephrased in a second call |
 
 AST augmentation uses an LLM for question adaptation; “AST” does not mean that the entire pair is generated without an LLM.
 
 ### Supported transformations
 
-Nine semantic mutation families are included:
+Nine primary semantic mutation families are included:
 
 | Family | Transformation |
 |---|---|
@@ -50,6 +50,15 @@ Nine semantic mutation families are included:
 | PostGIS | Transform supported spatial operations and distance/buffer parameters |
 
 “Equivalent column” refers to a configured semantic group, not to query equivalence: replacing the selected attribute can change the requested information.
+
+Spider schemas also opt into four **fallback mutations**, applied only when the
+primary passes record no semantic change: reverse the first result `ORDER BY`
+direction, increment a count threshold, replace a bounded numeric `=`/`!=`
+literal, or replace an enum value in `!=`. With seed 42, the training audit
+records changes for **5,067/7,000 pairs (72.39%)**. Empty-schema SQLite planning
+accepts 5,064; three failures already occur in the source queries. This checks
+SQL planning against metadata, not original database contents, answer utility,
+or question alignment. See [the audit and its limitations](datasets/spider/README.md).
 
 Three additional **equivalent rewrites** cover guarded forms of `DISTINCT → GROUP BY`, `BETWEEN → inclusive comparisons`, and `INNER JOIN → IN subquery`. They apply only when their implementation guards match, rather than to arbitrary queries.
 
@@ -97,7 +106,7 @@ The final intrinsic evaluation used two Portuguese Text-to-SQL datasets related 
 
 Both span four difficulty levels. AtlasSQL-BR contributes 245 original pairs per level. The temporal set contains 46 easy, 30 medium, 8 hard, and 23 very hard pairs.
 
-An exploratory [Spider 1.0 training subset](datasets/spider/README.md) includes 20 databases and an offline audit. Download Spider data separately from its original source; no downstream model results are reported here.
+The [Spider 1.0 custom-schema catalog](datasets/spider/README.md) covers all 206 released databases, with reviewed semantic groups and an offline audit of all 140 main training databases. Download Spider data separately from its original source; no downstream model results are reported here. SQLite compatibility includes schema-aware table/alias lookup, guarded double-quoted strings and boolean toggles; see the [custom-schema guide](docs/custom-schema.md).
 
 The dataset guides describe provenance, source formats, schemas, preparation steps, and artifact roles. Please also acknowledge the original dataset authors when using their data.
 

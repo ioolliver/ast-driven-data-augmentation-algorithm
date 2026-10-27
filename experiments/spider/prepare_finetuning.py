@@ -75,10 +75,12 @@ def prepare(spider_dir, augmentation_dir, output_dir):
     dev_path = spider_dir / "dev.json"
     tables_path = spider_dir / "tables.json"
     selected_path = Path(__file__).resolve().parents[2] / "datasets/spider/schemas.json"
-    # The custom schemas hold eligibility metadata; only their database IDs are used here.
-    selected = set(json.loads(selected_path.read_text(encoding="utf-8")))
-    if len(selected) != 20:
-        raise ValueError(f"Expected 20 selected databases, got {len(selected)}")
+    # Infer the run scope from its paraphrase inputs, preserving historical subset runs
+    # while the catalog also describes held-out databases. Validate full coverage below.
+    catalog = set(json.loads(selected_path.read_text(encoding="utf-8")))
+    selected = {row["db_id"] for row in read_jsonl(augmentation_dir / "paraphrase.jsonl")}
+    if not selected or not selected <= catalog:
+        raise ValueError("Augmentation databases must be present in the custom schema catalog")
     train = json.loads(train_path.read_text(encoding="utf-8"))
     dev = json.loads(dev_path.read_text(encoding="utf-8"))
     if len(train) != 7000:

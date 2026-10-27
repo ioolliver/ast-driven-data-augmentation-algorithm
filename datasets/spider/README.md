@@ -1,121 +1,197 @@
-# Spider 1.0 augmentation subset
+# Spider 1.0 full custom-schema catalog
 
-This subset selects 20 **training databases** from the official Spider 1.0
-archive: `hr_1`, `bike_1`, `movie_1`, `soccer_2`, `college_2`, `wine_1`,
-`manufactory_1`, `dorm_1`, `store_1`, `music_1`, `hospital_1`, `flight_1`,
-`network_2`, `game_1`, `allergy_1`, `loan_1`, `driving_school`,
-`department_store`, `customers_and_addresses`, and `apartment_rentals`.
-Together they have 1,971 original question–SQL rows (983 distinct SQL strings).
-These are 20 database settings, not independently labeled semantic domains.
+`schemas.json` describes **all 206 released database IDs**, rather than the
+historical 20-database augmentation pilot. This includes 140 main training
+DBs, six additional `train_others` DBs, 20 development DBs and 40 test DBs.
+These are database settings, not independently annotated semantic domains.
+The Spider paper's 200 databases exclude the six additional DBs.
 
-The downloaded archive is third-party material and is not checked into this
-repository. Get `spider_data.zip` from the [official Spider site](https://yale-lily.github.io/spider/),
-then extract it outside the repository or under an ignored `raw_data/` folder.
-The resulting directory must contain `train_spider.json` and
-`database/<db_id>/<db_id>.sqlite`. The archive also has `train_others.json`,
-which this pilot deliberately excludes, and separate `dev.json` / `test.json`
-files, which must never be used as augmentation seeds.
+**Generation reads only `train_spider.json`: 7,000 examples from 140 DBs.**
+Catalog coverage does not enable development/test augmentation or include
+`train_others`. Evaluation questions and gold SQL were not used to curate
+held-out metadata. Preserve held-out splits for evaluation.
 
-The official archive's `tables.json` has 166 database IDs: 140 from the main
-Spider training set, six from `train_others`, and 20 development databases.
-`test_tables.json` additionally contains 40 test databases (206 IDs in all).
-The original Spider publication reports 200 databases across 138 domains; its
-main training, development and test sets account for the 200, while the six
-`train_others` databases are additional. A database ID is not a published
-domain-category annotation.
+## Metadata and curation
 
-`schemas.json` contains 185 curated columns across the 20 databases. Enum
-alternatives came from the corresponding SQLite files. Numeric bounds were
-reviewed against the data; implausible outliers were excluded where noted in
-the curation. Identifiers and foreign keys were omitted. Selected compatible
-columns share a `semantic_group` within their table, such as the three
-`bike_1.weather` measures. The column mutation skips predicates with literal
-equality, membership, text patterns, and arithmetic to avoid retaining a value
-from the wrong column's domain. Spider's double-quoted categorical values are
-accepted only when they match a configured enum, and SUM/AVG are restricted to
-known numeric columns. This metadata is for
-*semantic augmentation* and is not a replacement for the full table schema
-that a downstream Text-to-SQL model will receive.
+| Resource | Coverage |
+| --- | ---: |
+| Tables / columns | 1,056 / 5,288 |
+| Reviewed semantic groups | 355 across 126 DBs |
+| Columns with `semantic_group` | 929 |
+| Text columns with observed enum alternatives | 1,724 |
+| Numeric columns with observed integer bounds | 858 |
+| Columns with exact ISO-day date ranges | 18 |
+| Columns with reviewed enum value groups | 15 (44 value groups) |
 
-## Offline audit
+Four parallel reviewers inspected the original table and column metadata;
+additional review covered the 40 test schemas and ambiguous SQLite values.
+`semantic_groups.json` records table-local related alternatives, such as
+start/end dates, minimum/maximum temperatures, person-name components and
+same-unit sports measurements. `curation_notes.json` gives a rationale for
+every DB, including the 80 without safe column peers. Groups express
+**different meaningful questions**, not SQL equivalence. Identifiers,
+foreign keys, unrelated measures and ambiguous unit combinations are excluded.
+A second review removed misleading pairs such as order status versus item
+condition. No group was manufactured merely to cover a database.
 
-From the repository root after `uv sync`:
+`value_groups.json` and `value_group_notes.json` separately describe observed
+categorical partitions, such as weekdays/weekends and countries by continent.
+Labels state the intended interpretation (including Northern Hemisphere
+meteorological seasons). These annotations activate the existing value-group
+mutation only when an `IN` predicate exactly matches a configured group.
+
+Enums contain complete observed non-null text domains with 2–64 values and
+at most 120 characters per value. Larger/free-text domains remain strings.
+Numeric thresholds use finite observed values rounded inward to integer
+bounds, matching the current sampler. Previously reviewed bounds are
+intersected with observed bounds, rather than expanded to include outliers.
+Only exact `YYYY-MM-DD` columns receive date ranges; timestamps and mixed
+representations remain strings. Primary/foreign keys and identifier-like
+columns have no enum or range mutation metadata. Per-column `provenance`
+records the source type, key status, profiling and reviewed bounds.
+
+SQLite schemas opt into case-insensitive identifier resolution across visible
+FROM/JOIN sources. Ambiguous columns and unresolved derived-table/CTE lineage
+are skipped instead of using the first table. Double-quoted string fallback is
+supported in enum, LIKE and value-group mutations only when the token does not
+match a known visible column/alias. Both `boolean` and legacy `binary` metadata
+activate 0/1 or TRUE/FALSE toggles; unrelated values are ignored.
+
+The schema is augmentation metadata, not a replacement for the complete DDL
+in a model prompt. Observed ranges are not domain constraints: sparse numeric
+intervals can still yield empty answers, and enumerated text need not be a
+true closed category. Review final question–SQL labels before training.
+
+## Rebuild from the original distribution
+
+Get Spider 1.0 from the [official project](https://yale-lily.github.io/spider/).
+No benchmark question files or SQLite databases are checked into this repo.
+Extract outside Git or under ignored `raw_data/`. For full metadata coverage,
+use the archive's `test_tables.json` (206 IDs) and arrange its SQLite files as
+`database/<db_id>/<db_id>.sqlite`. Some distributions name that directory
+`test_database`; rename/link it to `database` before the command below.
 
 ```bash
-uv run python experiments/spider/audit.py raw_data/spider_data
+uv sync
+uv run python experiments/spider/build_schemas.py raw_data/spider_data \
+  --tables raw_data/spider_data/test_tables.json \
+  --report raw_data/spider_schema_profile.json
 ```
 
-With seed 42, 1,030/1,971 examples had a semantic change, and all 1,030 generated
-SQL strings passed SQLite `EXPLAIN QUERY PLAN` using their own databases.
-The other 941 are ineligible under this conservative configuration and must
-not be counted as new AST examples. Planning a SQL statement proves neither
-that it returns useful rows nor that the adapted question is aligned with it.
-Review a sample of final LLM outputs before fine-tuning.
+The builder profiles SQLite read-only, applies the reviewed JSON annotations,
+retains existing descriptions/reviewed bounds and reports missing databases
+and profiling errors. It never invents values when a DB is unavailable.
+The committed catalog was profiled against all 206 DBs with zero missing
+files or profiling errors. `coverage.json` records source checksums, counts
+and the training audit. Rebuilding with a different database release may
+change observed domains; keep the source release fixed for a study.
 
-## Generate the three arms
+## Offline training audit
 
-Configure the LLM as described in [the usage guide](../../docs/usage.md).
-The generation command makes remote LLM calls and can incur charges. For a
-small pilot:
+```bash
+uv run python experiments/spider/audit.py raw_data/spider_data \
+  --seed 42 --output raw_data/spider_audit.json
+uv run python experiments/spider/audit.py raw_data/spider_data \
+  --seed 42 --without-semantic-groups \
+  --output raw_data/spider_audit_without_groups.json
+```
+
+Before coverage fallbacks, with seed 42, the full catalog changes 3,449/7,000 rows; 981 rows include a
+column substitution. SQLite planning succeeds for 3,448. The sole failure is
+`assets_maintenance`, source index 3153: the **source query also fails** because
+`Ref_Company_Types` does not exist. The generator rejects this row before an
+LLM call. No mutation-only planning failure was observed in this run.
+
+Table/alias resolution, SQLite string handling and boolean compatibility fixes
+increased the changed count from 3,333 to 3,449 under the same seed and input.
+The comparison and previous totals are preserved in `coverage.json`.
+
+Disabling semantic groups gives 2,918 changed/plannable rows. Both commands
+consume a shared random stream differently, so this is a descriptive coverage
+comparison, not a controlled downstream-effect estimate. Planning proves
+neither useful result rows nor question–SQL alignment. No new LLM generation,
+fine-tuning or downstream evaluation was performed for this catalog expansion.
+
+## Coverage fallbacks (current catalog)
+
+All catalog entries enable `coverage_fallbacks=True`. When the primary mutations
+produce no changelog, the pipeline tries one result-ordering change, COUNT
+threshold, bounded numeric EQ/NEQ literal, or enum NEQ value, in that order.
+Primary mutation guards remain intact. Identical BETWEEN draws use another
+allowed interval or return unchanged if no alternative exists.
+
+The seed-42 training run records **5,067 changed / 1,933 unchanged pairs**
+(**72.39% changed**), including 1,618 fallback changes: 1,162 order directions,
+286 count thresholds, 107 numeric literals and 63 enum inequalities.
+The remaining 3,449 changes come from primary passes, with no identical
+BETWEEN changelog. Shared RNG consumption differs from the historical run;
+this is not a controlled downstream-effect comparison.
+
+For an audit without downloaded SQLite databases:
+
+```bash
+uv run python experiments/spider/audit.py raw_data/spider_data \
+  --seed 42 --schema-only --output raw_data/spider_fallback_audit.json
+```
+
+This mode constructs **empty tables from the catalog**. It validates SQL names
+and planning, not the original DDL, values, result cardinalities or question–SQL
+alignment. It reports `schema_plannable`, never `sqlite_valid`. The run accepts
+5,064 changed queries and finds zero mutation-only planning failures. Three
+queries already fail in the source: index 3153 references absent
+`Ref_Company_Types`; indices 4513 and 4514 contain ORDER BY before INTERSECT.
+The generator's source-validation check rejects such queries before LLM calls.
+Run the original audit command without `--schema-only` to validate against the
+actual SQLite release. This current run did not download or execute the
+original databases and made no LLM calls.
+
+Aggregated results are preserved in
+[`results/spider/coverage_fallbacks.json`](../../results/spider/coverage_fallbacks.json).
+They do not guarantee changed denotations, useful answers or valid new labels.
+In particular, numeric min/max do not guarantee an observed equality value;
+COUNT thresholds may remove every group. Generate into a fresh output directory
+and review a pilot before full LLM generation.
+
+## Generate new training arms
+
+The `ast_paraphrase` method first adapts the question to the mutated SQL, then
+paraphrases the adapted question in a second LLM call. It therefore uses two
+calls per new example, versus one for `ast` or `paraphrase`. Use a fresh output
+directory for this sequential pipeline: outputs and checkpoints from the former
+single-call combined prompt are not automatically invalidated.
+
+Configure the LLM as in [the usage guide](../../docs/usage.md). Generation makes
+remote calls and may incur charges. Use a **new output directory** when
+changing schemas; previous pilot checkpoints have a different selection.
+Start with a small run:
 
 ```bash
 uv run python experiments/spider/generate.py raw_data/spider_data \
-  --output-dir raw_data/spider_pilot --limit 10
+  --output-dir raw_data/spider_full --limit 10
 ```
 
-Omit `--limit` for the selected training subset. The script emits separate
-JSONL files for `paraphrase`, `ast`, and `ast_paraphrase`. Each line has the
-source index and database ID, original pair, method, and generated pair.
-The AST and AST-plus-paraphrase arms share the **same mutated SQL** for each
-source example. SQL that fails SQLite planning is skipped before an LLM call.
-Use `--methods` to select arms and `--seed` to choose a mutation seed. For a
-concurrent Bedrock run that reuses the same output directory, including an
-existing completed `paraphrase.jsonl`:
+Review those labels, then use a fresh directory for a full run without
+`--limit`. `--methods`, `--seed`, `--max-workers` and `--progress-every` retain
+their existing behavior. AST and AST-plus-paraphrase share the same mutated
+SQL per source example. Existing/checkpoint rows are checked before reuse;
+keep the same seed, schemas and source data when resuming.
+
+Prepare matched-budget fine-tuning data after all three generation methods
+finish:
 
 ```bash
-uv run python experiments/spider/generate.py raw_data/spider_data \
-  --output-dir raw_data/spider_pilot --max-workers 4 --progress-every 10
+uv run python experiments/spider/prepare_finetuning.py \
+  raw_data/spider_data raw_data/spider_full raw_data/spider_sft_full
 ```
 
-`--max-workers` defaults to 1. Start with a small value and adjust it to your
-Bedrock account's request and token limits; local inference should use 1.
-The script logs preparation and progress per method. It checks existing JSONL
-rows against the selected source data and AST seed, skips completed methods,
-and appends missing results to `.jsonl.tmp` checkpoints after interrupted
-runs. Final files are ordered by `source_index`; a completed `paraphrase.jsonl`
-is not modified when resuming the AST arms. If a provider call fails, rerun
-the same command and output directory to resume. Keep the same seed and input
-dataset for a resumed run. No model fine-tuning is performed by this command.
+All four arms start with the same 7,000 originals. Augmented arms add only
+source indices shared by the AST arms and paraphrase. The preparation script
+infers the run's DB scope from its complete paraphrase file, validates the
+source pairs and emits actual counts/hashes in a manifest. Historical
+20-database runs remain supported; their 1,030 added rows / 8,030 total rows
+are historical results, not counts for this expanded catalog. See the
+[training runbook](../../experiments/spider/FINETUNING.md) for configuration.
 
-For a downstream comparison, use the same original training rows in all
-arms and add only the 1,030 generated rows whose source indices are shared by
-the AST arms. The paraphrase file contains all 1,971 selected examples, but
-the other 941 are excluded from matched-budget training. Report the full
-generation yield as well as the matched-budget comparison. Keep evaluation
-on the untouched official development set and reserve test for the final run.
-
-## Downstream fine-tuning data
-
-The four arms and a held-out development input are prepared by
-[`experiments/spider/prepare_finetuning.py`](../../experiments/spider/prepare_finetuning.py).
-Each arm starts with all 7,000 rows of `train_spider.json`, in their original
-order. Only the respective augmentation file contributes additional rows, all
-from the 20 databases above. The selected custom schemas determine eligibility;
-the model prompts use the complete Spider `tables.json` schemas, including
-foreign-key links. The script validates source indices, original labels,
-database membership, and consistency between the two AST arms, then writes a
-manifest with counts and SHA-256 digests. It does not repair generated labels.
-
-The training counts are 7,000 (original) and 8,030 in each of the three
-augmented arms. The untouched `dev.json` contains 1,034
-examples from separate databases. Do not use it for training, checkpoint
-selection, or repeated hyperparameter tuning. SQL planning during augmentation
-did not validate useful answers or alignment between a generated question and
-its SQL. An exploratory execution check on the 1,030 AST rows found 146 mutated
-queries returning zero rows, versus 36 source queries returning zero rows on
-the same databases; this is a *row-count diagnostic*, not a correctness score.
-We retained these labels without manual curation. A paper should disclose this
-check, the actual yield per arm, and the label-quality limitation.
-
-See [the cluster runbook](../../experiments/spider/FINETUNING.md) for the
-reproduction commands and training configuration.
+Spider is third-party material; the repository's MIT license does not
+relicense its data or model weights. Cite the original Spider authors as well
+as this project's [WTAG/SBBD paper](../../CITATION.cff).

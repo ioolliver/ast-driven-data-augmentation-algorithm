@@ -9,6 +9,28 @@ from experiments.spider import generate as module
 
 
 class SpiderGenerationTest(unittest.TestCase):
+    def test_combined_generation_paraphrases_the_adapted_question(self):
+        row = {
+            "db_id": "selected", "question": "What is the total?",
+            "query": "SELECT SUM(value) FROM t",
+        }
+        ast_sql = "SELECT AVG(value) FROM t"
+        ast_rows = {0: (ast_sql, [{"old_line": "SUM(value)", "new_line": "AVG(value)"}])}
+        with patch(
+            "ast_augmentation.llm.send_to_llm",
+            side_effect=["What is the average?", "Give the mean."],
+        ) as send:
+            result = module._generate_one("ast_paraphrase", 0, row, ast_rows)
+
+        self.assertEqual(result["question"], "Give the mean.")
+        self.assertEqual(result["query"], ast_sql)
+        self.assertEqual(result["source_question"], row["question"])
+        self.assertEqual(send.call_count, 2)
+        self.assertNotIn("paraphrase", send.call_args_list[0].args[0].lower())
+        self.assertIn("What is the average?", send.call_args_list[1].args[0])
+        self.assertNotIn("What is the total?", send.call_args_list[1].args[0])
+        self.assertIn("in English", send.call_args_list[1].args[0])
+
     def test_shared_ast_sql_and_train_only(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

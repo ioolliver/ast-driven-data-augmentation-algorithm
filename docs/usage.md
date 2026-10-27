@@ -127,14 +127,32 @@ Each function returns `(question, sql)`:
 |---|---|---|
 | `create_random_variation` | schema, question, sql | Apply AST transformations and adapt the question |
 | `create_paraphrase_only_variation` | question, sql | Paraphrase the question, preserving the SQL string |
-| `create_random_variation_with_paraphrasing` | schema, question, sql | Apply AST transformations, adapt and rephrase the question |
+| `create_random_variation_with_paraphrasing` | schema, question, sql | Apply AST transformations, adapt the question, then paraphrase it in a second LLM call |
+
+AST + paraphrase uses two sequential LLM calls: the first adapts the original
+question to the transformed SQL; the second receives only that adapted question
+and paraphrases it while preserving its meaning. Both calls use the same target
+language. The SQL is unchanged by the paraphrase stage. AST-only and
+paraphrase-only each use one call per generated example.
+
+This replaces the previous single-call adaptation-and-paraphrase prompt. Use a
+fresh output directory when generating new combined results; old completed files
+and checkpoints are not automatically regenerated or distinguished by prompt version.
 
 AST methods skip the LLM when no semantic mutation is recorded. Equivalent SQL
 rewrites may still change formatting or structure. The prompt requests
 Portuguese questions by default. A schema can set `"language": "English"` and
-`"dialect": "sqlite"` for the Spider pilot. The paraphrase-only function accepts
+`"dialect": "sqlite"` for Spider. See the [full catalog and training-only workflow](../datasets/spider/README.md). The paraphrase-only function accepts
 `language="English"` as a keyword argument. Other dialects have not been
-systematically evaluated.
+systematically evaluated. Spider schemas also enable case-insensitive table/alias
+resolution and guarded SQLite double-quoted strings for enum, LIKE and value-group
+mutations. Boolean toggles accept both `boolean` and legacy `binary` metadata.
+Spider enables `coverage_fallbacks=True`: after an otherwise unchanged semantic
+pass, try result ordering, count thresholds, bounded numeric equality and enum
+inequality, stopping after one mutation. Existing semantic changes take priority.
+Other schemas retain their behavior unless they opt in. Use a fresh generation
+output directory when changing this option; do not reuse old checkpoints.
+See [custom-schema options](custom-schema.md) for the resolution/ambiguity rules.
 
 ## Batch augmentation
 

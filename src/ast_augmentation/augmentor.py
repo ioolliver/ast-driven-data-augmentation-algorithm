@@ -11,6 +11,7 @@ from .mutations import (
     mutate_distance_threshold,
     mutate_postgis,
 )
+from .mutations.coverage_fallbacks import apply_coverage_fallback
 from .rewrites import (
     rewrite_between_as_comparisons,
     rewrite_distinct_as_group_by,
@@ -54,6 +55,8 @@ def _create_sql_variation(schema, sql):
     )
     # Pass 2: all remaining operator mutations
     modified_ast = modified_ast.transform(mutate_operators)
+    if not semantic_changelog and schema.get("coverage_fallbacks", False):
+        modified_ast = apply_coverage_fallback(modified_ast, semantic_changelog, schema)
     # Pass 3: structural rewrites preserve the semantics produced by the first passes
     modified_ast = modified_ast.transform(rewrite_between_as_comparisons)
     modified_ast = modified_ast.transform(rewrite_equivalent_expressions)

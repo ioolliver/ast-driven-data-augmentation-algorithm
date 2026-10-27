@@ -1,0 +1,980 @@
+{
+  "seed": 42,
+  "split": "train_spider.json",
+  "validation_mode": "empty_schema_planning",
+  "fallback_families": {
+    "order_direction": 1162,
+    "enum_inequality": 63,
+    "count_threshold": 286,
+    "numeric_equality": 107
+  },
+  "semantic_groups_enabled": true,
+  "catalog_databases": 206,
+  "training_databases": 140,
+  "failures": [
+    {
+      "source_index": 3153,
+      "db_id": "assets_maintenance",
+      "category": "source_invalid",
+      "error": "no such table: Ref_Company_Types"
+    },
+    {
+      "source_index": 4513,
+      "db_id": "document_management",
+      "category": "source_invalid",
+      "error": "ORDER BY clause should come after INTERSECT not before"
+    },
+    {
+      "source_index": 4514,
+      "db_id": "document_management",
+      "category": "source_invalid",
+      "error": "ORDER BY clause should come after INTERSECT not before"
+    }
+  ],
+  "total": {
+    "total": 7000,
+    "changed": 5067,
+    "schema_plannable": 5064,
+    "unchanged": 1933,
+    "column_swap_rows": 981,
+    "schema_unplannable": 3,
+    "source_invalid": 3
+  },
+  "by_database": {
+    "activity_1": {
+      "total": 88,
+      "unchanged": 32,
+      "changed": 56,
+      "column_swap_rows": 24,
+      "schema_plannable": 56
+    },
+    "aircraft": {
+      "total": 46,
+      "unchanged": 10,
+      "changed": 36,
+      "column_swap_rows": 12,
+      "schema_plannable": 36
+    },
+    "allergy_1": {
+      "total": 98,
+      "unchanged": 38,
+      "changed": 60,
+      "schema_plannable": 60,
+      "column_swap_rows": 16
+    },
+    "apartment_rentals": {
+      "total": 80,
+      "unchanged": 12,
+      "changed": 68,
+      "column_swap_rows": 28,
+      "schema_plannable": 68
+    },
+    "architecture": {
+      "total": 17,
+      "changed": 16,
+      "schema_plannable": 16,
+      "unchanged": 1
+    },
+    "assets_maintenance": {
+      "total": 31,
+      "changed": 20,
+      "schema_plannable": 19,
+      "unchanged": 11,
+      "column_swap_rows": 10,
+      "schema_unplannable": 1,
+      "source_invalid": 1
+    },
+    "baseball_1": {
+      "total": 82,
+      "changed": 66,
+      "schema_plannable": 66,
+      "column_swap_rows": 20,
+      "unchanged": 16
+    },
+    "behavior_monitoring": {
+      "total": 40,
+      "unchanged": 9,
+      "changed": 31,
+      "schema_plannable": 31,
+      "column_swap_rows": 16
+    },
+    "bike_1": {
+      "total": 104,
+      "unchanged": 20,
+      "changed": 84,
+      "schema_plannable": 84,
+      "column_swap_rows": 14
+    },
+    "body_builder": {
+      "total": 24,
+      "unchanged": 7,
+      "changed": 17,
+      "column_swap_rows": 9,
+      "schema_plannable": 17
+    },
+    "book_2": {
+      "total": 21,
+      "unchanged": 7,
+      "changed": 14,
+      "schema_plannable": 14
+    },
+    "browser_web": {
+      "total": 18,
+      "changed": 14,
+      "schema_plannable": 14,
+      "unchanged": 4
+    },
+    "candidate_poll": {
+      "total": 40,
+      "unchanged": 8,
+      "changed": 32,
+      "schema_plannable": 32,
+      "column_swap_rows": 16
+    },
+    "chinook_1": {
+      "total": 84,
+      "unchanged": 18,
+      "changed": 66,
+      "schema_plannable": 66,
+      "column_swap_rows": 24
+    },
+    "cinema": {
+      "total": 30,
+      "changed": 17,
+      "schema_plannable": 17,
+      "unchanged": 13
+    },
+    "city_record": {
+      "total": 40,
+      "changed": 38,
+      "schema_plannable": 38,
+      "column_swap_rows": 24,
+      "unchanged": 2
+    },
+    "climbing": {
+      "total": 40,
+      "unchanged": 10,
+      "changed": 30,
+      "schema_plannable": 30,
+      "column_swap_rows": 8
+    },
+    "club_1": {
+      "total": 70,
+      "unchanged": 8,
+      "changed": 62,
+      "column_swap_rows": 16,
+      "schema_plannable": 62
+    },
+    "coffee_shop": {
+      "total": 18,
+      "changed": 16,
+      "schema_plannable": 16,
+      "unchanged": 2
+    },
+    "college_1": {
+      "total": 164,
+      "changed": 130,
+      "schema_plannable": 130,
+      "unchanged": 34,
+      "column_swap_rows": 62
+    },
+    "college_2": {
+      "total": 170,
+      "changed": 92,
+      "schema_plannable": 92,
+      "unchanged": 78
+    },
+    "college_3": {
+      "total": 74,
+      "unchanged": 8,
+      "changed": 66,
+      "schema_plannable": 66,
+      "column_swap_rows": 34
+    },
+    "company_1": {
+      "total": 7,
+      "changed": 7,
+      "schema_plannable": 7,
+      "column_swap_rows": 2
+    },
+    "company_employee": {
+      "total": 16,
+      "changed": 11,
+      "schema_plannable": 11,
+      "column_swap_rows": 4,
+      "unchanged": 5
+    },
+    "company_office": {
+      "total": 40,
+      "unchanged": 10,
+      "changed": 30,
+      "schema_plannable": 30,
+      "column_swap_rows": 6
+    },
+    "county_public_safety": {
+      "total": 40,
+      "unchanged": 8,
+      "changed": 32,
+      "schema_plannable": 32,
+      "column_swap_rows": 6
+    },
+    "cre_Doc_Control_Systems": {
+      "total": 33,
+      "unchanged": 23,
+      "changed": 10,
+      "schema_plannable": 10
+    },
+    "cre_Doc_Tracking_DB": {
+      "total": 90,
+      "unchanged": 54,
+      "changed": 36,
+      "schema_plannable": 36
+    },
+    "cre_Docs_and_Epenses": {
+      "total": 84,
+      "unchanged": 54,
+      "changed": 30,
+      "schema_plannable": 30
+    },
+    "cre_Drama_Workshop_Groups": {
+      "total": 82,
+      "unchanged": 26,
+      "changed": 56,
+      "column_swap_rows": 8,
+      "schema_plannable": 56
+    },
+    "cre_Theme_park": {
+      "total": 84,
+      "unchanged": 28,
+      "changed": 56,
+      "schema_plannable": 56
+    },
+    "csu_1": {
+      "total": 70,
+      "changed": 68,
+      "schema_plannable": 68,
+      "column_swap_rows": 4,
+      "unchanged": 2
+    },
+    "culture_company": {
+      "total": 38,
+      "unchanged": 10,
+      "changed": 28,
+      "schema_plannable": 28
+    },
+    "customer_complaints": {
+      "total": 46,
+      "unchanged": 12,
+      "changed": 34,
+      "schema_plannable": 34,
+      "column_swap_rows": 12
+    },
+    "customer_deliveries": {
+      "total": 16,
+      "changed": 13,
+      "schema_plannable": 13,
+      "unchanged": 3,
+      "column_swap_rows": 1
+    },
+    "customers_and_addresses": {
+      "total": 88,
+      "unchanged": 20,
+      "changed": 68,
+      "schema_plannable": 68,
+      "column_swap_rows": 12
+    },
+    "customers_and_invoices": {
+      "total": 82,
+      "unchanged": 50,
+      "changed": 32,
+      "schema_plannable": 32,
+      "column_swap_rows": 12
+    },
+    "customers_and_products_contacts": {
+      "total": 15,
+      "unchanged": 5,
+      "changed": 10,
+      "schema_plannable": 10,
+      "column_swap_rows": 1
+    },
+    "customers_campaigns_ecommerce": {
+      "total": 15,
+      "unchanged": 8,
+      "changed": 7,
+      "schema_plannable": 7
+    },
+    "customers_card_transactions": {
+      "total": 80,
+      "unchanged": 36,
+      "changed": 44,
+      "schema_plannable": 44,
+      "column_swap_rows": 20
+    },
+    "debate": {
+      "total": 15,
+      "unchanged": 7,
+      "changed": 8,
+      "schema_plannable": 8
+    },
+    "decoration_competition": {
+      "total": 15,
+      "unchanged": 7,
+      "changed": 8,
+      "schema_plannable": 8
+    },
+    "department_management": {
+      "total": 16,
+      "changed": 13,
+      "schema_plannable": 13,
+      "unchanged": 3
+    },
+    "department_store": {
+      "total": 88,
+      "changed": 76,
+      "schema_plannable": 76,
+      "unchanged": 12,
+      "column_swap_rows": 4
+    },
+    "device": {
+      "total": 40,
+      "unchanged": 12,
+      "changed": 28,
+      "schema_plannable": 28
+    },
+    "document_management": {
+      "total": 44,
+      "changed": 36,
+      "schema_plannable": 34,
+      "schema_unplannable": 2,
+      "source_invalid": 2,
+      "unchanged": 8
+    },
+    "dorm_1": {
+      "total": 100,
+      "changed": 84,
+      "schema_plannable": 84,
+      "column_swap_rows": 20,
+      "unchanged": 16
+    },
+    "driving_school": {
+      "total": 93,
+      "unchanged": 18,
+      "changed": 75,
+      "column_swap_rows": 38,
+      "schema_plannable": 75
+    },
+    "e_government": {
+      "total": 40,
+      "changed": 30,
+      "column_swap_rows": 8,
+      "schema_plannable": 30,
+      "unchanged": 10
+    },
+    "e_learning": {
+      "total": 82,
+      "unchanged": 18,
+      "changed": 64,
+      "schema_plannable": 64,
+      "column_swap_rows": 30
+    },
+    "election": {
+      "total": 68,
+      "unchanged": 22,
+      "changed": 46,
+      "schema_plannable": 46,
+      "column_swap_rows": 8
+    },
+    "election_representative": {
+      "total": 20,
+      "unchanged": 7,
+      "changed": 13,
+      "schema_plannable": 13
+    },
+    "entertainment_awards": {
+      "total": 22,
+      "unchanged": 7,
+      "changed": 15,
+      "schema_plannable": 15
+    },
+    "entrepreneur": {
+      "total": 40,
+      "unchanged": 12,
+      "changed": 28,
+      "schema_plannable": 28
+    },
+    "epinions_1": {
+      "total": 30,
+      "changed": 18,
+      "schema_plannable": 18,
+      "unchanged": 12
+    },
+    "farm": {
+      "total": 40,
+      "unchanged": 8,
+      "changed": 32,
+      "column_swap_rows": 6,
+      "schema_plannable": 32
+    },
+    "film_rank": {
+      "total": 48,
+      "unchanged": 12,
+      "changed": 36,
+      "schema_plannable": 36,
+      "column_swap_rows": 4
+    },
+    "flight_1": {
+      "total": 96,
+      "unchanged": 24,
+      "changed": 72,
+      "schema_plannable": 72,
+      "column_swap_rows": 8
+    },
+    "flight_4": {
+      "total": 82,
+      "unchanged": 32,
+      "changed": 50,
+      "schema_plannable": 50,
+      "column_swap_rows": 2
+    },
+    "flight_company": {
+      "total": 19,
+      "changed": 16,
+      "schema_plannable": 16,
+      "column_swap_rows": 1,
+      "unchanged": 3
+    },
+    "formula_1": {
+      "total": 80,
+      "changed": 70,
+      "schema_plannable": 70,
+      "column_swap_rows": 32,
+      "unchanged": 10
+    },
+    "game_1": {
+      "total": 86,
+      "unchanged": 22,
+      "changed": 64,
+      "schema_plannable": 64,
+      "column_swap_rows": 12
+    },
+    "game_injury": {
+      "total": 19,
+      "changed": 16,
+      "schema_plannable": 16,
+      "column_swap_rows": 4,
+      "unchanged": 3
+    },
+    "gas_company": {
+      "total": 46,
+      "unchanged": 10,
+      "changed": 36,
+      "column_swap_rows": 10,
+      "schema_plannable": 36
+    },
+    "gymnast": {
+      "total": 40,
+      "unchanged": 10,
+      "changed": 30,
+      "column_swap_rows": 10,
+      "schema_plannable": 30
+    },
+    "hospital_1": {
+      "total": 100,
+      "changed": 70,
+      "schema_plannable": 70,
+      "unchanged": 30,
+      "column_swap_rows": 6
+    },
+    "hr_1": {
+      "total": 124,
+      "changed": 100,
+      "column_swap_rows": 46,
+      "schema_plannable": 100,
+      "unchanged": 24
+    },
+    "icfp_1": {
+      "total": 66,
+      "unchanged": 8,
+      "changed": 58,
+      "schema_plannable": 58,
+      "column_swap_rows": 22
+    },
+    "inn_1": {
+      "total": 74,
+      "changed": 60,
+      "schema_plannable": 60,
+      "column_swap_rows": 10,
+      "unchanged": 14
+    },
+    "insurance_and_eClaims": {
+      "total": 40,
+      "changed": 30,
+      "schema_plannable": 30,
+      "column_swap_rows": 10,
+      "unchanged": 10
+    },
+    "insurance_fnol": {
+      "total": 42,
+      "unchanged": 6,
+      "changed": 36,
+      "schema_plannable": 36,
+      "column_swap_rows": 2
+    },
+    "insurance_policies": {
+      "total": 48,
+      "changed": 40,
+      "column_swap_rows": 24,
+      "schema_plannable": 40,
+      "unchanged": 8
+    },
+    "journal_committee": {
+      "total": 18,
+      "unchanged": 9,
+      "changed": 9,
+      "schema_plannable": 9
+    },
+    "loan_1": {
+      "total": 80,
+      "unchanged": 8,
+      "changed": 72,
+      "schema_plannable": 72,
+      "column_swap_rows": 8
+    },
+    "local_govt_and_lot": {
+      "total": 17,
+      "unchanged": 9,
+      "changed": 8,
+      "schema_plannable": 8
+    },
+    "local_govt_in_alabama": {
+      "total": 15,
+      "changed": 10,
+      "schema_plannable": 10,
+      "unchanged": 5
+    },
+    "local_govt_mdm": {
+      "total": 14,
+      "changed": 6,
+      "schema_plannable": 6,
+      "unchanged": 8
+    },
+    "machine_repair": {
+      "total": 30,
+      "unchanged": 12,
+      "changed": 18,
+      "schema_plannable": 18
+    },
+    "manufactory_1": {
+      "total": 80,
+      "changed": 68,
+      "schema_plannable": 68,
+      "unchanged": 12
+    },
+    "manufacturer": {
+      "total": 16,
+      "changed": 13,
+      "schema_plannable": 13,
+      "column_swap_rows": 4,
+      "unchanged": 3
+    },
+    "match_season": {
+      "total": 58,
+      "unchanged": 22,
+      "changed": 36,
+      "schema_plannable": 36
+    },
+    "medicine_enzyme_interaction": {
+      "total": 44,
+      "unchanged": 10,
+      "changed": 34,
+      "schema_plannable": 34,
+      "column_swap_rows": 12
+    },
+    "mountain_photos": {
+      "total": 17,
+      "changed": 14,
+      "schema_plannable": 14,
+      "unchanged": 3,
+      "column_swap_rows": 4
+    },
+    "movie_1": {
+      "total": 98,
+      "changed": 84,
+      "schema_plannable": 84,
+      "unchanged": 14
+    },
+    "music_1": {
+      "total": 100,
+      "changed": 96,
+      "schema_plannable": 96,
+      "unchanged": 4
+    },
+    "music_2": {
+      "total": 100,
+      "unchanged": 68,
+      "changed": 32,
+      "column_swap_rows": 8,
+      "schema_plannable": 32
+    },
+    "music_4": {
+      "total": 60,
+      "unchanged": 16,
+      "changed": 44,
+      "schema_plannable": 44
+    },
+    "musical": {
+      "total": 40,
+      "unchanged": 8,
+      "changed": 32,
+      "column_swap_rows": 14,
+      "schema_plannable": 32
+    },
+    "network_2": {
+      "total": 86,
+      "unchanged": 20,
+      "changed": 66,
+      "schema_plannable": 66
+    },
+    "news_report": {
+      "total": 18,
+      "unchanged": 6,
+      "changed": 12,
+      "schema_plannable": 12
+    },
+    "party_host": {
+      "total": 30,
+      "unchanged": 14,
+      "changed": 16,
+      "schema_plannable": 16,
+      "column_swap_rows": 2
+    },
+    "party_people": {
+      "total": 44,
+      "unchanged": 22,
+      "changed": 22,
+      "schema_plannable": 22,
+      "column_swap_rows": 6
+    },
+    "performance_attendance": {
+      "total": 15,
+      "unchanged": 5,
+      "changed": 10,
+      "schema_plannable": 10
+    },
+    "perpetrator": {
+      "total": 21,
+      "unchanged": 5,
+      "changed": 16,
+      "column_swap_rows": 6,
+      "schema_plannable": 16
+    },
+    "phone_1": {
+      "total": 29,
+      "changed": 23,
+      "schema_plannable": 23,
+      "column_swap_rows": 5,
+      "unchanged": 6
+    },
+    "phone_market": {
+      "total": 15,
+      "unchanged": 5,
+      "changed": 10,
+      "schema_plannable": 10
+    },
+    "pilot_record": {
+      "total": 15,
+      "unchanged": 6,
+      "changed": 9,
+      "schema_plannable": 9
+    },
+    "product_catalog": {
+      "total": 42,
+      "unchanged": 14,
+      "changed": 28,
+      "schema_plannable": 28,
+      "column_swap_rows": 4
+    },
+    "products_for_hire": {
+      "total": 18,
+      "changed": 15,
+      "schema_plannable": 15,
+      "column_swap_rows": 6,
+      "unchanged": 3
+    },
+    "products_gen_characteristics": {
+      "total": 86,
+      "unchanged": 28,
+      "changed": 58,
+      "column_swap_rows": 6,
+      "schema_plannable": 58
+    },
+    "program_share": {
+      "total": 40,
+      "changed": 32,
+      "schema_plannable": 32,
+      "column_swap_rows": 8,
+      "unchanged": 8
+    },
+    "protein_institute": {
+      "total": 20,
+      "unchanged": 7,
+      "changed": 13,
+      "schema_plannable": 13
+    },
+    "race_track": {
+      "total": 42,
+      "unchanged": 20,
+      "changed": 22,
+      "schema_plannable": 22
+    },
+    "railway": {
+      "total": 21,
+      "unchanged": 8,
+      "changed": 13,
+      "schema_plannable": 13
+    },
+    "restaurant_1": {
+      "total": 22,
+      "unchanged": 3,
+      "changed": 19,
+      "schema_plannable": 19,
+      "column_swap_rows": 4
+    },
+    "riding_club": {
+      "total": 17,
+      "unchanged": 6,
+      "changed": 11,
+      "schema_plannable": 11,
+      "column_swap_rows": 1
+    },
+    "roller_coaster": {
+      "total": 17,
+      "unchanged": 6,
+      "changed": 11,
+      "column_swap_rows": 4,
+      "schema_plannable": 11
+    },
+    "sakila_1": {
+      "total": 82,
+      "changed": 62,
+      "column_swap_rows": 28,
+      "schema_plannable": 62,
+      "unchanged": 20
+    },
+    "school_bus": {
+      "total": 18,
+      "unchanged": 8,
+      "changed": 10,
+      "schema_plannable": 10
+    },
+    "school_finance": {
+      "total": 26,
+      "unchanged": 5,
+      "changed": 21,
+      "schema_plannable": 21,
+      "column_swap_rows": 4
+    },
+    "school_player": {
+      "total": 40,
+      "unchanged": 12,
+      "changed": 28,
+      "schema_plannable": 28,
+      "column_swap_rows": 2
+    },
+    "scientist_1": {
+      "total": 48,
+      "unchanged": 18,
+      "changed": 30,
+      "schema_plannable": 30
+    },
+    "ship_1": {
+      "total": 48,
+      "unchanged": 14,
+      "changed": 34,
+      "schema_plannable": 34
+    },
+    "ship_mission": {
+      "total": 30,
+      "unchanged": 10,
+      "changed": 20,
+      "schema_plannable": 20
+    },
+    "shop_membership": {
+      "total": 44,
+      "unchanged": 22,
+      "changed": 22,
+      "schema_plannable": 22
+    },
+    "small_bank_1": {
+      "total": 50,
+      "changed": 40,
+      "schema_plannable": 40,
+      "unchanged": 10
+    },
+    "soccer_1": {
+      "total": 14,
+      "unchanged": 1,
+      "changed": 13,
+      "schema_plannable": 13,
+      "column_swap_rows": 5
+    },
+    "soccer_2": {
+      "total": 106,
+      "changed": 98,
+      "schema_plannable": 98,
+      "unchanged": 8
+    },
+    "solvency_ii": {
+      "total": 15,
+      "unchanged": 5,
+      "changed": 10,
+      "schema_plannable": 10
+    },
+    "sports_competition": {
+      "total": 52,
+      "unchanged": 12,
+      "changed": 40,
+      "schema_plannable": 40,
+      "column_swap_rows": 4
+    },
+    "station_weather": {
+      "total": 16,
+      "unchanged": 4,
+      "changed": 12,
+      "schema_plannable": 12,
+      "column_swap_rows": 4
+    },
+    "store_1": {
+      "total": 112,
+      "changed": 86,
+      "schema_plannable": 86,
+      "column_swap_rows": 28,
+      "unchanged": 26
+    },
+    "store_product": {
+      "total": 44,
+      "changed": 40,
+      "schema_plannable": 40,
+      "unchanged": 4
+    },
+    "storm_record": {
+      "total": 44,
+      "unchanged": 12,
+      "changed": 32,
+      "schema_plannable": 32
+    },
+    "student_1": {
+      "total": 68,
+      "unchanged": 38,
+      "changed": 30,
+      "schema_plannable": 30
+    },
+    "student_assessment": {
+      "total": 53,
+      "changed": 34,
+      "schema_plannable": 34,
+      "column_swap_rows": 8,
+      "unchanged": 19
+    },
+    "swimming": {
+      "total": 30,
+      "unchanged": 7,
+      "changed": 23,
+      "schema_plannable": 23,
+      "column_swap_rows": 1
+    },
+    "theme_gallery": {
+      "total": 40,
+      "unchanged": 8,
+      "changed": 32,
+      "schema_plannable": 32
+    },
+    "tracking_grants_for_research": {
+      "total": 78,
+      "unchanged": 24,
+      "changed": 54,
+      "schema_plannable": 54,
+      "column_swap_rows": 14
+    },
+    "tracking_orders": {
+      "total": 60,
+      "changed": 40,
+      "schema_plannable": 40,
+      "unchanged": 20
+    },
+    "tracking_share_transactions": {
+      "total": 41,
+      "unchanged": 19,
+      "changed": 22,
+      "schema_plannable": 22
+    },
+    "tracking_software_problems": {
+      "total": 48,
+      "changed": 32,
+      "schema_plannable": 32,
+      "unchanged": 16,
+      "column_swap_rows": 8
+    },
+    "train_station": {
+      "total": 23,
+      "unchanged": 8,
+      "changed": 15,
+      "column_swap_rows": 5,
+      "schema_plannable": 15
+    },
+    "twitter_1": {
+      "total": 27,
+      "changed": 21,
+      "schema_plannable": 21,
+      "unchanged": 6
+    },
+    "university_basketball": {
+      "total": 46,
+      "changed": 38,
+      "schema_plannable": 38,
+      "unchanged": 8,
+      "column_swap_rows": 6
+    },
+    "voter_2": {
+      "total": 72,
+      "unchanged": 16,
+      "changed": 56,
+      "schema_plannable": 56,
+      "column_swap_rows": 18
+    },
+    "wedding": {
+      "total": 20,
+      "changed": 17,
+      "schema_plannable": 17,
+      "unchanged": 3
+    },
+    "wine_1": {
+      "total": 82,
+      "changed": 72,
+      "schema_plannable": 72,
+      "unchanged": 10,
+      "column_swap_rows": 6
+    },
+    "workshop_paper": {
+      "total": 30,
+      "unchanged": 12,
+      "changed": 18,
+      "schema_plannable": 18
+    },
+    "wrestler": {
+      "total": 40,
+      "unchanged": 18,
+      "changed": 22,
+      "schema_plannable": 22
+    }
+  },
+  "input_sha256": "c43d0d72e59e1a9e1a60837da9bf70d5a6277226bdb7f634d544f380646f527a",
+  "catalog_sha256": "5cf8e8165031e3fa0b33dce2f05717c34444f39a81e8efd3870db856dd92a19f",
+  "sqlglot_version": "30.2.1",
+  "llm_calls": 0,
+  "limitations": [
+    "Empty metadata tables, not original SQLite database release.",
+    "Changelog coverage does not prove useful answers, different denotation or question-SQL alignment.",
+    "Numeric interval values are not necessarily observed; count changes can yield empty grouped answers."
+  ]
+}

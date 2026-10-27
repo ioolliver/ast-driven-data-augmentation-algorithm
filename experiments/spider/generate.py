@@ -122,7 +122,8 @@ def _run_method(method, path, selected, ast_rows, max_workers, progress_every):
     if path.exists():
         path.rename(tmp)
     pending = [(i, row) for i, row in eligible if i not in existing]
-    print(f'{method}: {len(existing)}/{total} complete; {len(pending)} LLM calls, '
+    llm_calls = len(pending) * (2 if method == 'ast_paraphrase' else 1)
+    print(f'{method}: {len(existing)}/{total} complete; {llm_calls} LLM calls, '
           f'{max_workers} worker(s)', flush=True)
 
     completed = len(existing)

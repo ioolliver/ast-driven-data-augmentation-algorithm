@@ -2,7 +2,7 @@ import importlib
 import os
 import unittest
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import call, patch
 
 
 def load_llm_module():
@@ -21,19 +21,59 @@ class RemoteLLMTest(unittest.TestCase):
         self.assertIn("preserving its exact meaning", prompt)
         self.assertIn("Return only the paraphrased question in Portuguese", prompt)
 
-    def test_adaptation_prompt_can_also_request_paraphrasing(self):
+    def test_adaptation_and_paraphrase_use_sequential_llm_calls(self):
         llm = load_llm_module()
-
-        prompt = llm.get_llm_prompt(
-            "Calcule a soma",
-            "SELECT SUM(valor)",
-            "SELECT AVG(valor)",
-            [{"old_line": "SUM(valor)", "new_line": "AVG(valor)"}],
-            paraphrase=True,
+        changelog = [{"old_line": "SUM(valor)", "new_line": "AVG(valor)"}]
+        adaptation_prompt = llm.get_llm_prompt(
+            "What is the total?", "SELECT SUM(valor)", "SELECT AVG(valor)",
+            changelog, language="English",
         )
+        with patch.object(
+            llm, "send_to_llm", side_effect=["What is the average?", "Give the mean."]
+        ) as send:
+            result = llm.adapt_query(
+                "What is the total?", "SELECT SUM(valor)", "SELECT AVG(valor)",
+                changelog, paraphrase=True, language="English",
+            )
 
-        self.assertIn("also paraphrase the question", prompt.lower())
-        self.assertIn("rephrase its wording", prompt.lower())
+        self.assertEqual(result, "Give the mean.")
+        self.assertNotIn("paraphrase", adaptation_prompt.lower())
+        self.assertEqual(send.call_args_list, [
+            call(adaptation_prompt),
+            call(llm.get_paraphrase_prompt("What is the average?", language="English")),
+        ])
+        self.assertNotIn("What is the total?", send.call_args_list[1].args[0])
+
+    def test_ast_only_uses_one_llm_call(self):
+        llm = load_llm_module()
+        with patch.object(llm, "send_to_llm", return_value="Pergunta adaptada") as send:
+            result = llm.adapt_query("Original", "SELECT 1", "SELECT 2", [])
+        self.assertEqual(result, "Pergunta adaptada")
+        send.assert_called_once()
+
+    def test_sequential_paraphrase_preserves_default_language(self):
+        llm = load_llm_module()
+        with patch.object(llm, "send_to_llm", side_effect=["Adaptada", "Reformulada"]) as send:
+            result = llm.adapt_query("Original", "SELECT 1", "SELECT 2", [], paraphrase=True)
+        self.assertEqual(result, "Reformulada")
+        self.assertIn("(PORTUGUESE)", send.call_args_list[0].args[0])
+        self.assertEqual(send.call_args_list[1], call(llm.get_paraphrase_prompt("Adaptada")))
+
+    def test_adaptation_failure_does_not_start_paraphrasing(self):
+        llm = load_llm_module()
+        with patch.object(llm, "send_to_llm", side_effect=RuntimeError("adaptation failed")) as send:
+            with self.assertRaisesRegex(RuntimeError, "adaptation failed"):
+                llm.adapt_query("Original", "SELECT 1", "SELECT 2", [], paraphrase=True)
+        send.assert_called_once()
+
+    def test_paraphrase_failure_is_propagated(self):
+        llm = load_llm_module()
+        with patch.object(
+            llm, "send_to_llm", side_effect=["Adaptada", RuntimeError("paraphrase failed")]
+        ) as send:
+            with self.assertRaisesRegex(RuntimeError, "paraphrase failed"):
+                llm.adapt_query("Original", "SELECT 1", "SELECT 2", [], paraphrase=True)
+        self.assertEqual(send.call_count, 2)
 
     def test_send_to_llm_uses_bedrock_chat_completions(self):
         llm = load_llm_module()
