@@ -29,7 +29,7 @@ Equivalent rewrites do not enter the semantic changelog. If no semantic mutation
 |---|---|---|
 | Paraphrase only | Preserved exactly | Rephrased without changing its meaning |
 | AST augmentation | Transformed by the AST pipeline | Adapted to reflect the semantic changes |
-| AST + paraphrase | Transformed by the same AST pipeline | Adapted and explicitly rephrased |
+| AST + paraphrase | Transformed by the same AST pipeline | Adapted in one LLM call, then rephrased in a second call |
 
 AST augmentation uses an LLM for question adaptation; “AST” does not mean that the entire pair is generated without an LLM.
 

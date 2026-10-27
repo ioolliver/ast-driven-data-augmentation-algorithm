@@ -19,14 +19,7 @@ def format_changelog(changelog):
     )
 
 
-def get_llm_prompt(query, sql, sql_modified, changelog, paraphrase=False, *, language="Portuguese"):
-    paraphrase_instruction = ""
-    if paraphrase:
-        paraphrase_instruction = (
-            "Also paraphrase the question: do not merely replace the parts affected "
-            "by the SQL changes. Rephrase its wording while preserving its meaning.\n"
-        )
-
+def get_llm_prompt(query, sql, sql_modified, changelog, *, language="Portuguese"):
     return f"""
 You will receive an original SQL query and an updated version of it. Your task is to adapt the query in natural language to match the new SQL changes.
 
@@ -52,7 +45,7 @@ use the changelog below to help you know exactly what changed in the query.
 
 # TASK
 
-{paraphrase_instruction}Return only the new query text. Make sure that the adapted text makes sense in the target language ({language.upper()}). It must be a natural language question.
+Return only the new query text. Make sure that the adapted text makes sense in the target language ({language.upper()}). It must be a natural language question.
 
 """
 
@@ -127,12 +120,15 @@ def paraphrase_query(query, *, language="Portuguese"):
 
 
 def adapt_query(query, sql, sql_modified, changelog, *, paraphrase=False, language="Portuguese"):
+    """Adapt to the new SQL, then optionally paraphrase the adapted question."""
     prompt = get_llm_prompt(
         query,
         sql,
         sql_modified,
         changelog,
-        paraphrase=paraphrase,
         language=language,
     )
-    return send_to_llm(prompt)
+    adapted_query = send_to_llm(prompt)
+    if paraphrase:
+        return paraphrase_query(adapted_query, language=language)
+    return adapted_query

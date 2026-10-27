@@ -154,6 +154,12 @@ and review a pilot before full LLM generation.
 
 ## Generate new training arms
 
+The `ast_paraphrase` method first adapts the question to the mutated SQL, then
+paraphrases the adapted question in a second LLM call. It therefore uses two
+calls per new example, versus one for `ast` or `paraphrase`. Use a fresh output
+directory for this sequential pipeline: outputs and checkpoints from the former
+single-call combined prompt are not automatically invalidated.
+
 Configure the LLM as in [the usage guide](../../docs/usage.md). Generation makes
 remote calls and may incur charges. Use a **new output directory** when
 changing schemas; previous pilot checkpoints have a different selection.
