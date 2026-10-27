@@ -14,10 +14,16 @@ def mutate_threshold_shift(node, changelog, schema):
     if isinstance(node.left, exp.Column) and not isinstance(node.right, exp.Column):
         col_node = node.left
         is_right_literal = True
+        comparison_value = node.right
     elif isinstance(node.right, exp.Column) and not isinstance(node.left, exp.Column):
         col_node = node.right
         is_right_literal = False
+        comparison_value = node.left
     else:
+        return node
+
+    # Never replace a subquery or calculated expression with a random literal.
+    if not isinstance(comparison_value, exp.Literal):
         return node
 
     col_name = col_node.name

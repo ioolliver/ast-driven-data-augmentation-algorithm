@@ -2,10 +2,18 @@ from sqlglot import exp
 
 
 def get_col_info(schema, table_name, col_name):
+    # Spider preserves mixed-case names in its catalog while its SQLite SQL
+    # often spells unquoted names in lowercase. Keep PostgreSQL's default
+    # case-sensitive schema metadata lookup unchanged.
+    fold = schema.get("case_insensitive_identifiers", False)
+    target_table = table_name.casefold() if fold and table_name else table_name
+    target_column = col_name.casefold() if fold else col_name
     for table in schema.get("tables", []):
-        if not table_name or table["name"] == table_name:
+        table_name_in_schema = table["name"].casefold() if fold else table["name"]
+        if target_table is None or table_name_in_schema == target_table:
             for column in table.get("columns", []):
-                if column["name"] == col_name:
+                column_name_in_schema = column["name"].casefold() if fold else column["name"]
+                if column_name_in_schema == target_column:
                     return column
     return None
 

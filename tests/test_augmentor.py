@@ -12,6 +12,60 @@ from ast_augmentation import (
 
 
 class CreateRandomVariationTest(unittest.TestCase):
+    def test_spider_double_quoted_enum_value_is_mutated_as_string(self):
+        schema = {
+            "dialect": "sqlite",
+            "sqlite_double_quoted_literals": True,
+            "tables": [{"name": "t", "columns": [{
+                "name": "status", "type": "enum",
+                "enums": [{"value": "Open"}, {"value": "Closed"}],
+            }]}],
+        }
+        from ast_augmentation.augmentor import _create_sql_variation
+        sql, changes = _create_sql_variation(schema, 'SELECT status FROM t WHERE status = "Open"')
+        self.assertIn("status = 'Closed'", sql)
+        self.assertTrue(changes)
+
+    def test_spider_aggregate_respects_column_type(self):
+        from ast_augmentation.augmentor import _create_sql_variation
+        schema = {
+            "dialect": "sqlite", "restrict_aggregates": True,
+            "tables": [{"name": "t", "columns": [
+                {"name": "when", "type": "date"},
+                {"name": "amount", "type": "number"},
+            ]}],
+        }
+        sql, changes = _create_sql_variation(schema, 'SELECT MAX("when") FROM t')
+        self.assertIn('MIN("when")', sql)
+        self.assertTrue(changes)
+        sql, changes = _create_sql_variation(schema, 'SELECT AVG("when") FROM t')
+        self.assertFalse(changes)
+        sql, changes = _create_sql_variation(schema, 'SELECT SUM(amount) FROM t')
+        self.assertTrue(changes)
+
+    def test_threshold_does_not_replace_subquery(self):
+        from ast_augmentation.augmentor import _create_sql_variation
+        schema = {"tables": [{"name": "t", "columns": [
+            {"name": "amount", "type": "number", "min": 1, "max": 10},
+        ]}]}
+        sql, changes = _create_sql_variation(
+            schema, 'SELECT amount FROM t WHERE amount > (SELECT AVG(amount) FROM t)'
+        )
+        self.assertIsInstance(sqlglot.parse_one(sql).find(exp.GT).right, exp.Subquery)
+        self.assertFalse(any('amount > (SELECT' in c['old_line'] for c in changes))
+
+    def test_equivalent_column_skips_literal_predicate_and_case_variant(self):
+        from ast_augmentation.augmentor import _create_sql_variation
+        schema = {"dialect": "sqlite", "case_insensitive_identifiers": True,
+                  "tables": [{"name": "t", "columns": [
+                      {"name": "height", "type": "number", "semantic_group": "size"},
+                      {"name": "width", "type": "number", "semantic_group": "size"},
+                  ]}]}
+        sql, changes = _create_sql_variation(schema, 'SELECT HEIGHT FROM t WHERE HEIGHT = 3')
+        self.assertIn('HEIGHT = 3', sql)
+        self.assertIn('width', sql)
+        self.assertEqual(len([c for c in changes if c['old_line'].startswith('Coluna:')]), 1)
+
     def test_paraphrase_only_changes_question_and_preserves_sql_exactly(self):
         sql = "SELECT COUNT(*) FROM escola"
 
